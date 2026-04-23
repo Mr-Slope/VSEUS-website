@@ -113,7 +113,7 @@ src/
 - Members can register for events, view their dashboard, and manage their profile
 - Admin role unlocks an event management panel
 
-### Economics Learning Centre (`/elc`)
+### Economics Learning Centre — ELC (`/elc`)
 Dedicated page sourced from vseus.ca/elc. Covers: walk-in peer tutoring at IONA 038, Mon–Thu 11am–5pm, no booking required; course list (ECON 101/102/226/301/302/325/326); Canvas enrollment key `9KXL4W`. Linked from Services, the navbar Services dropdown, and the footer.
 
 ### Page Transitions

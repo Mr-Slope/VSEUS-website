@@ -164,7 +164,7 @@ export default function ELCPage() {
       <section className="py-12 bg-navy-700 text-center">
         <h2 className="text-2xl font-black text-white mb-3">Questions about the ELC?</h2>
         <p className="text-white/60 text-sm mb-6 max-w-sm mx-auto">
-          Reach out to the VP Academics or drop by during operating hours.
+          Reach out to VSEUS&apos; VP of Academics or drop by during the ELC&apos;s operating hours.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <Link
