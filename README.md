@@ -127,12 +127,11 @@ src/
 - After registering, members are prompted for a ticket delivery email (pre-filled with their account email, editable)
 - A digital ticket is generated on-screen with a QR code encoding the registration ID
 - Tickets are accessible any time from **My Tickets** (`/portal/tickets`) in the member portal
-- **Apple Wallet** and **Google Wallet** buttons are present on each ticket
 
-> **Stubs (not wired up — revisit in a future session):**
+> **Not implemented — requires external accounts/credentials:**
 > - **Email delivery**: The UI shows "A ticket has been sent to [email]" but no email is actually sent. Wiring this requires an email delivery service (Resend or SendGrid) and a backend API route (`/api/send-ticket`).
-> - **Apple Wallet**: Requires generating a signed `.pkpass` file server-side using Apple Developer certificates. Not possible client-side.
-> - **Google Wallet**: Requires a Google Cloud service account and JWT signing via the Google Wallet API. Not possible client-side.
+> - **Apple Wallet**: Not implemented. Apple Wallet passes (`.pkpass` files) must be signed server-side with a certificate tied to a **Pass Type ID**, which is only available through the paid Apple Developer Program ($99 USD/year). The free Apple Developer account does not grant access to Pass Type IDs or their signing certificates. Before implementing, confirm whether UBC holds an institutional Apple Developer account that VSEUS can use — if so, the integration can be done via the `passkit-generator` npm package with a Next.js API route.
+> - **Google Wallet**: Not implemented. Google Wallet passes require a Google Cloud service account, JWT signing via the Google Wallet API, and an explicit approval process by Google before the "Save to Google Wallet" button works for real users. This review process can take days to weeks and requires submitting sample passes for inspection.
 
 ### Payment Processing
 Currently, paid events direct members to pay via e-transfer to events@vseus.ca or at the door — no payment processor is integrated yet.
