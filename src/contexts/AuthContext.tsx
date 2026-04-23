@@ -2,7 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '@/types/user';
-import { getSession, signIn, signOut, signUp, registerForEvent } from '@/lib/mockAuth';
+import { QuestionAnswer } from '@/types/event';
+import { getSession, signIn, signOut, signUp, registerForEvent, unregisterFromEvent, updateTicketEmail } from '@/lib/mockAuth';
 
 interface AuthContextValue {
   user: User | null;
@@ -10,7 +11,9 @@ interface AuthContextValue {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   register: (email: string, password: string, name: string, studentId: string) => Promise<void>;
-  registerEvent: (eventId: string) => void;
+  registerEvent: (eventId: string, answers?: QuestionAnswer[], ticketEmail?: string) => void;
+  unregisterEvent: (eventId: string) => void;
+  saveTicketEmail: (email: string) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -39,14 +42,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(u);
   }
 
-  function registerEvent(eventId: string) {
+  function registerEvent(eventId: string, answers: QuestionAnswer[] = [], ticketEmail?: string) {
     if (!user) return;
-    const updated = registerForEvent(user.id, eventId);
+    const updated = registerForEvent(user.id, eventId, answers, ticketEmail);
+    setUser(updated);
+  }
+
+  function unregisterEvent(eventId: string) {
+    if (!user) return;
+    const updated = unregisterFromEvent(user.id, eventId);
+    setUser(updated);
+  }
+
+  function saveTicketEmail(email: string) {
+    if (!user) return;
+    const updated = updateTicketEmail(user.id, email);
     setUser(updated);
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, register, registerEvent }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, register, registerEvent, unregisterEvent, saveTicketEmail }}>
       {children}
     </AuthContext.Provider>
   );
