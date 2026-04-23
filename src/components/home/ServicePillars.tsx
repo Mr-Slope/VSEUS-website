@@ -22,7 +22,7 @@ const pillars = [
     ),
     number: '02',
     title: 'Community Connections',
-    description: 'Build lasting relationships through social events, club initiatives, and a welcoming community of students who share your passion for economics.',
+    description: 'Build lasting relationships through social events, society initiatives, and a welcoming community of students who share your passion for economics.',
   },
   {
     icon: (

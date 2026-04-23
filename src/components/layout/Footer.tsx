@@ -109,8 +109,18 @@ export function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
-          <p>© {new Date().getFullYear()} VSEUS. All rights reserved.</p>
-          <p>University of British Columbia · Vancouver, BC</p>
+          <div>
+            <p>© {new Date().getFullYear()} VSEUS. All rights reserved.</p>
+            <p className="mt-0.5 text-[10px] text-white/25">
+              Website built by Yash Dhaundiyal, VSEUS President 2026&ndash;2027 · Maintained by VSEUS VP Marketing
+            </p>
+          </div>
+          <p>
+            University of British Columbia · Vancouver, BC
+            <Link href="/auth/login" className="ml-3 opacity-30 hover:opacity-60 transition-opacity text-[10px] font-medium tracking-wide">
+              Admin
+            </Link>
+          </p>
         </div>
       </div>
     </footer>
