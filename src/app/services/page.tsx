@@ -6,7 +6,7 @@ const services = [
     id: 'merch',
     title: 'Merchandise',
     description:
-      'Rep VSEUS with our exclusive student merchandise — hoodies, t-shirts, tote bags, and more. All items are made to order. Proceeds support student programming.',
+      'Rep VSEUS with our exclusive student merchandise: hoodies, t-shirts, tote bags, and more. All items are made to order. Proceeds support student programming.',
     cta: 'Shop Now',
     ctaHref: '#',
     icon: (

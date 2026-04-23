@@ -18,7 +18,8 @@ export function Hero() {
     path.style.strokeDashoffset = `${length}`;
 
     function onScroll() {
-      const progress = Math.min(window.scrollY / 280, 1);
+      // First ~40% of scroll draws the underline arc; the rest unfurls squiggles
+      const progress = Math.min(window.scrollY / 480, 1);
       path!.style.strokeDashoffset = `${length * (1 - progress)}`;
     }
 
@@ -68,22 +69,30 @@ export function Hero() {
                 Curve
                 <svg
                   className="absolute left-0 w-full pointer-events-none"
-                  style={{ bottom: '-14px', overflow: 'visible' }}
-                  height="16"
-                  viewBox="0 0 100 16"
+                  style={{ bottom: '-16px', overflow: 'visible' }}
+                  height="22"
+                  viewBox="0 0 300 22"
                   preserveAspectRatio="none"
                   fill="none"
                   aria-hidden="true"
                 >
                   <defs>
-                    <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="rgba(201,168,76,0.9)" />
-                      <stop offset="100%" stopColor="rgba(222,192,110,0.55)" />
+                    {/* Gradient fades from solid gold to transparent as squiggles extend right */}
+                    <linearGradient id="curveGrad" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%"   stopColor="rgba(201,168,76,0.95)" />
+                      <stop offset="32%"  stopColor="rgba(201,168,76,0.90)" />
+                      <stop offset="58%"  stopColor="rgba(201,168,76,0.55)" />
+                      <stop offset="100%" stopColor="rgba(201,168,76,0)" />
                     </linearGradient>
                   </defs>
+                  {/*
+                    Path structure (in viewBox units, 0–300):
+                    0–100   : gentle arc = the underline beneath "Curve"
+                    100–300 : cubic-bezier squiggles that extend beyond the word
+                  */}
                   <path
                     ref={pathRef}
-                    d="M 0 2 Q 50 14 100 2"
+                    d="M 0 5 Q 50 19 100 5 C 116 -3 136 22 156 5 C 174 -3 194 22 214 5 C 232 -3 252 22 272 5 C 283 -1 293 17 300 9"
                     stroke="url(#curveGrad)"
                     strokeWidth="3"
                     strokeLinecap="round"

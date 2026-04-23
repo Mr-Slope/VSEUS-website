@@ -42,7 +42,7 @@ export default function ContactPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <h3 className="font-bold text-green-800 mb-1">Message sent!</h3>
-                  <p className="text-sm text-green-700">We&apos;ll get back to you within 2–3 business days.</p>
+                  <p className="text-sm text-green-700">We&apos;ll get back to you within 2 to 3 business days.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -117,7 +117,7 @@ export default function ContactPage() {
               <div id="newsletter">
                 <h2 className="text-xl font-bold text-navy-900 mb-2">Newsletter</h2>
                 <p className="text-gray-500 text-sm mb-4">
-                  Stay up to date on events, opportunities, and VSEUS news — delivered to your inbox.
+                  Stay up to date on events, opportunities, and VSEUS news, delivered right to your inbox.
                 </p>
                 <div className="flex gap-2">
                   <input

@@ -70,7 +70,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-black tracking-tight mb-1">VSEUS</h2>
             <p className="text-navy-300 text-sm leading-relaxed mb-4 max-w-xs">
-              Vancouver School of Economics Undergraduate Society at UBC — empowering economics students since 2014.
+              Vancouver School of Economics Undergraduate Society at UBC, empowering economics students since 2014.
             </p>
             <div className="flex gap-3">
               {socials.map((s) => (

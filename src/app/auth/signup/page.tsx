@@ -31,7 +31,7 @@ export default function SignupPage() {
     if (!form.email.trim()) newErrors.email = 'Email is required.';
     if (!/^\S+@\S+\.\S+$/.test(form.email)) newErrors.email = 'Enter a valid email address.';
     if (!form.studentId.trim()) newErrors.studentId = 'Student ID is required.';
-    if (!/^\d{7,10}$/.test(form.studentId)) newErrors.studentId = 'Student ID must be 7–10 digits.';
+    if (!/^\d{7,10}$/.test(form.studentId)) newErrors.studentId = 'Student ID must be 7 to 10 digits.';
     if (form.password.length < 8) newErrors.password = 'Password must be at least 8 characters.';
     if (form.password !== form.confirmPassword) newErrors.confirmPassword = 'Passwords do not match.';
     return newErrors;

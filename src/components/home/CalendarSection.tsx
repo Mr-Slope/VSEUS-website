@@ -20,8 +20,8 @@ export function CalendarSection() {
               Never Miss<br />an Event.
             </h2>
             <p className="text-white/50 leading-relaxed mb-8 max-w-md">
-              Subscribe to the VSEUS Economics Calendar and get all our events —
-              competitions, networking nights, workshops, and socials — delivered
+              Subscribe to the VSEUS Economics Calendar and get all our events
+              (competitions, networking nights, workshops, and socials) delivered
               directly to Google Calendar, Apple Calendar, or Outlook.
             </p>
             <div className="flex flex-wrap gap-3">

@@ -5,7 +5,7 @@ export const MOCK_EVENTS: Event[] = [
     id: 'evt-001',
     title: 'Economics Case Competition',
     description:
-      'Compete in teams of 4 to analyze a real-world economic policy challenge. Cash prizes for top 3 teams. Open to all faculties — economics knowledge helpful but not required.',
+      'Compete in teams of 4 to analyze a real-world economic policy challenge. Cash prizes for top 3 teams. Open to all faculties; economics knowledge is helpful but not required.',
     date: '2026-05-10',
     time: '10:00 AM',
     location: 'Chan Centre for the Performing Arts, UBC Vancouver',
@@ -21,7 +21,7 @@ export const MOCK_EVENTS: Event[] = [
     id: 'evt-002',
     title: 'Networking Night with TD Economics',
     description:
-      'Meet economists and analysts from TD Bank. Bring your resume. Light refreshments provided. Dress business casual. Limited spots — register early.',
+      'Meet economists and analysts from TD Bank. Bring your resume. Light refreshments provided. Dress business casual. Limited spots, so register early.',
     date: '2026-05-17',
     time: '6:00 PM',
     location: 'TD Tower, 700 W Georgia St, Vancouver',

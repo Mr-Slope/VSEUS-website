@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'VSEUS — Vancouver School of Economics Undergraduate Society',
+  title: 'VSEUS: Vancouver School of Economics Undergraduate Society',
   description:
     'Empowering economics students at the University of British Columbia since 2014. Academic excellence, community connections, career preparedness, and student advocacy.',
 };
