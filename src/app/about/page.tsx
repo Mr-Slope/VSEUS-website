@@ -72,7 +72,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-navy-900/60 via-transparent to-navy-900/60 pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-4">
             <p className="text-gold text-xs font-semibold uppercase tracking-widest mb-3">Leadership</p>
             <h2 className="text-3xl font-black text-white">Executive Team 2024-25</h2>
             <p className="text-white/35 text-sm mt-3 max-w-xs mx-auto leading-relaxed">
