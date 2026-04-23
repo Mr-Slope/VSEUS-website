@@ -2,7 +2,7 @@
 
 Official website for the **Vancouver School of Economics Undergraduate Society** at the University of British Columbia.
 
-Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4. Designed for easy future edits and a clean migration path to Firebase when the club is ready.
+Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4. Designed for easy future edits and a clean migration path to Firebase when the society is ready.
 
 ---
 
@@ -100,7 +100,7 @@ src/
 │
 └── types/
     ├── user.ts                 # { id, email, name, studentId, role, registeredEvents }
-    └── event.ts                # { id, title, date, location, capacity, registered, paid, price }
+    └── event.ts                # Event, Registration, EventQuestion, QuestionAnswer
 ```
 
 ---
@@ -112,6 +112,27 @@ src/
 - Each student ID can only be linked to one account
 - Members can register for events, view their dashboard, and manage their profile
 - Admin role unlocks an event management panel
+
+### Admin System (`/admin`)
+- Multiple admin accounts supported via `ADMIN_USERS` array in `mockAuth.ts`
+- Admins create events with: title, description, date/time, location, category, capacity, paid/free pricing
+- **Poster upload** — image selected via file picker, stored as base64 in localStorage (`vseus_events`); displayed on event cards across the public and member views
+- **Registration questions** — admins configure per-event questions (text answer, multiple choice, yes/no) with required/optional toggle and drag-reorder; shown to members as a mandatory step before confirming registration
+- **Per-event metrics** (`/admin/events/[id]`) — header with poster thumbnail, stat cards (registrations/fill rate/revenue/attendance), and a full registrant table with question answers and attended status
+- **QR ticket scanning** (`/admin/events/[id]/scan`) — camera-based QR code reader; admin scans a member's ticket and chooses to Admit or Deny; admitted members are marked `attended: true` with a timestamp stored in `vseus_registrations`
+- Admin-created events persist to `vseus_events` in localStorage; seed events (MOCK_EVENTS) are read-only and cannot be deleted
+- `getAllEvents()` in `src/lib/events.ts` merges seed + admin events and is the single source of truth used by all pages
+
+### Ticketing System
+- After registering, members are prompted for a ticket delivery email (pre-filled with their account email, editable)
+- A digital ticket is generated on-screen with a QR code encoding the registration ID
+- Tickets are accessible any time from **My Tickets** (`/portal/tickets`) in the member portal
+- **Apple Wallet** and **Google Wallet** buttons are present on each ticket
+
+> **Stubs (not wired up — revisit in a future session):**
+> - **Email delivery**: The UI shows "A ticket has been sent to [email]" but no email is actually sent. Wiring this requires an email delivery service (Resend or SendGrid) and a backend API route (`/api/send-ticket`).
+> - **Apple Wallet**: Requires generating a signed `.pkpass` file server-side using Apple Developer certificates. Not possible client-side.
+> - **Google Wallet**: Requires a Google Cloud service account and JWT signing via the Google Wallet API. Not possible client-side.
 
 ### Economics Learning Centre — ELC (`/elc`)
 Dedicated page sourced from vseus.ca/elc. Covers: walk-in peer tutoring at IONA 038, Mon–Thu 11am–5pm, no booking required; course list (ECON 101/102/226/301/302/325/326); Canvas enrollment key `9KXL4W`. Linked from Services, the navbar Services dropdown, and the footer.
@@ -146,11 +167,13 @@ The site currently uses a mock auth layer (`src/lib/mockAuth.ts`) backed by `loc
 
 **Membership restriction:** `APPROVED_STUDENT_IDS` in `mockAuth.ts` is a hardcoded `Set` of permitted student IDs for development. On signup, the submitted student ID is checked against this set. Before going live, replace with a Firebase Firestore lookup against the authoritative member list.
 
-**Admin access:** The admin account is defined in `src/lib/mockData.ts` (`ADMIN_USER`). Log in with those credentials to access `/admin`.
+**Admin access:** Admin accounts are defined in the `ADMIN_USERS` array in `mockAuth.ts`. Log in with any of those credentials to access `/admin`. Add entries to the array to grant additional admins access.
 
 ---
 
 ## Firebase Migration (when ready)
+
+> **Database design note:** Before finalising the Firestore schema and ERD, consult **Dr. Ning Nan** (COEC 437 Professor) — she should be able to provide good insights on how to approach the entity-relationship diagram and general database configuration for a society platform of this kind.
 
 ```bash
 npm install firebase
@@ -176,3 +199,28 @@ Manual deploy:
 npm run build   # verify clean build first
 vercel --prod
 ```
+
+---
+
+## IDEAS
+
+### Google Forms Integration for Event Registration
+
+Instead of collecting registration data through custom in-app questions, admins could link each event to a Google Form. The flow would work as follows:
+
+1. The event host creates a Google Form for their event (questions, dietary restrictions, team size, etc.) and pastes the shareable form URL when creating the event on the VSEUS site.
+2. When a member clicks "Register," they are redirected to the Google Form (or shown an embedded iframe). Only after the form is submitted do they return to the VSEUS site to complete registration.
+3. All response data lives in the connected Google Sheet in the exec team's Google Drive — no personal data is ever stored in localStorage or the VSEUS database.
+
+**Why this is worth exploring:**
+- Zero custom data infrastructure — Google handles validation, storage, and exports.
+- Exec team can view and filter responses directly in Google Sheets without touching the website.
+- Reduces exposure in a security incident: even if the VSEUS site were compromised, registrant survey answers are not accessible from it.
+- Forms are fully customisable per event with no code changes required.
+
+**Implementation sketch (when ready):**
+- Add a `googleFormUrl: string | null` field to the `Event` type.
+- Show a "Fill out the form to register" step in `RegistrationModal` before confirmation; open the form URL in a new tab.
+- Since Google Forms completion cannot be verified programmatically without OAuth, the simplest approach is an honour-system checkbox ("I have submitted the form") before the confirm button unlocks.
+- A stricter version would use the Google Forms API or Apps Script webhook to mark a submission, then poll or receive a callback before allowing registration — but this requires a backend.
+- Drop the built-in question builder from the admin create form once this is adopted.
