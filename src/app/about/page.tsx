@@ -2,12 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 
 const executives = [
-  { name: 'Alexandra Chen', role: 'President', year: '4th Year Economics' },
-  { name: 'Marcus Williams', role: 'VP Academic', year: '3rd Year Economics & Finance' },
-  { name: 'Priya Sharma', role: 'VP Finance', year: '3rd Year Economics' },
-  { name: 'Jordan Lee', role: 'VP Events', year: '2nd Year Economics' },
-  { name: 'Sofia Andrade', role: 'VP Marketing', year: '3rd Year Economics & Communications' },
-  { name: 'Daniel Park', role: 'VP External', year: '4th Year Economics' },
+  { name: 'Yash Dhaundiyal', role: 'President', year: '4th Year BIE + Data Science Minor' },
+  { name: 'Aiden Ng', role: 'VP Student Life', year: '3rd Year BIE' },
+  { name: 'Mishka Balraj', role: 'VP Marketing', year: '3rd Year BIE' },
+  { name: 'Sebastian Contreras', role: 'VP Finance', year: '4th Year BA' },
+  { name: 'Saloni Karla', role: 'VP Administration', year: '4th Year BA' },
+  { name: 'Grace Ding', role: 'VP Academics', year: '2nd Year BIE' },
+  { name: 'Nokutenda Dzobo', role: 'VP External', year: '2nd Year BIE' },
 ];
 
 const reports = [
