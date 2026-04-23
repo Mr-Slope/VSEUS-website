@@ -67,26 +67,27 @@ export function Hero() {
               <span className="text-gold relative inline-block">
                 Curve
                 <svg
-                  className="absolute left-0 w-full overflow-visible pointer-events-none"
-                  style={{ bottom: '-0.18em' }}
-                  height="0.22em"
-                  viewBox="0 0 100 20"
+                  className="absolute left-0 w-full pointer-events-none"
+                  style={{ bottom: '-14px', overflow: 'visible' }}
+                  height="16"
+                  viewBox="0 0 100 16"
                   preserveAspectRatio="none"
                   fill="none"
                   aria-hidden="true"
                 >
                   <defs>
                     <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="rgba(201,168,76,0.85)" />
-                      <stop offset="100%" stopColor="rgba(222,192,110,0.5)" />
+                      <stop offset="0%" stopColor="rgba(201,168,76,0.9)" />
+                      <stop offset="100%" stopColor="rgba(222,192,110,0.55)" />
                     </linearGradient>
                   </defs>
                   <path
                     ref={pathRef}
-                    d="M 2 4 Q 50 18 98 4"
+                    d="M 0 2 Q 50 14 100 2"
                     stroke="url(#curveGrad)"
-                    strokeWidth="3.5"
+                    strokeWidth="3"
                     strokeLinecap="round"
+                    vectorEffect="non-scaling-stroke"
                   />
                 </svg>
               </span>
