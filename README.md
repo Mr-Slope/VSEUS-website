@@ -43,10 +43,11 @@ npm run lint    # ESLint
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Root layout — Navbar, Footer, AuthProvider, TransitionProvider
+│   ├── layout.tsx              # Root layout: Navbar, Footer, AuthProvider, TransitionProvider
 │   ├── page.tsx                # Home page
-│   ├── about/page.tsx
-│   ├── services/page.tsx
+│   ├── about/page.tsx          # Mission, exec orbital diagram, reports, partners
+│   ├── services/page.tsx       # Services overview (merch, awards, ELC, initiatives)
+│   ├── elc/page.tsx            # Economics Learning Centre dedicated page
 │   ├── events/page.tsx         # Public read-only events list
 │   ├── contact/page.tsx
 │   ├── auth/
@@ -69,7 +70,7 @@ src/
 │   │   ├── Navbar.tsx          # Sticky glass navbar, scroll-activated blur, dropdown menus
 │   │   └── Footer.tsx
 │   ├── home/
-│   │   ├── Hero.tsx            # Full-screen hero with staggered headline animation
+│   │   ├── Hero.tsx            # Full-screen hero, staggered headline, scroll-driven SVG curve
 │   │   ├── ServicePillars.tsx  # 3D tilt cards with scroll reveal
 │   │   ├── StatsBar.tsx        # Animated member/event stats
 │   │   ├── SponsorsRow.tsx     # CSS marquee infinite scroll
@@ -112,6 +113,9 @@ src/
 - Members can register for events, view their dashboard, and manage their profile
 - Admin role unlocks an event management panel
 
+### Economics Learning Centre (`/elc`)
+Dedicated page sourced from vseus.ca/elc. Covers: walk-in peer tutoring at IONA 038, Mon–Thu 11am–5pm, no booking required; course list (ECON 101/102/226/301/302/325/326); Canvas enrollment key `9KXL4W`. Linked from Services, the navbar Services dropdown, and the footer.
+
 ### Page Transitions
 Primary CTA buttons trigger a circular navy overlay that expands from the click coordinates using CSS `clip-path: circle()`, then navigates. Implemented in `TransitionContext.tsx` via direct DOM manipulation to avoid React re-render timing issues.
 
@@ -120,8 +124,9 @@ Primary CTA buttons trigger a circular navy overlay that expands from the click 
 - **Tilt cards** — `ServicePillars.tsx` uses `mousemove` to apply 3D perspective tilt (±10°)
 - **Glass navbar** — activates `backdrop-filter: blur` after 24px of scroll
 - **Marquee** — sponsors scroll infinitely via CSS animation, pause on hover
-- **Hero** — headline words stagger in with `fadeSlideUp` keyframes
+- **Hero** — headline words stagger in with `fadeSlideUp` keyframes; "Curve" has a scroll-driven SVG arc that extends into cubic-bezier squiggles as you scroll
 - **Ripple** — all buttons spawn a DOM ripple span on click
+- **Exec orbital diagram** — SVG SMIL `animateMotion` traveling dots on connection lines from President to each VP; pulsing rings from center; ambient particles tracing the orbit ring. Filter uses `filterUnits="userSpaceOnUse"` to avoid bounding-box clipping on vertical lines.
 
 ### Color Tokens (defined in `globals.css`)
 | Token | Value | Use |

@@ -23,7 +23,7 @@ const navLinks = [
     children: [
       { label: 'Merchandise', href: '/services#merch' },
       { label: 'Awards & Grants', href: '/services#awards' },
-      { label: 'Learning Centers', href: '/services#learning' },
+      { label: 'Economics Learning Centre', href: '/elc' },
       { label: 'Initiatives', href: '/services#initiatives' },
     ],
   },

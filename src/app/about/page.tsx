@@ -26,10 +26,10 @@ function initials(name: string) {
 }
 
 // Orbital layout constants
-const CX = 390, CY = 390, R = 260;
-const CONTAINER = 780;
-const CARD_W = 130, CARD_H = 118;
-const PRES_W = 160, PRES_H = 160;
+const CX = 475, CY = 475, R = 310;
+const CONTAINER = 950;
+const CARD_W = 160, CARD_H = 148;
+const PRES_W = 192, PRES_H = 192;
 
 const vpNodes = VPS.map((vp, i) => {
   const deg = (i * 360) / VPS.length - 90;
@@ -92,12 +92,19 @@ export default function AboutPage() {
                 fill="none"
               >
                 <defs>
-                  <filter id="lineGlow" x="-30%" y="-30%" width="160%" height="160%">
+                  {/*
+                    filterUnits="userSpaceOnUse" with absolute pixel coordinates is required here.
+                    The default objectBoundingBox mode makes the filter region proportional to the
+                    element's own bounding box — a perfectly vertical line (VP Student Life, VP
+                    Administration) has zero width, collapsing the X filter region to zero and
+                    clipping those lines entirely. Absolute coords spanning the full SVG fix this.
+                  */}
+                  <filter id="lineGlow" filterUnits="userSpaceOnUse" x="-20" y="-20" width={CONTAINER + 40} height={CONTAINER + 40}>
                     <feGaussianBlur stdDeviation="3" result="blur" />
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
-                  <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
-                    <feGaussianBlur stdDeviation="2" result="blur" />
+                  <filter id="dotGlow" filterUnits="userSpaceOnUse" x="-20" y="-20" width={CONTAINER + 40} height={CONTAINER + 40}>
+                    <feGaussianBlur stdDeviation="2.5" result="blur" />
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                 </defs>
@@ -190,12 +197,12 @@ export default function AboutPage() {
                   top:    CY - PRES_H / 2,
                 }}
               >
-                <div className="w-14 h-14 rounded-full bg-gold flex items-center justify-center text-navy-900 font-black text-lg mb-2 shadow-[0_0_24px_rgba(201,168,76,0.6)]">
+                <div className="w-16 h-16 rounded-full bg-gold flex items-center justify-center text-navy-900 font-black text-xl mb-3 shadow-[0_0_28px_rgba(201,168,76,0.65)]">
                   {initials(PRESIDENT.name)}
                 </div>
-                <p className="text-white font-bold text-[12px] leading-tight px-3">{PRESIDENT.name}</p>
-                <p className="text-gold text-[11px] font-semibold mt-1">{PRESIDENT.role}</p>
-                <p className="text-white/35 text-[9.5px] mt-0.5 px-3 leading-tight">{PRESIDENT.year}</p>
+                <p className="text-white font-bold text-sm leading-tight px-3">{PRESIDENT.name}</p>
+                <p className="text-gold text-xs font-semibold mt-1.5">{PRESIDENT.role}</p>
+                <p className="text-white/35 text-[10px] mt-1 px-3 leading-tight">{PRESIDENT.year}</p>
               </div>
 
               {/* VP cards */}
@@ -210,12 +217,12 @@ export default function AboutPage() {
                     top:    vp.y - CARD_H / 2,
                   }}
                 >
-                  <div className="w-10 h-10 rounded-full bg-navy-700 border border-white/15 flex items-center justify-center text-white/80 font-bold text-xs mb-2">
+                  <div className="w-12 h-12 rounded-full bg-navy-700 border border-white/15 flex items-center justify-center text-white/80 font-bold text-sm mb-2.5">
                     {initials(vp.name)}
                   </div>
-                  <p className="text-white font-bold text-[11px] leading-tight px-2">{vp.name}</p>
-                  <p className="text-gold/80 text-[10px] font-medium mt-1">{vp.role}</p>
-                  <p className="text-white/30 text-[8.5px] mt-0.5 px-2 leading-tight">{vp.year}</p>
+                  <p className="text-white font-bold text-xs leading-tight px-3">{vp.name}</p>
+                  <p className="text-gold/80 text-[11px] font-medium mt-1.5">{vp.role}</p>
+                  <p className="text-white/30 text-[9.5px] mt-1 px-3 leading-tight">{vp.year}</p>
                 </div>
               ))}
             </div>
