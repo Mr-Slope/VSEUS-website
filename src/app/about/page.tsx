@@ -152,7 +152,7 @@ export default function AboutPage() {
                       <circle r="3" fill="rgba(201,168,76,1)" filter="url(#dotGlow)">
                         <animateMotion
                           dur="3s"
-                          begin={`${vp.i * 0.5}s`}
+                          begin="0s"
                           repeatCount="indefinite"
                           path={lineD}
                         />
@@ -161,7 +161,7 @@ export default function AboutPage() {
                           values="0;1;1;0"
                           keyTimes="0;0.08;0.88;1"
                           dur="3s"
-                          begin={`${vp.i * 0.5}s`}
+                          begin="0s"
                           repeatCount="indefinite"
                         />
                       </circle>
@@ -169,7 +169,7 @@ export default function AboutPage() {
                       <circle r="1.8" fill="rgba(222,192,110,0.75)">
                         <animateMotion
                           dur="3s"
-                          begin={`${vp.i * 0.5 + 1.5}s`}
+                          begin="1.5s"
                           repeatCount="indefinite"
                           path={lineD}
                         />
@@ -178,7 +178,7 @@ export default function AboutPage() {
                           values="0;0.75;0.75;0"
                           keyTimes="0;0.08;0.88;1"
                           dur="3s"
-                          begin={`${vp.i * 0.5 + 1.5}s`}
+                          begin="1.5s"
                           repeatCount="indefinite"
                         />
                       </circle>
