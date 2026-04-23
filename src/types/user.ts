@@ -8,4 +8,5 @@ export interface User {
   role: UserRole;
   registeredEvents: string[];
   createdAt: string;
+  ticketEmail?: string;
 }
