@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { MOCK_EVENTS } from '@/lib/mockData';
+import { getAllEvents } from '@/lib/events';
+import { getRegistrationsByEvent } from '@/lib/mockAuth';
 import { EventCard } from '@/components/portal/EventCard';
 import { RegistrationModal } from '@/components/portal/RegistrationModal';
-import { Event } from '@/types/event';
+import { Event, QuestionAnswer, Registration } from '@/types/event';
 
 const CATEGORIES = ['All', 'Competition', 'Networking', 'Social', 'Workshop', 'Academic'];
 
@@ -13,17 +14,25 @@ export default function PortalEventsPage() {
   const { user, registerEvent } = useAuth();
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [activeCategory, setActiveCategory] = useState('All');
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    setEvents(getAllEvents());
+  }, []);
 
   const filtered = activeCategory === 'All'
-    ? MOCK_EVENTS
-    : MOCK_EVENTS.filter((e) => e.category === activeCategory);
+    ? events
+    : events.filter((e) => e.category === activeCategory);
 
   function handleRegister(event: Event) {
     setSelectedEvent(event);
   }
 
-  function handleConfirm(eventId: string) {
-    registerEvent(eventId);
+  function handleConfirm(eventId: string, answers: QuestionAnswer[], ticketEmail: string): Registration | undefined {
+    registerEvent(eventId, answers, ticketEmail);
+    setEvents(getAllEvents());
+    const regs = getRegistrationsByEvent(eventId);
+    return regs.find((r) => r.userId === user?.id);
   }
 
   return (
