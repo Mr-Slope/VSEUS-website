@@ -3,60 +3,96 @@
 import React from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
+import { CTAButton } from '@/components/ui/CTAButton';
 
 export function Hero() {
   const { user } = useAuth();
 
   return (
-    <section className="bg-navy-700 relative overflow-hidden">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white/20" />
-        <div className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full bg-white/10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-white/20" />
-      </div>
+    <section className="relative min-h-screen flex items-center bg-navy-900 overflow-hidden">
+      {/* Subtle grid */}
+      <div className="absolute inset-0 hero-grid-bg" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-        <div className="max-w-3xl">
-          <p className="text-gold text-sm font-semibold uppercase tracking-widest mb-4">
-            Est. 2014 · University of British Columbia
-          </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
-            Ahead of the{' '}
-            <span className="text-gold">Curve.</span>
+      {/* Depth gradients */}
+      <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-navy-900/60 to-navy-700/40" />
+      <div className="absolute inset-0 bg-gradient-to-r from-navy-900 via-navy-900/50 to-transparent" />
+
+      {/* Decorative concentric rings — right */}
+      <div className="absolute -right-56 top-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-white/[0.03]" />
+      <div className="absolute -right-32 top-1/2 -translate-y-1/2 w-[580px] h-[580px] rounded-full border border-white/[0.05]" />
+      <div className="absolute right-8 top-1/2 -translate-y-1/2 w-[360px] h-[360px] rounded-full border border-gold/[0.08] hero-float" />
+      <div className="absolute right-36 top-1/2 -translate-y-1/2 w-[180px] h-[180px] rounded-full border border-gold/[0.15]" />
+
+      {/* Gold left accent line */}
+      <div className="absolute left-0 top-0 w-[2px] h-full bg-gradient-to-b from-transparent via-gold/50 to-transparent" />
+      <div className="absolute left-[-5px] top-1/2 -translate-y-1/2 w-[12px] h-[12px] rounded-full bg-gold shadow-[0_0_24px_6px_rgba(201,168,76,0.4)]" />
+
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-36 lg:py-44 w-full">
+        <div className="max-w-4xl">
+
+          {/* Badge */}
+          <div className="hero-tag inline-flex items-center gap-2.5 bg-white/[0.07] backdrop-blur-sm border border-white/[0.1] rounded-full px-4 py-2 mb-10">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="text-sm text-white/65 tracking-wide">
+              Est. 2014 &nbsp;·&nbsp; University of British Columbia
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1 className="font-black text-white leading-[0.88] tracking-tight mb-8">
+            <span className="hero-word text-6xl sm:text-7xl lg:text-[88px]" style={{ animationDelay: '80ms' }}>
+              Ahead of
+            </span>
+            <span className="hero-word text-6xl sm:text-7xl lg:text-[88px] mt-2" style={{ animationDelay: '200ms' }}>
+              the{' '}
+              <span className="text-gold relative inline-block">
+                Curve
+                <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-gold/80 to-gold-light/50 rounded-full" />
+              </span>
+              .
+            </span>
           </h1>
-          <p className="text-lg text-white/80 leading-relaxed mb-8 max-w-xl">
-            The Vancouver School of Economics Undergraduate Society empowers UBC students with academic resources, networking opportunities, and career preparation for tomorrow&apos;s economy.
+
+          {/* Subtitle */}
+          <p className="hero-subtitle text-lg sm:text-xl text-white/55 leading-relaxed mb-10 max-w-[520px]">
+            The Vancouver School of Economics Undergraduate Society empowers UBC
+            students with academic resources, networking opportunities, and career
+            preparation for tomorrow&apos;s economy.
           </p>
-          <div className="flex flex-wrap gap-4">
+
+          {/* CTAs */}
+          <div className="hero-ctas flex flex-wrap items-center gap-4">
             {user ? (
-              <Link
-                href="/portal"
-                className="inline-flex items-center justify-center gap-2 bg-gold text-navy-900 font-semibold px-7 py-3.5 rounded-lg hover:bg-gold-light transition-colors"
-              >
+              <CTAButton href="/portal" variant="gold" size="lg">
                 Go to My Portal
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-              </Link>
+              </CTAButton>
             ) : (
-              <Link
-                href="/auth/signup"
-                className="inline-flex items-center justify-center gap-2 bg-gold text-navy-900 font-semibold px-7 py-3.5 rounded-lg hover:bg-gold-light transition-colors"
-              >
-                Become a Member
+              <CTAButton href="/auth/login" variant="gold" size="lg">
+                Member Login
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
-              </Link>
+              </CTAButton>
             )}
             <Link
               href="/about"
-              className="inline-flex items-center justify-center border border-white/30 text-white font-medium px-7 py-3.5 rounded-lg hover:bg-white/10 transition-colors"
+              className="inline-flex items-center gap-2 border border-white/20 text-white/75 font-medium px-7 py-3.5 rounded-lg hover:bg-white/[0.08] hover:border-white/30 hover:text-white transition-all text-base"
             >
               Learn More
             </Link>
           </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
+        <span className="text-[10px] text-white/25 uppercase tracking-[0.22em]">Scroll</span>
+        <div className="w-5 h-8 border border-white/15 rounded-full flex justify-center pt-1.5">
+          <div className="w-[3px] h-2 bg-white/25 rounded-full animate-bounce" />
         </div>
       </div>
     </section>

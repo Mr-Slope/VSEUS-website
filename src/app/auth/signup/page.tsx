@@ -65,7 +65,10 @@ export default function SignupPage() {
               VSEUS
             </Link>
             <h1 className="text-xl font-bold text-navy-900">Create your account</h1>
-            <p className="text-sm text-gray-500 mt-1">Join the VSEUS member portal</p>
+            <p className="text-sm text-gray-500 mt-1">For verified VSEUS members only</p>
+          </div>
+          <div className="bg-navy-100 border border-navy-300/30 rounded-xl px-4 py-3 mb-5 text-xs text-navy-700">
+            Access is restricted to students on the VSEUS membership list. Your student ID must be registered with us before you can create an account.
           </div>
 
           {errors.general && (

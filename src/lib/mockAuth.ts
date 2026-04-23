@@ -4,6 +4,16 @@ import { ADMIN_USER } from './mockData';
 const USERS_KEY = 'vseus_users';
 const SESSION_KEY = 'vseus_session';
 
+// Approved VSEUS member student IDs.
+// Replace with real IDs before going live — Firebase will hold the authoritative list.
+export const APPROVED_STUDENT_IDS = new Set([
+  '218945632',
+  '219034571',
+  '217856123',
+  '220112045',
+  '216789034',
+]);
+
 function getUsers(): (User & { password: string })[] {
   if (typeof window === 'undefined') return [];
   try {
@@ -35,13 +45,19 @@ export async function signUp(
 ): Promise<User> {
   await new Promise((r) => setTimeout(r, 400));
 
+  if (!APPROVED_STUDENT_IDS.has(studentId)) {
+    throw new Error(
+      'Your student ID is not in our membership list. Please contact vseus@ubc.ca if you believe this is an error.'
+    );
+  }
+
   const users = getUsers();
 
   if (users.find((u) => u.email === email)) {
     throw new Error('An account with this email already exists.');
   }
   if (users.find((u) => u.studentId === studentId)) {
-    throw new Error('This student ID is already registered.');
+    throw new Error('This student ID is already linked to an account.');
   }
 
   const user: User & { password: string } = {
