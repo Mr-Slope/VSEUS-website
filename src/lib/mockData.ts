@@ -1,4 +1,6 @@
-import { Event } from '@/types/event';
+import { Event, EventQuestion } from '@/types/event';
+
+const NO_QUESTIONS: EventQuestion[] = [];
 
 export const MOCK_EVENTS: Event[] = [
   {
@@ -14,8 +16,10 @@ export const MOCK_EVENTS: Event[] = [
     isPaid: false,
     price: null,
     imageUrl: null,
+    posterUrl: null,
     category: 'Competition',
     createdAt: '2026-04-01T00:00:00Z',
+    questions: NO_QUESTIONS,
   },
   {
     id: 'evt-002',
@@ -30,8 +34,10 @@ export const MOCK_EVENTS: Event[] = [
     isPaid: false,
     price: null,
     imageUrl: null,
+    posterUrl: null,
     category: 'Networking',
     createdAt: '2026-04-02T00:00:00Z',
+    questions: NO_QUESTIONS,
   },
   {
     id: 'evt-003',
@@ -46,8 +52,10 @@ export const MOCK_EVENTS: Event[] = [
     isPaid: true,
     price: 35,
     imageUrl: null,
+    posterUrl: null,
     category: 'Social',
     createdAt: '2026-04-03T00:00:00Z',
+    questions: NO_QUESTIONS,
   },
   {
     id: 'evt-004',
@@ -57,13 +65,15 @@ export const MOCK_EVENTS: Event[] = [
     date: '2026-06-05',
     time: '2:00 PM',
     location: 'Buchanan Tower 1197, UBC Vancouver',
-    capacity: null,
+    capacity: 60,
     registeredCount: 29,
     isPaid: false,
     price: null,
     imageUrl: null,
+    posterUrl: null,
     category: 'Workshop',
     createdAt: '2026-04-04T00:00:00Z',
+    questions: NO_QUESTIONS,
   },
   {
     id: 'evt-005',
@@ -78,16 +88,9 @@ export const MOCK_EVENTS: Event[] = [
     isPaid: false,
     price: null,
     imageUrl: null,
+    posterUrl: null,
     category: 'Academic',
     createdAt: '2026-04-05T00:00:00Z',
+    questions: NO_QUESTIONS,
   },
 ];
-
-export const ADMIN_USER = {
-  id: 'admin-001',
-  email: 'admin@vseus.ca',
-  password: 'admin123',
-  name: 'VSEUS Admin',
-  studentId: '000000000',
-  role: 'admin' as const,
-};

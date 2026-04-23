@@ -1,17 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { getAllEvents, deleteAdminEvent } from '@/lib/events';
 import { MOCK_EVENTS } from '@/lib/mockData';
 import { Event } from '@/types/event';
 import { Badge } from '@/components/ui/Badge';
 
+const SEED_IDS = new Set(MOCK_EVENTS.map((e) => e.id));
+
 export default function AdminEventsPage() {
-  const [events, setEvents] = useState<Event[]>(MOCK_EVENTS);
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    setEvents(getAllEvents());
+  }, []);
 
   function handleDelete(id: string) {
     if (confirm('Delete this event? This cannot be undone.')) {
-      setEvents((prev) => prev.filter((e) => e.id !== id));
+      deleteAdminEvent(id);
+      setEvents(getAllEvents());
     }
   }
 
@@ -62,12 +70,8 @@ export default function AdminEventsPage() {
                     <Badge variant="category">{e.category}</Badge>
                   </td>
                   <td className="px-5 py-3">
-                    <span className="font-semibold text-navy-700">
-                      {e.registeredCount}
-                    </span>
-                    {e.capacity && (
-                      <span className="text-gray-400">/{e.capacity}</span>
-                    )}
+                    <span className="font-semibold text-navy-700">{e.registeredCount}</span>
+                    <span className="text-gray-400">/{e.capacity}</span>
                   </td>
                   <td className="px-5 py-3">
                     {e.isPaid ? (
@@ -78,12 +82,24 @@ export default function AdminEventsPage() {
                   </td>
                   <td className="px-5 py-3">
                     <div className="flex gap-2">
-                      <button
-                        onClick={() => handleDelete(e.id)}
-                        className="text-xs text-red-500 hover:text-red-700 font-medium px-2 py-1 rounded hover:bg-red-50 transition-colors"
+                      <Link
+                        href={`/admin/events/${e.id}`}
+                        className="text-xs text-navy-500 hover:text-navy-700 font-medium px-2 py-1 rounded hover:bg-navy-50 transition-colors"
                       >
-                        Delete
-                      </button>
+                        Metrics
+                      </Link>
+                      {SEED_IDS.has(e.id) ? (
+                        <span className="text-xs text-gray-300 font-medium px-2 py-1 cursor-not-allowed" title="Seed events cannot be deleted">
+                          Delete
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleDelete(e.id)}
+                          className="text-xs text-red-500 hover:text-red-700 font-medium px-2 py-1 rounded hover:bg-red-50 transition-colors"
+                        >
+                          Delete
+                        </button>
+                      )}
                     </div>
                   </td>
                 </tr>

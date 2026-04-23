@@ -106,7 +106,7 @@ export default function LoginPage() {
           {/* Demo hint */}
           <div className="mt-4 bg-navy-100 rounded-xl p-3 text-xs text-navy-700">
             <p className="font-semibold mb-0.5">Demo credentials</p>
-            <p>Admin: admin@vseus.ca / admin123</p>
+            <p>Admin: president@vseus.ca / admin123</p>
             <p>Or create a new member account above.</p>
           </div>
         </div>
