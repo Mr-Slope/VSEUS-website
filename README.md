@@ -48,27 +48,31 @@ src/
 │   ├── about/page.tsx          # Mission, exec orbital diagram, reports, partners
 │   ├── services/page.tsx       # Services overview (merch, awards, ELC, initiatives)
 │   ├── elc/page.tsx            # Economics Learning Centre dedicated page
-│   ├── events/page.tsx         # Public read-only events list
+│   ├── events/page.tsx         # Public read-only events list (shows spots, no registration)
 │   ├── contact/page.tsx
 │   ├── auth/
-│   │   ├── login/page.tsx
+│   │   ├── login/page.tsx      # Member + admin login (admin link hidden in footer)
 │   │   └── signup/page.tsx     # Restricted to approved VSEUS member IDs
 │   ├── portal/
 │   │   ├── layout.tsx          # Auth guard — redirects to /auth/login if not signed in
 │   │   ├── page.tsx            # Member dashboard
-│   │   ├── events/page.tsx     # Events + registration
-│   │   └── profile/page.tsx
+│   │   ├── events/page.tsx     # Events list + registration modal
+│   │   ├── tickets/page.tsx    # My Tickets — QR ticket for every registration
+│   │   └── profile/page.tsx    # Profile info + ticket delivery email preference
 │   └── admin/
 │       ├── layout.tsx          # Role guard — admin only
-│       ├── page.tsx            # Admin dashboard
+│       ├── page.tsx            # Admin dashboard (stats + events overview)
 │       └── events/
-│           ├── page.tsx        # Manage events
-│           └── new/page.tsx    # Create event form
+│           ├── page.tsx        # Manage all events (table, delete, metrics link)
+│           ├── new/page.tsx    # Create event form (poster, questions, capacity)
+│           └── [id]/
+│               ├── page.tsx    # Per-event metrics (fill rate, revenue, attendance, registrant table)
+│               └── scan/page.tsx  # Camera QR scanner — Admit / Deny flow
 │
 ├── components/
 │   ├── layout/
 │   │   ├── Navbar.tsx          # Sticky glass navbar, scroll-activated blur, dropdown menus
-│   │   └── Footer.tsx
+│   │   └── Footer.tsx          # Links, socials, build attribution, discreet admin link
 │   ├── home/
 │   │   ├── Hero.tsx            # Full-screen hero, staggered headline, scroll-driven SVG curve
 │   │   ├── ServicePillars.tsx  # 3D tilt cards with scroll reveal
@@ -77,30 +81,32 @@ src/
 │   │   └── CalendarSection.tsx # Google Calendar embed placeholder
 │   ├── portal/
 │   │   ├── EventCard.tsx       # Event tile with register/registered/full states
-│   │   ├── RegistrationModal.tsx
+│   │   ├── RegistrationModal.tsx  # Multi-step: questions → ticket email → confirm → ticket
+│   │   ├── Ticket.tsx          # Digital ticket card with QR code + unregister flow
 │   │   └── DashboardStats.tsx
 │   └── ui/
 │       ├── Button.tsx          # General button with ripple effect
 │       ├── CTAButton.tsx       # Primary CTA — triggers circular page transition
 │       ├── Input.tsx
-│       ├── Badge.tsx           # "Registered", "Full", "Paid" tags
+│       ├── Badge.tsx           # "Registered", "Full", "Paid", "Admin" tags
 │       ├── Modal.tsx
 │       └── Reveal.tsx          # Scroll reveal wrapper (IntersectionObserver)
 │
 ├── contexts/
-│   ├── AuthContext.tsx         # Auth state — Firebase-ready interface
+│   ├── AuthContext.tsx         # Auth state + registerEvent, unregisterEvent, saveTicketEmail
 │   └── TransitionContext.tsx   # Circular clip-path page transition engine
 │
 ├── hooks/
 │   └── useAuth.ts
 │
 ├── lib/
-│   ├── mockAuth.ts             # localStorage auth (swap for firebase.ts later)
-│   └── mockData.ts             # Seed events + admin user for development
+│   ├── events.ts               # getAllEvents, getEventById, saveAdminEvent, deleteAdminEvent, increment/decrementRegisteredCount
+│   ├── mockAuth.ts             # localStorage auth — signUp, signIn, registerForEvent, markAttended, updateTicketEmail, etc.
+│   └── mockData.ts             # MOCK_EVENTS seed data (5 events, all with non-nullable capacity)
 │
 └── types/
-    ├── user.ts                 # { id, email, name, studentId, role, registeredEvents }
-    └── event.ts                # Event, Registration, EventQuestion, QuestionAnswer
+    ├── user.ts                 # { id, email, name, studentId, role, registeredEvents, ticketEmail? }
+    └── event.ts                # Event (capacity: number), Registration (ticketEmail, attended, attendedAt), EventQuestion, QuestionAnswer
 ```
 
 ---
@@ -108,10 +114,12 @@ src/
 ## Key Features
 
 ### Member Portal
-- Login and signup gated behind a pre-approved student ID list
+- Login and signup gated behind a pre-approved student ID list (`APPROVED_STUDENT_IDS` in `mockAuth.ts`)
 - Each student ID can only be linked to one account
-- Members can register for events, view their dashboard, and manage their profile
-- Admin role unlocks an event management panel
+- **Events** (`/portal/events`) — register for events; spots left updates live after registration; members can unregister from the My Tickets page
+- **My Tickets** (`/portal/tickets`) — QR code ticket for every registration, with an inline unregister confirmation flow
+- **My Profile** (`/portal/profile`) — view account info; set a dedicated ticket delivery email (used as the default during registration, editable per-purchase)
+- Admin role unlocks `/admin` for event management and metrics
 
 ### Admin System (`/admin`)
 - Multiple admin accounts supported via `ADMIN_USERS` array in `mockAuth.ts`
