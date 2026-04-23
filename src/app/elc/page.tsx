@@ -99,13 +99,13 @@ export default function ELCPage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-black text-navy-900 mb-10">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {steps.map((s) => (
-              <div key={s.step} className="relative pl-14">
-                <span className="absolute left-0 top-0 text-5xl font-black text-navy-100 leading-none select-none">
+              <div key={s.step}>
+                <span className="block text-6xl font-black text-navy-100 leading-none select-none mb-4">
                   {s.step}
                 </span>
-                <h3 className="text-lg font-bold text-navy-900 mb-2 mt-1">{s.title}</h3>
+                <h3 className="text-lg font-bold text-navy-900 mb-2">{s.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{s.body}</p>
               </div>
             ))}
