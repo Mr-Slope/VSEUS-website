@@ -13,7 +13,7 @@ const navLinks = [
     children: [
       { label: 'Our Mission', href: '/about#mission' },
       { label: 'Executives', href: '/about#executives' },
-      { label: 'Financial Reports', href: '/about#reports' },
+      { label: 'Transparency Reports', href: '/about#reports' },
       { label: 'Partners', href: '/about#partners' },
     ],
   },
