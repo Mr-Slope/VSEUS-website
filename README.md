@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VSEUS Website
+
+Official website for the **Vancouver School of Economics Undergraduate Society** at the University of British Columbia.
+
+Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4. Designed for easy future edits and a clean migration path to Firebase when the club is ready.
+
+---
+
+## Tech Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| Auth (current) | Mock — `localStorage` + React Context |
+| Auth (future) | Firebase Auth (Email/Password + Google OAuth) |
+| Hosting | Vercel (planned) |
+
+---
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Other commands:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # production build + type check
+npm run start   # serve the production build locally
+npm run lint    # ESLint
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/
+│   ├── layout.tsx              # Root layout — Navbar, Footer, AuthProvider, TransitionProvider
+│   ├── page.tsx                # Home page
+│   ├── about/page.tsx
+│   ├── services/page.tsx
+│   ├── events/page.tsx         # Public read-only events list
+│   ├── contact/page.tsx
+│   ├── auth/
+│   │   ├── login/page.tsx
+│   │   └── signup/page.tsx     # Restricted to approved VSEUS member IDs
+│   ├── portal/
+│   │   ├── layout.tsx          # Auth guard — redirects to /auth/login if not signed in
+│   │   ├── page.tsx            # Member dashboard
+│   │   ├── events/page.tsx     # Events + registration
+│   │   └── profile/page.tsx
+│   └── admin/
+│       ├── layout.tsx          # Role guard — admin only
+│       ├── page.tsx            # Admin dashboard
+│       └── events/
+│           ├── page.tsx        # Manage events
+│           └── new/page.tsx    # Create event form
+│
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx          # Sticky glass navbar, scroll-activated blur, dropdown menus
+│   │   └── Footer.tsx
+│   ├── home/
+│   │   ├── Hero.tsx            # Full-screen hero with staggered headline animation
+│   │   ├── ServicePillars.tsx  # 3D tilt cards with scroll reveal
+│   │   ├── StatsBar.tsx        # Animated member/event stats
+│   │   ├── SponsorsRow.tsx     # CSS marquee infinite scroll
+│   │   └── CalendarSection.tsx # Google Calendar embed placeholder
+│   ├── portal/
+│   │   ├── EventCard.tsx       # Event tile with register/registered/full states
+│   │   ├── RegistrationModal.tsx
+│   │   └── DashboardStats.tsx
+│   └── ui/
+│       ├── Button.tsx          # General button with ripple effect
+│       ├── CTAButton.tsx       # Primary CTA — triggers circular page transition
+│       ├── Input.tsx
+│       ├── Badge.tsx           # "Registered", "Full", "Paid" tags
+│       ├── Modal.tsx
+│       └── Reveal.tsx          # Scroll reveal wrapper (IntersectionObserver)
+│
+├── contexts/
+│   ├── AuthContext.tsx         # Auth state — Firebase-ready interface
+│   └── TransitionContext.tsx   # Circular clip-path page transition engine
+│
+├── hooks/
+│   └── useAuth.ts
+│
+├── lib/
+│   ├── mockAuth.ts             # localStorage auth (swap for firebase.ts later)
+│   └── mockData.ts             # Seed events + admin user for development
+│
+└── types/
+    ├── user.ts                 # { id, email, name, studentId, role, registeredEvents }
+    └── event.ts                # { id, title, date, location, capacity, registered, paid, price }
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Key Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Member Portal
+- Login and signup gated behind a pre-approved student ID list
+- Each student ID can only be linked to one account
+- Members can register for events, view their dashboard, and manage their profile
+- Admin role unlocks an event management panel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Page Transitions
+Primary CTA buttons trigger a circular navy overlay that expands from the click coordinates using CSS `clip-path: circle()`, then navigates. Implemented in `TransitionContext.tsx` via direct DOM manipulation to avoid React re-render timing issues.
+
+### Animations
+- **Scroll reveal** — `Reveal.tsx` uses `IntersectionObserver`; accepts a `delay` prop for stagger
+- **Tilt cards** — `ServicePillars.tsx` uses `mousemove` to apply 3D perspective tilt (±10°)
+- **Glass navbar** — activates `backdrop-filter: blur` after 24px of scroll
+- **Marquee** — sponsors scroll infinitely via CSS animation, pause on hover
+- **Hero** — headline words stagger in with `fadeSlideUp` keyframes
+- **Ripple** — all buttons spawn a DOM ripple span on click
+
+### Color Tokens (defined in `globals.css`)
+| Token | Value | Use |
+|---|---|---|
+| `--navy-900` | `#0D1B2A` | Hero background, overlays |
+| `--navy-700` | `#1B3A5C` | Navbar |
+| `--navy-500` | `#2E6096` | Accents |
+| `--navy-100` | `#E8EEF4` | Light section backgrounds |
+| `--gold` | `#C9A84C` | CTAs, highlights |
+| `--gold-light` | `#DEC06E` | Hover state for gold |
+
+---
+
+## Auth & Membership Gating
+
+The site currently uses a mock auth layer (`src/lib/mockAuth.ts`) backed by `localStorage`. The interface matches what Firebase Auth will expect, so swapping is a single file replacement.
+
+**Membership restriction:** `APPROVED_STUDENT_IDS` in `mockAuth.ts` is a hardcoded `Set` of permitted student IDs for development. On signup, the submitted student ID is checked against this set. Before going live, replace with a Firebase Firestore lookup against the authoritative member list.
+
+**Admin access:** The admin account is defined in `src/lib/mockData.ts` (`ADMIN_USER`). Log in with those credentials to access `/admin`.
+
+---
+
+## Firebase Migration (when ready)
+
+```bash
+npm install firebase
+```
+
+1. Create `src/lib/firebase.ts` implementing the same exports as `mockAuth.ts`: `signUp`, `signIn`, `signOut`, `getSession`, `registerForEvent`
+2. Update `AuthContext.tsx` to import from `firebase.ts` instead of `mockAuth.ts`
+3. Add `.env.local` with your Firebase project config keys
+4. Enable Email/Password (and optionally Google OAuth) in the Firebase console
+5. Move `APPROVED_STUDENT_IDS` to a Firestore collection so the exec team can manage it without a code deploy
+
+Firestore collections to create: `users/{uid}`, `events/{eventId}`, `registrations/{regId}`
+
+---
+
+## Deploying to Vercel
+
+Push to `main` on GitHub — Vercel auto-deploys on every push if the project is linked.
+
+Manual deploy:
+
+```bash
+npm run build   # verify clean build first
+vercel --prod
+```
