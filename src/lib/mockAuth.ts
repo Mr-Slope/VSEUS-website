@@ -1,8 +1,10 @@
 import { User } from '@/types/user';
-import { ADMIN_USER } from './mockData';
+import { Registration, QuestionAnswer } from '@/types/event';
+import { incrementRegisteredCount, decrementRegisteredCount } from './events';
 
 const USERS_KEY = 'vseus_users';
 const SESSION_KEY = 'vseus_session';
+const REGISTRATIONS_KEY = 'vseus_registrations';
 
 // Approved VSEUS member student IDs.
 // Replace with real IDs before going live — Firebase will hold the authoritative list.
@@ -13,6 +15,34 @@ export const APPROVED_STUDENT_IDS = new Set([
   '220112045',
   '216789034',
 ]);
+
+interface AdminCredential {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  studentId: string;
+  role: 'admin';
+}
+
+const ADMIN_USERS: AdminCredential[] = [
+  {
+    id: 'admin-001',
+    email: 'admin@vseus.ca',
+    password: 'admin123',
+    name: 'VSEUS Admin',
+    studentId: '000000000',
+    role: 'admin',
+  },
+  {
+    id: 'admin-002',
+    email: 'president@vseus.ca',
+    password: 'admin123',
+    name: 'Yash Dhaundiyal',
+    studentId: '000000001',
+    role: 'admin',
+  },
+];
 
 function getUsers(): (User & { password: string })[] {
   if (typeof window === 'undefined') return [];
@@ -35,6 +65,38 @@ export function getSession(): User | null {
   } catch {
     return null;
   }
+}
+
+export function getRegistrations(): Registration[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    return JSON.parse(localStorage.getItem(REGISTRATIONS_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+export function getRegistrationsByEvent(eventId: string): Registration[] {
+  return getRegistrations().filter((r) => r.eventId === eventId);
+}
+
+export function getRegistrationById(id: string): Registration | undefined {
+  return getRegistrations().find((r) => r.id === id);
+}
+
+export function markAttended(registrationId: string): void {
+  const regs = getRegistrations();
+  const updated = regs.map((r) =>
+    r.id === registrationId
+      ? { ...r, attended: true, attendedAt: new Date().toISOString() }
+      : r
+  );
+  localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(updated));
+}
+
+function saveRegistration(reg: Registration): void {
+  const regs = getRegistrations();
+  localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify([...regs, reg]));
 }
 
 export async function signUp(
@@ -81,13 +143,16 @@ export async function signUp(
 export async function signIn(email: string, password: string): Promise<User> {
   await new Promise((r) => setTimeout(r, 400));
 
-  if (email === ADMIN_USER.email && password === ADMIN_USER.password) {
+  const adminMatch = ADMIN_USERS.find(
+    (a) => a.email === email && a.password === password
+  );
+  if (adminMatch) {
     const adminUser: User = {
-      id: ADMIN_USER.id,
-      email: ADMIN_USER.email,
-      name: ADMIN_USER.name,
-      studentId: ADMIN_USER.studentId,
-      role: ADMIN_USER.role,
+      id: adminMatch.id,
+      email: adminMatch.email,
+      name: adminMatch.name,
+      studentId: adminMatch.studentId,
+      role: adminMatch.role,
       registeredEvents: [],
       createdAt: new Date().toISOString(),
     };
@@ -111,24 +176,94 @@ export function signOut() {
   localStorage.removeItem(SESSION_KEY);
 }
 
-export function registerForEvent(userId: string, eventId: string): User {
+export function unregisterFromEvent(userId: string, eventId: string): User {
+  // Remove registration record
+  const regs = getRegistrations().filter(
+    (r) => !(r.userId === userId && r.eventId === eventId)
+  );
+  localStorage.setItem(REGISTRATIONS_KEY, JSON.stringify(regs));
+
+  // Remove eventId from user's registeredEvents
   const users = getUsers();
   const idx = users.findIndex((u) => u.id === userId);
-
-  if (idx !== -1 && !users[idx].registeredEvents.includes(eventId)) {
-    users[idx].registeredEvents = [...users[idx].registeredEvents, eventId];
+  if (idx !== -1) {
+    users[idx].registeredEvents = users[idx].registeredEvents.filter((id) => id !== eventId);
     saveUsers(users);
     const { password: _pw, ...publicUser } = users[idx];
     localStorage.setItem(SESSION_KEY, JSON.stringify(publicUser));
+    decrementRegisteredCount(eventId);
     return publicUser;
   }
 
   const session = getSession();
   if (!session) throw new Error('Not authenticated');
-
-  if (!session.registeredEvents.includes(eventId)) {
-    session.registeredEvents = [...session.registeredEvents, eventId];
-    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-  }
+  session.registeredEvents = session.registeredEvents.filter((id) => id !== eventId);
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  decrementRegisteredCount(eventId);
   return session;
+}
+
+export function updateTicketEmail(userId: string, ticketEmail: string): User {
+  const users = getUsers();
+  const idx = users.findIndex((u) => u.id === userId);
+  if (idx !== -1) {
+    users[idx].ticketEmail = ticketEmail;
+    saveUsers(users);
+    const { password: _pw, ...publicUser } = users[idx];
+    localStorage.setItem(SESSION_KEY, JSON.stringify(publicUser));
+    return publicUser;
+  }
+  // Admin users aren't in the users store — update session only
+  const session = getSession();
+  if (!session) throw new Error('Not authenticated');
+  session.ticketEmail = ticketEmail;
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  return session;
+}
+
+export function registerForEvent(
+  userId: string,
+  eventId: string,
+  answers: QuestionAnswer[] = [],
+  ticketEmail?: string
+): User {
+  const users = getUsers();
+  const idx = users.findIndex((u) => u.id === userId);
+
+  let publicUser: User;
+
+  if (idx !== -1 && !users[idx].registeredEvents.includes(eventId)) {
+    users[idx].registeredEvents = [...users[idx].registeredEvents, eventId];
+    saveUsers(users);
+    const { password: _pw, ...pu } = users[idx];
+    publicUser = pu;
+    localStorage.setItem(SESSION_KEY, JSON.stringify(publicUser));
+  } else {
+    const session = getSession();
+    if (!session) throw new Error('Not authenticated');
+    if (!session.registeredEvents.includes(eventId)) {
+      session.registeredEvents = [...session.registeredEvents, eventId];
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    }
+    publicUser = session;
+  }
+
+  // Persist a full registration record
+  const reg: Registration = {
+    id: `reg-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    userId,
+    eventId,
+    userName: publicUser.name,
+    userEmail: publicUser.email,
+    userStudentId: publicUser.studentId,
+    ticketEmail: ticketEmail ?? publicUser.email,
+    registeredAt: new Date().toISOString(),
+    answers,
+    attended: false,
+    attendedAt: null,
+  };
+  saveRegistration(reg);
+  incrementRegisteredCount(eventId);
+
+  return publicUser;
 }
