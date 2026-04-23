@@ -12,7 +12,7 @@ const footerLinks = {
     { label: 'Events', href: '/events' },
     { label: 'Merchandise', href: '/services#merch' },
     { label: 'Awards & Grants', href: '/services#awards' },
-    { label: 'Learning Centers', href: '/services#learning' },
+    { label: 'Economics Learning Centre', href: '/elc' },
   ],
   Connect: [
     { label: 'Contact Us', href: '/contact' },
