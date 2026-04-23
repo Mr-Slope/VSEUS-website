@@ -134,6 +134,15 @@ src/
 > - **Apple Wallet**: Requires generating a signed `.pkpass` file server-side using Apple Developer certificates. Not possible client-side.
 > - **Google Wallet**: Requires a Google Cloud service account and JWT signing via the Google Wallet API. Not possible client-side.
 
+### Payment Processing
+Currently, paid events direct members to pay via e-transfer to events@vseus.ca or at the door — no payment processor is integrated yet.
+
+When ready to wire up online payments, **Stripe** is the recommended path:
+- Stripe charges **2.9% + 30¢ CAD** per transaction (same as Square for online payments)
+- **Bounce** (the event platform VSEUS has used previously) runs on Stripe under the hood — integrating Stripe directly simply cuts out the Bounce platform fee, with no change in the underlying processor
+- Setting up a Stripe account and linking it to a bank account is straightforward and can be done in under an hour through their dashboard (no approval wait times for most accounts)
+- On the code side, wiring Stripe requires a backend API route (`/api/checkout`) to create a Payment Intent server-side using the Stripe secret key, and a frontend `<StripeElement>` or redirect to a Stripe-hosted checkout page
+
 ### Economics Learning Centre — ELC (`/elc`)
 Dedicated page sourced from vseus.ca/elc. Covers: walk-in peer tutoring at IONA 038, Mon–Thu 11am–5pm, no booking required; course list (ECON 101/102/226/301/302/325/326); Canvas enrollment key `9KXL4W`. Linked from Services, the navbar Services dropdown, and the footer.
 
