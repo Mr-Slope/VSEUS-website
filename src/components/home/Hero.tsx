@@ -1,12 +1,30 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/hooks/useAuth';
 import { CTAButton } from '@/components/ui/CTAButton';
 
 export function Hero() {
   const { user } = useAuth();
+  const pathRef = useRef<SVGPathElement>(null);
+
+  useEffect(() => {
+    const path = pathRef.current;
+    if (!path) return;
+
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = `${length}`;
+    path.style.strokeDashoffset = `${length}`;
+
+    function onScroll() {
+      const progress = Math.min(window.scrollY / 280, 1);
+      path!.style.strokeDashoffset = `${length * (1 - progress)}`;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center bg-navy-900 overflow-hidden">
@@ -48,9 +66,30 @@ export function Hero() {
               the{' '}
               <span className="text-gold relative inline-block">
                 Curve
-                <span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-gradient-to-r from-gold/80 to-gold-light/50 rounded-full" />
+                <svg
+                  className="absolute left-0 w-full overflow-visible pointer-events-none"
+                  style={{ bottom: '-0.18em' }}
+                  height="0.22em"
+                  viewBox="0 0 100 20"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="rgba(201,168,76,0.85)" />
+                      <stop offset="100%" stopColor="rgba(222,192,110,0.5)" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    ref={pathRef}
+                    d="M 2 4 Q 50 18 98 4"
+                    stroke="url(#curveGrad)"
+                    strokeWidth="3.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
               </span>
-              .
             </span>
           </h1>
 
