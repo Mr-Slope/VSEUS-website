@@ -10,7 +10,7 @@ Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4. Designed fo
 
 | Layer | Choice |
 |---|---|
-| Framework | Next.js 16 (App) |
+| Framework | Next.js 16 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS v4 |
 | Auth (current) | Mock — `localStorage` + React Context |
