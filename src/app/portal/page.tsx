@@ -1,10 +1,9 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
+import { redirect } from 'next/navigation';
 import { DashboardStats } from '@/components/portal/DashboardStats';
-import { MOCK_EVENTS } from '@/lib/mockData';
+import { getSessionUser } from '@/lib/session';
+import { getMemberById, listEvents } from '@/db/queries';
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-CA', {
@@ -14,21 +13,20 @@ function formatDate(dateStr: string) {
   });
 }
 
-export default function PortalDashboard() {
-  const { user } = useAuth();
+export default async function PortalDashboard() {
+  const sessionUser = await getSessionUser();
+  if (!sessionUser) redirect('/auth/login');
 
-  const registeredEvents = MOCK_EVENTS.filter((e) =>
-    user?.registeredEvents.includes(e.id)
-  );
+  const [member, events] = await Promise.all([getMemberById(sessionUser.id), listEvents()]);
+  const registeredIds = new Set(member?.registeredEvents ?? []);
 
-  const upcomingEvents = MOCK_EVENTS.filter(
-    (e) => !user?.registeredEvents.includes(e.id)
-  ).slice(0, 3);
+  const registeredEvents = events.filter((e) => registeredIds.has(e.id));
+  const upcomingEvents = events.filter((e) => !registeredIds.has(e.id)).slice(0, 3);
 
   const stats = [
     {
       label: 'Events Registered',
-      value: user?.registeredEvents.length ?? 0,
+      value: registeredEvents.length,
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -37,7 +35,7 @@ export default function PortalDashboard() {
     },
     {
       label: 'Upcoming Events',
-      value: MOCK_EVENTS.length,
+      value: events.length,
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -46,8 +44,8 @@ export default function PortalDashboard() {
     },
     {
       label: 'Member Since',
-      value: user?.createdAt
-        ? new Date(user.createdAt).toLocaleDateString('en-CA', { month: 'short', year: 'numeric' })
+      value: member?.createdAt
+        ? new Date(member.createdAt).toLocaleDateString('en-CA', { month: 'short', year: 'numeric' })
         : 'N/A',
       icon: (
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -61,14 +59,13 @@ export default function PortalDashboard() {
     <div className="p-6 lg:p-8 max-w-4xl">
       <div className="mb-6">
         <h1 className="text-2xl font-black text-navy-900">
-          Welcome back, {user?.name.split(' ')[0]}
+          Welcome back, {sessionUser.name?.split(' ')[0]}
         </h1>
         <p className="text-gray-500 text-sm mt-1">Here&apos;s what&apos;s happening with VSEUS.</p>
       </div>
 
       <DashboardStats stats={stats} />
 
-      {/* Registered events */}
       {registeredEvents.length > 0 && (
         <section className="mt-8">
           <h2 className="text-base font-bold text-navy-900 mb-3">Your Registered Events</h2>
@@ -88,7 +85,6 @@ export default function PortalDashboard() {
         </section>
       )}
 
-      {/* Events to explore */}
       <section className="mt-8">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-base font-bold text-navy-900">Upcoming Events</h2>

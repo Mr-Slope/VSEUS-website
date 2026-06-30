@@ -11,7 +11,11 @@ import { useAuthContext } from '@/contexts/AuthContext';
 interface RegistrationModalProps {
   event: Event | null;
   onClose: () => void;
-  onConfirm: (eventId: string, answers: QuestionAnswer[], ticketEmail: string) => Registration | undefined;
+  onConfirm: (
+    eventId: string,
+    answers: QuestionAnswer[],
+    ticketEmail: string,
+  ) => Promise<Registration | undefined>;
 }
 
 function formatDate(dateStr: string) {
@@ -80,7 +84,7 @@ export function RegistrationModal({ event, onClose, onConfirm }: RegistrationMod
     setStep('ticket_email');
   }
 
-  function handleNextFromEmail() {
+  async function handleNextFromEmail() {
     if (changingEmail) {
       const val = newEmailInput.trim();
       if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
@@ -88,7 +92,7 @@ export function RegistrationModal({ event, onClose, onConfirm }: RegistrationMod
         return;
       }
       // Update profile and use new email
-      saveTicketEmail(val);
+      await saveTicketEmail(val);
       setTicketEmail(val);
     } else {
       setTicketEmail(profileTicketEmail);
@@ -99,18 +103,22 @@ export function RegistrationModal({ event, onClose, onConfirm }: RegistrationMod
   async function handleConfirm() {
     if (!event) return;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 500));
+    setValidationError('');
     const collectedAnswers: QuestionAnswer[] = event.questions.map((q) => ({
       questionId: q.id,
       question: q.text,
       answer: answers[q.id] ?? '',
     }));
-    const reg = onConfirm(event.id, collectedAnswers, ticketEmail);
-    if (reg) setRegistration(reg);
-    // Show email stub toast
-    setEmailToast(`A ticket has been sent to ${ticketEmail}`);
-    setStep('ticket');
-    setLoading(false);
+    try {
+      const reg = await onConfirm(event.id, collectedAnswers, ticketEmail);
+      if (reg) setRegistration(reg);
+      setEmailToast(`A ticket has been sent to ${ticketEmail}`);
+      setStep('ticket');
+    } catch (err) {
+      setValidationError(err instanceof Error ? err.message : 'Registration failed.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   function handleClose() {
@@ -274,6 +282,7 @@ export function RegistrationModal({ event, onClose, onConfirm }: RegistrationMod
           <p className="text-sm text-gray-600 mb-5">
             By registering, you confirm you plan to attend. Please cancel at least 24 hours in advance if your plans change.
           </p>
+          {validationError && <p className="text-xs text-red-600 mb-3">{validationError}</p>}
           <div className="flex gap-3">
             <Button variant="ghost" fullWidth onClick={() => setStep('ticket_email')}>Back</Button>
             <Button variant="primary" fullWidth loading={loading} onClick={handleConfirm}>Confirm Registration</Button>
