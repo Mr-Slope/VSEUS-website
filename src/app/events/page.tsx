@@ -1,9 +1,9 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { getAllEvents } from '@/lib/events';
-import { Event } from '@/types/event';
+import { listEvents } from '@/db/queries';
+
+// Reads live data from the DB on each request.
+export const dynamic = 'force-dynamic';
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-CA', {
@@ -14,12 +14,8 @@ function formatDate(dateStr: string) {
   });
 }
 
-export default function EventsPage() {
-  const [events, setEvents] = useState<Event[]>([]);
-
-  useEffect(() => {
-    setEvents(getAllEvents());
-  }, []);
+export default async function EventsPage() {
+  const events = await listEvents();
 
   return (
     <div className="min-h-screen">
