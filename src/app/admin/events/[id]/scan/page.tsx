@@ -3,9 +3,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { getRegistrationById, getRegistrationsByEvent, markAttended } from '@/lib/mockAuth';
-import { getEventById } from '@/lib/events';
-import { Registration, Event } from '@/types/event';
+import { getScanInfo, lookupRegistration, markAttended } from '@/app/actions/scan';
+import { Registration } from '@/types/event';
 
 type ScanState = 'scanning' | 'found' | 'not_found' | 'admitted' | 'denied' | 'already_attended';
 
@@ -18,13 +17,19 @@ export default function ScanPage() {
   const rafRef = useRef<number>(0);
   const streamRef = useRef<MediaStream | null>(null);
 
-  const [event, setEvent] = useState<Event | null>(null);
+  const [eventTitle, setEventTitle] = useState('Event');
+  const [attendedCount, setAttendedCount] = useState(0);
   const [scanState, setScanState] = useState<ScanState>('scanning');
   const [scannedReg, setScannedReg] = useState<Registration | null>(null);
   const [cameraError, setCameraError] = useState('');
 
   useEffect(() => {
-    setEvent(getEventById(eventId) ?? null);
+    getScanInfo(eventId).then((info) => {
+      if (info) {
+        setEventTitle(info.title);
+        setAttendedCount(info.attendedCount);
+      }
+    });
   }, [eventId]);
 
   const stopScan = useCallback(() => {
@@ -57,9 +62,9 @@ export default function ScanPage() {
 
       if (result?.data) {
         active = false;
-        const reg = getRegistrationById(result.data);
+        const reg = await lookupRegistration(result.data, eventId);
 
-        if (!reg || reg.eventId !== eventId) {
+        if (!reg) {
           setScanState('not_found');
           setScannedReg(null);
           return;
@@ -102,9 +107,10 @@ export default function ScanPage() {
     };
   }, [startScan, stopScan]);
 
-  function handleAdmit() {
+  async function handleAdmit() {
     if (!scannedReg) return;
-    markAttended(scannedReg.id);
+    await markAttended(scannedReg.id);
+    setAttendedCount((c) => c + 1);
     setScanState('admitted');
   }
 
@@ -117,9 +123,6 @@ export default function ScanPage() {
     setScanState('scanning');
     startScan();
   }
-
-  const eventRegs = getRegistrationsByEvent(eventId);
-  const attendedCount = eventRegs.filter((r) => r.attended).length;
 
   return (
     <div className="relative min-h-[calc(100vh-64px)] bg-black flex flex-col">
@@ -135,7 +138,7 @@ export default function ScanPage() {
           Back to Metrics
         </Link>
         <div className="text-right">
-          <p className="text-white text-xs font-semibold truncate max-w-[160px]">{event?.title ?? 'Event'}</p>
+          <p className="text-white text-xs font-semibold truncate max-w-[160px]">{eventTitle}</p>
           <p className="text-white/60 text-xs">{attendedCount} admitted</p>
         </div>
       </div>

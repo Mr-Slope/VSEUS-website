@@ -4,8 +4,8 @@ import React, { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
-import { saveAdminEvent } from '@/lib/events';
-import { Event, EventQuestion } from '@/types/event';
+import { createEvent } from '@/app/actions/events';
+import { EventQuestion } from '@/types/event';
 
 const CATEGORIES = ['Competition', 'Networking', 'Social', 'Workshop', 'Academic', 'Other'];
 
@@ -24,6 +24,7 @@ export default function NewEventPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [posterUrl, setPosterUrl] = useState<string | null>(null);
   const [posterName, setPosterName] = useState('');
   const [questions, setQuestions] = useState<EventQuestion[]>([]);
@@ -117,29 +118,29 @@ export default function NewEventPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 300));
+    setSubmitError('');
 
-    const event: Event = {
-      id: `admin-evt-${Date.now()}`,
-      title: form.title,
-      description: form.description,
-      date: form.date,
-      time: form.time,
-      location: form.location,
-      category: form.category,
-      capacity: parseInt(form.capacity, 10),
-      registeredCount: 0,
-      isPaid: form.isPaid,
-      price: form.isPaid && form.price ? parseFloat(form.price) : null,
-      imageUrl: null,
-      posterUrl: posterUrl,
-      createdAt: new Date().toISOString(),
-      questions: questions.filter((q) => q.text.trim()),
-    };
-
-    saveAdminEvent(event);
-    setSuccess(true);
-    setLoading(false);
+    try {
+      await createEvent({
+        title: form.title,
+        description: form.description,
+        date: form.date,
+        time: form.time,
+        location: form.location,
+        category: form.category,
+        capacity: parseInt(form.capacity, 10),
+        isPaid: form.isPaid,
+        price: form.isPaid && form.price ? Math.round(parseFloat(form.price)) : null,
+        imageUrl: null,
+        posterUrl,
+        questions: questions.filter((q) => q.text.trim()),
+      });
+      setSuccess(true);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Could not create event.');
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (success) {
@@ -460,6 +461,11 @@ export default function NewEventPage() {
         </div>
 
         {/* Submit */}
+        {submitError && (
+          <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg px-4 py-3">
+            {submitError}
+          </div>
+        )}
         <div className="flex gap-3">
           <Button type="button" variant="ghost" onClick={() => router.push('/admin/events')}>
             Cancel

@@ -1,27 +1,11 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { getAllEvents, deleteAdminEvent } from '@/lib/events';
-import { MOCK_EVENTS } from '@/lib/mockData';
-import { Event } from '@/types/event';
+import { listEvents } from '@/db/queries';
 import { Badge } from '@/components/ui/Badge';
+import { DeleteEventButton } from '@/components/admin/DeleteEventButton';
 
-const SEED_IDS = new Set(MOCK_EVENTS.map((e) => e.id));
-
-export default function AdminEventsPage() {
-  const [events, setEvents] = useState<Event[]>([]);
-
-  useEffect(() => {
-    setEvents(getAllEvents());
-  }, []);
-
-  function handleDelete(id: string) {
-    if (confirm('Delete this event? This cannot be undone.')) {
-      deleteAdminEvent(id);
-      setEvents(getAllEvents());
-    }
-  }
+export default async function AdminEventsPage() {
+  const events = await listEvents();
 
   return (
     <div className="p-6 lg:p-8">
@@ -88,18 +72,7 @@ export default function AdminEventsPage() {
                       >
                         Metrics
                       </Link>
-                      {SEED_IDS.has(e.id) ? (
-                        <span className="text-xs text-gray-300 font-medium px-2 py-1 cursor-not-allowed" title="Seed events cannot be deleted">
-                          Delete
-                        </span>
-                      ) : (
-                        <button
-                          onClick={() => handleDelete(e.id)}
-                          className="text-xs text-red-500 hover:text-red-700 font-medium px-2 py-1 rounded hover:bg-red-50 transition-colors"
-                        >
-                          Delete
-                        </button>
-                      )}
+                      <DeleteEventButton eventId={e.id} />
                     </div>
                   </td>
                 </tr>
