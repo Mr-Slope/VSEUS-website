@@ -1,30 +1,12 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { getEventById } from '@/lib/events';
-import { getRegistrationsByEvent } from '@/lib/mockAuth';
-import { Event, Registration } from '@/types/event';
+import { getEvent, getEventRegistrations } from '@/db/queries';
 
-export default function EventMetricsPage() {
-  const params = useParams();
-  const id = params?.id as string;
+export default async function EventMetricsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const event = await getEvent(id);
 
-  const [event, setEvent] = useState<Event | null | undefined>(undefined);
-  const [registrations, setRegistrations] = useState<Registration[]>([]);
-
-  useEffect(() => {
-    const e = getEventById(id);
-    setEvent(e ?? null);
-    setRegistrations(getRegistrationsByEvent(id));
-  }, [id]);
-
-  if (event === undefined) {
-    return <div className="p-8 text-sm text-gray-400">Loading...</div>;
-  }
-
-  if (event === null) {
+  if (!event) {
     return (
       <div className="p-8">
         <p className="text-sm text-gray-500 mb-3">Event not found.</p>
@@ -35,16 +17,12 @@ export default function EventMetricsPage() {
     );
   }
 
-  const fillRate = Math.round((event.registeredCount / event.capacity) * 100);
-
-  const revenue = event.isPaid && event.price
-    ? event.price * registrations.length
-    : null;
-
+  const registrations = await getEventRegistrations(id);
+  const fillRate = event.capacity > 0 ? Math.round((event.registeredCount / event.capacity) * 100) : 0;
+  const revenue = event.isPaid && event.price ? event.price * registrations.length : null;
   const attendedCount = registrations.filter((r) => r.attended).length;
-  const attendanceRate = registrations.length > 0
-    ? Math.round((attendedCount / registrations.length) * 100)
-    : 0;
+  const attendanceRate =
+    registrations.length > 0 ? Math.round((attendedCount / registrations.length) * 100) : 0;
 
   return (
     <div className="p-6 lg:p-8 max-w-5xl">

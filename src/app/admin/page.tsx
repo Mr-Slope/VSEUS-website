@@ -1,17 +1,9 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { getAllEvents } from '@/lib/events';
-import { Event } from '@/types/event';
+import { listEvents } from '@/db/queries';
 
-export default function AdminDashboard() {
-  const [events, setEvents] = useState<Event[]>([]);
-
-  useEffect(() => {
-    setEvents(getAllEvents());
-  }, []);
-
+export default async function AdminDashboard() {
+  const events = await listEvents();
   const totalRegistrations = events.reduce((sum, e) => sum + e.registeredCount, 0);
 
   return (
@@ -45,7 +37,7 @@ export default function AdminDashboard() {
         </div>
         <div className="divide-y divide-navy-100">
           {events.map((e) => {
-            const pct = Math.round((e.registeredCount / e.capacity) * 100);
+            const pct = e.capacity > 0 ? Math.round((e.registeredCount / e.capacity) * 100) : 0;
             return (
               <div key={e.id} className="px-5 py-3 flex items-center gap-4">
                 <div className="flex-1 min-w-0">
@@ -66,6 +58,9 @@ export default function AdminDashboard() {
               </div>
             );
           })}
+          {events.length === 0 && (
+            <p className="px-5 py-8 text-center text-sm text-gray-400">No events yet.</p>
+          )}
         </div>
       </div>
 
