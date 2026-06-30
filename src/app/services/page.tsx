@@ -98,7 +98,7 @@ export default function ServicesPage() {
       <section className="py-12 bg-navy-700 text-center">
         <h2 className="text-2xl font-black text-white mb-3">Not sure where to start?</h2>
         <p className="text-white/70 mb-6 text-sm">Become a member to unlock all services and features.</p>
-        <Link href="/auth/signup" className="inline-flex items-center bg-gold text-navy-900 font-semibold px-6 py-3 rounded-lg hover:bg-gold-light transition-colors text-sm">
+        <Link href="/contact" className="inline-flex items-center bg-gold text-navy-900 font-semibold px-6 py-3 rounded-lg hover:bg-gold-light transition-colors text-sm">
           Join VSEUS
         </Link>
       </section>

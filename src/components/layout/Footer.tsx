@@ -18,7 +18,7 @@ const footerLinks = {
     { label: 'Contact Us', href: '/contact' },
     { label: 'Newsletter', href: '/contact#newsletter' },
     { label: 'Member Portal', href: '/portal' },
-    { label: 'Join VSEUS', href: '/auth/signup' },
+    { label: 'Join VSEUS', href: '/contact' },
   ],
 };
 
