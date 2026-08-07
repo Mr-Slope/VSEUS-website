@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import { Reveal } from '@/components/ui/Reveal';
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
 const pillars = [
   {
@@ -13,6 +14,7 @@ const pillars = [
     number: '01',
     title: 'Academic Success',
     description: 'Study groups, tutoring resources, course guides, and research opportunities to help you excel in your economics degree.',
+    image: 'public/pillars/academic.jpg',
   },
   {
     icon: (
@@ -23,6 +25,7 @@ const pillars = [
     number: '02',
     title: 'Community Connections',
     description: 'Build lasting relationships through social events, society initiatives, and a welcoming community of students who share your passion for economics.',
+    image: 'public/pillars/community.jpg',
   },
   {
     icon: (
@@ -33,6 +36,7 @@ const pillars = [
     number: '03',
     title: 'Career Preparedness',
     description: 'Networking events with industry professionals, resume workshops, interview prep, and exclusive job postings for economics students.',
+    image: 'public/pillars/career.jpg',
   },
   {
     icon: (
@@ -43,6 +47,7 @@ const pillars = [
     number: '04',
     title: 'Student Advocacy',
     description: 'Representing economics students on university committees, advocating for program improvements, and amplifying student voices.',
+    image: 'public/pillars/advocacy.jpg',
   },
 ];
 
@@ -55,7 +60,7 @@ function TiltCard({ children }: { children: React.ReactNode }) {
     const rect = card.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    card.style.transform = `perspective(900px) rotateX(${y * -10}deg) rotateY(${x * 10}deg) translateZ(6px)`;
+    card.style.transform = `perspective(900px) rotateX(${y * -6}deg) rotateY(${x * 6}deg) translateZ(4px)`;
   }
 
   function onMouseLeave() {
@@ -76,36 +81,46 @@ function TiltCard({ children }: { children: React.ReactNode }) {
 
 export function ServicePillars() {
   return (
-    <section className="bg-white py-20 lg:py-28">
+    <section className="bg-ice py-20 lg:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <Reveal className="text-center mb-14">
-          <p className="text-xs font-semibold text-gold uppercase tracking-widest mb-3">What We Do</p>
-          <h2 className="text-4xl font-black text-navy-900 mb-3">Four Pillars.</h2>
-          <p className="text-gray-400 max-w-md mx-auto text-sm">
+          <p className="font-display text-xs font-semibold text-midnight-700 uppercase tracking-widest mb-3">What We Do</p>
+          <h2 className="text-4xl font-black text-midnight mb-3">Four Pillars.</h2>
+          <p className="text-muted max-w-md mx-auto text-sm">
             Every commitment we make to economics students at UBC flows from these four principles.
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* Two by two: each card is wide enough for text beside its image */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {pillars.map((p, i) => (
             <Reveal key={p.title} delay={i * 90}>
               <TiltCard>
-                <div className="group bg-white border border-navy-100 rounded-2xl p-6 h-full flex flex-col gap-4 hover:border-navy-300 hover:shadow-xl hover:shadow-navy-100/60 transition-all duration-300 cursor-default">
+                <div className="group bg-offwhite border border-ice-400 rounded-2xl p-7 h-full flex flex-col gap-5 hover:border-accent hover:shadow-xl hover:shadow-midnight/10 transition-all duration-300 cursor-default">
                   <div className="flex items-start justify-between">
-                    <div className="w-12 h-12 rounded-xl bg-navy-100 text-navy-700 flex items-center justify-center group-hover:bg-navy-700 group-hover:text-white transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-ice text-midnight-700 flex items-center justify-center group-hover:bg-midnight-700 group-hover:text-offwhite transition-all duration-300">
                       {p.icon}
                     </div>
-                    <span className="text-2xl font-black text-navy-100 group-hover:text-navy-200 transition-colors">
+                    <span className="font-display text-3xl font-black text-ice-400 group-hover:text-accent transition-colors">
                       {p.number}
                     </span>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-navy-900 mb-1.5 text-base">{p.title}</h3>
-                    <p className="text-sm text-gray-400 leading-relaxed">{p.description}</p>
+
+                  <div className="flex flex-col sm:flex-row gap-6 items-start">
+                    <div className="flex-1">
+                      <h3 className="font-bold text-midnight mb-2 text-xl">{p.title}</h3>
+                      <p className="text-sm text-muted leading-relaxed">{p.description}</p>
+                    </div>
+                    {/* TODO: replace with <Image src={`/${p.image}`} … /> once supplied */}
+                    <ImagePlaceholder
+                      label="Photo"
+                      className="w-full sm:w-56 h-48 sm:h-56 rounded-xl flex-shrink-0"
+                    />
                   </div>
-                  {/* Gold bottom accent on hover */}
-                  <div className="mt-auto h-[2px] w-0 group-hover:w-full bg-gold rounded-full transition-all duration-500" />
+
+                  {/* Accent rule sweeps in on hover */}
+                  <div className="mt-auto h-[3px] w-0 group-hover:w-full bg-accent rounded-full transition-all duration-500" />
                 </div>
               </TiltCard>
             </Reveal>

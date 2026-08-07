@@ -1,13 +1,16 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { yearsRunning } from '@/lib/society';
 
-const stats = [
-  { value: 500, suffix: '+', label: 'Active Members' },
-  { value: 10, suffix: '+', label: 'Annual Events' },
-  { value: 11, suffix: '', label: 'Years Running' },
-  { value: 20, suffix: '+', label: 'Partner Organizations' },
-];
+/** `years` is computed per render rather than hardcoded — see src/lib/society.ts. */
+function buildStats(years: number) {
+  return [
+    { value: 1000, suffix: '+', label: 'Students Represented' },
+    { value: 10, suffix: '+', label: 'Annual Events' },
+    { value: years, suffix: '', label: 'Years Running' },
+  ];
+}
 
 function useCountUp(target: number, duration = 1600) {
   const [count, setCount] = useState(0);
@@ -43,21 +46,27 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
   const { count, ref } = useCountUp(value);
 
   return (
-    <div ref={ref} className="text-center px-6 py-8 group">
-      <p className="text-5xl font-black stats-number mb-1">
+    <div ref={ref} className="text-center px-6 py-14 lg:py-20 group">
+      <p className="font-display text-6xl sm:text-7xl lg:text-8xl font-black stats-number mb-2 leading-none">
         {count}
         {suffix}
       </p>
-      <p className="text-xs text-white/40 font-semibold uppercase tracking-widest mt-1">{label}</p>
+      <p className="font-display text-sm lg:text-base text-offwhite/55 font-semibold uppercase tracking-[0.18em] mt-3">
+        {label}
+      </p>
     </div>
   );
 }
 
 export function StatsBar() {
+  // Only `count` ever reaches the DOM and it starts at 0 on both sides, so
+  // deriving this from the clock can't cause a hydration mismatch.
+  const stats = buildStats(yearsRunning());
+
   return (
-    <section className="bg-navy-900 border-y border-white/[0.06]">
+    <section className="bg-midnight border-y border-offwhite/[0.06]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/[0.06]">
+        <div className="grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-offwhite/[0.08]">
           {stats.map((s) => (
             <StatItem key={s.label} {...s} />
           ))}

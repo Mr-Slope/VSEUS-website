@@ -2,7 +2,9 @@
 
 Official website for the **Vancouver School of Economics Undergraduate Society** at the University of British Columbia.
 
-Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4. Designed for easy future edits and a clean migration path to Firebase when the society is ready.
+A fully static marketing site: no database, no environment variables, no server-side
+secrets. Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4, and
+deployable to Vercel as-is.
 
 ---
 
@@ -13,9 +15,14 @@ Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4. Designed fo
 | Framework | Next.js 16 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS v4 |
-| Auth (current) | Mock — `localStorage` + React Context |
-| Auth (future) | Firebase Auth (Email/Password + Google OAuth) |
-| Hosting | Vercel (planned) |
+| Fonts | Barlow (headings) + Montserrat (body), via `next/font/google` |
+| Data | Static TypeScript modules in `src/lib/` |
+| Blog | Markdown files in `content/blog/`, rendered at build time |
+| Hosting | Vercel |
+
+> **Note:** this is a modified Next.js build. Read the relevant guide in
+> `node_modules/next/dist/docs/` before writing code — APIs and conventions differ
+> from stock Next.js (`middleware` → `proxy.ts`, async `cookies()`/`params`).
 
 ---
 
@@ -26,9 +33,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-Other commands:
+Open [http://localhost:3000](http://localhost:3000). No `.env` file is needed.
 
 ```bash
 npm run build   # production build + type check
@@ -43,200 +48,253 @@ npm run lint    # ESLint
 ```
 src/
 ├── app/
-│   ├── layout.tsx              # Root layout: Navbar, Footer, AuthProvider, TransitionProvider
-│   ├── page.tsx                # Home page
-│   ├── about/page.tsx          # Mission, exec orbital diagram, reports, partners
-│   ├── services/page.tsx       # Services overview (merch, awards, ELC, initiatives)
-│   ├── elc/page.tsx            # Economics Learning Centre dedicated page
-│   ├── events/page.tsx         # Public read-only events list (shows spots, no registration)
-│   ├── contact/page.tsx
-│   ├── auth/
-│   │   ├── login/page.tsx      # Member + admin login (admin link hidden in footer)
-│   │   └── signup/page.tsx     # Restricted to approved VSEUS member IDs
-│   ├── portal/
-│   │   ├── layout.tsx          # Auth guard — redirects to /auth/login if not signed in
-│   │   ├── page.tsx            # Member dashboard
-│   │   ├── events/page.tsx     # Events list + registration modal
-│   │   ├── tickets/page.tsx    # My Tickets — QR ticket for every registration
-│   │   └── profile/page.tsx    # Profile info + ticket delivery email preference
-│   └── admin/
-│       ├── layout.tsx          # Role guard — admin only
-│       ├── page.tsx            # Admin dashboard (stats + events overview)
-│       └── events/
-│           ├── page.tsx        # Manage all events (table, delete, metrics link)
-│           ├── new/page.tsx    # Create event form (poster, questions, capacity)
-│           └── [id]/
-│               ├── page.tsx    # Per-event metrics (fill rate, revenue, attendance, registrant table)
-│               └── scan/page.tsx  # Camera QR scanner — Admit / Deny flow
+│   ├── layout.tsx              # Root layout: fonts, Navbar, Footer, TransitionProvider
+│   ├── globals.css             # Brand tokens, typography, animations
+│   ├── page.tsx                # Home
+│   ├── about/page.tsx          # Mission, exec orbital diagram, reports
+│   ├── resources/page.tsx      # Gazette, Awards & Grants, ELC, Clubs
+│   ├── clubs/page.tsx          # Endorsed clubs
+│   ├── elc/page.tsx            # Economics Learning Centre
+│   ├── events/page.tsx         # Upcoming events
+│   ├── blog/
+│   │   ├── page.tsx            # Post index (reads posts, hands off to BlogList)
+│   │   └── [slug]/page.tsx     # Individual post, prerendered per file
+│   └── contact/page.tsx        # Form, executive email directory, socials
 │
 ├── components/
 │   ├── layout/
-│   │   ├── Navbar.tsx          # Sticky glass navbar, scroll-activated blur, dropdown menus
-│   │   └── Footer.tsx          # Links, socials, build attribution, discreet admin link
+│   │   ├── Navbar.tsx          # Sticky glass navbar, centred nav, hover dropdowns
+│   │   └── Footer.tsx
+│   ├── blog/
+│   │   └── BlogList.tsx        # Post grid + tag filtering (client)
 │   ├── home/
-│   │   ├── Hero.tsx            # Full-screen hero, staggered headline, scroll-driven SVG curve
-│   │   ├── ServicePillars.tsx  # 3D tilt cards with scroll reveal
-│   │   ├── StatsBar.tsx        # Animated member/event stats
-│   │   ├── SponsorsRow.tsx     # CSS marquee infinite scroll
-│   │   └── CalendarSection.tsx # Google Calendar embed placeholder
-│   ├── portal/
-│   │   ├── EventCard.tsx       # Event tile with register/registered/full states
-│   │   ├── RegistrationModal.tsx  # Multi-step: questions → ticket email → confirm → ticket
-│   │   ├── Ticket.tsx          # Digital ticket card with QR code + unregister flow
-│   │   └── DashboardStats.tsx
+│   │   ├── Hero.tsx            # Full-screen hero, scroll-driven SVG curve
+│   │   ├── StatsBar.tsx        # Count-up stats
+│   │   ├── ServicePillars.tsx  # 2×2 tilt cards with scroll reveal
+│   │   ├── MerchStrip.tsx      # Merch promo + shop link
+│   │   ├── CalendarSection.tsx # Calendar block (fetches the feed at build)
+│   │   └── CalendarEmbed.tsx   # The iframe, starting at the next event
 │   └── ui/
-│       ├── Button.tsx          # General button with ripple effect
+│       ├── Button.tsx          # General button with ripple
 │       ├── CTAButton.tsx       # Primary CTA — triggers circular page transition
 │       ├── Input.tsx
-│       ├── Badge.tsx           # "Registered", "Full", "Paid", "Admin" tags
-│       ├── Modal.tsx
-│       └── Reveal.tsx          # Scroll reveal wrapper (IntersectionObserver)
+│       ├── Reveal.tsx          # Scroll reveal wrapper (IntersectionObserver)
+│       ├── ImagePlaceholder.tsx# Stand-in for artwork not yet supplied
+│       ├── SocialIcons.tsx     # Shared social links (Footer + Contact)
+│       └── TransitionLink.tsx  # Link that plays the colour wipe (CTAs only)
 │
 ├── contexts/
-│   ├── AuthContext.tsx         # Auth state + registerEvent, unregisterEvent, saveTicketEmail
 │   └── TransitionContext.tsx   # Circular clip-path page transition engine
 │
-├── hooks/
-│   └── useAuth.ts
-│
 ├── lib/
-│   ├── events.ts               # getAllEvents, getEventById, saveAdminEvent, deleteAdminEvent, increment/decrementRegisteredCount
-│   ├── mockAuth.ts             # localStorage auth — signUp, signIn, registerForEvent, markAttended, updateTicketEmail, etc.
-│   └── mockData.ts             # MOCK_EVENTS seed data (5 events, all with non-nullable capacity)
+│   ├── events.ts               # UPCOMING_EVENTS — the public events list
+│   ├── execs.ts                # Executive roster (About + Contact)
+│   ├── calendar.ts             # Google Calendar config + build-time ICS read
+│   ├── society.ts              # Founding year, years-running, address
+│   ├── blog.ts                 # Build-time markdown loader (Node only)
+│   └── post.ts                 # Post types + date formatting (browser safe)
 │
 └── types/
-    ├── user.ts                 # { id, email, name, studentId, role, registeredEvents, ticketEmail? }
-    └── event.ts                # Event (capacity: number), Registration (ticketEmail, attended, attendedAt), EventQuestion, QuestionAnswer
+    └── event.ts
 ```
 
 ---
 
-## Key Features
+## Editing Content
 
-### Member Portal
-- Login and signup gated behind a pre-approved student ID list (`APPROVED_STUDENT_IDS` in `mockAuth.ts`)
-- Each student ID can only be linked to one account
-- **Events** (`/portal/events`) — register for events; spots left updates live after registration; members can unregister from the My Tickets page
-- **My Tickets** (`/portal/tickets`) — QR code ticket for every registration, with an inline unregister confirmation flow
-- **My Profile** (`/portal/profile`) — view account info; set a dedicated ticket delivery email (used as the default during registration, editable per-purchase)
-- Admin role unlocks `/admin` for event management and metrics
+Everything editable lives in a handful of files. No CMS, no admin login.
 
-### Admin System (`/admin`)
-- Multiple admin accounts supported via `ADMIN_USERS` array in `mockAuth.ts`
-- Admins create events with: title, description, date/time, location, category, capacity, paid/free pricing
-- **Poster upload** — image selected via file picker, stored as base64 in localStorage (`vseus_events`); displayed on event cards across the public and member views
-- **Registration questions** — admins configure per-event questions (text answer, multiple choice, yes/no) with required/optional toggle and drag-reorder; shown to members as a mandatory step before confirming registration
-- **Per-event metrics** (`/admin/events/[id]`) — header with poster thumbnail, stat cards (registrations/fill rate/revenue/attendance), and a full registrant table with question answers and attended status
-- **QR ticket scanning** (`/admin/events/[id]/scan`) — camera-based QR code reader; admin scans a member's ticket and chooses to Admit or Deny; admitted members are marked `attended: true` with a timestamp stored in `vseus_registrations`
-- Admin-created events persist to `vseus_events` in localStorage; seed events (MOCK_EVENTS) are read-only and cannot be deleted
-- `getAllEvents()` in `src/lib/events.ts` merges seed + admin events and is the single source of truth used by all pages
+| To change | Edit |
+|---|---|
+| Blog posts | Drop a `.md` file in `content/blog/` — see [`content/README.md`](./content/README.md) |
+| Upcoming events | `src/lib/events.ts` — add/remove entries in `UPCOMING_EVENTS` |
+| Executive team and their emails | `src/lib/execs.ts` — used by both About and Contact |
+| Reports list | `reports` array in `src/app/about/page.tsx` |
+| Endorsed clubs | `clubs` array in `src/app/clubs/page.tsx` |
+| Resource cards | `resources` array in `src/app/resources/page.tsx` |
+| Merch products and shop link | `products` / `SHOP_URL` in `src/components/home/MerchStrip.tsx` |
+| Social links | `socials` in `src/components/ui/SocialIcons.tsx` |
+| Calendar ID / subscribe link | `src/lib/calendar.ts` |
+| Address, founding year | `src/lib/society.ts` |
+| Who the contact form goes to | `CONTACT_FORM_TO` / `CONTACT_FORM_CC` in `src/lib/execs.ts` |
+| ELC hours, courses, Canvas key | `src/app/elc/page.tsx` |
 
-### Ticketing System
-- After registering, members are prompted for a ticket delivery email (pre-filled with their account email, editable)
-- A digital ticket is generated on-screen with a QR code encoding the registration ID
-- Tickets are accessible any time from **My Tickets** (`/portal/tickets`) in the member portal
+### Blog
 
-> **Not implemented — requires external accounts/credentials:**
-> - **Email delivery**: The UI shows "A ticket has been sent to [email]" but no email is actually sent. Wiring this requires an email delivery service (Resend or SendGrid) and a backend API route (`/api/send-ticket`).
-> - **Apple Wallet**: Not implemented. Apple Wallet passes (`.pkpass` files) must be signed server-side with a certificate tied to a **Pass Type ID**, which is only available through the paid Apple Developer Program ($99 USD/year). The free Apple Developer account does not grant access to Pass Type IDs or their signing certificates. Before implementing, confirm whether UBC holds an institutional Apple Developer account that VSEUS can use — if so, the integration can be done via the `passkit-generator` npm package with a Next.js API route.
-> - **Google Wallet**: Not implemented. Google Wallet passes require a Google Cloud service account, JWT signing via the Google Wallet API, and an explicit approval process by Google before the "Save to Google Wallet" button works for real users. This review process can take days to weeks and requires submitting sample passes for inspection.
+Posts are markdown files in `content/blog/`. The filename becomes the URL slug, and
+frontmatter supplies the title, date, author, excerpt, and tags. A file only publishes if
+it has a `title` and its name doesn't start with `_`, so drafts and stray notes can sit in
+the folder without becoming pages — and can't be reached by guessing the URL either.
 
-### Payment Processing
-Currently, paid events direct members to pay via e-transfer to events@vseus.ca or at the door — no payment processor is integrated yet.
+Reading time is estimated from word count; nothing needs to be set by hand. Post images go
+in `public/blog/`. Full authoring guide: [`content/README.md`](./content/README.md).
 
-When ready to wire up online payments, **Stripe** is the recommended path:
-- Stripe charges **2.9% + 30¢ CAD** per transaction (same as Square for online payments)
-- **Bounce** (the event platform VSEUS has used previously) runs on Stripe under the hood — integrating Stripe directly simply cuts out the Bounce platform fee, with no change in the underlying processor
-- Setting up a Stripe account and linking it to a bank account is straightforward and can be done in under an hour through their dashboard (no approval wait times for most accounts)
-- On the code side, wiring Stripe requires a backend API route (`/api/checkout`) to create a Payment Intent server-side using the Stripe secret key, and a frontend `<StripeElement>` or redirect to a Stripe-hosted checkout page
+Markdown is rendered to HTML at build time by `remark`, and styled by the hand-rolled
+`.prose` rules in `globals.css` — no `@tailwindcss/typography`, so the type scale and
+colours come straight from the brand tokens.
 
-### Economics Learning Centre — ELC (`/elc`)
-Dedicated page sourced from vseus.ca/elc. Covers: walk-in peer tutoring at IONA 038, Mon–Thu 11am–5pm, no booking required; course list (ECON 101/102/226/301/302/325/326); Canvas enrollment key `9KXL4W`. Linked from Services, the navbar Services dropdown, and the footer.
+Tags double as the index filter: `/blog` shows a pill per tag with a post count,
+defaulting to **All**. Filtering is client-side state, not a URL parameter, so a
+filtered view isn't shareable — every post is already in the page, so there's nothing
+to fetch. Worth moving into the URL if the archive grows. Reuse an existing tag rather
+than coining a near-duplicate; they're case-sensitive, so `Policy` and `policy` become
+two separate pills.
 
-### Page Transitions
-Primary CTA buttons trigger a circular navy overlay that expands from the click coordinates using CSS `clip-path: circle()`, then navigates. Implemented in `TransitionContext.tsx` via direct DOM manipulation to avoid React re-render timing issues.
+`src/lib/blog.ts` imports `fs` and `remark`, so it can only be used from server
+components. Anything the client needs — the `PostMeta` type, `formatPostDate` — lives in
+`src/lib/post.ts` instead. Importing `blog.ts` from a client component drags Node
+built-ins into the browser bundle and the build fails.
+
+### The Economics Calendar
+
+The home page embeds the public Google Calendar shared across the economics
+clubs. Calendar ID, timezone, and the subscribe link live in `src/lib/calendar.ts`.
+
+The embed is an agenda list starting at the next upcoming event rather than at
+today, so the frame is never empty. Agenda rather than a week grid because
+Google's embed has no parameter for the starting hour or scroll position, so a
+grid would open on empty morning hours — `EMBED_MODE` in `src/lib/calendar.ts`
+switches it back to `WEEK` if wanted. Google's ICS feed sends no CORS headers, so
+the browser can't read it — the feed is fetched and parsed at **build time** and
+the upcoming dates are baked into the page; the browser then picks the first one
+still in the future. Adding events to the Google Calendar shows up in the embed
+immediately (the iframe loads live from Google), but the *targeting* only
+catches up on the next deploy. If the feed can't be read at build time the build
+still succeeds and the embed falls back to starting from today.
+
+The calendar must stay **public** for the embed to work for visitors.
+
+### Events
+
+An event needs a title, description, date (`YYYY-MM-DD`), time, location, category,
+and whether it's paid. Add `registrationUrl` — a Google Form, Eventbrite page, or
+ticket store — to put a **Register** button on the card. Leave it off and the card is
+information only. Delete past events rather than leaving them in place; if the list is
+empty the page shows an empty state.
+
+### The contact form
+
+There is no backend, so the form doesn't post anywhere. Submitting composes the message
+in the visitor's own email app, addressed to VP Marketing with the President and VP
+Administration copied — those come from `CONTACT_FORM_TO` / `CONTACT_FORM_CC` in
+`src/lib/execs.ts`, derived from the roster so they can't point at a dead inbox.
+
+It works with no account and no secrets, but it does depend on the visitor having a mail
+client configured, which is why the confirmation also prints the address to write to. To
+send server-side instead, replace `handleSubmit` in `src/app/contact/page.tsx` with a
+POST to Formspree or Web3Forms (free tier, keeps the site static) or a Resend route
+(needs an API key and a verified domain, and turns that route into a function).
+
+### Outstanding placeholders
+
+Search the codebase for `TODO` to find them all. The main ones:
+
+| Placeholder | Where |
+|---|---|
+| Logo | `public/logo.svg` → Navbar |
+| Hero image | `public/hero.jpg` → Hero |
+| Pillar photos | `public/pillars/{academic,community,career,advocacy}.jpg` |
+| Exec photos | `public/exec/<name>.jpg` |
+| Merch photos | `public/merch/*.jpg` |
+| Real email addresses | `src/lib/execs.ts` — currently `role@vseus.ca` |
+| Merch shop URL | `src/components/home/MerchStrip.tsx` |
+| Club names and details | `src/app/clubs/page.tsx` |
+| Blog post cover images | `public/blog/` → the index cards currently show placeholders |
+| Economics Gazette copy | `src/app/resources/page.tsx` |
+
+Each image placeholder is a single `<ImagePlaceholder />` call, so swapping in a real
+image is a one-line change per site.
+
+---
+
+## Design System
+
+### Colour tokens (defined in `src/app/globals.css`)
+
+| Token | Value | Role |
+|---|---|---|
+| `midnight` | `#032B4A` | Brand. Dark sections, body text on light |
+| `midnight-900/800/700` | derived | Footer, elevated cards, mid bands |
+| `blue` | `#3AAADF` | Brand. Fills, icons, accents |
+| `blue-600` / `blue-300` | derived | Hover; muted text on dark |
+| `ice` | `#C1CDDA` | Brand. The page background |
+| `ice-400` / `ice-200` | derived | Borders; intermediate fill |
+| `offwhite` | `#F7F6F5` | Brand. Card and panel surfaces |
+| `accent` | `#EDB187` | Brand. Highlights |
+| `accent-600` / `accent-200` | derived | Hover; tint |
+| `muted` | `#4A6275` | Body text on light surfaces |
+
+**Two contrast rules constrain how these may be used.** Both are documented inline in
+`globals.css`; breaking them produces text nobody can read.
+
+1. **Accent orange is never text on a light surface.** It is 1.3:1 on icy blue and
+   1.6:1 on off-white. On light surfaces it appears as a *fill* (a midnight label on an
+   orange button is ~8:1), a rule, or an icon chip. As text it belongs on midnight,
+   where it reaches ~7:1.
+2. **Primary blue is not body-text safe on light.** It is 2.3:1 on off-white. Use it as
+   a fill or icon there; as text it belongs on midnight (~5.6:1).
+
+### Typography
+
+Barlow carries headings and display type (`font-display`, and every `h1`–`h6` by
+default). Montserrat carries body copy as the default `font-sans`. Both load through
+`next/font/google` in the root layout.
 
 ### Animations
-- **Scroll reveal** — `Reveal.tsx` uses `IntersectionObserver`; accepts a `delay` prop for stagger
-- **Tilt cards** — `ServicePillars.tsx` uses `mousemove` to apply 3D perspective tilt (±10°)
-- **Glass navbar** — activates `backdrop-filter: blur` after 24px of scroll
-- **Marquee** — sponsors scroll infinitely via CSS animation, pause on hover
-- **Hero** — headline words stagger in with `fadeSlideUp` keyframes; "Curve" has a scroll-driven SVG arc that extends into cubic-bezier squiggles as you scroll
-- **Ripple** — all buttons spawn a DOM ripple span on click
-- **Exec orbital diagram** — SVG SMIL `animateMotion` traveling dots on connection lines from President to each VP; pulsing rings from center; ambient particles tracing the orbit ring. Filter uses `filterUnits="userSpaceOnUse"` to avoid bounding-box clipping on vertical lines.
 
-### Color Tokens (defined in `globals.css`)
-| Token | Value | Use |
-|---|---|---|
-| `--navy-900` | `#0D1B2A` | Hero background, overlays |
-| `--navy-700` | `#1B3A5C` | Navbar |
-| `--navy-500` | `#2E6096` | Accents |
-| `--navy-100` | `#E8EEF4` | Light section backgrounds |
-| `--gold` | `#C9A84C` | CTAs, highlights |
-| `--gold-light` | `#DEC06E` | Hover state for gold |
+- **Hero** — staggered word entrance, scroll-driven SVG curve under "Curve"
+- **Scroll reveal** — `<Reveal>` wrapper using IntersectionObserver
+- **Tilt cards** — mouse-tracked 3D transform on the Four Pillars
+- **Page transitions** — circular clip-path wipe from the click point. It covers fully,
+  *then* navigates, then waits for the new route to commit before uncovering, so the swap
+  is never visible and the reveal happens on the page you asked for. Applied to CTA
+  buttons via `TransitionLink`; navbar, footer, breadcrumbs, and card links navigate
+  plainly, since a full-screen cover is friction when you're just browsing
+- **Count-up stats** — number animation triggered on scroll into view
 
----
-
-## Auth & Membership Gating
-
-The site currently uses a mock auth layer (`src/lib/mockAuth.ts`) backed by `localStorage`. The interface matches what Firebase Auth will expect, so swapping is a single file replacement.
-
-**Membership restriction:** `APPROVED_STUDENT_IDS` in `mockAuth.ts` is a hardcoded `Set` of permitted student IDs for development. On signup, the submitted student ID is checked against this set. Before going live, replace with a Firebase Firestore lookup against the authoritative member list.
-
-**Admin access:** Admin accounts are defined in the `ADMIN_USERS` array in `mockAuth.ts`. Log in with any of those credentials to access `/admin`. Add entries to the array to grant additional admins access.
-
----
-
-## Firebase Migration (when ready)
-
-> **Database design note:** Before finalising the Firestore schema and ERD, consult **Dr. Ning Nan** (COEC 437 Professor) — she should be able to provide good insights on how to approach the entity-relationship diagram and general database configuration for a society platform of this kind.
-
-```bash
-npm install firebase
-```
-
-1. Create `src/lib/firebase.ts` implementing the same exports as `mockAuth.ts`: `signUp`, `signIn`, `signOut`, `getSession`, `registerForEvent`
-2. Update `AuthContext.tsx` to import from `firebase.ts` instead of `mockAuth.ts`
-3. Add `.env.local` with your Firebase project config keys
-4. Enable Email/Password (and optionally Google OAuth) in the Firebase console
-5. Move `APPROVED_STUDENT_IDS` to a Firestore collection so the exec team can manage it without a code deploy
-
-Firestore collections to create: `users/{uid}`, `events/{eventId}`, `registrations/{regId}`
+All of it is disabled under `prefers-reduced-motion: reduce`.
 
 ---
 
 ## Deploying to Vercel
 
-Push to `main` on GitHub — Vercel auto-deploys on every push if the project is linked.
+1. Push to GitHub.
+2. Import the repo at [vercel.com/new](https://vercel.com/new).
+3. Framework preset: **Next.js**. No environment variables are required.
+4. Deploy, then point `vseus.ca` at it in Vercel's domain settings.
 
-Manual deploy:
-
-```bash
-npm run build   # verify clean build first
-vercel --prod
-```
+Every route prerenders as static content.
 
 ---
 
-## IDEAS
+## Member Login (removed)
 
-### Google Forms Integration for Event Registration
+The site previously had a member portal and admin system backed by Neon Postgres and
+Auth.js: code-based login, event registration, QR tickets, a door scanner, and member
+management. It was removed before launch so the published site needs no database,
+secrets, or staffed admin surface.
 
-Instead of collecting registration data through custom in-app questions, admins could link each event to a Google Form. The flow would work as follows:
+It is fully documented in [`docs/member-login/`](./docs/member-login/) — what was built,
+the schema, why it went, and how to restore it. The code remains on
+`origin/feat/postgres-auth-codes`.
 
-1. The event host creates a Google Form for their event (questions, dietary restrictions, team size, etc.) and pastes the shareable form URL when creating the event on the VSEUS site.
-2. When a member clicks "Register," they are redirected to the Google Form (or shown an embedded iframe). Only after the form is submitted do they return to the VSEUS site to complete registration.
-3. All response data lives in the connected Google Sheet in the exec team's Google Drive — no personal data is ever stored in localStorage or the VSEUS database.
+---
 
-**Why this is worth exploring:**
-- Zero custom data infrastructure — Google handles validation, storage, and exports.
-- Exec team can view and filter responses directly in Google Sheets without touching the website.
-- Reduces exposure in a security incident: even if the VSEUS site were compromised, registrant survey answers are not accessible from it.
-- Forms are fully customisable per event with no code changes required.
+## Ideas
 
-**Implementation sketch (when ready):**
-- Add a `googleFormUrl: string | null` field to the `Event` type.
-- Show a "Fill out the form to register" step in `RegistrationModal` before confirmation; open the form URL in a new tab.
-- Since Google Forms completion cannot be verified programmatically without OAuth, the simplest approach is an honour-system checkbox ("I have submitted the form") before the confirm button unlocks.
-- A stricter version would use the Google Forms API or Apps Script webhook to mark a submission, then poll or receive a callback before allowing registration — but this requires a backend.
-- Drop the built-in question builder from the admin create form once this is adopted.
+### Google Forms integration for event registration
+
+Rather than rebuilding registration in-house, link each event to a Google Form via
+`registrationUrl` (already supported). Responses land in a spreadsheet the exec team
+already knows how to use, with no backend to maintain.
+
+### Server-side contact form
+
+The form currently hands off to the visitor's email app (see above). A form service or
+mail API would let it send directly, at the cost of an account and, for Resend, a
+serverless function.
+
+### Shareable blog filters
+
+Filtering is client-side state today. Moving it into a URL parameter would make
+`/blog?tag=Academics` linkable — worth it once there are enough posts for that to matter.

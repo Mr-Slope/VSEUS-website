@@ -1,42 +1,84 @@
 @import "tailwindcss";
 
+/*
+  VSEUS brand palette.
+
+  Five brand colours are fixed: midnight blue, primary blue, icy blue,
+  off-white, and accent orange. Everything else here is a derived tint or
+  shade, present only so hover states and borders have somewhere to go.
+
+  Contrast constraints that shape how these may be used:
+   - accent on ice is 1.3:1 and on off-white 1.6:1 — orange is NEVER text on a
+     light surface. On light it appears as a fill (midnight label on orange is
+     ~8:1), a rule, or an icon chip.
+   - accent on midnight is ~7:1 — orange as text belongs on dark surfaces.
+   - blue on off-white is 2.3:1 — not body-text safe. Blue is a fill or an icon
+     on light; as text it belongs on midnight (~5.6:1).
+*/
 :root {
-  --navy-900: #0D1B2A;
-  --navy-700: #1B3A5C;
-  --navy-500: #2E6096;
-  --navy-300: #5A8DB8;
-  --navy-100: #E8EEF4;
-  --gold: #C9A84C;
-  --gold-light: #E8C96A;
-  --white: #FFFFFF;
-  --gray-50: #F8FAFC;
-  --gray-100: #F1F5F9;
-  --gray-300: #CBD5E1;
-  --gray-500: #64748B;
-  --gray-700: #334155;
-  --background: var(--white);
-  --foreground: var(--navy-900);
+  --midnight:     #032B4A;  /* brand — midnight blue */
+  --midnight-900: #021D33;  /* footer, deepest ground */
+  --midnight-800: #043A63;  /* elevated card on a dark section */
+  --midnight-700: #05497C;  /* mid dark band */
+
+  --blue:     #3AAADF;      /* brand — primary blue */
+  --blue-600: #2A8CBB;      /* hover */
+  --blue-300: #7CC6EA;      /* muted text on dark */
+
+  --ice:     #C1CDDA;       /* brand — icy blue, the page background */
+  --ice-400: #A6B6C7;       /* borders on ice */
+  --ice-200: #DDE4EB;       /* between ice and off-white */
+
+  --offwhite: #F7F6F5;      /* brand — off-white, card and panel surfaces */
+
+  --accent:     #EDB187;    /* brand — accent orange, for highlights */
+  --accent-600: #DE9765;    /* hover */
+  --accent-200: #F7DAC5;    /* tint */
+
+  --muted: #4A6275;         /* body text on light surfaces */
+
+  --background: var(--ice);
+  --foreground: var(--midnight);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-navy-900: var(--navy-900);
-  --color-navy-700: var(--navy-700);
-  --color-navy-500: var(--navy-500);
-  --color-navy-300: var(--navy-300);
-  --color-navy-100: var(--navy-100);
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-midnight:     var(--midnight);
+  --color-midnight-900: var(--midnight-900);
+  --color-midnight-800: var(--midnight-800);
+  --color-midnight-700: var(--midnight-700);
+
+  --color-blue:     var(--blue);
+  --color-blue-600: var(--blue-600);
+  --color-blue-300: var(--blue-300);
+
+  --color-ice:     var(--ice);
+  --color-ice-400: var(--ice-400);
+  --color-ice-200: var(--ice-200);
+
+  --color-offwhite: var(--offwhite);
+
+  --color-accent:     var(--accent);
+  --color-accent-600: var(--accent-600);
+  --color-accent-200: var(--accent-200);
+
+  --color-muted: var(--muted);
+
+  --font-sans: var(--font-montserrat);
+  --font-display: var(--font-barlow);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-barlow), system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -45,8 +87,8 @@ html { scroll-behavior: smooth; }
 /* ─── Hero animations ─── */
 .hero-grid-bg {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(247, 246, 245, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 246, 245, 0.04) 1px, transparent 1px);
   background-size: 64px 64px;
 }
 
@@ -94,19 +136,6 @@ html { scroll-behavior: smooth; }
   transform: translateY(0);
 }
 
-/* ─── Marquee ─── */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.marquee-track {
-  display: flex;
-  align-items: center;
-  width: max-content;
-  animation: marquee 28s linear infinite;
-}
-.marquee-track:hover { animation-play-state: paused; }
-
 /* ─── CTA ripple ─── */
 @keyframes cta-ripple {
   to { transform: translate(-50%, -50%) scale(35); opacity: 0; }
@@ -119,33 +148,136 @@ html { scroll-behavior: smooth; }
 .nav-link-draw::after {
   content: '';
   position: absolute;
-  bottom: 4px;
-  left: 12px;
-  right: 12px;
-  height: 1.5px;
-  background: var(--gold);
+  bottom: 6px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.25s ease;
 }
-.nav-link-draw:hover::after { transform: scaleX(1); }
+.nav-link-draw:hover::after,
+.nav-link-draw:focus-visible::after { transform: scaleX(1); }
 
 /* ─── Navbar glass ─── */
 .navbar-glass {
-  background: rgba(13, 27, 42, 0.88) !important;
+  background: rgba(3, 43, 74, 0.9) !important;
   backdrop-filter: blur(18px) !important;
   -webkit-backdrop-filter: blur(18px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 4px 32px rgba(13, 27, 42, 0.5);
+  border-bottom: 1px solid rgba(237, 177, 135, 0.14);
+  box-shadow: 0 4px 32px rgba(2, 29, 51, 0.5);
 }
 
-/* ─── Stats section dark ─── */
+/* ─── Stats section ─── */
 .stats-number {
-  background: linear-gradient(135deg, #ffffff 30%, var(--gold-light) 100%);
+  background: linear-gradient(135deg, var(--offwhite) 30%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/*
+  ─── Blog prose ───
+  Styles the HTML that remark generates from a post's markdown. Hand-rolled
+  rather than pulling in @tailwindcss/typography, so the type scale and colours
+  come from the brand tokens above and nothing needs overriding.
+*/
+.prose {
+  color: var(--muted);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.prose > * + * { margin-top: 1.25em; }
+
+.prose h2,
+.prose h3 {
+  color: var(--midnight);
+  font-family: var(--font-barlow), system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.prose h2 { font-size: 1.75rem; margin-top: 2.25em; }
+.prose h3 { font-size: 1.3rem;  margin-top: 1.9em; }
+.prose h2 + *, .prose h3 + * { margin-top: 0.6em; }
+
+.prose strong { color: var(--midnight); font-weight: 700; }
+
+.prose a {
+  color: var(--midnight);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: background-color 0.15s ease;
+}
+.prose a:hover { background-color: var(--accent-200); }
+
+.prose ul, .prose ol { padding-left: 1.35em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li::marker { color: var(--accent-600); }
+.prose li + li { margin-top: 0.5em; }
+.prose li > ul, .prose li > ol { margin-top: 0.5em; }
+
+.prose blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.15em 0 0.15em 1.25em;
+  color: var(--midnight);
+  font-size: 1.15rem;
+  font-style: italic;
+}
+
+.prose code {
+  background: var(--ice);
+  color: var(--midnight);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+}
+.prose pre {
+  background: var(--midnight);
+  color: var(--offwhite);
+  border-radius: 12px;
+  padding: 1.1em 1.3em;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.prose pre code { background: none; color: inherit; padding: 0; }
+
+.prose img {
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--ice-400);
+  margin: 2.5em 0;
+}
+
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.prose th, .prose td {
+  border-bottom: 1px solid var(--ice-400);
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+.prose th { color: var(--midnight); font-weight: 700; }
+
+/*
+  ─── Anchor offset ───
+  The navbar is sticky and 80px tall (h-20), so a bare #anchor jump aligns the
+  target's top edge with the viewport top and the navbar then covers it. This
+  pushes the jump down to clear the navbar and leave ~60px of air above the
+  heading, so the block reads as sitting in the page rather than jammed under
+  the nav.
+
+  Apply it to the element the content actually starts at — the inner container,
+  not the padded <section> — so one value works everywhere and doesn't have to
+  absorb whatever top padding a given section happens to carry.
+*/
+.anchor-offset { scroll-margin-top: 140px; }
 
 /* ─── Tilt card ─── */
 .tilt-card {
@@ -160,7 +292,7 @@ html { scroll-behavior: smooth; }
 /* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .hero-tag, .hero-word, .hero-subtitle, .hero-ctas,
-  .hero-float, .reveal, .marquee-track {
+  .hero-float, .reveal {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;

@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      // The Services page was renamed to Resources. Keep old links working.
+      { source: '/services', destination: '/resources', permanent: true },
+      { source: '/services/:path*', destination: '/resources', permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

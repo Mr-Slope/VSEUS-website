@@ -1,86 +1,94 @@
-import { Event } from '@/types/event';
-import { MOCK_EVENTS } from './mockData';
+import type { Event, PastEventPhoto } from '@/types/event';
 
-const EVENTS_KEY = 'vseus_events';
-// Tracks on-site registration deltas for seed events (MOCK_EVENTS),
-// whose baseline registeredCount is hardcoded and cannot be mutated.
-const SEED_COUNTS_KEY = 'vseus_seed_counts';
+/**
+ * The public events list. Edit this file to add, change, or remove an event —
+ * there is no database and no admin UI behind it.
+ *
+ * Set `registrationUrl` to a Google Form, Eventbrite page, or ticket store to
+ * put a "Register" button on the card. Leave it off and the card is
+ * information only. Past events should be deleted rather than left in place.
+ */
+export const UPCOMING_EVENTS: Event[] = [
+  {
+    id: 'evt-001',
+    title: 'Economics Case Competition',
+    description:
+      'Compete in teams of 4 to analyze a real-world economic policy challenge. Cash prizes for top 3 teams. Open to all faculties; economics knowledge is helpful but not required.',
+    date: '2026-05-10',
+    time: '10:00 AM',
+    location: 'Chan Centre for the Performing Arts, UBC Vancouver',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Competition',
+  },
+  {
+    id: 'evt-002',
+    title: 'Industry Networking Night',
+    description:
+      'Meet economists and analysts working across banking, consulting, and public policy. Bring your resume. Light refreshments provided. Dress business casual.',
+    date: '2026-05-17',
+    time: '6:00 PM',
+    location: 'Downtown Vancouver — venue announced closer to the date',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Networking',
+  },
+  {
+    id: 'evt-003',
+    title: 'Annual VSEUS Gala',
+    description:
+      'Our flagship year-end gala celebrating student achievement in economics. Formal dinner, awards ceremony, and keynote speaker. Ticket price covers venue and catering.',
+    date: '2026-05-30',
+    time: '7:00 PM',
+    location: 'Fairmont Hotel Vancouver, 900 W Georgia St, Vancouver',
+    isPaid: true,
+    price: 35,
+    posterUrl: null,
+    category: 'Social',
+  },
+  {
+    id: 'evt-004',
+    title: 'Research Skills Workshop',
+    description:
+      'A hands-on workshop covering economic research methodology, data sources (FRED, Statistics Canada, World Bank), and how to structure a policy brief. Certificates provided.',
+    date: '2026-06-05',
+    time: '2:00 PM',
+    location: 'Buchanan Tower 1197, UBC Vancouver',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Workshop',
+  },
+  {
+    id: 'evt-005',
+    title: 'Summer Economics Symposium',
+    description:
+      'A half-day symposium featuring student paper presentations, faculty discussants, and a panel on careers in economics. Submit your paper by May 20th to present.',
+    date: '2026-06-15',
+    time: '9:00 AM',
+    location: 'Life Sciences Centre, UBC Vancouver',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Academic',
+  },
+];
 
-export function getAdminEvents(): Event[] {
-  if (typeof window === 'undefined') return [];
-  try {
-    return JSON.parse(localStorage.getItem(EVENTS_KEY) || '[]');
-  } catch {
-    return [];
-  }
-}
-
-export function saveAdminEvent(event: Event): void {
-  const events = getAdminEvents();
-  const idx = events.findIndex((e) => e.id === event.id);
-  if (idx !== -1) {
-    events[idx] = event;
-  } else {
-    events.push(event);
-  }
-  localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
-}
-
-export function deleteAdminEvent(id: string): void {
-  const events = getAdminEvents().filter((e) => e.id !== id);
-  localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
-}
-
-function getSeedCounts(): Record<string, number> {
-  if (typeof window === 'undefined') return {};
-  try { return JSON.parse(localStorage.getItem(SEED_COUNTS_KEY) || '{}'); }
-  catch { return {}; }
-}
-
-function saveSeedCounts(counts: Record<string, number>) {
-  localStorage.setItem(SEED_COUNTS_KEY, JSON.stringify(counts));
-}
-
-export function getAllEvents(): Event[] {
-  const seedCounts = getSeedCounts();
-  const seedIds = new Set(MOCK_EVENTS.map((e) => e.id));
-  return [
-    ...MOCK_EVENTS.map((e) => ({
-      ...e,
-      registeredCount: e.registeredCount + (seedCounts[e.id] ?? 0),
-    })),
-    ...getAdminEvents().filter((e) => !seedIds.has(e.id)),
-  ];
-}
-
-export function getEventById(id: string): Event | undefined {
-  return getAllEvents().find((e) => e.id === id);
-}
-
-export function incrementRegisteredCount(eventId: string): void {
-  const events = getAdminEvents();
-  const idx = events.findIndex((e) => e.id === eventId);
-  if (idx !== -1) {
-    events[idx] = { ...events[idx], registeredCount: events[idx].registeredCount + 1 };
-    localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
-    return;
-  }
-  // Seed event — track delta separately
-  const counts = getSeedCounts();
-  counts[eventId] = (counts[eventId] ?? 0) + 1;
-  saveSeedCounts(counts);
-}
-
-export function decrementRegisteredCount(eventId: string): void {
-  const events = getAdminEvents();
-  const idx = events.findIndex((e) => e.id === eventId);
-  if (idx !== -1) {
-    events[idx] = { ...events[idx], registeredCount: Math.max(0, events[idx].registeredCount - 1) };
-    localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
-    return;
-  }
-  // Seed event — track delta separately
-  const counts = getSeedCounts();
-  counts[eventId] = Math.max(0, (counts[eventId] ?? 0) - 1);
-  saveSeedCounts(counts);
-}
+/**
+ * Photos from events we've already run, shown in the gallery at the bottom of
+ * /events.
+ *
+ * Add `image: '/events/<file>.jpg'` (file goes in public/events/) and the photo
+ * renders. Leave `image` off and the tile shows a placeholder, so the gallery
+ * can be laid out before the photos are gathered.
+ */
+export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
+  { title: 'Annual VSEUS Gala',           when: '2025' },
+  { title: 'Economics Case Competition',  when: '2025' },
+  { title: 'Industry Networking Night',   when: '2025' },
+  { title: 'Welcome Back Social',         when: '2025' },
+  { title: 'Research Skills Workshop',    when: '2025' },
+  { title: 'End of Term Mixer',           when: '2025' },
+];
