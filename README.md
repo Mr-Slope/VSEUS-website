@@ -57,7 +57,7 @@ src/
 │   ├── elc/page.tsx            # Economics Learning Centre
 │   ├── events/page.tsx         # Upcoming events
 │   ├── blog/
-│   │   ├── page.tsx            # Post index — featured post + grid
+│   │   ├── page.tsx            # Post index (reads posts, hands off to BlogList)
 │   │   └── [slug]/page.tsx     # Individual post, prerendered per file
 │   └── contact/page.tsx        # Form, executive email directory, socials
 │
@@ -65,20 +65,23 @@ src/
 │   ├── layout/
 │   │   ├── Navbar.tsx          # Sticky glass navbar, centred nav, hover dropdowns
 │   │   └── Footer.tsx
+│   ├── blog/
+│   │   └── BlogList.tsx        # Post grid + tag filtering (client)
 │   ├── home/
 │   │   ├── Hero.tsx            # Full-screen hero, scroll-driven SVG curve
 │   │   ├── StatsBar.tsx        # Count-up stats
 │   │   ├── ServicePillars.tsx  # 2×2 tilt cards with scroll reveal
 │   │   ├── MerchStrip.tsx      # Merch promo + shop link
 │   │   ├── CalendarSection.tsx # Calendar block (fetches the feed at build)
-│   │   └── CalendarEmbed.tsx   # The iframe, targeted at the next event's week
+│   │   └── CalendarEmbed.tsx   # The iframe, starting at the next event
 │   └── ui/
 │       ├── Button.tsx          # General button with ripple
 │       ├── CTAButton.tsx       # Primary CTA — triggers circular page transition
 │       ├── Input.tsx
 │       ├── Reveal.tsx          # Scroll reveal wrapper (IntersectionObserver)
 │       ├── ImagePlaceholder.tsx# Stand-in for artwork not yet supplied
-│       └── SocialIcons.tsx     # Shared social links (Footer + Contact)
+│       ├── SocialIcons.tsx     # Shared social links (Footer + Contact)
+│       └── TransitionLink.tsx  # Link that plays the colour wipe (CTAs only)
 │
 ├── contexts/
 │   └── TransitionContext.tsx   # Circular clip-path page transition engine
@@ -87,7 +90,9 @@ src/
 │   ├── events.ts               # UPCOMING_EVENTS — the public events list
 │   ├── execs.ts                # Executive roster (About + Contact)
 │   ├── calendar.ts             # Google Calendar config + build-time ICS read
-│   └── blog.ts                 # Build-time markdown loader for content/blog/
+│   ├── society.ts              # Founding year, years-running, address
+│   ├── blog.ts                 # Build-time markdown loader (Node only)
+│   └── post.ts                 # Post types + date formatting (browser safe)
 │
 └── types/
     └── event.ts
@@ -110,6 +115,8 @@ Everything editable lives in a handful of files. No CMS, no admin login.
 | Merch products and shop link | `products` / `SHOP_URL` in `src/components/home/MerchStrip.tsx` |
 | Social links | `socials` in `src/components/ui/SocialIcons.tsx` |
 | Calendar ID / subscribe link | `src/lib/calendar.ts` |
+| Address, founding year | `src/lib/society.ts` |
+| Who the contact form goes to | `CONTACT_FORM_TO` / `CONTACT_FORM_CC` in `src/lib/execs.ts` |
 | ELC hours, courses, Canvas key | `src/app/elc/page.tsx` |
 
 ### Blog
@@ -126,6 +133,18 @@ Markdown is rendered to HTML at build time by `remark`, and styled by the hand-r
 `.prose` rules in `globals.css` — no `@tailwindcss/typography`, so the type scale and
 colours come straight from the brand tokens.
 
+Tags double as the index filter: `/blog` shows a pill per tag with a post count,
+defaulting to **All**. Filtering is client-side state, not a URL parameter, so a
+filtered view isn't shareable — every post is already in the page, so there's nothing
+to fetch. Worth moving into the URL if the archive grows. Reuse an existing tag rather
+than coining a near-duplicate; they're case-sensitive, so `Policy` and `policy` become
+two separate pills.
+
+`src/lib/blog.ts` imports `fs` and `remark`, so it can only be used from server
+components. Anything the client needs — the `PostMeta` type, `formatPostDate` — lives in
+`src/lib/post.ts` instead. Importing `blog.ts` from a client component drags Node
+built-ins into the browser bundle and the build fails.
+
 ### The Economics Calendar
 
 The home page embeds the public Google Calendar shared across the economics
@@ -139,7 +158,7 @@ switches it back to `WEEK` if wanted. Google's ICS feed sends no CORS headers, s
 the browser can't read it — the feed is fetched and parsed at **build time** and
 the upcoming dates are baked into the page; the browser then picks the first one
 still in the future. Adding events to the Google Calendar shows up in the embed
-immediately (the iframe loads live from Google), but the *week targeting* only
+immediately (the iframe loads live from Google), but the *targeting* only
 catches up on the next deploy. If the feed can't be read at build time the build
 still succeeds and the embed falls back to starting from today.
 
@@ -153,6 +172,19 @@ ticket store — to put a **Register** button on the card. Leave it off and the 
 information only. Delete past events rather than leaving them in place; if the list is
 empty the page shows an empty state.
 
+### The contact form
+
+There is no backend, so the form doesn't post anywhere. Submitting composes the message
+in the visitor's own email app, addressed to VP Marketing with the President and VP
+Administration copied — those come from `CONTACT_FORM_TO` / `CONTACT_FORM_CC` in
+`src/lib/execs.ts`, derived from the roster so they can't point at a dead inbox.
+
+It works with no account and no secrets, but it does depend on the visitor having a mail
+client configured, which is why the confirmation also prints the address to write to. To
+send server-side instead, replace `handleSubmit` in `src/app/contact/page.tsx` with a
+POST to Formspree or Web3Forms (free tier, keeps the site static) or a Resend route
+(needs an API key and a verified domain, and turns that route into a function).
+
 ### Outstanding placeholders
 
 Search the codebase for `TODO` to find them all. The main ones:
@@ -164,8 +196,7 @@ Search the codebase for `TODO` to find them all. The main ones:
 | Pillar photos | `public/pillars/{academic,community,career,advocacy}.jpg` |
 | Exec photos | `public/exec/<name>.jpg` |
 | Merch photos | `public/merch/*.jpg` |
-| Real email addresses | `src/lib/execs.ts` |
-| Social profile URLs | `src/components/ui/SocialIcons.tsx` |
+| Real email addresses | `src/lib/execs.ts` — currently `role@vseus.ca` |
 | Merch shop URL | `src/components/home/MerchStrip.tsx` |
 | Club names and details | `src/app/clubs/page.tsx` |
 | Blog post cover images | `public/blog/` → the index cards currently show placeholders |
@@ -214,7 +245,11 @@ default). Montserrat carries body copy as the default `font-sans`. Both load thr
 - **Hero** — staggered word entrance, scroll-driven SVG curve under "Curve"
 - **Scroll reveal** — `<Reveal>` wrapper using IntersectionObserver
 - **Tilt cards** — mouse-tracked 3D transform on the Four Pillars
-- **Page transitions** — circular clip-path expansion from the click point (`CTAButton`)
+- **Page transitions** — circular clip-path wipe from the click point. It covers fully,
+  *then* navigates, then waits for the new route to commit before uncovering, so the swap
+  is never visible and the reveal happens on the page you asked for. Applied to CTA
+  buttons via `TransitionLink`; navbar, footer, breadcrumbs, and card links navigate
+  plainly, since a full-screen cover is friction when you're just browsing
 - **Count-up stats** — number animation triggered on scroll into view
 
 All of it is disabled under `prefers-reduced-motion: reduce`.
@@ -253,8 +288,13 @@ Rather than rebuilding registration in-house, link each event to a Google Form v
 `registrationUrl` (already supported). Responses land in a spreadsheet the exec team
 already knows how to use, with no backend to maintain.
 
-### Contact form backend
+### Server-side contact form
 
-The contact form currently simulates submission — nothing is sent. Wiring it to a form
-service (Formspree, Web3Forms) or a Resend API route would take under an hour and keeps
-the site static.
+The form currently hands off to the visitor's email app (see above). A form service or
+mail API would let it send directly, at the cost of an account and, for Resend, a
+serverless function.
+
+### Shareable blog filters
+
+Filtering is client-side state today. Moving it into a URL parameter would make
+`/blog?tag=Academics` linkable — worth it once there are enough posts for that to matter.

@@ -199,6 +199,6 @@ table in [`README.md`](./README.md) before promising them to anyone.
 |---|---|
 | Full implementation | `origin/feat/postgres-auth-codes` @ `6314ae1` |
 | First commit of the stack | `b048b13` `chore(deps): add postgres, drizzle, auth.js, bcrypt deps` |
-| The removal commit | on `feat/publish-ready` — `remove(auth): …` |
+| The removal commit | `501c7bb` on `feat/publish-ready` |
 | Schema details | [`schema.md`](./schema.md) |
 | Why it was removed | [`README.md`](./README.md) |
