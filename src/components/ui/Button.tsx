@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'gold';
+type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'accent';
 type Size = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,11 +13,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses: Record<Variant, string> = {
-  primary:   'bg-navy-700 text-white hover:bg-navy-900 focus-visible:ring-navy-500',
-  secondary: 'bg-navy-100 text-navy-700 hover:bg-navy-300 hover:text-white focus-visible:ring-navy-300',
-  outline:   'border border-navy-700 text-navy-700 bg-transparent hover:bg-navy-700 hover:text-white focus-visible:ring-navy-500',
-  ghost:     'text-navy-700 bg-transparent hover:bg-navy-100 focus-visible:ring-navy-300',
-  gold:      'bg-gold text-navy-900 hover:bg-gold-light focus-visible:ring-gold font-semibold shadow-md shadow-gold/20',
+  primary:   'bg-midnight-700 text-offwhite hover:bg-midnight focus-visible:ring-blue',
+  secondary: 'bg-ice text-midnight hover:bg-ice-400 focus-visible:ring-blue',
+  outline:   'border border-midnight-700 text-midnight bg-transparent hover:bg-midnight-700 hover:text-offwhite focus-visible:ring-blue',
+  ghost:     'text-midnight-700 bg-transparent hover:bg-ice focus-visible:ring-blue',
+  accent:    'bg-accent text-midnight hover:bg-accent-600 focus-visible:ring-accent font-semibold shadow-md shadow-accent/20',
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -60,7 +60,7 @@ export function Button({
     <button
       className={[
         'relative overflow-hidden inline-flex items-center justify-center gap-2',
-        'rounded-lg font-medium transition-all duration-150 btn-press',
+        'rounded-lg font-display font-medium transition-all duration-150 btn-press',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         variantClasses[variant],

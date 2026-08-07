@@ -64,7 +64,7 @@ export function TransitionProvider({ children }: { children: React.ReactNode }) 
           position: 'fixed',
           inset: 0,
           zIndex: 9999,
-          backgroundColor: 'var(--navy-900)',
+          backgroundColor: 'var(--midnight)',
           clipPath: 'circle(0% at 50% 50%)',
           pointerEvents: 'none',
         }}
