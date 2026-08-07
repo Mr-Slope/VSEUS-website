@@ -1,35 +1,23 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { remark } from 'remark';
-import html from 'remark-html';
-
 /**
  * Blog posts are markdown files in content/blog/. Everything here runs at
  * build time only — the published pages are static HTML with no client JS.
  *
  * To publish a post, drop a .md file in content/blog/. The filename becomes
- * the URL slug. See content/blog/README.md for the frontmatter fields.
+ * the URL slug. See content/README.md for the frontmatter fields.
  */
 
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { remark } from 'remark';
+import html from 'remark-html';
+import type { Post, PostMeta } from './post';
+
+// Re-exported so server code has one import site for everything post-related.
+export { formatPostDate } from './post';
+export type { Post, PostMeta } from './post';
+
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
-
-export interface PostMeta {
-  slug: string;
-  title: string;
-  /** 'YYYY-MM-DD' */
-  date: string;
-  author: string;
-  excerpt: string;
-  tags: string[];
-  /** Reading time in minutes, estimated from word count. */
-  readingTime: number;
-}
-
-export interface Post extends PostMeta {
-  /** Rendered HTML from the markdown body. */
-  contentHtml: string;
-}
 
 function readingTimeFor(markdown: string): number {
   const words = markdown.trim().split(/\s+/).length;
@@ -112,13 +100,4 @@ export function getAllTags(): string[] {
   const tags = new Set<string>();
   for (const post of getAllPosts()) post.tags.forEach((t) => tags.add(t));
   return [...tags].sort();
-}
-
-export function formatPostDate(date: string): string {
-  if (!date) return '';
-  return new Date(`${date}T00:00:00`).toLocaleDateString('en-CA', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
 }
