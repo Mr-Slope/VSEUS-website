@@ -1,12 +1,16 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import { yearsRunning } from '@/lib/society';
 
-const stats = [
-  { value: 1000, suffix: '+', label: 'Students Represented' },
-  { value: 10, suffix: '+', label: 'Annual Events' },
-  { value: 11, suffix: '', label: 'Years Running' },
-];
+/** `years` is computed per render rather than hardcoded — see src/lib/society.ts. */
+function buildStats(years: number) {
+  return [
+    { value: 1000, suffix: '+', label: 'Students Represented' },
+    { value: 10, suffix: '+', label: 'Annual Events' },
+    { value: years, suffix: '', label: 'Years Running' },
+  ];
+}
 
 function useCountUp(target: number, duration = 1600) {
   const [count, setCount] = useState(0);
@@ -55,6 +59,10 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
 }
 
 export function StatsBar() {
+  // Only `count` ever reaches the DOM and it starts at 0 on both sides, so
+  // deriving this from the clock can't cause a hydration mismatch.
+  const stats = buildStats(yearsRunning());
+
   return (
     <section className="bg-midnight border-y border-offwhite/[0.06]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
