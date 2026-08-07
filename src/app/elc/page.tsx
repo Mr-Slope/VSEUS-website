@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 
 const courses = [
@@ -39,7 +40,7 @@ export default function ELCPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-midnight via-midnight/70 to-midnight-700/40" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-sm text-offwhite/40 mb-6">
-            <TransitionLink href="/resources" className="hover:text-offwhite transition-colors">Resources</TransitionLink>
+            <Link href="/resources" className="hover:text-offwhite transition-colors">Resources</Link>
             <span>/</span>
             <span className="text-offwhite/70">Economics Learning Centre</span>
           </div>

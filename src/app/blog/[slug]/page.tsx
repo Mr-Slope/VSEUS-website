@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -46,7 +47,7 @@ export default async function BlogPostPage({
         <div className="absolute inset-0 bg-gradient-to-br from-midnight via-midnight/70 to-midnight-700/40" />
         <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-sm text-offwhite/40 mb-6">
-            <TransitionLink href="/blog" className="hover:text-offwhite transition-colors">Blog</TransitionLink>
+            <Link href="/blog" className="hover:text-offwhite transition-colors">Blog</Link>
             <span>/</span>
             <span className="text-offwhite/70 truncate">{post.title}</span>
           </div>
@@ -125,7 +126,7 @@ export default async function BlogPostPage({
             <h2 className="text-2xl font-black text-offwhite mb-8">More from VSEUS</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {others.map((p) => (
-                <TransitionLink
+                <Link
                   key={p.slug}
                   href={`/blog/${p.slug}`}
                   className="bg-midnight-800/70 border border-offwhite/10 rounded-2xl p-6 hover:border-accent/50 hover:bg-midnight-800 transition-all group"
@@ -140,7 +141,7 @@ export default async function BlogPostPage({
                   <p className="text-offwhite/35 text-xs mt-4">
                     {formatPostDate(p.date)} · {p.readingTime} min read
                   </p>
-                </TransitionLink>
+                </Link>
               ))}
             </div>
           </div>
