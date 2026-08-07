@@ -1,45 +1,19 @@
-export interface EventQuestion {
-  id: string;
-  text: string;
-  type: 'text' | 'multiple_choice' | 'yes_no';
-  options: string[];
-  required: boolean;
-}
-
-export interface QuestionAnswer {
-  questionId: string;
-  question: string;
-  answer: string;
-}
-
 export interface Event {
   id: string;
   title: string;
   description: string;
+  /** 'YYYY-MM-DD' */
   date: string;
+  /** Display string, e.g. '6:00 PM' */
   time: string;
   location: string;
-  capacity: number;
-  registeredCount: number;
   isPaid: boolean;
   price: number | null;
-  imageUrl: string | null;
   posterUrl: string | null;
   category: string;
-  createdAt: string;
-  questions: EventQuestion[];
-}
-
-export interface Registration {
-  id: string;
-  userId: string;
-  eventId: string;
-  userName: string;
-  userEmail: string;
-  userStudentId: string;
-  ticketEmail: string;
-  registeredAt: string;
-  answers: QuestionAnswer[];
-  attended: boolean;
-  attendedAt: string | null;
+  /**
+   * External registration link — a Google Form, Eventbrite page, or ticket
+   * store. Omit it and the card renders as information only, with no button.
+   */
+  registrationUrl?: string;
 }
