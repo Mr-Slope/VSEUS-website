@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransitionLink } from '@/components/ui/TransitionLink';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getAllPosts, getAllTags, formatPostDate, type PostMeta } from '@/lib/blog';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
@@ -75,7 +75,7 @@ export default function BlogPage() {
           ) : (
             <>
               {/* Featured — the newest post gets the full width */}
-              <TransitionLink
+              <Link
                 href={`/blog/${featured.slug}`}
                 className="group block bg-offwhite border border-ice-400 hover:border-accent hover:shadow-xl hover:shadow-midnight/10 rounded-2xl overflow-hidden transition-all mb-10"
               >
@@ -107,12 +107,12 @@ export default function BlogPage() {
                     </span>
                   </div>
                 </div>
-              </TransitionLink>
+              </Link>
 
               {rest.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {rest.map((post) => (
-                    <TransitionLink
+                    <Link
                       key={post.slug}
                       href={`/blog/${post.slug}`}
                       className="group bg-offwhite border border-ice-400 hover:border-accent hover:shadow-lg hover:shadow-midnight/10 rounded-2xl overflow-hidden transition-all flex flex-col"
@@ -137,7 +137,7 @@ export default function BlogPage() {
                         )}
                         <Byline post={post} className="mt-auto" />
                       </div>
-                    </TransitionLink>
+                    </Link>
                   ))}
                 </div>
               )}
