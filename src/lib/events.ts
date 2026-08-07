@@ -1,8 +1,14 @@
-import { Event, EventQuestion } from '@/types/event';
+import type { Event } from '@/types/event';
 
-const NO_QUESTIONS: EventQuestion[] = [];
-
-export const MOCK_EVENTS: Event[] = [
+/**
+ * The public events list. Edit this file to add, change, or remove an event —
+ * there is no database and no admin UI behind it.
+ *
+ * Set `registrationUrl` to a Google Form, Eventbrite page, or ticket store to
+ * put a "Register" button on the card. Leave it off and the card is
+ * information only. Past events should be deleted rather than left in place.
+ */
+export const UPCOMING_EVENTS: Event[] = [
   {
     id: 'evt-001',
     title: 'Economics Case Competition',
@@ -11,33 +17,23 @@ export const MOCK_EVENTS: Event[] = [
     date: '2026-05-10',
     time: '10:00 AM',
     location: 'Chan Centre for the Performing Arts, UBC Vancouver',
-    capacity: 80,
-    registeredCount: 62,
     isPaid: false,
     price: null,
-    imageUrl: null,
     posterUrl: null,
     category: 'Competition',
-    createdAt: '2026-04-01T00:00:00Z',
-    questions: NO_QUESTIONS,
   },
   {
     id: 'evt-002',
-    title: 'Networking Night with TD Economics',
+    title: 'Industry Networking Night',
     description:
-      'Meet economists and analysts from TD Bank. Bring your resume. Light refreshments provided. Dress business casual. Limited spots, so register early.',
+      'Meet economists and analysts working across banking, consulting, and public policy. Bring your resume. Light refreshments provided. Dress business casual.',
     date: '2026-05-17',
     time: '6:00 PM',
-    location: 'TD Tower, 700 W Georgia St, Vancouver',
-    capacity: 40,
-    registeredCount: 38,
+    location: 'Downtown Vancouver — venue announced closer to the date',
     isPaid: false,
     price: null,
-    imageUrl: null,
     posterUrl: null,
     category: 'Networking',
-    createdAt: '2026-04-02T00:00:00Z',
-    questions: NO_QUESTIONS,
   },
   {
     id: 'evt-003',
@@ -47,15 +43,10 @@ export const MOCK_EVENTS: Event[] = [
     date: '2026-05-30',
     time: '7:00 PM',
     location: 'Fairmont Hotel Vancouver, 900 W Georgia St, Vancouver',
-    capacity: 120,
-    registeredCount: 45,
     isPaid: true,
     price: 35,
-    imageUrl: null,
     posterUrl: null,
     category: 'Social',
-    createdAt: '2026-04-03T00:00:00Z',
-    questions: NO_QUESTIONS,
   },
   {
     id: 'evt-004',
@@ -65,15 +56,10 @@ export const MOCK_EVENTS: Event[] = [
     date: '2026-06-05',
     time: '2:00 PM',
     location: 'Buchanan Tower 1197, UBC Vancouver',
-    capacity: 60,
-    registeredCount: 29,
     isPaid: false,
     price: null,
-    imageUrl: null,
     posterUrl: null,
     category: 'Workshop',
-    createdAt: '2026-04-04T00:00:00Z',
-    questions: NO_QUESTIONS,
   },
   {
     id: 'evt-005',
@@ -83,14 +69,9 @@ export const MOCK_EVENTS: Event[] = [
     date: '2026-06-15',
     time: '9:00 AM',
     location: 'Life Sciences Centre, UBC Vancouver',
-    capacity: 200,
-    registeredCount: 88,
     isPaid: false,
     price: null,
-    imageUrl: null,
     posterUrl: null,
     category: 'Academic',
-    createdAt: '2026-04-05T00:00:00Z',
-    questions: NO_QUESTIONS,
   },
 ];
