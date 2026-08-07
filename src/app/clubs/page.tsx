@@ -12,7 +12,6 @@ const clubs = [
   {
     name: 'DEVEC',
     fullName: 'UBC Development Economics Club',
-    focus: 'Development Economics',
     description:
       'UBC’s only club bringing together students from every discipline to discuss the economic, social, and fiscal conditions of the developing world. Runs research deep-dives in partnership with the VSE, career pathways into development work, and events connecting students who care about poverty and growth.',
     href: 'https://ubcdevec.com',
@@ -21,7 +20,6 @@ const clubs = [
   {
     name: 'Iona Journal',
     fullName: 'IONA Journal of Economics',
-    focus: 'Undergraduate Research',
     description:
       'The VSE’s undergraduate economics journal, publishing blind peer- and faculty-reviewed student research. Beyond the annual issue it runs IONA Exchange (a blog on global developments), IONA Reads (professor-curated resources), and IONA Asks (a podcast with faculty, alumni, and scholars).',
     href: 'https://www.ionajournal.ca',
@@ -30,7 +28,6 @@ const clubs = [
   {
     name: 'EPS',
     fullName: 'Economic Theory & Philosophy Society',
-    focus: 'Game Theory & Philosophy',
     description:
       'Runs thought-provoking discussions and debates built around strategy and deduction games, plus social experiments rooted in game theory. Built on a supportive community of curious, open-minded people willing to challenge perspectives and think critically.',
     href: 'https://www.instagram.com/epsubc/',
@@ -166,11 +163,8 @@ export default function ClubsPage() {
                   className="w-28 h-28 rounded-xl flex-shrink-0"
                 />
                 <div className="min-w-0">
-                  <span className="inline-block font-display text-[10px] font-semibold uppercase tracking-widest text-accent mb-1.5">
-                    {c.focus}
-                  </span>
                   <p className="text-offwhite font-bold text-lg leading-tight">{c.name}</p>
-                  <p className="text-offwhite/45 text-xs mt-0.5">{c.fullName}</p>
+                  <p className="font-display text-accent text-sm font-semibold mt-1">{c.fullName}</p>
                   <p className="text-offwhite/55 text-sm mt-2.5 leading-relaxed">{c.description}</p>
                   <span className="inline-flex items-center gap-1.5 font-display text-xs font-semibold text-accent mt-3.5">
                     {c.linkLabel}
