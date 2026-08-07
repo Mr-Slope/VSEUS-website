@@ -4,28 +4,39 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { socials } from '@/components/ui/SocialIcons';
-import { EXECS } from '@/lib/execs';
+import { EXECS, CONTACT_FORM_TO, CONTACT_FORM_CC } from '@/lib/execs';
 import { ADDRESS, ADDRESS_MAP_URL } from '@/lib/society';
-
-// TODO: replace with the real general inbox once confirmed.
-const GENERAL_INQUIRIES = { role: 'General Inquiries', name: 'VSEUS', email: 'info@vseus.ca' };
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  /**
+   * Hands the message to the visitor's email app, addressed to VP Marketing
+   * with the President and VP Administration copied.
+   *
+   * The site is static with no secrets, so there is no server to post to — the
+   * previous version just ran a timer and claimed "Message sent!", which was
+   * untrue. This actually delivers. Swapping in a form service (Formspree,
+   * Web3Forms) or a Resend route later means replacing this function; the
+   * addresses already live in src/lib/execs.ts.
+   */
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
-    // NOTE: no backend yet — this only simulates a send.
-    await new Promise((r) => setTimeout(r, 800));
+
+    const body = `${form.message}\n\n—\n${form.name}\n${form.email}`;
+    const query = [
+      `cc=${encodeURIComponent(CONTACT_FORM_CC.join(','))}`,
+      `subject=${encodeURIComponent(form.subject)}`,
+      `body=${encodeURIComponent(body)}`,
+    ].join('&');
+
+    window.location.href = `mailto:${CONTACT_FORM_TO}?${query}`;
     setSubmitted(true);
-    setLoading(false);
   }
 
   return (
@@ -48,8 +59,15 @@ export default function ContactPage() {
                   <svg className="w-10 h-10 text-midnight-700 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <h3 className="font-bold text-midnight mb-1">Message sent!</h3>
-                  <p className="text-sm text-muted">We&apos;ll get back to you within 2 to 3 business days.</p>
+                  <h3 className="font-bold text-midnight mb-1">Your message is ready to send</h3>
+                  <p className="text-sm text-muted">
+                    We&apos;ve opened it in your email app — hit send there and we&apos;ll reply
+                    within 2 to 3 business days. If nothing opened, email{' '}
+                    <a href={`mailto:${CONTACT_FORM_TO}`} className="text-midnight font-semibold underline decoration-accent decoration-2 underline-offset-2">
+                      {CONTACT_FORM_TO}
+                    </a>{' '}
+                    directly.
+                  </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -95,7 +113,7 @@ export default function ContactPage() {
                       className="w-full rounded-lg border border-ice-400 bg-offwhite px-4 py-2.5 text-sm text-midnight placeholder:text-muted/60 outline-none focus:border-blue focus:ring-2 focus:ring-blue/25 transition-all resize-none"
                     />
                   </div>
-                  <Button type="submit" variant="accent" size="lg" fullWidth loading={loading}>
+                  <Button type="submit" variant="accent" size="lg" fullWidth>
                     Send Message
                   </Button>
                 </form>
@@ -107,10 +125,11 @@ export default function ContactPage() {
               <div>
                 <h2 className="text-2xl font-bold text-midnight mb-2">Email the Team</h2>
                 <p className="text-muted text-sm mb-6">
-                  Reach the right person directly, or use the general inbox if you&apos;re not sure.
+                  Reach the right person directly. Not sure who you need? Use the form
+                  and we&apos;ll route it.
                 </p>
                 <div className="space-y-2">
-                  {[GENERAL_INQUIRIES, ...EXECS].map((item) => (
+                  {EXECS.map((item) => (
                     <a
                       key={item.email}
                       href={`mailto:${item.email}`}
