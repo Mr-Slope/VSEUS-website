@@ -76,7 +76,7 @@ export function Footer() {
         <div className="mt-10 pt-6 border-t border-offwhite/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-offwhite/40">
           <div>
             <p>© {new Date().getFullYear()} VSEUS. All rights reserved.</p>
-            <p className="mt-0.5 text-[10px] text-offwhite/25">
+            <p className="mt-0.5 text-[10px] text-offwhite">
               Website built by Yash Dhaundiyal, VSEUS President 2026&ndash;2027 · Maintained by VSEUS VP Marketing
             </p>
           </div>
