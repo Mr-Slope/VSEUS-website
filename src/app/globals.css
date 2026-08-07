@@ -265,6 +265,20 @@ html { scroll-behavior: smooth; }
 }
 .prose th { color: var(--midnight); font-weight: 700; }
 
+/*
+  ─── Anchor offset ───
+  The navbar is sticky and 80px tall (h-20), so a bare #anchor jump aligns the
+  target's top edge with the viewport top and the navbar then covers it. This
+  pushes the jump down to clear the navbar and leave ~60px of air above the
+  heading, so the block reads as sitting in the page rather than jammed under
+  the nav.
+
+  Apply it to the element the content actually starts at — the inner container,
+  not the padded <section> — so one value works everywhere and doesn't have to
+  absorb whatever top padding a given section happens to carry.
+*/
+.anchor-offset { scroll-margin-top: 140px; }
+
 /* ─── Tilt card ─── */
 .tilt-card {
   transform-style: preserve-3d;

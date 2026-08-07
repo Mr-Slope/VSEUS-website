@@ -129,7 +129,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div id="newsletter" className="scroll-mt-24">
+              <div id="newsletter" className="anchor-offset">
                 <h2 className="text-2xl font-bold text-midnight mb-2">Newsletter</h2>
                 <p className="text-muted text-sm mb-4">
                   Stay up to date on events, opportunities, and VSEUS news, delivered right to your inbox.
@@ -145,7 +145,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div id="follow" className="scroll-mt-24">
+              <div id="follow" className="anchor-offset">
                 <h2 className="text-2xl font-bold text-midnight mb-4">Follow Us</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {socials.map((s) => (
