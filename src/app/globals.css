@@ -177,6 +177,94 @@ html { scroll-behavior: smooth; }
   background-clip: text;
 }
 
+/*
+  ─── Blog prose ───
+  Styles the HTML that remark generates from a post's markdown. Hand-rolled
+  rather than pulling in @tailwindcss/typography, so the type scale and colours
+  come from the brand tokens above and nothing needs overriding.
+*/
+.prose {
+  color: var(--muted);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+.prose > * + * { margin-top: 1.25em; }
+
+.prose h2,
+.prose h3 {
+  color: var(--midnight);
+  font-family: var(--font-barlow), system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.prose h2 { font-size: 1.75rem; margin-top: 2.25em; }
+.prose h3 { font-size: 1.3rem;  margin-top: 1.9em; }
+.prose h2 + *, .prose h3 + * { margin-top: 0.6em; }
+
+.prose strong { color: var(--midnight); font-weight: 700; }
+
+.prose a {
+  color: var(--midnight);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: background-color 0.15s ease;
+}
+.prose a:hover { background-color: var(--accent-200); }
+
+.prose ul, .prose ol { padding-left: 1.35em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li::marker { color: var(--accent-600); }
+.prose li + li { margin-top: 0.5em; }
+.prose li > ul, .prose li > ol { margin-top: 0.5em; }
+
+.prose blockquote {
+  border-left: 3px solid var(--accent);
+  padding: 0.15em 0 0.15em 1.25em;
+  color: var(--midnight);
+  font-size: 1.15rem;
+  font-style: italic;
+}
+
+.prose code {
+  background: var(--ice);
+  color: var(--midnight);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+}
+.prose pre {
+  background: var(--midnight);
+  color: var(--offwhite);
+  border-radius: 12px;
+  padding: 1.1em 1.3em;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.prose pre code { background: none; color: inherit; padding: 0; }
+
+.prose img {
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--ice-400);
+  margin: 2.5em 0;
+}
+
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.prose th, .prose td {
+  border-bottom: 1px solid var(--ice-400);
+  padding: 0.6em 0.8em;
+  text-align: left;
+}
+.prose th { color: var(--midnight); font-weight: 700; }
+
 /* ─── Tilt card ─── */
 .tilt-card {
   transform-style: preserve-3d;
