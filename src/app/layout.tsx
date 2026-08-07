@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Barlow, Montserrat } from 'next/font/google';
 import './globals.css';
-import { SessionProvider } from 'next-auth/react';
-import { AuthProvider } from '@/contexts/AuthContext';
 import { TransitionProvider } from '@/contexts/TransitionContext';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Barlow carries headings and display type; Montserrat carries body copy.
+const barlow = Barlow({
+  variable: '--font-barlow',
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const montserrat = Montserrat({
+  variable: '--font-montserrat',
   subsets: ['latin'],
 });
 
@@ -25,17 +25,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${barlow.variable} ${montserrat.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <SessionProvider>
-          <AuthProvider>
-            <TransitionProvider>
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </TransitionProvider>
-          </AuthProvider>
-        </SessionProvider>
+        <TransitionProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </TransitionProvider>
       </body>
     </html>
   );
