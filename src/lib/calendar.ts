@@ -19,9 +19,16 @@ export const CALENDAR_ID =
 
 export const CALENDAR_TZ = 'America/Vancouver';
 
-/** Where the "Subscribe to Calendar" button goes. */
+/**
+ * Where the "Subscribe to Calendar" button goes — the calendar's public URL.
+ *
+ * Note the absence of `/u/0/`. That segment scopes the link to whichever
+ * Google account is signed in as user 0, so a visitor either lands in the
+ * wrong account's context or gets a sign-in prompt. The plain /calendar/embed
+ * form is the one that works for everyone.
+ */
 export const CALENDAR_SUBSCRIBE_URL =
-  'https://calendar.google.com/calendar/u/0/embed?src=c_a1a5a1e97a97ce89a5d89cb665b287511c3d8a1dad2a5a9df1caf7be7457152e@group.calendar.google.com&ctz=America/Vancouver';
+  'https://calendar.google.com/calendar/embed?src=c_a1a5a1e97a97ce89a5d89cb665b287511c3d8a1dad2a5a9df1caf7be7457152e%40group.calendar.google.com&ctz=America%2FVancouver';
 
 const ICS_URL = `https://calendar.google.com/calendar/ical/${encodeURIComponent(
   CALENDAR_ID,
