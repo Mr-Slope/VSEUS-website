@@ -87,8 +87,8 @@ export default function AboutPage() {
     <div className="min-h-screen bg-ice">
 
       {/* Mission */}
-      <section id="mission" className="py-24 bg-ice">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-ice">
+        <div id="mission" className="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
             <p className="font-display text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-4">
               Our Mission
@@ -107,11 +107,11 @@ export default function AboutPage() {
       </section>
 
       {/* Executives */}
-      <section id="executives" className="py-20 bg-midnight relative overflow-hidden">
+      <section className="py-20 bg-midnight relative overflow-hidden">
         <div className="absolute inset-0 hero-grid-bg opacity-20 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 via-transparent to-midnight/60 pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="executives" className="anchor-offset relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">Leadership</p>
             <h2 className="text-3xl font-black text-offwhite">Executive Team 2026-27</h2>
@@ -292,8 +292,8 @@ export default function AboutPage() {
       </section>
 
       {/* Reports */}
-      <section id="reports" className="py-24 bg-ice">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-ice">
+        <div id="reports" className="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl">
             <p className="font-display text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-3">
               Accountability

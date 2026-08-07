@@ -74,7 +74,7 @@ export default function ResourcesPage() {
               <div
                 key={r.id}
                 id={r.id}
-                className="bg-offwhite rounded-2xl p-8 border border-ice-400 hover:border-accent hover:shadow-lg hover:shadow-midnight/10 transition-all flex flex-col scroll-mt-24"
+                className="bg-offwhite rounded-2xl p-8 border border-ice-400 hover:border-accent hover:shadow-lg hover:shadow-midnight/10 transition-all flex flex-col anchor-offset"
               >
                 <div className="w-14 h-14 rounded-xl bg-midnight-700 text-offwhite flex items-center justify-center mb-5">
                   {r.icon}
