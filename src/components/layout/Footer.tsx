@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { socials } from '@/components/ui/SocialIcons';
+import { ADDRESS, ADDRESS_MAP_URL } from '@/lib/society';
 
 const footerLinks = {
   Organization: [
@@ -73,14 +74,24 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-offwhite/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-offwhite/40">
+        {/* Copyright left, address right — at every width, not just on desktop. */}
+        <div className="mt-10 pt-6 border-t border-offwhite/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-offwhite/40">
           <div>
             <p>© {new Date().getFullYear()} VSEUS. All rights reserved.</p>
             <p className="mt-0.5 text-[10px] text-offwhite">
               Website built by Yash Dhaundiyal, VSEUS President 2026&ndash;2027 · Maintained by VSEUS VP Marketing
             </p>
           </div>
-          <p>University of British Columbia · Vancouver, BC</p>
+          <a
+            href={ADDRESS_MAP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-offwhite transition-colors text-right self-end"
+          >
+            University of British Columbia
+            <span className="hidden sm:inline"> · </span>
+            <span className="block sm:inline">{ADDRESS.full}</span>
+          </a>
         </div>
       </div>
     </footer>

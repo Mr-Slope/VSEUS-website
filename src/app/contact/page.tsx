@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { socials } from '@/components/ui/SocialIcons';
 import { EXECS } from '@/lib/execs';
+import { ADDRESS, ADDRESS_MAP_URL } from '@/lib/society';
 
 // TODO: replace with the real general inbox once confirmed.
 const GENERAL_INQUIRIES = { role: 'General Inquiries', name: 'VSEUS', email: 'info@vseus.ca' };
@@ -127,6 +128,38 @@ export default function ContactPage() {
                     </a>
                   ))}
                 </div>
+              </div>
+
+              <div id="visit" className="anchor-offset">
+                <h2 className="text-2xl font-bold text-midnight mb-2">Visit Us</h2>
+                <p className="text-muted text-sm mb-4">
+                  We&apos;re in the Iona Building on UBC&apos;s Vancouver campus — the same
+                  building as the Economics Learning Centre.
+                </p>
+                <a
+                  href={ADDRESS_MAP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between gap-4 bg-offwhite border border-ice-400 hover:border-accent rounded-xl px-5 py-4 transition-colors group"
+                >
+                  <div className="flex items-center gap-4 min-w-0">
+                    <span className="w-11 h-11 rounded-lg bg-midnight text-offwhite group-hover:bg-accent group-hover:text-midnight flex items-center justify-center flex-shrink-0 transition-colors">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                      </svg>
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block font-display font-semibold text-midnight text-sm">
+                        {ADDRESS.street}
+                      </span>
+                      <span className="block text-muted text-xs mt-0.5">{ADDRESS.locality}</span>
+                    </span>
+                  </div>
+                  <svg className="w-4 h-4 flex-shrink-0 text-midnight-700 opacity-40 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                  </svg>
+                </a>
               </div>
 
               <div id="newsletter" className="anchor-offset">
