@@ -17,6 +17,7 @@ deployable to Vercel as-is.
 | Styling | Tailwind CSS v4 |
 | Fonts | Barlow (headings) + Montserrat (body), via `next/font/google` |
 | Data | Static TypeScript modules in `src/lib/` |
+| Blog | Markdown files in `content/blog/`, rendered at build time |
 | Hosting | Vercel |
 
 > **Note:** this is a modified Next.js build. Read the relevant guide in
@@ -55,6 +56,9 @@ src/
 │   ├── clubs/page.tsx          # Endorsed clubs
 │   ├── elc/page.tsx            # Economics Learning Centre
 │   ├── events/page.tsx         # Upcoming events
+│   ├── blog/
+│   │   ├── page.tsx            # Post index — featured post + grid
+│   │   └── [slug]/page.tsx     # Individual post, prerendered per file
 │   └── contact/page.tsx        # Form, executive email directory, socials
 │
 ├── components/
@@ -80,7 +84,8 @@ src/
 │
 ├── lib/
 │   ├── events.ts               # UPCOMING_EVENTS — the public events list
-│   └── execs.ts                # Executive roster (About + Contact)
+│   ├── execs.ts                # Executive roster (About + Contact)
+│   └── blog.ts                 # Build-time markdown loader for content/blog/
 │
 └── types/
     └── event.ts
@@ -94,6 +99,7 @@ Everything editable lives in a handful of files. No CMS, no admin login.
 
 | To change | Edit |
 |---|---|
+| Blog posts | Drop a `.md` file in `content/blog/` — see [`content/README.md`](./content/README.md) |
 | Upcoming events | `src/lib/events.ts` — add/remove entries in `UPCOMING_EVENTS` |
 | Executive team and their emails | `src/lib/execs.ts` — used by both About and Contact |
 | Reports list | `reports` array in `src/app/about/page.tsx` |
@@ -102,6 +108,20 @@ Everything editable lives in a handful of files. No CMS, no admin login.
 | Merch products and shop link | `products` / `SHOP_URL` in `src/components/home/MerchStrip.tsx` |
 | Social links | `socials` in `src/components/ui/SocialIcons.tsx` |
 | ELC hours, courses, Canvas key | `src/app/elc/page.tsx` |
+
+### Blog
+
+Posts are markdown files in `content/blog/`. The filename becomes the URL slug, and
+frontmatter supplies the title, date, author, excerpt, and tags. A file only publishes if
+it has a `title` and its name doesn't start with `_`, so drafts and stray notes can sit in
+the folder without becoming pages — and can't be reached by guessing the URL either.
+
+Reading time is estimated from word count; nothing needs to be set by hand. Post images go
+in `public/blog/`. Full authoring guide: [`content/README.md`](./content/README.md).
+
+Markdown is rendered to HTML at build time by `remark`, and styled by the hand-rolled
+`.prose` rules in `globals.css` — no `@tailwindcss/typography`, so the type scale and
+colours come straight from the brand tokens.
 
 ### Events
 
@@ -126,6 +146,7 @@ Search the codebase for `TODO` to find them all. The main ones:
 | Social profile URLs | `src/components/ui/SocialIcons.tsx` |
 | Merch shop URL | `src/components/home/MerchStrip.tsx` |
 | Club names and details | `src/app/clubs/page.tsx` |
+| Blog post cover images | `public/blog/` → the index cards currently show placeholders |
 | Economics Gazette copy | `src/app/resources/page.tsx` |
 | Calendar subscription URL | `src/components/home/CalendarSection.tsx` |
 

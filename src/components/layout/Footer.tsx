@@ -17,6 +17,7 @@ const footerLinks = {
     { label: 'Clubs', href: '/clubs' },
   ],
   Connect: [
+    { label: 'Blog', href: '/blog' },
     { label: 'Contact Us', href: '/contact' },
     { label: 'Newsletter', href: '/contact#newsletter' },
     { label: 'Follow Us', href: '/contact#follow' },
