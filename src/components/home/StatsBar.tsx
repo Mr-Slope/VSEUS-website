@@ -3,10 +3,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const stats = [
-  { value: 500, suffix: '+', label: 'Active Members' },
+  { value: 1000, suffix: '+', label: 'Students Represented' },
   { value: 10, suffix: '+', label: 'Annual Events' },
   { value: 11, suffix: '', label: 'Years Running' },
-  { value: 20, suffix: '+', label: 'Partner Organizations' },
 ];
 
 function useCountUp(target: number, duration = 1600) {
@@ -44,20 +43,20 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
 
   return (
     <div ref={ref} className="text-center px-6 py-8 group">
-      <p className="text-5xl font-black stats-number mb-1">
+      <p className="font-display text-5xl font-black stats-number mb-1">
         {count}
         {suffix}
       </p>
-      <p className="text-xs text-white/40 font-semibold uppercase tracking-widest mt-1">{label}</p>
+      <p className="font-display text-xs text-offwhite/50 font-semibold uppercase tracking-widest mt-1">{label}</p>
     </div>
   );
 }
 
 export function StatsBar() {
   return (
-    <section className="bg-navy-900 border-y border-white/[0.06]">
+    <section className="bg-midnight border-y border-offwhite/[0.06]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/[0.06]">
+        <div className="grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-offwhite/[0.08]">
           {stats.map((s) => (
             <StatItem key={s.label} {...s} />
           ))}
