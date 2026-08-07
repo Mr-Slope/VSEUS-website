@@ -2,9 +2,9 @@
  * The Economics Calendar — the public Google Calendar shared across the
  * economics clubs, embedded on the home page.
  *
- * The embed is pointed at the week of the next upcoming event rather than
- * whatever week it happens to be, so the frame is never empty. Google's ICS
- * feed sends no CORS headers, so the browser can't read it directly; instead
+ * The embed starts at the next upcoming event rather than at today, so the
+ * frame is never empty. Google's ICS feed sends no CORS headers, so the
+ * browser can't read it directly; instead
  * the feed is fetched and parsed at BUILD time and the resulting dates are
  * baked into the page. The client then picks the first one still in the
  * future, which keeps the embed correct as events pass without a rebuild.
@@ -34,12 +34,26 @@ const ICS_URL = `https://calendar.google.com/calendar/ical/${encodeURIComponent(
   CALENDAR_ID,
 )}/public/basic.ics`;
 
-/** Build the iframe URL. `focusDate` is 'YYYY-MM-DD'; omit it for the current week. */
+/**
+ * AGENDA lists the events themselves; WEEK draws an hour grid.
+ *
+ * Agenda is the deliberate choice. A week grid devotes most of its height to
+ * empty morning hours, and Google's embed has no parameter for the starting
+ * hour or scroll position — that's genuinely not configurable, and the grid
+ * lives in a cross-origin iframe so it can't be scrolled from outside either.
+ * Listing the events sidesteps the problem instead of fighting it, and reads
+ * better in a frame this size than seven day-columns.
+ *
+ * Switch to 'WEEK' here if the grid is ever wanted back.
+ */
+const EMBED_MODE = 'AGENDA';
+
+/** Build the iframe URL. `focusDate` is 'YYYY-MM-DD'; omit it to start from today. */
 export function buildEmbedUrl(focusDate?: string): string {
   const params = new URLSearchParams({
     src: CALENDAR_ID,
     ctz: CALENDAR_TZ,
-    mode: 'WEEK',
+    mode: EMBED_MODE,
     bgcolor: '#F7F6F5',
     showTitle: '0',
     showPrint: '0',
@@ -49,7 +63,8 @@ export function buildEmbedUrl(focusDate?: string): string {
   });
 
   if (focusDate) {
-    // Google wants YYYYMMDD/YYYYMMDD; the same day twice lands on that week.
+    // Google wants YYYYMMDD/YYYYMMDD. In agenda view this is where the list
+    // starts; in week view it's the week the grid lands on.
     const compact = focusDate.replace(/-/g, '');
     params.set('dates', `${compact}/${compact}`);
   }
@@ -62,7 +77,7 @@ export function buildEmbedUrl(focusDate?: string): string {
  * ascending and de-duplicated.
  *
  * Runs at build time only. Returns [] if the feed can't be read, in which case
- * the embed falls back to the current week rather than failing the build.
+ * the embed falls back to starting from today rather than failing the build.
  */
 export async function getUpcomingEventDates(): Promise<string[]> {
   let text: string;
@@ -71,7 +86,7 @@ export async function getUpcomingEventDates(): Promise<string[]> {
     if (!res.ok) throw new Error(`ICS responded ${res.status}`);
     text = await res.text();
   } catch (err) {
-    console.warn('[calendar] could not read the ICS feed, falling back to the current week:', err);
+    console.warn('[calendar] could not read the ICS feed, starting the agenda from today:', err);
     return [];
   }
 
