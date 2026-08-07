@@ -107,7 +107,7 @@ export function ServicePillars() {
                     </span>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-5 items-start">
+                  <div className="flex flex-col sm:flex-row gap-6 items-start">
                     <div className="flex-1">
                       <h3 className="font-bold text-midnight mb-2 text-xl">{p.title}</h3>
                       <p className="text-sm text-muted leading-relaxed">{p.description}</p>
@@ -115,7 +115,7 @@ export function ServicePillars() {
                     {/* TODO: replace with <Image src={`/${p.image}`} … /> once supplied */}
                     <ImagePlaceholder
                       label="Photo"
-                      className="w-full sm:w-40 h-32 sm:h-40 rounded-xl flex-shrink-0"
+                      className="w-full sm:w-56 h-48 sm:h-56 rounded-xl flex-shrink-0"
                     />
                   </div>
 

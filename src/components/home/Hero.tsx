@@ -27,12 +27,28 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center bg-midnight overflow-hidden">
+    <section className="relative min-h-screen lg:min-h-[108vh] flex items-center bg-midnight overflow-hidden">
+      {/*
+        The photo is the hero's whole background, edge to edge.
+        Layer order matters: image → scrim → grid/gradient → decoration → content.
+        TODO: replace with <Image src="/hero.jpg" fill priority … /> once supplied.
+      */}
+      <ImagePlaceholder
+        label="Hero image"
+        hint="public/hero.jpg — fills the whole hero"
+        tone="dark"
+        className="absolute inset-0 border-0"
+      />
+
+      {/*
+        The scrim is what lets the headline sit at 85% opacity and stay legible:
+        it darkens the photo enough to hold type without hiding the picture.
+      */}
+      <div className="absolute inset-0 bg-midnight/55" />
+      <div className="absolute inset-0 bg-gradient-to-r from-midnight/80 via-midnight/40 to-midnight/20" />
+
       {/* Subtle grid */}
       <div className="absolute inset-0 hero-grid-bg" />
-
-      {/* Depth gradients */}
-      <div className="absolute inset-0 bg-gradient-to-br from-midnight via-midnight/60 to-midnight-700/40" />
 
       {/* Decorative concentric rings — right */}
       <div className="absolute -right-56 top-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-offwhite/[0.03]" />
@@ -56,21 +72,7 @@ export function Hero() {
             </span>
           </div>
 
-          {/*
-            Headline sits over its own image. The scrim is what keeps both
-            readable: the picture stays visible through the type, and the type
-            stays legible at 85% opacity because the scrim darkens what's behind it.
-          */}
-          <div className="relative mb-8 -mx-4 sm:-mx-6 px-4 sm:px-6 py-6 rounded-2xl overflow-hidden">
-            {/* TODO: replace with <Image src="/hero.jpg" fill … /> once supplied */}
-            <ImagePlaceholder
-              label="Hero image"
-              hint="public/hero.jpg"
-              tone="dark"
-              className="absolute inset-0 rounded-2xl"
-            />
-            <div className="absolute inset-0 bg-midnight/50 rounded-2xl" />
-
+          <div className="mb-8">
             <h1 className="relative font-black text-offwhite/85 leading-[0.88] tracking-tight">
               <span className="hero-word text-6xl sm:text-7xl lg:text-[88px]" style={{ animationDelay: '80ms' }}>
                 Ahead of

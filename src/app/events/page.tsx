@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { UPCOMING_EVENTS } from '@/lib/events';
+import { UPCOMING_EVENTS, PAST_EVENT_PHOTOS } from '@/lib/events';
+import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-CA', {
@@ -113,6 +114,54 @@ export default function EventsPage() {
           )}
         </div>
       </section>
+
+      {/* Past events gallery */}
+      {PAST_EVENT_PHOTOS.length > 0 && (
+        <section className="py-16 lg:py-20 bg-midnight">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">
+              Looking Back
+            </p>
+            <h2 className="text-3xl font-black text-offwhite mb-3">Past Events</h2>
+            <p className="text-offwhite/55 text-sm mb-10 max-w-xl">
+              A look at what the society has run before — competitions, socials, workshops,
+              and the annual gala.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {PAST_EVENT_PHOTOS.map((photo) => (
+                <figure key={photo.title} className="group">
+                  <div className="relative overflow-hidden rounded-2xl">
+                    {photo.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={photo.image}
+                        alt={photo.title}
+                        className="w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                      />
+                    ) : (
+                      /* TODO: add `image` to the entry in src/lib/events.ts once photos exist */
+                      <ImagePlaceholder
+                        label="Event photo"
+                        tone="dark"
+                        className="w-full aspect-[4/3] rounded-2xl group-hover:border-accent/60 transition-colors"
+                      />
+                    )}
+                  </div>
+                  <figcaption className="mt-3">
+                    <p className="text-offwhite font-bold text-base leading-snug">{photo.title}</p>
+                    {photo.when && (
+                      <p className="font-display text-offwhite/45 text-xs uppercase tracking-widest mt-1">
+                        {photo.when}
+                      </p>
+                    )}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

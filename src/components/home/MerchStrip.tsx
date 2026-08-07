@@ -41,16 +41,17 @@ export function MerchStrip() {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {/* Two across rather than four, so each product reads at a usable size */}
+            <div className="grid grid-cols-2 gap-5">
               {products.map((p) => (
                 <div key={p.name} className="group">
                   {/* TODO: replace with <Image src={`/${p.image}`} … /> once supplied */}
                   <ImagePlaceholder
                     label={p.name}
                     tone="dark"
-                    className="aspect-square rounded-xl group-hover:border-accent/60 transition-colors"
+                    className="aspect-square rounded-2xl group-hover:border-accent/60 transition-colors"
                   />
-                  <p className="text-offwhite/70 text-xs font-medium mt-2 text-center">{p.name}</p>
+                  <p className="text-offwhite/75 text-sm font-medium mt-3 text-center">{p.name}</p>
                 </div>
               ))}
             </div>

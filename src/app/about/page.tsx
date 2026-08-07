@@ -13,18 +13,22 @@ const reports = [
   Orbital layout constants.
 
   Cards are wide and horizontal (square photo left, text right), so the ring
-  has to be big enough to keep them apart: with six VPs at R = 360 the chord
-  between neighbours is 2·R·sin(30°) = 360px against a 240px card, leaving
-  120px of clearance. Max extent is CX + R + CARD_W/2 = 1005px, inside the
-  1050px container.
+  has to be big enough to keep them apart: with six VPs at R = 380 the chord
+  between neighbours is 2·R·sin(30°) = 380px against a 300px card, leaving
+  80px of clearance. Max extent is CX + R + CARD_W/2 = 1080px, inside the
+  1100px container — which itself fits the 1216px of content width available
+  at the xl breakpoint.
+
+  CARD_W is 300 rather than 240 so the longest role, "VP Administration",
+  holds on one line beside a 120px photo.
 
   The orbital only renders at xl and up. Below that it would overflow, so a
   responsive card grid takes over.
 */
-const CX = 525, CY = 525, R = 360;
-const CONTAINER = 1050;
-const CARD_W = 240, CARD_H = 150;
-const PRES_W = 280, PRES_H = 200;
+const CX = 550, CY = 550, R = 380;
+const CONTAINER = 1100;
+const CARD_W = 300, CARD_H = 180;
+const PRES_W = 340, PRES_H = 230;
 
 const vpNodes = VPS.map((vp, i) => {
   const deg = (i * 360) / VPS.length - 90;
@@ -49,13 +53,13 @@ function ExecCard({ exec, featured = false }: { exec: Exec; featured?: boolean }
         label="Photo"
         tone="dark"
         hideIcon
-        className={`rounded-xl flex-shrink-0 ${featured ? 'w-28 h-28' : 'w-24 h-24'}`}
+        className={`rounded-xl flex-shrink-0 ${featured ? 'w-40 h-40' : 'w-32 h-32'}`}
       />
       <div className="min-w-0">
-        <p className={`text-offwhite font-bold leading-tight ${featured ? 'text-xl' : 'text-lg'}`}>
+        <p className={`text-offwhite font-bold leading-tight ${featured ? 'text-2xl' : 'text-lg'}`}>
           {exec.name}
         </p>
-        <p className={`font-display font-semibold mt-1 ${featured ? 'text-accent text-base' : 'text-accent/85 text-sm'}`}>
+        <p className={`font-display font-semibold mt-1.5 whitespace-nowrap ${featured ? 'text-accent text-base' : 'text-accent/85 text-sm'}`}>
           {exec.role}
         </p>
       </div>
@@ -222,11 +226,11 @@ export default function AboutPage() {
                   label="Photo"
                   tone="dark"
                   hideIcon
-                  className="w-28 h-28 rounded-xl flex-shrink-0"
+                  className="w-40 h-40 rounded-xl flex-shrink-0"
                 />
                 <div className="min-w-0">
-                  <p className="text-offwhite font-bold text-lg leading-tight">{PRESIDENT.name}</p>
-                  <p className="font-display text-accent text-sm font-semibold mt-1.5">{PRESIDENT.role}</p>
+                  <p className="text-offwhite font-bold text-xl leading-tight">{PRESIDENT.name}</p>
+                  <p className="font-display text-accent text-base font-semibold mt-1.5 whitespace-nowrap">{PRESIDENT.role}</p>
                 </div>
               </div>
 
@@ -246,11 +250,12 @@ export default function AboutPage() {
                     label="Photo"
                     tone="dark"
                     hideIcon
-                    className="w-24 h-24 rounded-lg flex-shrink-0"
+                    className="w-[120px] h-[120px] rounded-lg flex-shrink-0"
                   />
                   <div className="min-w-0">
                     <p className="text-offwhite font-bold text-base leading-tight">{vp.name}</p>
-                    <p className="font-display text-accent/85 text-xs font-semibold mt-1.5">{vp.role}</p>
+                    {/* nowrap so "VP Administration" holds one line — CARD_W is sized for it */}
+                    <p className="font-display text-accent/85 text-xs font-semibold mt-1.5 whitespace-nowrap">{vp.role}</p>
                   </div>
                 </div>
               ))}
