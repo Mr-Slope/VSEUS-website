@@ -1,17 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
 
-const services = [
+const resources = [
   {
-    id: 'merch',
-    title: 'Merchandise',
+    id: 'gazette',
+    title: 'Economics Gazette',
     description:
-      'Rep VSEUS with our exclusive student merchandise: hoodies, t-shirts, tote bags, and more. All items are made to order. Proceeds support student programming.',
-    cta: 'Shop Now',
-    ctaHref: '#',
+      'The society\'s student-run publication: commentary on current economic events, faculty interviews, and undergraduate research written by and for VSE students. Full details on issues and how to contribute are coming soon.',
+    cta: 'Details Coming Soon',
+    ctaHref: '/contact',
+    note: 'More information will be published here shortly.',
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
       </svg>
     ),
   },
@@ -42,49 +43,52 @@ const services = [
     ),
   },
   {
-    id: 'initiatives',
-    title: 'Initiatives',
+    id: 'clubs',
+    title: 'Clubs',
     description:
-      'VSEUS runs ongoing initiatives including an economics journal, policy brief competition, mentorship program pairing upper-year students with first-years, and a speaker series.',
-    cta: 'Get Involved',
-    ctaHref: '/contact',
+      'VSEUS endorses a group of student-run clubs working across economics, finance, and public policy. Endorsement connects them to our funding, spaces, and audience so their programming reaches every VSE student.',
+    cta: 'See the Clubs',
+    ctaHref: '/clubs',
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
       </svg>
     ),
   },
 ];
 
-export default function ServicesPage() {
+export default function ResourcesPage() {
   return (
-    <div className="min-h-screen">
-      <section className="bg-navy-700 py-16">
+    <div className="min-h-screen bg-ice">
+      <section className="bg-midnight py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-gold text-sm font-semibold uppercase tracking-widest mb-2">What We Offer</p>
-          <h1 className="text-4xl font-black text-white">Our Services</h1>
+          <p className="font-display text-accent text-sm font-semibold uppercase tracking-widest mb-2">What We Offer</p>
+          <h1 className="text-4xl font-black text-offwhite">Our Resources</h1>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {services.map((s) => (
+            {resources.map((r) => (
               <div
-                key={s.id}
-                id={s.id}
-                className="bg-navy-100 rounded-2xl p-7 border border-navy-100 hover:border-navy-300 transition-all"
+                key={r.id}
+                id={r.id}
+                className="bg-offwhite rounded-2xl p-8 border border-ice-400 hover:border-accent hover:shadow-lg hover:shadow-midnight/10 transition-all flex flex-col scroll-mt-24"
               >
-                <div className="w-14 h-14 rounded-xl bg-navy-700 text-white flex items-center justify-center mb-4">
-                  {s.icon}
+                <div className="w-14 h-14 rounded-xl bg-midnight-700 text-offwhite flex items-center justify-center mb-5">
+                  {r.icon}
                 </div>
-                <h2 className="text-xl font-bold text-navy-900 mb-3">{s.title}</h2>
-                <p className="text-gray-600 leading-relaxed text-sm mb-5">{s.description}</p>
+                <h2 className="text-2xl font-bold text-midnight mb-3">{r.title}</h2>
+                <p className="text-muted leading-relaxed text-sm mb-5">{r.description}</p>
+                {r.note && (
+                  <p className="text-xs text-muted/70 italic mb-5">{r.note}</p>
+                )}
                 <Link
-                  href={s.ctaHref}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-navy-500 hover:text-navy-700 transition-colors"
+                  href={r.ctaHref}
+                  className="mt-auto inline-flex items-center gap-1.5 font-display text-sm font-semibold text-midnight-700 hover:text-midnight transition-colors self-start border-b-2 border-accent pb-0.5"
                 >
-                  {s.cta}
+                  {r.cta}
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
@@ -93,14 +97,6 @@ export default function ServicesPage() {
             ))}
           </div>
         </div>
-      </section>
-
-      <section className="py-12 bg-navy-700 text-center">
-        <h2 className="text-2xl font-black text-white mb-3">Not sure where to start?</h2>
-        <p className="text-white/70 mb-6 text-sm">Become a member to unlock all services and features.</p>
-        <Link href="/contact" className="inline-flex items-center bg-gold text-navy-900 font-semibold px-6 py-3 rounded-lg hover:bg-gold-light transition-colors text-sm">
-          Join VSEUS
-        </Link>
       </section>
     </div>
   );
