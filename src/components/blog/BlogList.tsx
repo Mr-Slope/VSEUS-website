@@ -129,39 +129,24 @@ export function BlogList({ posts, tags }: { posts: PostMeta[]; tags: string[] })
 
   return (
     <>
+      {/* The "All" pill is how you clear a filter — no separate reset control. */}
       {tags.length > 0 && (
-        <div className="mb-10">
-          <div className="flex flex-wrap items-center gap-2.5" role="group" aria-label="Filter posts by tag">
+        <div className="flex flex-wrap items-center gap-2.5 mb-10" role="group" aria-label="Filter posts by tag">
+          <FilterPill
+            label="All"
+            count={posts.length}
+            active={activeTag === ALL}
+            onClick={() => setActiveTag(ALL)}
+          />
+          {tags.map((tag) => (
             <FilterPill
-              label="All"
-              count={posts.length}
-              active={activeTag === ALL}
-              onClick={() => setActiveTag(ALL)}
+              key={tag}
+              label={tag}
+              count={counts.get(tag) ?? 0}
+              active={activeTag === tag}
+              onClick={() => setActiveTag(tag)}
             />
-            {tags.map((tag) => (
-              <FilterPill
-                key={tag}
-                label={tag}
-                count={counts.get(tag) ?? 0}
-                active={activeTag === tag}
-                onClick={() => setActiveTag(tag)}
-              />
-            ))}
-          </div>
-
-          {activeTag !== ALL && (
-            <p aria-live="polite" className="text-sm text-muted mt-4">
-              {visible.length} {visible.length === 1 ? 'post' : 'posts'} tagged{' '}
-              <span className="text-midnight font-semibold">{activeTag}</span>.{' '}
-              <button
-                type="button"
-                onClick={() => setActiveTag(ALL)}
-                className="text-midnight font-semibold underline decoration-accent decoration-2 underline-offset-2"
-              >
-                Show all
-              </button>
-            </p>
-          )}
+          ))}
         </div>
       )}
 
