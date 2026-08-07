@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 import { UPCOMING_EVENTS, PAST_EVENT_PHOTOS } from '@/lib/events';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
@@ -38,12 +38,12 @@ export default function EventsPage() {
               <p className="text-muted text-sm mb-6">
                 We announce new events on Instagram and through the newsletter. Check back soon.
               </p>
-              <Link
+              <TransitionLink
                 href="/contact#newsletter"
                 className="inline-flex items-center bg-accent text-midnight font-display font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
               >
                 Join the Newsletter
-              </Link>
+              </TransitionLink>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

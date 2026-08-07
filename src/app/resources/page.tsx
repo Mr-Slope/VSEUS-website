@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 
 const resources = [
   {
@@ -84,7 +84,7 @@ export default function ResourcesPage() {
                 {r.note && (
                   <p className="text-xs text-muted/70 italic mb-5">{r.note}</p>
                 )}
-                <Link
+                <TransitionLink
                   href={r.ctaHref}
                   className="mt-auto inline-flex items-center gap-1.5 font-display text-sm font-semibold text-midnight-700 hover:text-midnight transition-colors self-start border-b-2 border-accent pb-0.5"
                 >
@@ -92,7 +92,7 @@ export default function ResourcesPage() {
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
-                </Link>
+                </TransitionLink>
               </div>
             ))}
           </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
 /**
@@ -63,7 +63,7 @@ export default function ClubsPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-midnight via-midnight/70 to-midnight-700/40" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-sm text-offwhite/40 mb-6">
-            <Link href="/resources" className="hover:text-offwhite transition-colors">Resources</Link>
+            <TransitionLink href="/resources" className="hover:text-offwhite transition-colors">Resources</TransitionLink>
             <span>/</span>
             <span className="text-offwhite/70">Clubs</span>
           </div>
@@ -186,18 +186,18 @@ export default function ClubsPage() {
           Reach out to the VSEUS VP Administration to start an endorsement request.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
-          <Link
+          <TransitionLink
             href="/contact"
             className="inline-flex items-center bg-accent text-midnight font-display font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
           >
             Contact Us
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             href="/resources"
             className="inline-flex items-center border border-offwhite/25 text-offwhite/80 font-display font-medium px-6 py-3 rounded-lg hover:bg-offwhite/10 hover:text-offwhite transition-all text-sm"
           >
             Back to Resources
-          </Link>
+          </TransitionLink>
         </div>
       </section>
 

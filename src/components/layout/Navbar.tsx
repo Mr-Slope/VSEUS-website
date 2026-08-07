@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
 const navLinks = [
@@ -54,7 +54,7 @@ export function Navbar() {
         <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center h-20 gap-4">
 
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-3 flex-shrink-0 group justify-self-start">
+          <TransitionLink href="/" className="flex items-center gap-3 flex-shrink-0 group justify-self-start">
             {/* TODO: replace with <Image src="/logo.svg" … /> once the logo is supplied */}
             <ImagePlaceholder
               label="Logo"
@@ -65,7 +65,7 @@ export function Navbar() {
             <span className="font-display text-2xl font-black text-offwhite tracking-tight group-hover:text-accent transition-colors duration-200">
               VSEUS
             </span>
-          </Link>
+          </TransitionLink>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1 justify-self-center">
@@ -82,7 +82,7 @@ export function Navbar() {
                     The dropdown opens on hover and on keyboard focus, so the
                     child links are reachable without a mouse.
                   */}
-                  <Link
+                  <TransitionLink
                     href={link.href}
                     onFocus={() => setOpenDropdown(link.label)}
                     className="nav-link-draw flex items-center gap-1.5 px-5 py-3 font-display text-base font-medium text-offwhite/85 hover:text-offwhite rounded-lg transition-colors duration-150"
@@ -94,30 +94,30 @@ export function Navbar() {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                     </svg>
-                  </Link>
+                  </TransitionLink>
                   {openDropdown === link.label && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-60 bg-midnight-900/97 backdrop-blur-xl rounded-xl shadow-2xl border border-accent/15 py-2 z-50">
                       {link.children.map((child) => (
-                        <Link
+                        <TransitionLink
                           key={child.label}
                           href={child.href}
                           className="block px-5 py-2.5 text-sm text-offwhite/75 hover:text-offwhite hover:bg-offwhite/10 transition-colors"
                         >
                           {child.label}
-                        </Link>
+                        </TransitionLink>
                       ))}
                     </div>
                   )}
                 </div>
               ) : (
-                <Link
+                <TransitionLink
                   key={link.label}
                   href={link.href}
                   onFocus={() => setOpenDropdown(null)}
                   className="nav-link-draw px-5 py-3 font-display text-base font-medium text-offwhite/85 hover:text-offwhite rounded-lg transition-colors duration-150"
                 >
                   {link.label}
-                </Link>
+                </TransitionLink>
               )
             )}
           </nav>
@@ -147,24 +147,24 @@ export function Navbar() {
           <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <div key={link.label}>
-                <Link
+                <TransitionLink
                   href={link.href}
                   className="block px-4 py-3 font-display text-base font-medium text-offwhite/90 hover:text-offwhite hover:bg-offwhite/10 rounded-lg transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
-                </Link>
+                </TransitionLink>
                 {link.children && (
                   <div className="ml-4 border-l border-offwhite/10 pl-2 space-y-0.5">
                     {link.children.map((child) => (
-                      <Link
+                      <TransitionLink
                         key={child.label}
                         href={child.href}
                         className="block px-4 py-2 text-sm text-offwhite/60 hover:text-offwhite hover:bg-offwhite/10 rounded-lg transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
                         {child.label}
-                      </Link>
+                      </TransitionLink>
                     ))}
                   </div>
                 )}
