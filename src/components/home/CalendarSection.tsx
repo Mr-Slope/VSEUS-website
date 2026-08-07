@@ -1,8 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { Reveal } from '@/components/ui/Reveal';
+import { CalendarEmbed } from '@/components/home/CalendarEmbed';
+import { CALENDAR_SUBSCRIBE_URL, getUpcomingEventDates } from '@/lib/calendar';
 
-export function CalendarSection() {
+export async function CalendarSection() {
+  // Read at build time; see the note in src/lib/calendar.ts.
+  const upcomingDates = await getUpcomingEventDates();
+
   return (
     <section className="bg-midnight py-20 lg:py-28 relative overflow-hidden">
       {/* Subtle grid */}
@@ -10,7 +15,9 @@ export function CalendarSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-midnight/80 via-transparent to-midnight/80" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+        {/* Calendar column runs wider than the copy — a week view needs the
+            horizontal room more than it needs height. */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-14 items-center">
 
           <Reveal>
             <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-4">
@@ -25,9 +32,10 @@ export function CalendarSection() {
               directly to Google Calendar, Apple Calendar, or Outlook.
             </p>
             <div className="flex flex-wrap gap-3">
-              {/* TODO: replace with the published calendar subscription URL */}
               <a
-                href="#"
+                href={CALENDAR_SUBSCRIBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-accent text-midnight font-display font-semibold px-5 py-2.5 rounded-lg hover:bg-accent-600 transition-colors text-sm shadow-lg shadow-accent/20"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -45,15 +53,7 @@ export function CalendarSection() {
           </Reveal>
 
           <Reveal delay={120}>
-            <div className="rounded-2xl overflow-hidden border border-offwhite/[0.1] bg-offwhite/[0.03] aspect-video flex items-center justify-center relative group hover:border-accent/30 transition-colors duration-300">
-              <div className="text-center text-offwhite/30 group-hover:text-offwhite/45 transition-colors duration-300">
-                <svg className="w-12 h-12 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <p className="text-sm font-medium">Google Calendar embed</p>
-                <p className="text-xs mt-1 opacity-60">Coming soon</p>
-              </div>
-            </div>
+            <CalendarEmbed upcomingDates={upcomingDates} />
           </Reveal>
         </div>
       </div>

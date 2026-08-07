@@ -70,7 +70,8 @@ src/
 │   │   ├── StatsBar.tsx        # Count-up stats
 │   │   ├── ServicePillars.tsx  # 2×2 tilt cards with scroll reveal
 │   │   ├── MerchStrip.tsx      # Merch promo + shop link
-│   │   └── CalendarSection.tsx # Google Calendar embed placeholder
+│   │   ├── CalendarSection.tsx # Calendar block (fetches the feed at build)
+│   │   └── CalendarEmbed.tsx   # The iframe, targeted at the next event's week
 │   └── ui/
 │       ├── Button.tsx          # General button with ripple
 │       ├── CTAButton.tsx       # Primary CTA — triggers circular page transition
@@ -85,6 +86,7 @@ src/
 ├── lib/
 │   ├── events.ts               # UPCOMING_EVENTS — the public events list
 │   ├── execs.ts                # Executive roster (About + Contact)
+│   ├── calendar.ts             # Google Calendar config + build-time ICS read
 │   └── blog.ts                 # Build-time markdown loader for content/blog/
 │
 └── types/
@@ -107,6 +109,7 @@ Everything editable lives in a handful of files. No CMS, no admin login.
 | Resource cards | `resources` array in `src/app/resources/page.tsx` |
 | Merch products and shop link | `products` / `SHOP_URL` in `src/components/home/MerchStrip.tsx` |
 | Social links | `socials` in `src/components/ui/SocialIcons.tsx` |
+| Calendar ID / subscribe link | `src/lib/calendar.ts` |
 | ELC hours, courses, Canvas key | `src/app/elc/page.tsx` |
 
 ### Blog
@@ -122,6 +125,22 @@ in `public/blog/`. Full authoring guide: [`content/README.md`](./content/README.
 Markdown is rendered to HTML at build time by `remark`, and styled by the hand-rolled
 `.prose` rules in `globals.css` — no `@tailwindcss/typography`, so the type scale and
 colours come straight from the brand tokens.
+
+### The Economics Calendar
+
+The home page embeds the public Google Calendar shared across the economics
+clubs. Calendar ID, timezone, and the subscribe link live in `src/lib/calendar.ts`.
+
+The embed targets the week of the next upcoming event rather than the current
+week, so the frame is never empty. Google's ICS feed sends no CORS headers, so
+the browser can't read it — the feed is fetched and parsed at **build time** and
+the upcoming dates are baked into the page; the browser then picks the first one
+still in the future. Adding events to the Google Calendar shows up in the embed
+immediately (the iframe loads live from Google), but the *week targeting* only
+catches up on the next deploy. If the feed can't be read at build time the build
+still succeeds and the embed falls back to the current week.
+
+The calendar must stay **public** for the embed to work for visitors.
 
 ### Events
 
@@ -148,7 +167,6 @@ Search the codebase for `TODO` to find them all. The main ones:
 | Club names and details | `src/app/clubs/page.tsx` |
 | Blog post cover images | `public/blog/` → the index cards currently show placeholders |
 | Economics Gazette copy | `src/app/resources/page.tsx` |
-| Calendar subscription URL | `src/components/home/CalendarSection.tsx` |
 
 Each image placeholder is a single `<ImagePlaceholder />` call, so swapping in a real
 image is a one-line change per site.
@@ -231,11 +249,6 @@ the schema, why it went, and how to restore it. The code remains on
 Rather than rebuilding registration in-house, link each event to a Google Form via
 `registrationUrl` (already supported). Responses land in a spreadsheet the exec team
 already knows how to use, with no backend to maintain.
-
-### Google Calendar embed
-
-`CalendarSection` reserves space for a public VSEUS calendar embed. Publishing a
-calendar and dropping in the iframe would let students subscribe directly.
 
 ### Contact form backend
 
