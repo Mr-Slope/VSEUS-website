@@ -34,6 +34,10 @@ tags: [Policy, Student Life]
 | `excerpt` | No | Shown on the index card and used as the page description |
 | `tags` | No | Square brackets, comma-separated. Wrap in quotes if a tag has a space |
 
+Tags aren't decoration — they're the filter on `/blog`. Each distinct tag becomes a pill
+with a post count, so reuse an existing one rather than coining a near-duplicate. They're
+case-sensitive: `Policy` and `policy` would show up as two separate pills.
+
 A missing or malformed field falls back rather than breaking the build, so a typo in one
 post won't take the site down. It will look wrong on the page, though — check your work.
 
