@@ -42,12 +42,14 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
   const { count, ref } = useCountUp(value);
 
   return (
-    <div ref={ref} className="text-center px-6 py-8 group">
-      <p className="font-display text-5xl font-black stats-number mb-1">
+    <div ref={ref} className="text-center px-6 py-14 lg:py-20 group">
+      <p className="font-display text-6xl sm:text-7xl lg:text-8xl font-black stats-number mb-2 leading-none">
         {count}
         {suffix}
       </p>
-      <p className="font-display text-xs text-offwhite/50 font-semibold uppercase tracking-widest mt-1">{label}</p>
+      <p className="font-display text-sm lg:text-base text-offwhite/55 font-semibold uppercase tracking-[0.18em] mt-3">
+        {label}
+      </p>
     </div>
   );
 }

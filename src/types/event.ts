@@ -1,3 +1,13 @@
+/** One photo in the past-events gallery at the bottom of /events. */
+export interface PastEventPhoto {
+  /** Caption shown under the photo. */
+  title: string;
+  /** Path under public/, e.g. '/events/gala-2025.jpg'. Omit to show a placeholder. */
+  image?: string;
+  /** Optional year or date line under the title. */
+  when?: string;
+}
+
 export interface Event {
   id: string;
   title: string;

@@ -83,7 +83,7 @@ export default function BlogPage() {
                   {/* TODO: swap for the post's cover image once posts carry one */}
                   <ImagePlaceholder
                     label="Cover image"
-                    className="w-full h-56 lg:h-full min-h-[240px] border-0 border-b lg:border-b-0 lg:border-r border-dashed"
+                    className="w-full h-72 lg:h-full min-h-[360px] border-0 border-b lg:border-b-0 lg:border-r border-dashed"
                   />
                   <div className="p-8 lg:p-10 flex flex-col">
                     <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -119,7 +119,7 @@ export default function BlogPage() {
                     >
                       <ImagePlaceholder
                         label="Cover image"
-                        className="w-full h-40 border-0 border-b border-dashed"
+                        className="w-full h-56 border-0 border-b border-dashed"
                       />
                       <div className="p-6 flex flex-col flex-1">
                         {post.tags.length > 0 && (

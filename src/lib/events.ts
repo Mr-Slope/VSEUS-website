@@ -1,4 +1,4 @@
-import type { Event } from '@/types/event';
+import type { Event, PastEventPhoto } from '@/types/event';
 
 /**
  * The public events list. Edit this file to add, change, or remove an event —
@@ -74,4 +74,21 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Academic',
   },
+];
+
+/**
+ * Photos from events we've already run, shown in the gallery at the bottom of
+ * /events.
+ *
+ * Add `image: '/events/<file>.jpg'` (file goes in public/events/) and the photo
+ * renders. Leave `image` off and the tile shows a placeholder, so the gallery
+ * can be laid out before the photos are gathered.
+ */
+export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
+  { title: 'Annual VSEUS Gala',           when: '2025' },
+  { title: 'Economics Case Competition',  when: '2025' },
+  { title: 'Industry Networking Night',   when: '2025' },
+  { title: 'Welcome Back Social',         when: '2025' },
+  { title: 'Research Skills Workshop',    when: '2025' },
+  { title: 'End of Term Mixer',           when: '2025' },
 ];

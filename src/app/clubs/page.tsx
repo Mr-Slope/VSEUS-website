@@ -159,7 +159,7 @@ export default function ClubsPage() {
                   label="Logo"
                   tone="dark"
                   hideIcon
-                  className="w-20 h-20 rounded-xl flex-shrink-0"
+                  className="w-28 h-28 rounded-xl flex-shrink-0"
                 />
                 <div className="min-w-0">
                   <span className="inline-block font-display text-[10px] font-semibold uppercase tracking-widest text-accent mb-1.5">
