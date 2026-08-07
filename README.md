@@ -131,14 +131,17 @@ colours come straight from the brand tokens.
 The home page embeds the public Google Calendar shared across the economics
 clubs. Calendar ID, timezone, and the subscribe link live in `src/lib/calendar.ts`.
 
-The embed targets the week of the next upcoming event rather than the current
-week, so the frame is never empty. Google's ICS feed sends no CORS headers, so
+The embed is an agenda list starting at the next upcoming event rather than at
+today, so the frame is never empty. Agenda rather than a week grid because
+Google's embed has no parameter for the starting hour or scroll position, so a
+grid would open on empty morning hours — `EMBED_MODE` in `src/lib/calendar.ts`
+switches it back to `WEEK` if wanted. Google's ICS feed sends no CORS headers, so
 the browser can't read it — the feed is fetched and parsed at **build time** and
 the upcoming dates are baked into the page; the browser then picks the first one
 still in the future. Adding events to the Google Calendar shows up in the embed
 immediately (the iframe loads live from Google), but the *week targeting* only
 catches up on the next deploy. If the feed can't be read at build time the build
-still succeeds and the embed falls back to the current week.
+still succeeds and the embed falls back to starting from today.
 
 The calendar must stay **public** for the embed to work for visitors.
 

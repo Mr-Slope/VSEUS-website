@@ -8,7 +8,7 @@ import { buildEmbedUrl } from '@/lib/calendar';
 const neverChanges = () => () => {};
 
 /**
- * The calendar iframe, pointed at the week of the next upcoming event.
+ * The calendar iframe, starting at the next upcoming event.
  *
  * `upcomingDates` is baked in at build time (see src/lib/calendar.ts). Which
  * one to focus on can only be decided in the browser, because the server has
@@ -31,7 +31,7 @@ export function CalendarEmbed({ upcomingDates }: { upcomingDates: string[] }) {
   if (isHydrated) {
     const today = new Date().toISOString().slice(0, 10);
     // undefined once the baked list runs out, which buildEmbedUrl reads as
-    // "just show the current week".
+    // "just start from today".
     src = buildEmbedUrl(upcomingDates.find((d) => d >= today));
   }
 
