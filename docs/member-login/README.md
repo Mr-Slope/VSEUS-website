@@ -4,7 +4,7 @@
 built, how it worked, and why it was taken out.
 
 **Where the code lives:** every commit is on `origin/feat/postgres-auth-codes`
-(8 commits, `b048b13`..`6314ae1`). Nothing here is lost — see [`restore.md`](./restore.md).
+(8 commits, `6b68426`..`e2f0b84`). Nothing here is lost — see [`restore.md`](./restore.md).
 
 ---
 

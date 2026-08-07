@@ -1,7 +1,7 @@
 # Member Login — How to Restore It
 
 The removal was a deletion, not a rewrite. Every file still exists on
-`origin/feat/postgres-auth-codes` at commit `6314ae1`. Restoring is a checkout, a
+`origin/feat/postgres-auth-codes` at commit `e2f0b84`. Restoring is a checkout, a
 dependency install, and a database provision.
 
 Read [`README.md`](./README.md) first — some of what you would be restoring was already
@@ -197,8 +197,8 @@ table in [`README.md`](./README.md) before promising them to anyone.
 
 | What | Where |
 |---|---|
-| Full implementation | `origin/feat/postgres-auth-codes` @ `6314ae1` |
-| First commit of the stack | `b048b13` `chore(deps): add postgres, drizzle, auth.js, bcrypt deps` |
-| The removal commit | `501c7bb` on `feat/publish-ready` |
+| Full implementation | `origin/feat/postgres-auth-codes` @ `e2f0b84` |
+| First commit of the stack | `6b68426` `chore(deps): add postgres, drizzle, auth.js, bcrypt deps` |
+| The removal commit | `e915f54` on `feat/publish-ready` |
 | Schema details | [`schema.md`](./schema.md) |
 | Why it was removed | [`README.md`](./README.md) |
