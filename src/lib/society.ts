@@ -14,3 +14,18 @@ export const FOUNDED_YEAR = 2014;
 export function yearsRunning(now: Date = new Date()): number {
   return now.getFullYear() - FOUNDED_YEAR;
 }
+
+/**
+ * Where the society is. The Iona Building — same address as the Economics
+ * Learning Centre in IONA 038.
+ */
+export const ADDRESS = {
+  street: '6000 Iona Dr',
+  locality: 'Vancouver, BC V6T 1L4',
+  full: '6000 Iona Dr, Vancouver, BC V6T 1L4',
+} as const;
+
+/** Opens the address in whichever maps app the visitor uses. No API key needed. */
+export const ADDRESS_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  ADDRESS.full,
+)}`;
