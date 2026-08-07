@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import Link from 'next/link';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 import { CTAButton } from '@/components/ui/CTAButton';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
@@ -133,12 +133,12 @@ export function Hero() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </CTAButton>
-            <Link
+            <TransitionLink
               href="/about"
               className="inline-flex items-center gap-2 border border-offwhite/25 text-offwhite/80 font-display font-medium px-7 py-3.5 rounded-lg hover:bg-offwhite/[0.08] hover:border-offwhite/40 hover:text-offwhite transition-all text-base"
             >
               Learn More
-            </Link>
+            </TransitionLink>
           </div>
         </div>
       </div>

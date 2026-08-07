@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 import { Reveal } from '@/components/ui/Reveal';
 import { CalendarEmbed } from '@/components/home/CalendarEmbed';
 import { CALENDAR_SUBSCRIBE_URL, getUpcomingEventDates } from '@/lib/calendar';
@@ -43,12 +43,12 @@ export async function CalendarSection() {
                 </svg>
                 Subscribe to Calendar
               </a>
-              <Link
+              <TransitionLink
                 href="/events"
                 className="inline-flex items-center gap-2 border border-offwhite/20 text-offwhite/75 font-display font-medium px-5 py-2.5 rounded-lg hover:bg-offwhite/10 hover:text-offwhite hover:border-offwhite/35 transition-all text-sm"
               >
                 View All Events
-              </Link>
+              </TransitionLink>
             </div>
           </Reveal>
 

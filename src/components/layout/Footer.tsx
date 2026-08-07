@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 import { socials } from '@/components/ui/SocialIcons';
 
 const footerLinks = {
@@ -58,12 +58,12 @@ export function Footer() {
               <ul className="space-y-2">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <Link
+                    <TransitionLink
                       href={link.href}
                       className="text-sm text-offwhite/70 hover:text-offwhite transition-colors"
                     >
                       {link.label}
-                    </Link>
+                    </TransitionLink>
                   </li>
                 ))}
               </ul>

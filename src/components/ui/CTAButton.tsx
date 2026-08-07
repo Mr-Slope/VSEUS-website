@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { usePageTransition } from '@/contexts/TransitionContext';
+import { TransitionLink } from '@/components/ui/TransitionLink';
 
 interface CTAButtonProps {
   href: string;
@@ -24,6 +24,12 @@ const sizeStyles: Record<string, string> = {
   lg: 'px-7 py-3.5 text-base',
 };
 
+/**
+ * The primary call-to-action: a ripple on press, then the page wipe.
+ *
+ * Renders a real link rather than a button so it behaves like one — the wipe
+ * comes from TransitionLink, which leaves cmd-click and friends alone.
+ */
 export function CTAButton({
   href,
   children,
@@ -31,15 +37,12 @@ export function CTAButton({
   size = 'lg',
   className = '',
 }: CTAButtonProps) {
-  const { triggerTransition } = usePageTransition();
+  function ripple(e: React.MouseEvent<HTMLAnchorElement>) {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
 
-  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    const btn = e.currentTarget;
-    const rect = btn.getBoundingClientRect();
-
-    // Ripple from click point
-    const ripple = document.createElement('span');
-    ripple.style.cssText = `
+    const dot = document.createElement('span');
+    dot.style.cssText = `
       position:absolute;
       left:${e.clientX - rect.left}px;
       top:${e.clientY - rect.top}px;
@@ -50,15 +53,14 @@ export function CTAButton({
       pointer-events:none;
       animation:cta-ripple 0.55s ease-out forwards;
     `;
-    btn.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-
-    triggerTransition(href, e.clientX, e.clientY);
+    el.appendChild(dot);
+    setTimeout(() => dot.remove(), 600);
   }
 
   return (
-    <button
-      onClick={handleClick}
+    <TransitionLink
+      href={href}
+      onClick={ripple}
       className={[
         'relative inline-flex items-center justify-center gap-2 overflow-hidden',
         'rounded-lg font-display font-semibold transition-all duration-200 btn-press',
@@ -71,6 +73,6 @@ export function CTAButton({
         .join(' ')}
     >
       {children}
-    </button>
+    </TransitionLink>
   );
 }
