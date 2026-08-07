@@ -2,38 +2,39 @@ import React from 'react';
 import Link from 'next/link';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
-/*
-  TODO: replace with the real endorsed clubs once the list is confirmed.
-  Each entry needs a name, a one-line focus, a short description, and a link.
-*/
+/**
+ * Endorsed clubs. Each card links straight out to the club's own site or
+ * socials — descriptions are drawn from how each one describes itself.
+ *
+ * TODO: add a `logo` path (public/clubs/<name>.png) once logos are supplied.
+ */
 const clubs = [
   {
-    name: 'Placeholder Club One',
-    focus: 'Finance',
+    name: 'DEVEC',
+    fullName: 'UBC Development Economics Club',
+    focus: 'Development Economics',
     description:
-      'A short description of what this club does, who it is for, and what a typical term of programming looks like.',
-    href: '#',
+      'UBC’s only club bringing together students from every discipline to discuss the economic, social, and fiscal conditions of the developing world. Runs research deep-dives in partnership with the VSE, career pathways into development work, and events connecting students who care about poverty and growth.',
+    href: 'https://ubcdevec.com',
+    linkLabel: 'ubcdevec.com',
   },
   {
-    name: 'Placeholder Club Two',
-    focus: 'Public Policy',
+    name: 'Iona Journal',
+    fullName: 'IONA Journal of Economics',
+    focus: 'Undergraduate Research',
     description:
-      'A short description of what this club does, who it is for, and what a typical term of programming looks like.',
-    href: '#',
+      'The VSE’s undergraduate economics journal, publishing blind peer- and faculty-reviewed student research. Beyond the annual issue it runs IONA Exchange (a blog on global developments), IONA Reads (professor-curated resources), and IONA Asks (a podcast with faculty, alumni, and scholars).',
+    href: 'https://www.ionajournal.ca',
+    linkLabel: 'ionajournal.ca',
   },
   {
-    name: 'Placeholder Club Three',
-    focus: 'Data & Research',
+    name: 'EPS',
+    fullName: 'Economic Theory & Philosophy Society',
+    focus: 'Game Theory & Philosophy',
     description:
-      'A short description of what this club does, who it is for, and what a typical term of programming looks like.',
-    href: '#',
-  },
-  {
-    name: 'Placeholder Club Four',
-    focus: 'Case Competitions',
-    description:
-      'A short description of what this club does, who it is for, and what a typical term of programming looks like.',
-    href: '#',
+      'Runs thought-provoking discussions and debates built around strategy and deduction games, plus social experiments rooted in game theory. Built on a supportive community of curious, open-minded people willing to challenge perspectives and think critically.',
+    href: 'https://www.instagram.com/epsubc/',
+    linkLabel: '@epsubc',
   },
 ];
 
@@ -41,7 +42,7 @@ const steps = [
   {
     step: '01',
     title: 'Apply',
-    body: 'A club executive submits an endorsement request to the VP External, outlining the club\'s mandate, membership, and planned programming for the year.',
+    body: 'A club executive submits an endorsement request to the VP Administration, outlining the club\'s mandate, membership, and planned programming for the year.',
   },
   {
     step: '02',
@@ -75,7 +76,7 @@ export default function ClubsPage() {
           </h1>
           <p className="text-offwhite/60 text-lg max-w-xl leading-relaxed">
             Student-run clubs working across economics, finance, and public policy, backed
-            by the society so their programming reaches every VSE student.
+            by the society so their programming reaches every VSEUS constituent.
           </p>
         </div>
       </section>
@@ -114,7 +115,7 @@ export default function ClubsPage() {
               </div>
               <div>
                 <p className="text-offwhite font-bold text-sm">Who to Contact</p>
-                <p className="text-offwhite/60 text-sm mt-0.5">VSEUS VP External</p>
+                <p className="text-offwhite/60 text-sm mt-0.5">VSEUS VP Administration</p>
               </div>
             </div>
           </div>
@@ -149,9 +150,12 @@ export default function ClubsPage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {clubs.map((c) => (
+              /* The whole card is the link — it opens the club's own site or socials */
               <a
                 key={c.name}
                 href={c.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-midnight-800/70 border border-offwhite/10 rounded-2xl p-6 flex gap-5 hover:border-accent/50 hover:bg-midnight-800 transition-all group"
               >
                 {/* TODO: replace with the club's logo once supplied */}
@@ -166,14 +170,18 @@ export default function ClubsPage() {
                     {c.focus}
                   </span>
                   <p className="text-offwhite font-bold text-lg leading-tight">{c.name}</p>
-                  <p className="text-offwhite/55 text-sm mt-2 leading-relaxed">{c.description}</p>
+                  <p className="text-offwhite/45 text-xs mt-0.5">{c.fullName}</p>
+                  <p className="text-offwhite/55 text-sm mt-2.5 leading-relaxed">{c.description}</p>
+                  <span className="inline-flex items-center gap-1.5 font-display text-xs font-semibold text-accent mt-3.5">
+                    {c.linkLabel}
+                    <svg className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                  </span>
                 </div>
               </a>
             ))}
           </div>
-          <p className="text-offwhite/35 text-xs mt-6">
-            Running a club that should be on this list? Get in touch with the VP External.
-          </p>
         </div>
       </section>
 
@@ -181,7 +189,7 @@ export default function ClubsPage() {
       <section className="py-12 bg-midnight-700 text-center">
         <h2 className="text-2xl font-black text-offwhite mb-3">Want your club endorsed?</h2>
         <p className="text-offwhite/60 text-sm mb-6 max-w-sm mx-auto">
-          Reach out to the VSEUS VP External to start an endorsement request.
+          Reach out to the VSEUS VP Administration to start an endorsement request.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <Link
