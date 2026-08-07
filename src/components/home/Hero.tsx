@@ -121,8 +121,8 @@ export function Hero() {
           {/* Subtitle */}
           <p className="hero-subtitle text-lg sm:text-xl text-offwhite/60 leading-relaxed mb-10 max-w-[520px]">
             The Vancouver School of Economics Undergraduate Society empowers UBC
-            economics students with academic resources, networking opportunities,
-            and career preparation for tomorrow&apos;s economy.
+            economics students with academic resources, networking and career
+            preparation, and a community where they belong.
           </p>
 
           {/* CTAs */}
