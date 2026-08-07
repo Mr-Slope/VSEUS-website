@@ -12,31 +12,46 @@ const reports = [
 /*
   Orbital layout constants.
 
-  Cards are wide and horizontal (square photo left, text right), so the ring
-  has to be big enough to keep them apart: with six VPs at R = 380 the chord
-  between neighbours is 2·R·sin(30°) = 380px against a 300px card, leaving
-  80px of clearance. Max extent is CX + R + CARD_W/2 = 1080px, inside the
-  1100px container — which itself fits the 1216px of content width available
-  at the xl breakpoint.
+  The ring is an ellipse, not a circle — RX is much wider than RY. Cards are
+  wide and horizontal (photo left, text right), so a circle wastes the space
+  they need and crams the four diagonal nodes close to the centre. Stretching
+  it sideways pushes those four out to x = ±0.866·RX, which lengthens their
+  connecting lines and lets the travelling pulse read as a diagonal rather
+  than a short stub.
 
-  CARD_W is 300 rather than 240 so the longest role, "VP Administration",
-  holds on one line beside a 120px photo.
+  Geometry, with six VPs at 60° intervals starting straight up:
+    top / bottom     → (0, ∓RY)
+    four diagonals   → (±0.866·RX, ∓0.5·RY)
+
+  Clearances at RX=520, RY=350, CARD 300×180, PRES 340×230:
+    diagonal card left edge (300) vs president right edge (170) → 130px
+    upper vs lower diagonal on the same side                    → 170px
+    top card bottom edge (-260) vs president top edge (-115)    → 145px
+
+  Half-width is 0.866·RX + CARD_W/2 = 600.3, so the container is 1204px —
+  inside the 1216px of content width available at the xl breakpoint. The .3
+  is why it isn't a round 1200: cos(30°) is 0.86603, not 0.866, and rounding
+  down pushed the two left cards a third of a pixel past the edge.
+
+  CARD_W is 300 so the longest role, "VP Administration", holds one line
+  beside a 120px photo.
 
   The orbital only renders at xl and up. Below that it would overflow, so a
   responsive card grid takes over.
 */
-const CX = 550, CY = 550, R = 380;
-const CONTAINER = 1100;
+const CX = 602, CY = 450;
+const RX = 520, RY = 350;
+const CONTAINER_W = 1204, CONTAINER_H = 900;
 const CARD_W = 300, CARD_H = 180;
 const PRES_W = 340, PRES_H = 230;
 
 const vpNodes = VPS.map((vp, i) => {
   const deg = (i * 360) / VPS.length - 90;
   const rad = deg * (Math.PI / 180);
-  return { ...vp, x: CX + R * Math.cos(rad), y: CY + R * Math.sin(rad), i };
+  return { ...vp, x: CX + RX * Math.cos(rad), y: CY + RY * Math.sin(rad), i };
 });
 
-const ORBIT_D = `M ${CX} ${CY - R} A ${R} ${R} 0 1 1 ${CX - 0.001} ${CY - R}`;
+const ORBIT_D = `M ${CX} ${CY - RY} A ${RX} ${RY} 0 1 1 ${CX - 0.001} ${CY - RY}`;
 
 /** Wide card used in the responsive grid below xl. */
 function ExecCard({ exec, featured = false }: { exec: Exec; featured?: boolean }) {
@@ -107,13 +122,13 @@ export default function AboutPage() {
 
           {/* Orbital layout — xl and up only */}
           <div className="hidden xl:flex justify-center">
-            <div className="relative" style={{ width: CONTAINER, height: CONTAINER }}>
+            <div className="relative" style={{ width: CONTAINER_W, height: CONTAINER_H }}>
 
               <svg
                 className="absolute inset-0 pointer-events-none"
-                width={CONTAINER}
-                height={CONTAINER}
-                viewBox={`0 0 ${CONTAINER} ${CONTAINER}`}
+                width={CONTAINER_W}
+                height={CONTAINER_H}
+                viewBox={`0 0 ${CONTAINER_W} ${CONTAINER_H}`}
                 fill="none"
               >
                 <defs>
@@ -124,19 +139,19 @@ export default function AboutPage() {
                     Administration) has zero width, collapsing the X filter region to zero and
                     clipping those lines entirely. Absolute coords spanning the full SVG fix this.
                   */}
-                  <filter id="lineGlow" filterUnits="userSpaceOnUse" x="-20" y="-20" width={CONTAINER + 40} height={CONTAINER + 40}>
+                  <filter id="lineGlow" filterUnits="userSpaceOnUse" x="-20" y="-20" width={CONTAINER_W + 40} height={CONTAINER_H + 40}>
                     <feGaussianBlur stdDeviation="3" result="blur" />
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
-                  <filter id="dotGlow" filterUnits="userSpaceOnUse" x="-20" y="-20" width={CONTAINER + 40} height={CONTAINER + 40}>
+                  <filter id="dotGlow" filterUnits="userSpaceOnUse" x="-20" y="-20" width={CONTAINER_W + 40} height={CONTAINER_H + 40}>
                     <feGaussianBlur stdDeviation="2.5" result="blur" />
                     <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                   </filter>
                 </defs>
 
                 {/* Dashed orbit ring */}
-                <circle
-                  cx={CX} cy={CY} r={R}
+                <ellipse
+                  cx={CX} cy={CY} rx={RX} ry={RY}
                   stroke="rgba(237,177,135,0.18)"
                   strokeWidth="1"
                   strokeDasharray="6 12"
@@ -167,14 +182,14 @@ export default function AboutPage() {
                       {/* Solid line — no gradient so every angle renders correctly */}
                       <path
                         d={lineD}
-                        stroke="rgba(237,177,135,0.35)"
-                        strokeWidth="1.5"
+                        stroke="rgba(237,177,135,0.5)"
+                        strokeWidth="2"
                         filter="url(#lineGlow)"
                       />
                       {/* Node dot on orbit ring */}
-                      <circle cx={vp.x} cy={vp.y} r="4" fill="rgba(237,177,135,0.3)" />
+                      <circle cx={vp.x} cy={vp.y} r="5" fill="rgba(237,177,135,0.45)" />
                       {/* Primary traveling dot */}
-                      <circle r="3" fill="rgba(237,177,135,1)" filter="url(#dotGlow)">
+                      <circle r="4" fill="rgba(237,177,135,1)" filter="url(#dotGlow)">
                         <animateMotion
                           dur="3s"
                           begin="0s"
@@ -191,7 +206,7 @@ export default function AboutPage() {
                         />
                       </circle>
                       {/* Secondary trailing dot */}
-                      <circle r="1.8" fill="rgba(247,218,197,0.8)">
+                      <circle r="2.4" fill="rgba(247,218,197,0.85)">
                         <animateMotion
                           dur="3s"
                           begin="1.5s"
