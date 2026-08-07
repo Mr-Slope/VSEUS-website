@@ -147,11 +147,13 @@ export default function ContactPage() {
 
               <div id="follow" className="anchor-offset">
                 <h2 className="text-2xl font-bold text-midnight mb-4">Follow Us</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {socials.map((s) => (
                     <a
                       key={s.label}
                       href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={s.label}
                       className="flex items-center gap-3 bg-offwhite border border-ice-400 hover:border-accent hover:bg-accent/10 rounded-xl px-4 py-4 transition-all group"
                     >
