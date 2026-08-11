@@ -37,7 +37,7 @@ const pillars = [
     ),
     number: '03',
     title: 'Career Preparedness',
-    description: 'Networking events with industry professionals, resume workshops, interview prep, and exclusive job postings for economics students.',
+    description: 'Networking events with industry professionals, resume workshops, interview prep, and a mentorship program for economics students.',
     image: '/photos/Home/networking.jpg',
     alt: 'Students talking in small groups at a society networking night',
   },
