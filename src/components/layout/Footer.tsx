@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { socials } from '@/components/ui/SocialIcons';
 import { ADDRESS, ADDRESS_MAP_URL } from '@/lib/society';
+import { BUILDER_ATTRIBUTION } from '@/lib/attribution';
 
 const footerLinks = {
   Organization: [
@@ -78,8 +79,9 @@ export function Footer() {
         <div className="mt-10 pt-6 border-t border-offwhite/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-offwhite/40">
           <div>
             <p>© {new Date().getFullYear()} VSEUS. All rights reserved.</p>
+            {/* Builder credit comes from src/lib/attribution.ts on purpose. See the note there. */}
             <p className="mt-0.5 text-[10px] text-offwhite">
-              Website built by Yash Dhaundiyal, VSEUS President 2026&ndash;2027 · Maintained by VSEUS VP Marketing
+              {BUILDER_ATTRIBUTION} · Maintained by VSEUS VP Marketing
             </p>
           </div>
           <a
