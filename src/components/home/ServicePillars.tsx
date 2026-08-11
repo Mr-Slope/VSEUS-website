@@ -14,7 +14,7 @@ const pillars = [
     number: '01',
     title: 'Academic Success',
     description: 'Study groups, tutoring resources, course guides, and research opportunities to help you excel in your economics degree.',
-    image: '/photos/honours-thesis-recap.png',
+    image: '/photos/Home/honours-thesis-recap.png',
     alt: 'A student presenting an honours thesis poster to two classmates',
   },
   {
@@ -26,7 +26,7 @@ const pillars = [
     number: '02',
     title: 'Community Connections',
     description: 'Build lasting relationships through social events, society initiatives, and a welcoming community of students who share your passion for economics.',
-    image: '/photos/blue-day-group-photo.jpg',
+    image: '/photos/Home/blue-day-group-photo.jpg',
     alt: 'Society members gathered for a group photo at the Blue Day Banquet',
   },
   {
@@ -38,7 +38,7 @@ const pillars = [
     number: '03',
     title: 'Career Preparedness',
     description: 'Networking events with industry professionals, resume workshops, interview prep, and exclusive job postings for economics students.',
-    image: '/photos/networking.jpg',
+    image: '/photos/Home/networking.jpg',
     alt: 'Students talking in small groups at a society networking night',
   },
   {
@@ -50,7 +50,7 @@ const pillars = [
     number: '04',
     title: 'Student Advocacy',
     description: 'Representing economics students on university committees, advocating for program improvements, and amplifying student voices.',
-    image: '/photos/academic-event.jpg',
+    image: '/photos/Home/academic-event.jpg',
     alt: 'Students filling a lecture hall for a society mentorship panel',
   },
 ];
