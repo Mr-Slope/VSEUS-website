@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import { CTAButton } from '@/components/ui/CTAButton';
-import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
+import Image from 'next/image';
 
 export function Hero() {
   const pathRef = useRef<SVGPathElement>(null);
@@ -31,13 +31,16 @@ export function Hero() {
       {/*
         The photo is the hero's whole background, edge to edge.
         Layer order matters: image → scrim → grid/gradient → decoration → content.
-        TODO: replace with <Image src="/hero.jpg" fill priority … /> once supplied.
+        preload rather than eager: this is the page's LCP element. alt is empty
+        because the scrim makes it a backdrop — the headline carries the meaning.
       */}
-      <ImagePlaceholder
-        label="Hero image"
-        hint="public/hero.jpg — fills the whole hero"
-        tone="dark"
-        className="absolute inset-0 border-0"
+      <Image
+        src="/photos/Home/vseus-banner.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        preload
+        className="object-cover"
       />
 
       {/*
