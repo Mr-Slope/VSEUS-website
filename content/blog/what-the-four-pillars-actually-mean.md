@@ -2,7 +2,7 @@
 title: What the Four Pillars Actually Mean
 date: 2026-07-10
 author: VSEUS Executive Team
-excerpt: Academic success, community, career preparedness, and advocacy. Four words on a homepage — here's what each one costs us in actual work.
+excerpt: Academic success, community, career preparedness, and advocacy. Four words on a homepage. Here's what each one costs us in actual work.
 tags: [Society, Announcements]
 ---
 
@@ -15,7 +15,7 @@ principle that doesn't change a decision isn't a principle.
 The clearest expression of this is the [Economics Learning Centre](/elc): free, walk-in
 peer tutoring, four days a week, staffed by undergraduates who have taken your course.
 
-It's expensive in the way that matters — it takes coordination, training, and a room.
+It's expensive in the way that matters: it takes coordination, training, and a room.
 We keep funding it because a student who can't get unstuck on a problem set at 4pm on a
 Tuesday doesn't need a networking night. They need someone to sit down with them.
 
@@ -33,7 +33,7 @@ alongside is most of what makes a degree bearable.
 Networking nights, resume workshops, interview prep. The honest version of this pillar:
 **economics is a degree that doesn't name a job at the end of it.**
 
-That's a feature — the degree opens onto banking, consulting, policy, research, data,
+That's a feature: the degree opens onto banking, consulting, policy, research, data,
 law, and more. It's also a problem, because "you could do anything" is useless advice in
 third year when everyone around you seems to have a plan. Our job is to show you what
 the actual paths look like, from people currently walking them.
@@ -46,8 +46,8 @@ power to act on them.
 
 > Advocacy is slow, unglamorous, and mostly invisible when it works.
 
-If something about the program isn't working — a course sequence, a prerequisite, an
-advising gap — telling us is not shouting into a void. It's the input the whole thing
+If something about the program isn't working, whether a course sequence, a prerequisite, or an
+advising gap, telling us is not shouting into a void. It's the input the whole thing
 runs on. [Get in touch](/contact).
 
 ---

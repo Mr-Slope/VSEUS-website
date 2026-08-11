@@ -29,7 +29,7 @@ export const UPCOMING_EVENTS: Event[] = [
       'Meet economists and analysts working across banking, consulting, and public policy. Bring your resume. Light refreshments provided. Dress business casual.',
     date: '2026-05-17',
     time: '6:00 PM',
-    location: 'Downtown Vancouver — venue announced closer to the date',
+    location: 'Downtown Vancouver, venue announced closer to the date',
     isPaid: false,
     price: null,
     posterUrl: null,

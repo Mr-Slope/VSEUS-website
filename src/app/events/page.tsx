@@ -124,7 +124,7 @@ export default function EventsPage() {
             </p>
             <h2 className="text-3xl font-black text-offwhite mb-3">Past Events</h2>
             <p className="text-offwhite/55 text-sm mb-10 max-w-xl">
-              A look at what the society has run before — competitions, socials, workshops,
+              A look at what the society has run before: competitions, socials, workshops,
               and the annual gala.
             </p>
 

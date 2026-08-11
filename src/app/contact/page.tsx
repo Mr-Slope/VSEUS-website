@@ -28,7 +28,7 @@ export default function ContactPage() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const body = `${form.message}\n\n—\n${form.name}\n${form.email}`;
+    const body = `${form.message}\n\n--\n${form.name}\n${form.email}`;
     const query = [
       `cc=${encodeURIComponent(CONTACT_FORM_CC.join(','))}`,
       `subject=${encodeURIComponent(form.subject)}`,
@@ -61,7 +61,7 @@ export default function ContactPage() {
                   </svg>
                   <h3 className="font-bold text-midnight mb-1">Your message is ready to send</h3>
                   <p className="text-sm text-muted">
-                    We&apos;ve opened it in your email app — hit send there and we&apos;ll reply
+                    We&apos;ve opened it in your email app. Hit send there and we&apos;ll reply
                     within 2 to 3 business days. If nothing opened, email{' '}
                     <a href={`mailto:${CONTACT_FORM_TO}`} className="text-midnight font-semibold underline decoration-accent decoration-2 underline-offset-2">
                       {CONTACT_FORM_TO}
@@ -152,7 +152,7 @@ export default function ContactPage() {
               <div id="visit" className="anchor-offset">
                 <h2 className="text-2xl font-bold text-midnight mb-2">Visit Us</h2>
                 <p className="text-muted text-sm mb-4">
-                  We&apos;re in the Iona Building on UBC&apos;s Vancouver campus — the same
+                  We&apos;re in the Iona Building on UBC&apos;s Vancouver campus, the same
                   building as the Economics Learning Centre.
                 </p>
                 <a

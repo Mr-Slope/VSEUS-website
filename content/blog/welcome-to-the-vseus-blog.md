@@ -2,7 +2,7 @@
 title: Welcome to VSEUS' Blog
 date: 2026-08-01
 author: Yash Dhaundiyal
-excerpt: A place for society updates, event recaps, and practical advice for economics students at UBC — written by the people running it.
+excerpt: A place for society updates, event recaps, and practical advice for economics students at UBC, written by the people running it.
 tags: [Announcements]
 ---
 
@@ -14,11 +14,11 @@ budget. This is where we write it down.
 
 Three kinds of posts, roughly:
 
-- **Society updates** — what we're working on, what changed, and why. Decisions that
+- **Society updates**: what we're working on, what changed, and why. Decisions that
   affect students shouldn't only exist in meeting minutes.
-- **Event recaps** — what happened, what we learned, and what we'd do differently. Useful
+- **Event recaps**: what happened, what we learned, and what we'd do differently. Useful
   if you missed it, and more useful to whoever runs it next year.
-- **Practical advice** — course selection, using the Economics Learning Centre, making
+- **Practical advice**: course selection, using the Economics Learning Centre, making
   sense of the program. The things upper-years know and first-years have to find out the
   hard way.
 
@@ -33,7 +33,7 @@ twenty-four hours.
 ## Who writes it
 
 Members of the executive team, mostly, with the occasional guest post from someone in
-the program who knows more about a topic than we do. Every post is signed — if you have
+the program who knows more about a topic than we do. Every post is signed. If you have
 a question about something you read here, email the person who wrote it.
 
 If there's something you want covered, [get in touch](/contact). We'd rather write

@@ -22,7 +22,7 @@ basis. Check-in takes under a minute.
 
 ## Courses we cover
 
-Our tutors are trained across ECON 101, 102, 226, 301, 302, 325, and 326 — the
+Our tutors are trained across ECON 101, 102, 226, 301, 302, 325, and 326: the
 first-year principles courses, econometrics, and intermediate micro and macro.
 
 Have a question from a course that isn't on that list? Bring it anyway. Tutors will do

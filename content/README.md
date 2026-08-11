@@ -1,6 +1,6 @@
 # Writing a blog post
 
-Drop a `.md` file in `content/blog/`. That's the whole process — the post appears on
+Drop a `.md` file in `content/blog/`. That's the whole process. The post appears on
 `/blog` and gets its own page at `/blog/<filename>` the next time the site builds.
 
 **The filename is the URL.** `why-economics-matters.md` becomes
@@ -34,12 +34,12 @@ tags: [Policy, Student Life]
 | `excerpt` | No | Shown on the index card and used as the page description |
 | `tags` | No | Square brackets, comma-separated. Wrap in quotes if a tag has a space |
 
-Tags aren't decoration — they're the filter on `/blog`. Each distinct tag becomes a pill
+Tags aren't decoration. They're the filter on `/blog`. Each distinct tag becomes a pill
 with a post count, so reuse an existing one rather than coining a near-duplicate. They're
 case-sensitive: `Policy` and `policy` would show up as two separate pills.
 
 A missing or malformed field falls back rather than breaking the build, so a typo in one
-post won't take the site down. It will look wrong on the page, though — check your work.
+post won't take the site down. It will look wrong on the page, though, so check your work.
 
 ## The body
 
@@ -62,20 +62,20 @@ Open with a paragraph. You can use **bold**, _italic_, `inline code`, and
 ![Alt text describing the image](/blog/my-image.jpg)
 ```
 
-**Images** go in `public/blog/` and are referenced as `/blog/filename.jpg` — note the
+**Images** go in `public/blog/` and are referenced as `/blog/filename.jpg`. Note the
 leading slash and no `public`. Always write alt text; it's what screen readers announce.
 
 ## Before you publish
 
 - Read it once out loud. It catches more than a spellchecker does.
-- Check the excerpt reads well on its own — it appears without the title around it.
+- Check the excerpt reads well on its own, since it appears without the title around it.
 - Reuse an existing tag if one fits rather than inventing a near-duplicate. Tags are
   case-sensitive, so "Policy" and "policy" would show up as two separate tags.
 - Run `npm run dev` and open `/blog` to see it before pushing.
 
 ## Drafting
 
-Prefix the filename with an underscore — `_next-weeks-post.md` — and it stays out of the
+Prefix the filename with an underscore, as in `_next-weeks-post.md`, and it stays out of the
 site while you work on it. Rename it without the underscore to publish.
 
 ## Removing a post
