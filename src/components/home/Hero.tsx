@@ -48,7 +48,12 @@ export function Hero() {
         it darkens the photo enough to hold type without hiding the picture.
       */}
       <div className="absolute inset-0 bg-midnight/55" />
-      <div className="absolute inset-0 bg-gradient-to-r from-midnight/80 via-midnight/40 to-midnight/20" />
+      {/*
+        Darkest edge follows the type, which sits on the right: to-l puts the 80%
+        stop at the right. That also lifts the left to ~20%, letting the printed
+        banner read instead of being crushed.
+      */}
+      <div className="absolute inset-0 bg-gradient-to-l from-midnight/80 via-midnight/40 to-midnight/20" />
 
       {/* Subtle grid */}
       <div className="absolute inset-0 hero-grid-bg" />
@@ -65,7 +70,13 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-36 lg:py-44 w-full">
-        <div className="max-w-4xl">
+        {/*
+          ml-auto moves the column to the right half, clear of the banner's
+          printed wordmark. Narrower than the old max-w-4xl so the text actually
+          reads as right-hand; both headline lines still fit on one line each.
+          Below 2xl the cap exceeds the viewport, so mobile is unaffected.
+        */}
+        <div className="max-w-2xl ml-auto">
 
           {/* Badge */}
           <div className="hero-tag inline-flex items-center gap-2.5 bg-offwhite/[0.07] backdrop-blur-sm border border-offwhite/[0.12] rounded-full px-4 py-2 mb-10">
