@@ -50,7 +50,7 @@ const steps = [
   {
     step: '03',
     title: 'Recognition',
-    body: 'Recognized clubs gain access to VSEUS funding, event support, and our channels for reaching every economics undergraduate at UBC.',
+    body: 'Recognized clubs gain access to VSEUS funding, event support, and our channels for reaching every economics undergraduate student at UBC.',
   },
 ];
 
