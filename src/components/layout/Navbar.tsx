@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
+import Image from 'next/image';
 
 const navLinks = [
   {
@@ -55,12 +55,18 @@ export function Navbar() {
 
           {/* Brand */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group justify-self-start">
-            {/* TODO: replace with <Image src="/logo.svg" … /> once the logo is supplied */}
-            <ImagePlaceholder
-              label="Logo"
-              tone="dark"
-              hideIcon
-              className="w-11 h-11 rounded-lg flex-shrink-0"
+            {/*
+              object-contain because the mark is 3211x3131, not quite square.
+              eager rather than preload: it sits above the fold on every page but
+              is never the LCP element.
+            */}
+            <Image
+              src="/logo.png"
+              alt=""
+              width={44}
+              height={44}
+              loading="eager"
+              className="w-11 h-11 object-contain flex-shrink-0"
             />
             <span className="font-display text-2xl font-black text-offwhite tracking-tight group-hover:text-accent transition-colors duration-200">
               VSEUS
