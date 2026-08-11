@@ -40,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude code — personal settings stay local; shared config goes in
+# .claude/settings.json, which is tracked
+.claude/settings.local.json
