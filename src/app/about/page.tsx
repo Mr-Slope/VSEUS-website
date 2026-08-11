@@ -103,7 +103,7 @@ export default function AboutPage() {
               A community like that has to answer to the people in it. We keep a clear feedback channel between the VSEUS Council and our members, to know which issues genuinely matter to our constituents while ensuring transparency about what we do next.
             </p>
             <p className="text-muted leading-relaxed text-lg">
-              We look outward, learning from other groups who share that vision, and inward, opening volunteer roles so members can help run the society rather than watch it from a distance. And we build traditions strong enough to outlast any one cohort, so students feel proud to belong to the economics community at UBC.
+              We look outward, learning from other groups who share that vision, and inward, opening volunteer roles so members can help run the society rather than watch it from a distance. Finally, we build traditions strong enough to outlast any one cohort, so students feel proud to belong to the economics community at UBC.
             </p>
           </div>
         </div>
