@@ -55,9 +55,6 @@ export function Hero() {
       */}
       <div className="absolute inset-0 bg-gradient-to-l from-midnight/80 via-midnight/40 to-midnight/20" />
 
-      {/* Subtle grid */}
-      <div className="absolute inset-0 hero-grid-bg" />
-
       {/* Decorative concentric rings — right */}
       <div className="absolute -right-56 top-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-offwhite/[0.03]" />
       <div className="absolute -right-32 top-1/2 -translate-y-1/2 w-[580px] h-[580px] rounded-full border border-offwhite/[0.05]" />
@@ -76,7 +73,7 @@ export function Hero() {
           reads as right-hand; both headline lines still fit on one line each.
           Below 2xl the cap exceeds the viewport, so mobile is unaffected.
         */}
-        <div className="max-w-2xl ml-auto">
+        <div className="max-w-2xl ml-auto text-right">
 
           {/* Badge */}
           <div className="hero-tag inline-flex items-center gap-2.5 bg-offwhite/[0.07] backdrop-blur-sm border border-offwhite/[0.12] rounded-full px-4 py-2 mb-10">
@@ -133,14 +130,17 @@ export function Hero() {
           </div>
 
           {/* Subtitle */}
-          <p className="hero-subtitle text-lg sm:text-xl text-offwhite/60 leading-relaxed mb-10 max-w-[520px]">
+          {/* ml-auto because its 520px box is narrower than the column, and
+              text-align alone would leave the box itself on the left */}
+          <p className="hero-subtitle text-lg sm:text-xl text-offwhite/60 leading-relaxed mb-10 max-w-[520px] ml-auto">
             The Vancouver School of Economics Undergraduate Society empowers UBC
             economics students with academic resources, networking and career
             preparation, and a community where they belong.
           </p>
 
           {/* CTAs */}
-          <div className="hero-ctas flex flex-wrap items-center gap-4">
+          {/* justify-end because flex items ignore the inherited text-right */}
+          <div className="hero-ctas flex flex-wrap items-center justify-end gap-4">
             <CTAButton href="/resources" variant="accent" size="lg">
               Explore Resources
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
