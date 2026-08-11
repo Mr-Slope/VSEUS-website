@@ -96,8 +96,17 @@ export default function ELCPage() {
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="py-16 bg-ice">
+      {/*
+        How it works — first of three sections that all share bg-ice. Because the
+        background never changes between them, adjacent py-16 doubled into 128px
+        of empty space that read as a void rather than a break.
+
+        Keep 16 on the outer edges, where ice meets the dark bands above and
+        below, and tighten the two internal joins to 8 + 8. Both gaps are then an
+        identical 64px. Split the padding rather than using a single py so the
+        outer and inner values can differ.
+      */}
+      <section className="pt-16 pb-8 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-black text-midnight mb-10">How It Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -114,8 +123,8 @@ export default function ELCPage() {
         </div>
       </section>
 
-      {/* Courses covered */}
-      <section className="py-16 bg-ice">
+      {/* Courses covered — 8 both sides, forming half of each 64px join */}
+      <section className="py-8 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-black text-midnight mb-3">Courses We Cover</h2>
           <p className="text-muted text-sm mb-8 max-w-xl">
@@ -140,8 +149,8 @@ export default function ELCPage() {
         </div>
       </section>
 
-      {/* Canvas enrollment */}
-      <section className="py-16 bg-ice">
+      {/* Canvas enrollment — back to 16 at the bottom, where ice meets the CTA */}
+      <section className="pt-8 pb-16 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl bg-offwhite border border-ice-400 rounded-2xl p-8">
             <h2 className="text-xl font-black text-midnight mb-3">Enroll on Canvas</h2>
