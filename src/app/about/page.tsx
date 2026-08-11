@@ -97,10 +97,13 @@ export default function AboutPage() {
               Every economics student at UBC, supported.
             </h1>
             <p className="text-midnight/85 leading-relaxed text-xl mb-6">
-              The Vancouver School of Economics Undergraduate Society (VSEUS) was founded in 2014 with a single goal: to ensure that every economics student at UBC has access to the resources, community, and opportunities they need to thrive academically, professionally, and socially.
+              The Vancouver School of Economics Undergraduate Society (VSEUS) was founded in 2014 to build an economics community at UBC: to create and facilitate spaces where students are comfortable with one another, can share their stories, and can form the relationships a community is made of.
+            </p>
+            <p className="text-muted leading-relaxed text-lg mb-6">
+              A community like that has to answer to the people in it. We keep a clear feedback channel between the VSEUS Council and our members, to know which issues genuinely matter to our constituents while ensuring transparency about what we do next.
             </p>
             <p className="text-muted leading-relaxed text-lg">
-              We believe that economics education extends beyond the classroom. Through competitions, workshops, networking events, and advocacy, we help students build the real-world skills and connections that define a successful career in economics, finance, and public policy.
+              We look outward, learning from other groups who share that vision, and inward, opening volunteer roles so members can help run the society rather than watch it from a distance. And we build traditions strong enough to outlast any one cohort, so students feel proud to belong to the economics community at UBC.
             </p>
           </div>
         </div>
