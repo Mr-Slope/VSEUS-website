@@ -91,7 +91,7 @@ export default function ClubsPage() {
               </div>
               <div>
                 <p className="text-offwhite font-bold text-sm">What Recognition Means</p>
-                <p className="text-offwhite/60 text-sm mt-0.5">Funding, event support, and reach</p>
+                <p className="text-offwhite/60 text-sm mt-0.5">Funding, event support and outreach</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -113,7 +113,7 @@ export default function ClubsPage() {
               </div>
               <div>
                 <p className="text-offwhite font-bold text-sm">Who to Contact</p>
-                <p className="text-offwhite/60 text-sm mt-0.5">VSEUS VP Administration</p>
+                <p className="text-offwhite/60 text-sm mt-0.5">VSEUS&apos; VP Administration</p>
               </div>
             </div>
           </div>
