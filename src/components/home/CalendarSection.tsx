@@ -27,7 +27,7 @@ export async function CalendarSection() {
               Never Miss<br />an Event.
             </h2>
             <p className="text-offwhite/55 leading-relaxed mb-8 max-w-md">
-              Subscribe to the VSEUS Economics Calendar and get all our events
+              Subscribe to VSEUS&apos; Economics Calendar and get all our events
               (competitions, networking nights, workshops, and socials) delivered
               directly to Google Calendar, Apple Calendar, or Outlook.
             </p>

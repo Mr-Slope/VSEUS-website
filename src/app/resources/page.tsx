@@ -46,7 +46,7 @@ const resources = [
     id: 'clubs',
     title: 'Clubs',
     description:
-      'VSEUS endorses a group of student-run clubs working across economics, finance, and public policy. Endorsement connects them to our funding, spaces, and audience so their programming reaches every VSEUS constituent.',
+      'VSEUS recognizes a group of student-run clubs working across economics, finance, and public policy. Recognition connects them to our funding, spaces, and audience so their programming reaches every VSEUS constituent.',
     cta: 'See the Clubs',
     ctaHref: '/clubs',
     icon: (

@@ -1,5 +1,5 @@
 ---
-title: Welcome to the VSEUS Blog
+title: Welcome to VSEUS' Blog
 date: 2026-08-01
 author: Yash Dhaundiyal
 excerpt: A place for society updates, event recaps, and practical advice for economics students at UBC — written by the people running it.

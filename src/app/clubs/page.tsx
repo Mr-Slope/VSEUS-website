@@ -4,7 +4,7 @@ import { TransitionLink } from '@/components/ui/TransitionLink';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
 /**
- * Endorsed clubs. Each card links straight out to the club's own site or
+ * Recognized clubs. Each card links straight out to the club's own site or
  * socials — descriptions are drawn from how each one describes itself.
  *
  * TODO: add a `logo` path (public/clubs/<name>.png) once logos are supplied.
@@ -40,7 +40,7 @@ const steps = [
   {
     step: '01',
     title: 'Apply',
-    body: 'A club executive submits an endorsement request to the VP Administration, outlining the club\'s mandate, membership, and planned programming for the year.',
+    body: 'A club executive submits a recognition request to the VP Administration, outlining the club\'s mandate, membership, and planned programming for the year.',
   },
   {
     step: '02',
@@ -49,8 +49,8 @@ const steps = [
   },
   {
     step: '03',
-    title: 'Endorsement',
-    body: 'Endorsed clubs gain access to VSEUS funding, event support, and our channels for reaching every economics undergraduate at UBC.',
+    title: 'Recognition',
+    body: 'Recognized clubs gain access to VSEUS funding, event support, and our channels for reaching every economics undergraduate at UBC.',
   },
 ];
 
@@ -68,9 +68,9 @@ export default function ClubsPage() {
             <span>/</span>
             <span className="text-offwhite/70">Clubs</span>
           </div>
-          <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">Endorsed by VSEUS</p>
+          <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">Recognized by VSEUS</p>
           <h1 className="text-5xl font-black text-offwhite mb-4 leading-tight">
-            Clubs We<br />Endorse
+            Clubs We<br />Recognize
           </h1>
           <p className="text-offwhite/60 text-lg max-w-xl leading-relaxed">
             Student-run clubs working across economics, finance, and public policy, backed
@@ -90,7 +90,7 @@ export default function ClubsPage() {
                 </svg>
               </div>
               <div>
-                <p className="text-offwhite font-bold text-sm">What Endorsement Means</p>
+                <p className="text-offwhite font-bold text-sm">What Recognition Means</p>
                 <p className="text-offwhite/60 text-sm mt-0.5">Funding, event support, and reach</p>
               </div>
             </div>
@@ -120,10 +120,10 @@ export default function ClubsPage() {
         </div>
       </section>
 
-      {/* How endorsement works */}
+      {/* How recognition works */}
       <section className="py-16 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-black text-midnight mb-10">How Endorsement Works</h2>
+          <h2 className="text-3xl font-black text-midnight mb-10">How Recognition Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {steps.map((s) => (
               <div key={s.step}>
@@ -141,9 +141,9 @@ export default function ClubsPage() {
       {/* The clubs */}
       <section className="py-16 bg-midnight">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-black text-offwhite mb-3">Endorsed Clubs</h2>
+          <h2 className="text-3xl font-black text-offwhite mb-3">Recognized Clubs</h2>
           <p className="text-offwhite/55 text-sm mb-10 max-w-xl">
-            The clubs below are currently endorsed by VSEUS. Reach out to any of them
+            The clubs below are currently recognized by VSEUS. Reach out to any of them
             directly to get involved.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -182,7 +182,7 @@ export default function ClubsPage() {
 
       {/* CTA */}
       <section className="py-12 bg-midnight-700 text-center">
-        <h2 className="text-2xl font-black text-offwhite mb-3">Want your club endorsed?</h2>
+        <h2 className="text-2xl font-black text-offwhite mb-3">Want your club recognized?</h2>
         <p className="text-offwhite/60 text-sm mb-6 max-w-sm mx-auto">
           Reach out to VSEUS&apos; VP Administration to become a recognized club.
         </p>

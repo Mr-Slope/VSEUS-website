@@ -6,7 +6,7 @@ import { BlogList } from '@/components/blog/BlogList';
 export const metadata: Metadata = {
   title: 'Blog | VSEUS',
   description:
-    'Society updates, event recaps, and practical advice for economics students at UBC, written by the VSEUS executive team.',
+    'Society updates, event recaps, and practical advice for economics students at UBC, written by VSEUS\' executive team.',
 };
 
 export default function BlogPage() {
