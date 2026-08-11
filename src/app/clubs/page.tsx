@@ -184,7 +184,7 @@ export default function ClubsPage() {
       <section className="py-12 bg-midnight-700 text-center">
         <h2 className="text-2xl font-black text-offwhite mb-3">Want your club endorsed?</h2>
         <p className="text-offwhite/60 text-sm mb-6 max-w-sm mx-auto">
-          Reach out to the VSEUS VP Administration to start an endorsement request.
+          Reach out to VSEUS&apos; VP Administration to become a recognized club.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <TransitionLink
