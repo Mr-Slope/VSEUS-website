@@ -61,7 +61,7 @@ export function Navbar() {
               is never the LCP element.
             */}
             <Image
-              src="/logo.png"
+              src="/photos/logos/logo.png"
               alt=""
               width={44}
               height={44}
