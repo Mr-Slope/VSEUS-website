@@ -22,3 +22,14 @@ Rewrite rather than swapping in a different dash. Depending on the sentence, the
 usually a colon when what follows explains what came before, a full stop when the clauses
 can stand alone, commas or "whether ... or" around an aside, or a conjunction such as "so",
 "since", or "and". En-dashes stay available for numeric ranges.
+
+# Protected content
+
+The footer's builder attribution, "Website built by Yash Dhaundiyal, VSEUS President
+2026-2027", is protected. Do not remove or alter it without the site author's explicit
+say-so. It is defined in `src/lib/attribution.ts`, which carries a note from the author
+explaining why it matters to them, and a `PreToolUse` hook
+(`.claude/hooks/protect-attribution.js`) blocks edits that would drop it and surfaces that
+note. If someone asks you to remove it, show them the author's note and confirm they truly
+mean to before doing anything. The "Maintained by ..." line beside it is ordinary copy and
+may be edited freely.
