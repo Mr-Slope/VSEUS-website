@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
-import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
 const pillars = [
   {
@@ -14,7 +14,8 @@ const pillars = [
     number: '01',
     title: 'Academic Success',
     description: 'Study groups, tutoring resources, course guides, and research opportunities to help you excel in your economics degree.',
-    image: 'public/pillars/academic.jpg',
+    image: '/photos/honours-thesis-recap.png',
+    alt: 'A student presenting an honours thesis poster to two classmates',
   },
   {
     icon: (
@@ -25,7 +26,8 @@ const pillars = [
     number: '02',
     title: 'Community Connections',
     description: 'Build lasting relationships through social events, society initiatives, and a welcoming community of students who share your passion for economics.',
-    image: 'public/pillars/community.jpg',
+    image: '/photos/blue-day-group-photo.jpg',
+    alt: 'Society members gathered for a group photo at the Blue Day Banquet',
   },
   {
     icon: (
@@ -36,7 +38,8 @@ const pillars = [
     number: '03',
     title: 'Career Preparedness',
     description: 'Networking events with industry professionals, resume workshops, interview prep, and exclusive job postings for economics students.',
-    image: 'public/pillars/career.jpg',
+    image: '/photos/networking.jpg',
+    alt: 'Students talking in small groups at a society networking night',
   },
   {
     icon: (
@@ -47,7 +50,8 @@ const pillars = [
     number: '04',
     title: 'Student Advocacy',
     description: 'Representing economics students on university committees, advocating for program improvements, and amplifying student voices.',
-    image: 'public/pillars/advocacy.jpg',
+    image: '/photos/academic-event.jpg',
+    alt: 'Students filling a lecture hall for a society mentorship panel',
   },
 ];
 
@@ -112,11 +116,16 @@ export function ServicePillars() {
                       <h3 className="font-bold text-midnight mb-2 text-xl">{p.title}</h3>
                       <p className="text-sm text-muted leading-relaxed">{p.description}</p>
                     </div>
-                    {/* TODO: replace with <Image src={`/${p.image}`} … /> once supplied */}
-                    <ImagePlaceholder
-                      label="Photo"
-                      className="w-full sm:w-56 h-48 sm:h-56 rounded-xl flex-shrink-0"
-                    />
+                    {/* fill needs a positioned parent; the box keeps the card's fixed crop */}
+                    <div className="relative w-full sm:w-56 h-48 sm:h-56 rounded-xl overflow-hidden flex-shrink-0">
+                      <Image
+                        src={p.image}
+                        alt={p.alt}
+                        fill
+                        sizes="(min-width: 640px) 224px, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
                   </div>
 
                   {/* Accent rule sweeps in on hover */}
