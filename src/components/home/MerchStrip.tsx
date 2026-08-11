@@ -45,9 +45,13 @@ export function MerchStrip() {
             <div className="grid grid-cols-2 gap-5">
               {products.map((p) => (
                 <div key={p.name} className="group">
-                  {/* TODO: replace with <Image src={`/${p.image}`} … /> once supplied */}
+                  {/*
+                    The tile reads "Available Soon" rather than repeating the
+                    product name, which already sits in the caption below.
+                    TODO: replace with <Image src={`/${p.image}`} … /> once supplied.
+                  */}
                   <ImagePlaceholder
-                    label={p.name}
+                    label="Available Soon"
                     tone="dark"
                     className="aspect-square rounded-2xl group-hover:border-accent/60 transition-colors"
                   />
