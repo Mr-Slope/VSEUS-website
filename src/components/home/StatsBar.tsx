@@ -6,8 +6,8 @@ import { yearsRunning } from '@/lib/society';
 /** `years` is computed per render rather than hardcoded — see src/lib/society.ts. */
 function buildStats(years: number) {
   return [
-    { value: 1000, suffix: '+', label: 'Students Represented' },
-    { value: 10, suffix: '+', label: 'Annual Events' },
+    { value: 950, suffix: '+', label: 'Students Represented' },
+    { value: 20, suffix: '+', label: 'Annual Events' },
     { value: years, suffix: '', label: 'Years Running' },
   ];
 }
