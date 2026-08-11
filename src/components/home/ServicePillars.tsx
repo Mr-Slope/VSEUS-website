@@ -50,8 +50,8 @@ const pillars = [
     number: '04',
     title: 'Student Advocacy',
     description: 'Representing economics students on university committees, advocating for program improvements, and amplifying student voices.',
-    image: '/photos/Home/academic-event.jpg',
-    alt: 'Students filling a lecture hall for a society mentorship panel',
+    image: '/photos/Home/vseus-social-internal.jpg',
+    alt: 'Students seated in rows, listening at a society event',
   },
 ];
 
