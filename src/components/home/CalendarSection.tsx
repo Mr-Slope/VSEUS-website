@@ -29,7 +29,7 @@ export async function CalendarSection() {
             <p className="text-offwhite/55 leading-relaxed mb-8 max-w-md">
               Subscribe to VSEUS&apos; Economics Calendar and get all our events
               (competitions, networking nights, workshops, and socials) delivered
-              directly to Google Calendar, Apple Calendar, or Outlook.
+              directly to your Google Calendar, Apple Calendar, or Outlook.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
