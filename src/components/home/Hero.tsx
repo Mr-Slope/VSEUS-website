@@ -73,7 +73,15 @@ export function Hero() {
           reads as right-hand; both headline lines still fit on one line each.
           Below 2xl the cap exceeds the viewport, so mobile is unaffected.
         */}
-        <div className="max-w-2xl ml-auto text-right">
+        {/*
+          translate-y aligns the headline with the "vseus" printed on the banner,
+          whose glyphs are centred at 50% of the image height. The copy block
+          otherwise centres a little above that. Panning the image instead is not
+          an option: object-cover on a 3:2 source in a 108vh box leaves zero
+          vertical overflow at 16:10 and 3:2 aspect ratios, so object-position
+          has nothing to move into. Tune this one value if the match drifts.
+        */}
+        <div className="max-w-2xl ml-auto text-right translate-y-[6vh]">
 
           {/* Badge */}
           <div className="hero-tag inline-flex items-center gap-2.5 bg-offwhite/[0.07] backdrop-blur-sm border border-offwhite/[0.12] rounded-full px-4 py-2 mb-10">
