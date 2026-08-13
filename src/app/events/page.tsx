@@ -122,7 +122,7 @@ export default function EventsPage() {
             <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">
               Looking Back
             </p>
-            <h2 className="text-3xl font-black text-offwhite mb-3">Past Events</h2>
+            <h2 className="text-3xl font-black text-offwhite mb-3">Highlights</h2>
             <p className="text-offwhite/55 text-sm mb-10 max-w-xl">
               A look at what the society has run before: competitions, socials, workshops,
               and the annual gala.
