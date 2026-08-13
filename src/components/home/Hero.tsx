@@ -55,18 +55,14 @@ export function Hero() {
       */}
       <div className="absolute inset-0 bg-gradient-to-l from-midnight/80 via-midnight/40 to-midnight/20" />
 
-      {/* Decorative concentric rings — right */}
-      <div className="absolute -right-56 top-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-offwhite/[0.03]" />
-      <div className="absolute -right-32 top-1/2 -translate-y-1/2 w-[580px] h-[580px] rounded-full border border-offwhite/[0.05]" />
-      <div className="absolute right-8 top-1/2 -translate-y-1/2 w-[360px] h-[360px] rounded-full border border-accent/[0.1] hero-float" />
-      <div className="absolute right-36 top-1/2 -translate-y-1/2 w-[180px] h-[180px] rounded-full border border-accent/[0.18]" />
-
       {/* Accent left edge */}
       <div className="absolute left-0 top-0 w-[3px] h-full bg-gradient-to-b from-transparent via-accent/60 to-transparent" />
       <div className="absolute left-[-5px] top-1/2 -translate-y-1/2 w-[12px] h-[12px] rounded-full bg-accent shadow-[0_0_24px_6px_rgba(237,177,135,0.45)]" />
 
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-36 lg:py-44 w-full">
+      {/* Content: full width, no centering cap, so the right-aligned block sits
+          one padding-step from the viewport's right edge, as far right as it
+          goes while staying off the edge. */}
+      <div className="relative w-full px-4 sm:px-6 lg:px-10 py-36 lg:py-44">
         {/*
           ml-auto moves the column to the right half, clear of the banner's
           printed wordmark. Narrower than the old max-w-4xl so the text actually
@@ -81,7 +77,9 @@ export function Hero() {
           vertical overflow at 16:10 and 3:2 aspect ratios, so object-position
           has nothing to move into. Tune this one value if the match drifts.
         */}
-        <div className="max-w-2xl ml-auto text-right translate-y-[6vh]">
+        {/* lg:mr-[7vw] backs the block off the right edge, nudging it left.
+            Tune this value to slide it further left or right. */}
+        <div className="max-w-2xl ml-auto text-right translate-y-[6vh] lg:mr-[7vw]">
 
           {/* Badge */}
           <div className="hero-tag inline-flex items-center gap-2.5 bg-offwhite/[0.07] backdrop-blur-sm border border-offwhite/[0.12] rounded-full px-4 py-2 mb-10">
