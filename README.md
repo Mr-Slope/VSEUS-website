@@ -53,7 +53,7 @@ src/
 │   ├── page.tsx                # Home
 │   ├── about/page.tsx          # Mission, exec orbital diagram, reports
 │   ├── resources/page.tsx      # Gazette, Awards & Grants, ELC, Clubs
-│   ├── clubs/page.tsx          # Endorsed clubs
+│   ├── clubs/page.tsx          # Recognized clubs
 │   ├── elc/page.tsx            # Economics Learning Centre
 │   ├── events/page.tsx         # Upcoming events
 │   ├── blog/
@@ -91,6 +91,7 @@ src/
 │   ├── execs.ts                # Executive roster (About + Contact)
 │   ├── calendar.ts             # Google Calendar config + build-time ICS read
 │   ├── society.ts              # Founding year, years-running, address
+│   ├── attribution.ts          # Footer builder credit (protected, see AGENTS.md)
 │   ├── blog.ts                 # Build-time markdown loader (Node only)
 │   └── post.ts                 # Post types + date formatting (browser safe)
 │
@@ -110,7 +111,7 @@ Everything editable lives in a handful of files. No CMS, no admin login.
 | Upcoming events | `src/lib/events.ts` — add/remove entries in `UPCOMING_EVENTS` |
 | Executive team and their emails | `src/lib/execs.ts` — used by both About and Contact |
 | Reports list | `reports` array in `src/app/about/page.tsx` |
-| Endorsed clubs | `clubs` array in `src/app/clubs/page.tsx` |
+| Recognized clubs | `clubs` array in `src/app/clubs/page.tsx` |
 | Resource cards | `resources` array in `src/app/resources/page.tsx` |
 | Merch products and shop link | `products` / `SHOP_URL` in `src/components/home/MerchStrip.tsx` |
 | Social links | `socials` in `src/components/ui/SocialIcons.tsx` |
@@ -185,25 +186,31 @@ send server-side instead, replace `handleSubmit` in `src/app/contact/page.tsx` w
 POST to Formspree or Web3Forms (free tier, keeps the site static) or a Resend route
 (needs an API key and a verified domain, and turns that route into a function).
 
-### Outstanding placeholders
+### Site photos and remaining placeholders
 
-Search the codebase for `TODO` to find them all. The main ones:
+Real photography lives under `public/photos/`, grouped by the page that uses it:
+`Home/` (the hero banner and the four pillar images), `logos/` (the society mark), and
+empty `About/`, `Events/`, `Blog/`, `Contact/`, and `Resources/` folders staged for
+images still to come. The navbar logo, the hero image, and the four pillar photos are
+already wired in.
+
+Still rendering `<ImagePlaceholder />`, so each is a one-line swap once art is supplied:
 
 | Placeholder | Where |
 |---|---|
-| Logo | `public/logo.svg` → Navbar |
-| Hero image | `public/hero.jpg` → Hero |
-| Pillar photos | `public/pillars/{academic,community,career,advocacy}.jpg` |
-| Exec photos | `public/exec/<name>.jpg` |
-| Merch photos | `public/merch/*.jpg` |
-| Real email addresses | `src/lib/execs.ts` — currently `role@vseus.ca` |
-| Merch shop URL | `src/components/home/MerchStrip.tsx` |
-| Club names and details | `src/app/clubs/page.tsx` |
-| Blog post cover images | `public/blog/` → the index cards currently show placeholders |
-| Economics Gazette copy | `src/app/resources/page.tsx` |
+| Exec headshots | `src/app/about/page.tsx` (the `About/` photos folder is staged) |
+| Merch photos | `src/components/home/MerchStrip.tsx`; tiles currently read "Available Soon" |
+| Blog cover images | `public/blog/`; index cards show placeholders |
+| Club logos | `src/app/clubs/page.tsx` |
 
-Each image placeholder is a single `<ImagePlaceholder />` call, so swapping in a real
-image is a one-line change per site.
+Non-image placeholders:
+
+| Placeholder | Where |
+|---|---|
+| Real email addresses | `src/lib/execs.ts`, currently `role@vseus.ca` |
+| Merch shop URL | `SHOP_URL` in `src/components/home/MerchStrip.tsx`, currently `#` |
+
+Search the codebase for `TODO` to find them all.
 
 ---
 
@@ -274,9 +281,10 @@ Auth.js: code-based login, event registration, QR tickets, a door scanner, and m
 management. It was removed before launch so the published site needs no database,
 secrets, or staffed admin surface.
 
-It is fully documented in [`docs/member-login/`](./docs/member-login/) — what was built,
-the schema, why it went, and how to restore it. The code remains on
-`origin/feat/postgres-auth-codes`.
+It is fully documented in [`docs/member-login/`](./docs/member-login/): what was built,
+the schema, why it went, and how to restore it. The code is preserved at the
+`archive/postgres-auth` tag (commit `e2f0b84`, formerly the `feat/postgres-auth-codes`
+branch).
 
 ---
 

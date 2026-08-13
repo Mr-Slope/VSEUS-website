@@ -3,8 +3,9 @@
 **Status:** Removed from the live site on 2026-08-06. This document records what was
 built, how it worked, and why it was taken out.
 
-**Where the code lives:** every commit is on `origin/feat/postgres-auth-codes`
-(8 commits, `6b68426`..`e2f0b84`). Nothing here is lost — see [`restore.md`](./restore.md).
+**Where the code lives:** every commit is preserved at the `archive/postgres-auth`
+tag (8 commits, `6b68426`..`e2f0b84`, formerly the `feat/postgres-auth-codes`
+branch). Nothing here is lost, see [`restore.md`](./restore.md).
 
 ---
 

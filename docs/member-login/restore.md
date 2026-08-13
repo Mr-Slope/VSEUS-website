@@ -1,8 +1,9 @@
 # Member Login — How to Restore It
 
-The removal was a deletion, not a rewrite. Every file still exists on
-`origin/feat/postgres-auth-codes` at commit `e2f0b84`. Restoring is a checkout, a
-dependency install, and a database provision.
+The removal was a deletion, not a rewrite. Every file still exists at the
+`archive/postgres-auth` tag, commit `e2f0b84` (formerly the tip of the
+`feat/postgres-auth-codes` branch, which was deleted once the tag preserved it).
+Restoring is a checkout, a dependency install, and a database provision.
 
 Read [`README.md`](./README.md) first — some of what you would be restoring was already
 known to need work (base64 posters, a 10,000-code keyspace, no email delivery).
@@ -33,7 +34,7 @@ From the repo root, on a fresh branch:
 ```bash
 git checkout -b feat/restore-member-login
 
-git checkout origin/feat/postgres-auth-codes -- \
+git checkout archive/postgres-auth -- \
   src/auth.ts \
   src/proxy.ts \
   src/db \
@@ -136,7 +137,7 @@ export default async function EventsPage() {
 
 You will also need to restore the fields trimmed from `src/types/event.ts` —
 `capacity`, `registeredCount`, `questions`, `imageUrl`, `createdAt` — and the
-`Registration` / `EventQuestion` types. `git show origin/feat/postgres-auth-codes:src/types/event.ts`
+`Registration` / `EventQuestion` types. `git show archive/postgres-auth:src/types/event.ts`
 has the original.
 
 Consider keeping the static list as a fallback rather than deleting it:
@@ -197,8 +198,8 @@ table in [`README.md`](./README.md) before promising them to anyone.
 
 | What | Where |
 |---|---|
-| Full implementation | `origin/feat/postgres-auth-codes` @ `e2f0b84` |
+| Full implementation | `archive/postgres-auth` @ `e2f0b84` |
 | First commit of the stack | `6b68426` `chore(deps): add postgres, drizzle, auth.js, bcrypt deps` |
-| The removal commit | `e915f54` on `feat/publish-ready` |
+| The removal commit | `e915f54` (now on `main`) |
 | Schema details | [`schema.md`](./schema.md) |
 | Why it was removed | [`README.md`](./README.md) |
