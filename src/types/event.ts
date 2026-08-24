@@ -26,4 +26,10 @@ export interface Event {
    * store. Omit it and the card renders as information only, with no button.
    */
   registrationUrl?: string;
+  /**
+   * Groups events under a shared banner, e.g. 'Econ Week'. Events sharing a
+   * series render together in a week-calendar strip on /events, sorted by
+   * date. Omit it and the event renders in the standalone section instead.
+   */
+  series?: string;
 }
