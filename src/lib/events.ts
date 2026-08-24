@@ -85,7 +85,7 @@ export const UPCOMING_EVENTS: Event[] = [
  * can be laid out before the photos are gathered.
  */
 export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
-  { title: 'Annual VSEUS Gala',           when: '2025' },
+  { title: 'Annual VSEUS Gala',           when: '2025', image: '/photos/Events/annual-vseus-gala-2025.jpg' },
   { title: 'Networking Event',            when: '2025', image: '/photos/Events/networking-event.jpg' },
   { title: 'Blue Day 2024',               when: '2024', image: '/photos/Events/blue-day-group-photo.jpg' },
   { title: 'End of Term Mixer',           when: '2025', image: '/photos/Events/end-of-term-mixer.jpg' },
