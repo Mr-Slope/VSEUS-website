@@ -1,6 +1,19 @@
 import React from 'react';
+import Image from 'next/image';
 import { PRESIDENT, VPS, type Exec } from '@/lib/execs';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
+
+/** Photo if supplied, otherwise the dashed placeholder — same footprint either way. */
+function ExecPhoto({ exec, className }: { exec: Exec; className: string }) {
+  if (exec.photo) {
+    return (
+      <div className={`relative ${className}`}>
+        <Image src={exec.photo} alt={exec.name} fill sizes="160px" className="object-cover rounded-[inherit]" />
+      </div>
+    );
+  }
+  return <ImagePlaceholder label="Photo" tone="dark" hideIcon className={className} />;
+}
 
 const reports = [
   { title: 'Annual Report 2024-25',         type: 'Annual',  href: '#' },
@@ -63,11 +76,8 @@ function ExecCard({ exec, featured = false }: { exec: Exec; featured?: boolean }
           : 'bg-midnight-800/70 border border-offwhite/10 hover:border-accent/40'
       }`}
     >
-      {/* TODO: replace with <Image src={`/exec/${…}.jpg`} … /> once photos are supplied */}
-      <ImagePlaceholder
-        label="Photo"
-        tone="dark"
-        hideIcon
+      <ExecPhoto
+        exec={exec}
         className={`rounded-xl flex-shrink-0 ${featured ? 'w-40 h-40' : 'w-32 h-32'}`}
       />
       <div className="min-w-0">
@@ -240,12 +250,7 @@ export default function AboutPage() {
                   top:    CY - PRES_H / 2,
                 }}
               >
-                <ImagePlaceholder
-                  label="Photo"
-                  tone="dark"
-                  hideIcon
-                  className="w-40 h-40 rounded-xl flex-shrink-0"
-                />
+                <ExecPhoto exec={PRESIDENT} className="w-40 h-40 rounded-xl flex-shrink-0" />
                 <div className="min-w-0">
                   <p className="text-offwhite font-bold text-xl leading-tight">{PRESIDENT.name}</p>
                   <p className="font-display text-accent text-base font-semibold mt-1.5 whitespace-nowrap">{PRESIDENT.role}</p>
@@ -264,12 +269,7 @@ export default function AboutPage() {
                     top:    vp.y - CARD_H / 2,
                   }}
                 >
-                  <ImagePlaceholder
-                    label="Photo"
-                    tone="dark"
-                    hideIcon
-                    className="w-[120px] h-[120px] rounded-lg flex-shrink-0"
-                  />
+                  <ExecPhoto exec={vp} className="w-[120px] h-[120px] rounded-lg flex-shrink-0" />
                   <div className="min-w-0">
                     <p className="text-offwhite font-bold text-base leading-tight">{vp.name}</p>
                     {/* nowrap so "VP Administration" holds one line — CARD_W is sized for it */}
