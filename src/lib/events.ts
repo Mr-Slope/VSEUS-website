@@ -86,9 +86,9 @@ export const UPCOMING_EVENTS: Event[] = [
  */
 export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
   { title: 'Annual VSEUS Gala',           when: '2025' },
-  { title: 'Economics Case Competition',  when: '2025' },
-  { title: 'Industry Networking Night',   when: '2025' },
-  { title: 'Welcome Back Social',         when: '2025' },
-  { title: 'Research Skills Workshop',    when: '2025' },
-  { title: 'End of Term Mixer',           when: '2025' },
+  { title: 'Networking Event',            when: '2025', image: '/photos/Events/networking-event.jpg' },
+  { title: 'Blue Day 2024',               when: '2024', image: '/photos/Events/blue-day-group-photo.jpg' },
+  { title: 'End of Term Mixer',           when: '2025', image: '/photos/Events/end-of-term-mixer.jpg' },
+  { title: 'Economics Panel',             when: '2025', image: '/photos/Events/economics-panel.jpg' },
+  { title: 'Honours Thesis Presentation', when: '2025', image: '/photos/Events/honours-thesis-presentation.png' },
 ];
