@@ -19,6 +19,7 @@ const clubs = [
     href: 'https://ubcdevec.com',
     linkLabel: 'ubcdevec.com',
     logo: '/clubs/devec.jpg',
+    instagram: 'devec.ubc',
   },
   {
     name: 'Iona Journal',
@@ -28,6 +29,7 @@ const clubs = [
     href: 'https://www.ionajournal.ca',
     linkLabel: 'ionajournal.ca',
     logo: '/clubs/iona-journal.jpg',
+    instagram: 'ionajournal',
   },
   {
     name: 'EPS',
@@ -37,6 +39,7 @@ const clubs = [
     href: 'https://www.instagram.com/epsubc/',
     linkLabel: '@epsubc',
     logo: '/clubs/eps.png',
+    instagram: 'epsubc',
   },
 ];
 
@@ -164,12 +167,8 @@ export default function ClubsPage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {clubs.map((c) => (
-              /* The whole card is the link — it opens the club's own site or socials */
-              <a
+              <div
                 key={c.name}
-                href={c.href}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="bg-midnight-800/70 border border-offwhite/10 rounded-2xl p-6 flex gap-5 hover:border-accent/50 hover:bg-midnight-800 transition-all group"
               >
                 <ClubLogo club={c} className="w-28 h-28 rounded-xl flex-shrink-0" />
@@ -177,14 +176,32 @@ export default function ClubsPage() {
                   <p className="text-offwhite font-bold text-lg leading-tight">{c.name}</p>
                   <p className="font-display text-accent text-sm font-semibold mt-1">{c.fullName}</p>
                   <p className="text-offwhite/55 text-sm mt-2.5 leading-relaxed">{c.description}</p>
-                  <span className="inline-flex items-center gap-1.5 font-display text-xs font-semibold text-accent mt-3.5">
-                    {c.linkLabel}
-                    <svg className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                    </svg>
-                  </span>
+                  <div className="flex items-center gap-4 mt-3.5">
+                    <a
+                      href={c.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 font-display text-xs font-semibold text-accent hover:text-accent-600 transition-colors"
+                    >
+                      {c.linkLabel}
+                      <svg className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                      </svg>
+                    </a>
+                    <a
+                      href={`https://www.instagram.com/${c.instagram}/`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${c.name} on Instagram`}
+                      className="inline-flex items-center text-offwhite/50 hover:text-accent transition-colors"
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0 1.802c-3.147 0-3.5.012-4.737.069-1.026.047-1.583.216-1.953.359-.492.191-.843.42-1.212.789-.369.369-.598.72-.789 1.212-.143.37-.312.927-.359 1.953-.057 1.237-.069 1.59-.069 4.737s.012 3.5.069 4.737c.047 1.026.216 1.583.359 1.953.191.492.42.843.789 1.212.369.369.72.598 1.212.789.37.143.927.312 1.953.359 1.237.057 1.59.069 4.737.069s3.5-.012 4.737-.069c1.026-.047 1.583-.216 1.953-.359.492-.191.843-.42 1.212-.789.369-.369.598-.72.789-1.212.143-.37.312-.927.359-1.953.057-1.237.069-1.59.069-4.737s-.012-3.5-.069-4.737c-.047-1.026-.216-1.583-.359-1.953-.191-.492-.42-.843-.789-1.212-.369-.369-.72-.598-1.212-.789-.37-.143-.927-.312-1.953-.359-1.237-.057-1.59-.069-4.737-.069zm0 3.064a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm6.538-1.998a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>
