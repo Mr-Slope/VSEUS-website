@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
@@ -7,7 +8,7 @@ import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
  * Recognized clubs. Each card links straight out to the club's own site or
  * socials — descriptions are drawn from how each one describes itself.
  *
- * TODO: add a `logo` path (public/clubs/<name>.png) once logos are supplied.
+ * TODO: add the remaining `logo` paths once those logos are supplied.
  */
 const clubs = [
   {
@@ -17,6 +18,7 @@ const clubs = [
       'UBC’s only club bringing together students from every discipline to discuss the economic, social, and fiscal conditions of the developing world. Runs research deep-dives in partnership with the VSE, career pathways into development work, and events connecting students who care about poverty and growth.',
     href: 'https://ubcdevec.com',
     linkLabel: 'ubcdevec.com',
+    logo: '/clubs/devec.jpg',
   },
   {
     name: 'Iona Journal',
@@ -25,6 +27,7 @@ const clubs = [
       'The VSE’s undergraduate economics journal, publishing blind peer- and faculty-reviewed student research. Beyond the annual issue it runs IONA Exchange (a blog on global developments), IONA Reads (professor-curated resources), and IONA Asks (a podcast with faculty, alumni, and scholars).',
     href: 'https://www.ionajournal.ca',
     linkLabel: 'ionajournal.ca',
+    logo: '/clubs/iona-journal.jpg',
   },
   {
     name: 'EPS',
@@ -33,8 +36,21 @@ const clubs = [
       'Runs thought-provoking discussions and debates built around strategy and deduction games, plus social experiments rooted in game theory. Built on a supportive community of curious, open-minded people willing to challenge perspectives and think critically.',
     href: 'https://www.instagram.com/epsubc/',
     linkLabel: '@epsubc',
+    logo: '/clubs/eps.png',
   },
 ];
+
+/** Logo if supplied, otherwise the dashed placeholder — same footprint either way. */
+function ClubLogo({ club, className }: { club: (typeof clubs)[number]; className: string }) {
+  if (club.logo) {
+    return (
+      <div className={`relative ${className}`}>
+        <Image src={club.logo} alt={`${club.name} logo`} fill sizes="112px" className="object-cover rounded-[inherit]" />
+      </div>
+    );
+  }
+  return <ImagePlaceholder label="Logo" tone="dark" hideIcon className={className} />;
+}
 
 const steps = [
   {
@@ -156,13 +172,7 @@ export default function ClubsPage() {
                 rel="noopener noreferrer"
                 className="bg-midnight-800/70 border border-offwhite/10 rounded-2xl p-6 flex gap-5 hover:border-accent/50 hover:bg-midnight-800 transition-all group"
               >
-                {/* TODO: replace with the club's logo once supplied */}
-                <ImagePlaceholder
-                  label="Logo"
-                  tone="dark"
-                  hideIcon
-                  className="w-28 h-28 rounded-xl flex-shrink-0"
-                />
+                <ClubLogo club={c} className="w-28 h-28 rounded-xl flex-shrink-0" />
                 <div className="min-w-0">
                   <p className="text-offwhite font-bold text-lg leading-tight">{c.name}</p>
                   <p className="font-display text-accent text-sm font-semibold mt-1">{c.fullName}</p>
