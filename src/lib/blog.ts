@@ -45,6 +45,7 @@ function toMeta(slug: string, data: Record<string, unknown>, body: string): Post
     excerpt: typeof data.excerpt === 'string' ? data.excerpt : '',
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     readingTime: readingTimeFor(body),
+    cover: typeof data.cover === 'string' ? data.cover : undefined,
   };
 }
 

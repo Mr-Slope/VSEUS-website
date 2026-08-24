@@ -2,8 +2,29 @@
 
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { formatPostDate, type PostMeta } from '@/lib/post';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
+
+/** Cover photo if supplied, otherwise the dashed placeholder — same footprint either way. */
+function CoverImage({
+  post,
+  className,
+  placeholderBorder = 'border-0 border-b border-dashed',
+}: {
+  post: PostMeta;
+  className: string;
+  placeholderBorder?: string;
+}) {
+  if (post.cover) {
+    return (
+      <div className={`relative ${className}`}>
+        <Image src={post.cover} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+      </div>
+    );
+  }
+  return <ImagePlaceholder label="Cover image" className={`${placeholderBorder} ${className}`} />;
+}
 
 /** Sentinel for "no filter" — the default. */
 const ALL = null;
@@ -65,7 +86,7 @@ function PostCard({ post }: { post: PostMeta }) {
       href={`/blog/${post.slug}`}
       className="group bg-offwhite border border-ice-400 hover:border-accent hover:shadow-lg hover:shadow-midnight/10 rounded-2xl overflow-hidden transition-all flex flex-col"
     >
-      <ImagePlaceholder label="Cover image" className="w-full h-56 border-0 border-b border-dashed" />
+      <CoverImage post={post} className="w-full h-56" />
       <div className="p-6 flex flex-col flex-1">
         {post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-3">
@@ -158,9 +179,10 @@ export function BlogList({ posts, tags }: { posts: PostMeta[]; tags: string[] })
             className="group block bg-offwhite border border-ice-400 hover:border-accent hover:shadow-xl hover:shadow-midnight/10 rounded-2xl overflow-hidden transition-all mb-10"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2">
-              <ImagePlaceholder
-                label="Cover image"
-                className="w-full h-72 lg:h-full min-h-[360px] border-0 border-b lg:border-b-0 lg:border-r border-dashed"
+              <CoverImage
+                post={featured}
+                className="w-full h-72 lg:h-full min-h-[360px]"
+                placeholderBorder="border-0 border-b lg:border-b-0 lg:border-r border-dashed"
               />
               <div className="p-8 lg:p-10 flex flex-col">
                 <div className="flex flex-wrap items-center gap-2 mb-4">

@@ -23,6 +23,7 @@ date: 2026-08-01
 author: Yash Dhaundiyal
 excerpt: One or two sentences shown on the blog index and in link previews.
 tags: [Policy, Student Life]
+cover: /photos/Blog/why-economics-matters.jpg
 ---
 ```
 
@@ -33,6 +34,7 @@ tags: [Policy, Student Life]
 | `author` | No | Defaults to "VSEUS" |
 | `excerpt` | No | Shown on the index card and used as the page description |
 | `tags` | No | Square brackets, comma-separated. Wrap in quotes if a tag has a space |
+| `cover` | No | Path under `public/`, e.g. `/photos/Blog/my-post.jpg`. Omit to show a placeholder on the index card |
 
 Tags aren't decoration. They're the filter on `/blog`. Each distinct tag becomes a pill
 with a post count, so reuse an existing one rather than coining a near-duplicate. They're

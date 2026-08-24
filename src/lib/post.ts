@@ -18,6 +18,8 @@ export interface PostMeta {
   tags: string[];
   /** Reading time in minutes, estimated from word count. */
   readingTime: number;
+  /** Path under public/, e.g. '/photos/Blog/my-post.jpg'. Omit to show a placeholder. */
+  cover?: string;
 }
 
 export interface Post extends PostMeta {
