@@ -16,10 +16,10 @@ function ExecPhoto({ exec, className }: { exec: Exec; className: string }) {
 }
 
 const reports = [
-  { title: 'Annual Report 2024-25',         type: 'Annual',  href: '#' },
-  { title: 'Budget Report: March 2025',     type: 'Monthly', href: '#' },
-  { title: 'Budget Report: February 2025',  type: 'Monthly', href: '#' },
-  { title: 'Hiring Statistics 2024-25',     type: 'Hiring',  href: '#' },
+  { title: '2025-2026 Semester 1 Budgetary Report',       type: 'Semester', href: '/reports/2025-2026-semester-1-budgetary-report.pdf' },
+  { title: 'September 2025 External Monthly Budgetary Report', type: 'Monthly',  href: '/reports/2025-09-external-monthly-budgetary-report.pdf' },
+  { title: 'October 2025 External Monthly Budgetary Report',   type: 'Monthly',  href: '/reports/2025-10-external-monthly-budgetary-report.pdf' },
+  { title: 'November 2025 External Monthly Budgetary Report',  type: 'Monthly',  href: '/reports/2025-11-external-monthly-budgetary-report.pdf' },
 ];
 
 /*
