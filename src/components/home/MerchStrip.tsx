@@ -1,16 +1,8 @@
 import React from 'react';
 import { Reveal } from '@/components/ui/Reveal';
-import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
 // TODO: point this at the real storefront once it exists.
 const SHOP_URL = '#';
-
-const products = [
-  { name: 'Crewneck', image: 'public/merch/crewneck.jpg' },
-  { name: 'Hoodie', image: 'public/merch/hoodie.jpg' },
-  { name: 'Tote Bag', image: 'public/merch/tote.jpg' },
-  { name: 'Sticker Pack', image: 'public/merch/stickers.jpg' },
-];
 
 export function MerchStrip() {
   return (
@@ -26,7 +18,7 @@ export function MerchStrip() {
               Wear the<br />Society.
             </h2>
             <p className="text-offwhite/60 leading-relaxed mb-7 max-w-md text-sm">
-              Crewnecks, hoodies, totes, and stickers designed by and for economics
+              Crewnecks, hoodies, and stickers designed by and for economics
               students. Every purchase goes straight back into student programming.
             </p>
             <a
@@ -41,23 +33,17 @@ export function MerchStrip() {
           </Reveal>
 
           <Reveal delay={120}>
-            {/* Two across rather than four, so each product reads at a usable size */}
-            <div className="grid grid-cols-2 gap-5">
-              {products.map((p) => (
-                <div key={p.name} className="group">
-                  {/*
-                    The tile reads "Available Soon" rather than repeating the
-                    product name, which already sits in the caption below.
-                    TODO: replace with <Image src={`/${p.image}`} … /> once supplied.
-                  */}
-                  <ImagePlaceholder
-                    label="Available Soon"
-                    tone="dark"
-                    className="aspect-square rounded-2xl group-hover:border-accent/60 transition-colors"
-                  />
-                  <p className="text-offwhite/75 text-sm font-medium mt-3 text-center">{p.name}</p>
-                </div>
-              ))}
+            {/* TODO: swap for a product grid once the storefront and photos exist. */}
+            <div className="flex flex-col items-center justify-center text-center gap-4 border-2 border-dashed border-offwhite/25 rounded-2xl aspect-video px-8">
+              <div className="w-14 h-14 rounded-full bg-accent/15 text-accent flex items-center justify-center">
+                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-display font-bold text-offwhite text-lg">Coming Soon</p>
+                <p className="text-offwhite/50 text-sm mt-1">The full lineup is on its way. Check back soon.</p>
+              </div>
             </div>
           </Reveal>
         </div>
