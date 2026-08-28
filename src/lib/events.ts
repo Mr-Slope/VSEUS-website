@@ -1,11 +1,14 @@
 import type { Event, PastEventPhoto } from '@/types/event';
 
 /**
- * Bounce registration link, shared by the Econ Week banner and Pre-n-Pit's
- * ticket button. This is a placeholder — replace it with the real Bounce
- * event link once it exists, then remove this comment.
+ * Bounce link behind the Econ Week banner's "Open Bounce" button.
+ *
+ * Points at the VSEUS organization page rather than one event, so it stays
+ * correct as events come and go. An individual event can send people somewhere
+ * else by setting its own `registrationUrl`, which the ticket button reads
+ * instead of this.
  */
-export const BOUNCE_URL = 'https://bounce.app/vseus';
+export const BOUNCE_URL = 'https://www.bouncelife.com/organizations/66d55a9d9c53ca892f77be06';
 
 /**
  * The public events list. Edit this file to add, change, or remove an event —
