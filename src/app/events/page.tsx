@@ -43,13 +43,16 @@ function CategoryChip({ category }: { category: string }) {
 }
 
 function PriceChip({ event }: { event: Event }) {
-  return event.isPaid ? (
+  if (!event.isPaid) {
+    return (
+      <span className="font-display text-xs font-semibold text-midnight bg-ice-200 border border-ice-400 px-2.5 py-0.5 rounded-full">
+        Free
+      </span>
+    );
+  }
+  return (
     <span className="font-display text-xs font-semibold text-midnight bg-accent px-2.5 py-0.5 rounded-full">
-      ${event.price}
-    </span>
-  ) : (
-    <span className="font-display text-xs font-semibold text-midnight bg-ice-200 border border-ice-400 px-2.5 py-0.5 rounded-full">
-      Free
+      {event.price != null ? `$${event.price}` : 'Paid'}
     </span>
   );
 }
@@ -102,7 +105,7 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
               {event.location}
             </div>
           </div>
-          {event.registrationUrl && (
+          {event.registrationUrl ? (
             <a
               href={event.registrationUrl}
               target="_blank"
@@ -114,7 +117,11 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </a>
-          )}
+          ) : event.ticketsAvailableSoon ? (
+            <span className="sm:mt-auto sm:w-fit flex items-center justify-center gap-1.5 bg-ice-200 border border-ice-400 text-muted font-display text-sm font-semibold px-6 py-3 rounded-lg">
+              Tickets Available Soon
+            </span>
+          ) : null}
         </div>
       </div>
     </div>
@@ -149,7 +156,7 @@ export default function EventsPage() {
                 We announce new events on Instagram and through the newsletter. Check back soon.
               </p>
               <TransitionLink
-                href="/contact#newsletter"
+                href="/contact"
                 className="inline-flex items-center bg-accent text-midnight font-display font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
               >
                 Join the Newsletter

@@ -27,6 +27,11 @@ export interface Event {
    */
   registrationUrl?: string;
   /**
+   * Shows a non-clickable "Tickets Available Soon" badge instead of the
+   * registration button. Ignored if `registrationUrl` is set.
+   */
+  ticketsAvailableSoon?: boolean;
+  /**
    * Groups events under a shared banner, e.g. 'Econ Week'. Events sharing a
    * series render together in a week-calendar strip on /events, sorted by
    * date. Omit it and the event renders in the standalone section instead.

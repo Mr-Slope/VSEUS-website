@@ -23,15 +23,15 @@ export const UPCOMING_EVENTS: Event[] = [
     id: 'evt-pre-n-pit',
     title: 'Pre-n-Pit',
     description:
-      'Pregame in the Arts Student Centre, then head to The Pit together. Tickets are cheap and cover drinks. Grab yours on Bounce before they sell out.',
+      'Pregame in the Arts Student Centre, then head to The Pit together. Tickets are cheap and cover drinks.',
     date: '2026-09-08',
     time: 'Time TBA',
     location: 'Arts Student Centre, then The Pit Pub, UBC Vancouver',
-    isPaid: false,
+    isPaid: true,
     price: null,
     posterUrl: null,
     category: 'Social',
-    registrationUrl: BOUNCE_URL,
+    ticketsAvailableSoon: true,
   },
   {
     id: 'evt-ew-beach-day',
@@ -139,11 +139,12 @@ export const UPCOMING_EVENTS: Event[] = [
     date: '2026-09-26',
     time: 'Time TBA',
     location: 'Location TBA',
-    isPaid: false,
+    isPaid: true,
     price: null,
     posterUrl: null,
     category: 'Social',
     series: 'Econ Week',
+    ticketsAvailableSoon: true,
   },
 ];
 
@@ -161,5 +162,5 @@ export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
   { title: 'Blue Day 2024',               when: '2024', image: '/photos/Events/blue-day-group-photo.jpg' },
   { title: 'End of Term Mixer',           when: '2025', image: '/photos/Events/end-of-term-mixer.jpg' },
   { title: 'Economics Panel',             when: '2025', image: '/photos/Events/economics-panel.jpg' },
-  { title: 'Honours Thesis Presentation', when: '2025', image: '/photos/Events/honours-thesis-presentation.png' },
+  { title: 'Coming Soon' },
 ];
