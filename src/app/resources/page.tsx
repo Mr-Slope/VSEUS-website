@@ -34,7 +34,7 @@ const resources = [
     id: 'learning',
     title: 'Economics Learning Centre',
     description:
-      'Free walk-in peer tutoring run by trained undergraduate assistants. Covering ECON 101, 102, 226, 301, 302, 325, and 326. Open Monday to Thursday, 11am to 5pm in IONA 038. No appointment needed.',
+      'Free walk-in peer tutoring run by trained undergraduate assistants. Covering ECON 101, 102, 226, 301, 302, 325, and 326. Open Monday to Thursday, 11am to 5pm in IONA 038. No appointment needed. Offered in partnership with the VSE.',
     cta: 'Learn More',
     ctaHref: '/elc',
     icon: (

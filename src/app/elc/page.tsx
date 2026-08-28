@@ -163,7 +163,7 @@ export default function ELCPage() {
                 <p className="text-midnight font-black tracking-widest text-lg">9KXL4W</p>
               </div>
               <div className="text-xs text-muted/70 max-w-[220px] leading-relaxed">
-                Go to Canvas, click &quot;Join a Course&quot;, and enter the key above.
+                Go to Canvas, click &quot;Join a Course&quot;, and enter the key.
               </div>
             </div>
           </div>
