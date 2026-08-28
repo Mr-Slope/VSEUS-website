@@ -203,7 +203,7 @@ which is exactly how the public Events page came to fail silently in development
 | Apple Wallet passes | Not started | Requires the paid Apple Developer Program ($99 USD/yr) for a Pass Type ID and signing certificate. A free account does not grant this. Worth checking whether UBC has an institutional account. |
 | Google Wallet passes | Not started | Requires a Google Cloud service account plus Google's review/approval — days to weeks |
 | Payment processing | Stubbed: e-transfer to events@vseus.ca or pay at the door | Stripe recommended (2.9% + 30¢ CAD). Bounce, previously used by VSEUS, runs on Stripe — integrating directly removes the platform fee. ~1 hour of setup, no approval wait. |
-| Poster storage | Base64 in `events.poster_url` | Should move to object storage (S3, Cloudflare R2, or Vercel Blob) before any real volume |
+| Poster storage | Base64 in `events.poster_url` | Should move to object storage (S3, Cloudflare R2, or equivalent) before any real volume |
 
 ---
 

@@ -172,11 +172,12 @@ minutes, and the sixth attempt should look identical to the first five.
 > **This cannot run on the current host.** The live site is a static export on GitHub
 > Pages (see the main [README](../../README.md)), which serves files only: no route
 > handlers, no server actions, no database connections. Restoring the portal means
-> moving to a host that runs Next.js server-side, such as Vercel, Netlify, or a VPS.
-> Vercel is assumed below because that is what the original build targeted.
+> moving to a host that runs Next.js server-side, whether a serverless platform or a
+> plain VPS.
 
-Set all three env vars in the hosting provider. On Vercel, `DATABASE_URL` must be the
-**pooled** Neon string — the direct one exhausts connections under serverless.
+Set all three env vars in the hosting provider. On any serverless host, `DATABASE_URL`
+must be the **pooled** Neon string, since the direct one exhausts connections under
+serverless. On a long-lived VPS process either string works.
 
 ---
 
@@ -186,7 +187,7 @@ Things worth changing on the way back in, roughly in order of value:
 
 1. **Widen the code space.** `ECON-####` is 10,000 codes, defended only by lockout.
    Six alphanumeric characters would make enumeration impractical on its own merits.
-2. **Move posters off base64.** Object storage: S3, Cloudflare R2, or Vercel Blob.
+2. **Move posters off base64.** Object storage: S3, Cloudflare R2, or equivalent.
    Base64 in `poster_url` bloats every row and every response that reads one.
 3. **Wire ticket emails.** Resend is the shortest path; the UI already claims tickets are
    sent, which is currently untrue.
