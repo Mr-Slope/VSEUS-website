@@ -8,7 +8,14 @@ function ExecPhoto({ exec, className }: { exec: Exec; className: string }) {
   if (exec.photo) {
     return (
       <div className={`relative ${className}`}>
-        <Image src={exec.photo} alt={exec.name} fill sizes="160px" className="object-cover rounded-[inherit]" />
+        <Image
+          src={exec.photo}
+          alt={exec.name}
+          fill
+          sizes="160px"
+          className="object-cover rounded-[inherit]"
+          style={exec.photoPosition ? { objectPosition: exec.photoPosition } : undefined}
+        />
       </div>
     );
   }
@@ -104,16 +111,16 @@ export default function AboutPage() {
               Our Mission
             </p>
             <h1 className="text-5xl sm:text-6xl font-black text-midnight mb-8 leading-[1.05]">
-              Every economics student at UBC, supported.
+              A place to belong.
             </h1>
             <p className="text-midnight/85 leading-relaxed text-xl mb-6">
-              The Vancouver School of Economics Undergraduate Society (VSEUS) was founded in 2014 to build an economics community at UBC: to create and facilitate spaces where students are comfortable with one another, can share their stories, and can form the relationships a community is made of.
+              The Vancouver School of Economics Undergraduate Society (VSEUS) was founded in 2014 to build an economics community at UBC by creating and facilitating spaces where students are comfortable with one another, can share their stories, and can form the relationships a community is made of.
             </p>
             <p className="text-muted leading-relaxed text-lg mb-6">
               A community like that has to answer to the people in it. We keep a clear feedback channel between the VSEUS Council and our members, to know which issues genuinely matter to our constituents while ensuring transparency about what we do next.
             </p>
             <p className="text-muted leading-relaxed text-lg">
-              We look outward, learning from other groups who share that vision, and inward, opening volunteer roles so members can help run the society rather than watch it from a distance. Finally, we build traditions strong enough to outlast any one cohort, so students feel proud to belong to the economics community at UBC.
+              We look outward, learning from other groups who share that vision, and inward, opening volunteer roles so members can help run the society rather than watch it from a distance. We build traditions strong enough to outlast any one cohort, so students feel proud to belong to the economics community at UBC.
             </p>
           </div>
         </div>

@@ -11,6 +11,8 @@ export interface Exec {
   email: string;
   /** Path under public/, e.g. "/exec/grace-ding.jpg". Omit to show the placeholder. */
   photo?: string;
+  /** CSS object-position for the photo, e.g. "center 30%". Omit to default to "center". */
+  photoPosition?: string;
 }
 
 export const PRESIDENT: Exec = {
@@ -22,11 +24,11 @@ export const PRESIDENT: Exec = {
 
 /** Alphabetical by role. Drives both the Contact list and the About diagram. */
 export const VPS: Exec[] = [
-  { name: 'Grace Ding',          role: 'VP Academics',      email: 'academics@vseus.ca',      photo: '/exec/grace-ding.jpg'      },
-  { name: 'Saloni Karia',        role: 'VP Administration', email: 'administration@vseus.ca', photo: '/exec/saloni-karia.jpg' },
-  { name: 'Nokutenda Dzobo',     role: 'VP External',       email: 'external@vseus.ca',       photo: '/exec/nokutenda-dzobo.jpg' },
-  { name: 'Sebastian Contreras', role: 'VP Finance',        email: 'finance@vseus.ca',        photo: '/exec/sebastian-contreras.jpg' },
-  { name: 'Mishka Balraj',       role: 'VP Marketing',      email: 'marketing@vseus.ca',      photo: '/exec/mishka-balraj.jpg'   },
+  { name: 'Grace Ding',                  role: 'VP Academics',      email: 'academic@vseus.ca',  photo: '/exec/grace-ding.jpg'      },
+  { name: 'Saloni Snehal Karia',         role: 'VP Administration', email: 'admin@vseus.ca',     photo: '/exec/saloni-karia.jpg' },
+  { name: 'Nokutenda Dzobo',             role: 'VP External',       email: 'external@vseus.ca',  photo: '/exec/nokutenda-dzobo.jpg' },
+  { name: 'Sebastian Contreras Alfaro',  role: 'VP Finance',        email: 'finance@vseus.ca',    photo: '/exec/sebastian-contreras.jpg' },
+  { name: 'Mishka Balraj',       role: 'VP Marketing',      email: 'marketing@vseus.ca',      photo: '/exec/mishka-balraj.jpg', photoPosition: 'center 25%' },
   { name: 'Aiden Ng',            role: 'VP Student Life',   email: 'studentlife@vseus.ca',    photo: '/exec/aiden-ng.jpg'        },
 ];
 
