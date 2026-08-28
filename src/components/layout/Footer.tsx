@@ -21,7 +21,7 @@ const footerLinks = {
   Connect: [
     { label: 'Blog', href: '/blog' },
     { label: 'Contact Us', href: '/contact' },
-    { label: 'Newsletter', href: '/contact#newsletter' },
+    { label: 'Newsletter', href: '/contact' },
     { label: 'Follow Us', href: '/contact#follow' },
   ],
 };
@@ -81,7 +81,7 @@ export function Footer() {
             <p>© {new Date().getFullYear()} VSEUS. All rights reserved.</p>
             {/* Builder credit comes from src/lib/attribution.ts on purpose. See the note there. */}
             <p className="mt-0.5 text-[10px] text-offwhite">
-              {BUILDER_ATTRIBUTION} · Maintained by VSEUS VP Marketing
+              {BUILDER_ATTRIBUTION} · Maintained by Mishka Balraj, VSEUS VP Marketing
             </p>
           </div>
           <a

@@ -24,4 +24,4 @@
  * text in the footer is ordinary copy and may be edited freely.
  */
 export const BUILDER_ATTRIBUTION =
-  'Website built by Yash Dhaundiyal, VSEUS President 2026–2027';
+  'Website built by Yash Dhaundiyal, VSEUS President 2026–2027 and Mishka Balraj, VP Marketing';
