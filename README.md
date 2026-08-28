@@ -4,7 +4,7 @@ Official website for the **Vancouver School of Economics Undergraduate Society**
 
 A fully static marketing site: no database, no environment variables, no server-side
 secrets. Built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4, and
-deployable to Vercel as-is.
+deployed to GitHub Pages as a static export.
 
 ---
 
@@ -18,7 +18,8 @@ deployable to Vercel as-is.
 | Fonts | Barlow (headings) + Montserrat (body), via `next/font/google` |
 | Data | Static TypeScript modules in `src/lib/` |
 | Blog | Markdown files in `content/blog/`, rendered at build time |
-| Hosting | Vercel |
+| Hosting | GitHub Pages, published by GitHub Actions |
+| Build output | Static export (`output: "export"`) written to `out/` |
 
 > **Note:** this is a modified Next.js build. Read the relevant guide in
 > `node_modules/next/dist/docs/` before writing code — APIs and conventions differ
@@ -36,9 +37,9 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000). No `.env` file is needed.
 
 ```bash
-npm run build   # production build + type check
-npm run start   # serve the production build locally
-npm run lint    # ESLint
+npm run build          # production build + type check, writes the export to out/
+npx serve@latest out   # serve that build locally
+npm run lint           # ESLint
 ```
 
 ---
@@ -183,8 +184,9 @@ Administration copied — those come from `CONTACT_FORM_TO` / `CONTACT_FORM_CC` 
 It works with no account and no secrets, but it does depend on the visitor having a mail
 client configured, which is why the confirmation also prints the address to write to. To
 send server-side instead, replace `handleSubmit` in `src/app/contact/page.tsx` with a
-POST to Formspree or Web3Forms (free tier, keeps the site static) or a Resend route
-(needs an API key and a verified domain, and turns that route into a function).
+POST to Formspree or Web3Forms (free tier, keeps the site static). A Resend route is not
+an option on GitHub Pages: besides an API key and a verified domain, it needs a server to
+run the route on, and a static export has none.
 
 ### Site photos and remaining placeholders
 
@@ -263,14 +265,42 @@ All of it is disabled under `prefers-reduced-motion: reduce`.
 
 ---
 
-## Deploying to Vercel
+## Deploying
 
-1. Push to GitHub.
-2. Import the repo at [vercel.com/new](https://vercel.com/new).
-3. Framework preset: **Next.js**. No environment variables are required.
-4. Deploy, then point `vseus.ca` at it in Vercel's domain settings.
+The site is hosted on **GitHub Pages** and deploys itself. Every push to `main` runs
+`.github/workflows/nextjs.yml`, which builds the static export and publishes `out/`.
+There is nothing to run by hand and no environment variables to set. Every route
+prerenders as static content.
 
-Every route prerenders as static content.
+The custom domain `vseus.ca` is configured in **Settings → Pages**, with the apex
+pointed at GitHub's four Pages IP addresses. Because the domain lives in the repository
+settings and the deploy publishes an Actions artifact, `public/` needs no `CNAME` file
+and no `.nojekyll` file: the artifact is served as uploaded, so the `_next` directory is
+not stripped.
+
+### Do not re-add `static_site_generator`
+
+`next.config.ts` owns `output` and `images.unoptimized`. The workflow deliberately does
+**not** pass the `static_site_generator: next` input to `actions/configure-pages`.
+
+That input reads only `next.config.js`/`.mjs`. Finding neither, it writes a fresh
+`next.config.js` that shadows `next.config.ts` (Next resolves `.js` first), and it
+derives `basePath` from the repository name. That is right for a project site at
+`<user>.github.io/VSEUS-website/` and wrong for the apex domain, where the site root is
+`/`. It has already broken the site once: every `/VSEUS-website/_next/*` asset returned
+404, so no CSS or client JS loaded and the page rendered as raw HTML.
+
+### What a static export rules out
+
+Anything needing a server is unavailable: `redirects()`, `rewrites()`, `headers()`,
+route handlers, server actions, and `next/image` optimization. `next start` does not run
+against an export either, which is why the local preview above uses a static file
+server.
+
+One live consequence: the `/services` to `/resources` redirect from the old page name
+cannot run, so `/services` returns 404. The rule is kept commented in `next.config.ts`.
+Restoring it needs either a stub `public/services/index.html` with a meta refresh, or a
+host that can serve real redirects.
 
 ---
 
@@ -298,9 +328,10 @@ already knows how to use, with no backend to maintain.
 
 ### Server-side contact form
 
-The form currently hands off to the visitor's email app (see above). A form service or
-mail API would let it send directly, at the cost of an account and, for Resend, a
-serverless function.
+The form currently hands off to the visitor's email app (see above). A form service such
+as Formspree or Web3Forms would let it send directly at the cost of an account, and keeps
+the site static. A mail API such as Resend needs a serverless function to hold the API
+key, so it would mean moving off GitHub Pages.
 
 ### Shareable blog filters
 
