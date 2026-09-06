@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import { UPCOMING_EVENTS } from '@/lib/events';
 import type { Event } from '@/types/event';
 
 /**
- * A one-time popup on the home page that surfaces the single closest upcoming
- * event and sends people to /events to register.
+ * A small notification-style card that slides in from the top-right corner of
+ * the home page, surfacing the single closest upcoming event and sending people
+ * to /events to register. It sits above the page with no backdrop and no scroll
+ * lock, so the home page stays visible and usable while the card is open.
  *
  * "Closest" is worked out from the event dates in src/lib/events.ts: the first
  * event whose date is today or later, ordered ascending. Dates are 'YYYY-MM-DD'
@@ -78,7 +80,6 @@ function countdownLabel(dateStr: string) {
 export function UpcomingEventPopup() {
   const [event, setEvent] = useState<Event | null>(null);
   const [visible, setVisible] = useState(false);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   // Pick the event and arm the open timer on the client only, so the server
   // render and the first client render match (both render nothing).
@@ -101,14 +102,10 @@ export function UpcomingEventPopup() {
     return () => window.clearTimeout(timer);
   }, []);
 
-  // Lock body scroll and wire up Escape while the popup is mounted.
+  // Wire up Escape to dismiss while the card is mounted. No scroll lock and no
+  // focus trap: this is a non-modal notification, so the page stays in charge.
   useEffect(() => {
     if (!event) return;
-
-    closeButtonRef.current?.focus();
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close();
@@ -116,7 +113,6 @@ export function UpcomingEventPopup() {
     document.addEventListener('keydown', onKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', onKeyDown);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -132,37 +128,30 @@ export function UpcomingEventPopup() {
     }
     setVisible(false);
     // Let the exit transition play before unmounting.
-    window.setTimeout(() => setEvent(null), 200);
+    window.setTimeout(() => setEvent(null), 300);
   }
 
   if (!event) return null;
 
   return (
     <div
-      className={`fixed inset-0 z-[70] flex items-end sm:items-center justify-center p-4 sm:p-6 transition-opacity duration-200 ${
-        visible ? 'opacity-100' : 'opacity-0'
+      className={`fixed top-20 right-0 z-[70] p-4 sm:p-6 transition-opacity duration-300 ${
+        visible ? 'opacity-100' : 'pointer-events-none opacity-0'
       }`}
       aria-hidden={!visible}
     >
-      {/* Backdrop */}
-      <button
-        type="button"
-        aria-label="Close"
-        onClick={close}
-        className="absolute inset-0 bg-midnight/70 backdrop-blur-sm cursor-default"
-      />
-
-      {/* Panel */}
+      {/* Notification card offset below the sticky navbar. No backdrop: the home
+          page stays visible and clickable behind it, so this reads as a
+          notification rather than a modal that demands a response. */}
       <div
         role="dialog"
-        aria-modal="true"
+        aria-modal="false"
         aria-labelledby="upcoming-event-popup-title"
-        className={`relative w-full max-w-md bg-offwhite rounded-2xl border border-ice-400 shadow-2xl overflow-hidden transition-all duration-200 ${
-          visible ? 'translate-y-0 scale-100' : 'translate-y-4 scale-[0.98]'
+        className={`relative w-[calc(100vw-2rem)] max-w-[22rem] sm:w-[22rem] bg-offwhite rounded-2xl border border-ice-400 shadow-2xl overflow-hidden transition-transform duration-300 ease-out ${
+          visible ? 'translate-x-0' : 'translate-x-[calc(100%+1.5rem)]'
         }`}
       >
         <button
-          ref={closeButtonRef}
           type="button"
           onClick={close}
           aria-label="Close"
@@ -205,7 +194,7 @@ export function UpcomingEventPopup() {
             </div>
           </div>
 
-          <p className="text-sm text-muted mb-4 line-clamp-3">{event.description}</p>
+          <p className="text-sm text-muted mb-4 line-clamp-2">{event.description}</p>
 
           <div className="space-y-1.5 text-xs text-muted mb-5">
             <div className="flex items-center gap-1.5">
