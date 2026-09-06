@@ -1,6 +1,6 @@
 import React from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
-import { UPCOMING_EVENTS, PAST_EVENT_PHOTOS, BOUNCE_URL } from '@/lib/events';
+import { UPCOMING_EVENTS, PAST_EVENT_PHOTOS } from '@/lib/events';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 import type { Event } from '@/types/event';
 
@@ -181,28 +181,6 @@ export default function EventsPage() {
                       Sept 20 – 26
                     </p>
                     <h2 className="text-3xl font-black text-midnight">Econ Week</h2>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-midnight rounded-2xl px-6 py-5 mb-8">
-                    <div>
-                      <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-1">
-                        RSVP
-                      </p>
-                      <p className="text-offwhite font-bold text-base sm:text-lg">
-                        Register for Econ Week events on Bounce
-                      </p>
-                    </div>
-                    <a
-                      href={BOUNCE_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-shrink-0 flex items-center justify-center gap-1.5 bg-accent text-midnight font-display text-sm font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors"
-                    >
-                      Open Bounce
-                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </a>
                   </div>
 
                   <div className="space-y-6">
