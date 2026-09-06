@@ -1,5 +1,6 @@
 import { Hero } from '@/components/home/Hero';
 import { StatsBar } from '@/components/home/StatsBar';
+import { SponsorStrip } from '@/components/home/SponsorStrip';
 import { ServicePillars } from '@/components/home/ServicePillars';
 import { MerchStrip } from '@/components/home/MerchStrip';
 import { CalendarSection } from '@/components/home/CalendarSection';
@@ -10,6 +11,7 @@ export default function Home() {
     <>
       <Hero />
       <StatsBar />
+      <SponsorStrip />
       <ServicePillars />
       <MerchStrip />
       <CalendarSection />

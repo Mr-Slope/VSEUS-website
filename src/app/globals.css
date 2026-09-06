@@ -178,6 +178,24 @@ html { scroll-behavior: smooth; }
 }
 
 /*
+  ─── Sponsor marquee ───
+  Two identical rows, each animated by its own full width so the second lands
+  where the first started. Pauses on hover or keyboard focus; held still under
+  prefers-reduced-motion (see the block at the end of this file).
+*/
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+.sponsor-marquee:hover .marquee-track,
+.sponsor-marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/*
   ─── Blog prose ───
   Styles the HTML that remark generates from a post's markdown. Hand-rolled
   rather than pulling in @tailwindcss/typography, so the type scale and colours
@@ -292,7 +310,7 @@ html { scroll-behavior: smooth; }
 /* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .hero-tag, .hero-word, .hero-subtitle, .hero-ctas,
-  .hero-float, .reveal {
+  .hero-float, .reveal, .marquee-track {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
