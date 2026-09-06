@@ -34,7 +34,7 @@ export const UPCOMING_EVENTS: Event[] = [
     price: null,
     posterUrl: null,
     category: 'Social',
-    ticketsAvailableSoon: true,
+    registrationUrl: 'https://www.showpass.com/prenpit2026/',
   },
   {
     id: 'evt-ew-beach-day',
