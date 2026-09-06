@@ -3,6 +3,7 @@ import { StatsBar } from '@/components/home/StatsBar';
 import { ServicePillars } from '@/components/home/ServicePillars';
 import { MerchStrip } from '@/components/home/MerchStrip';
 import { CalendarSection } from '@/components/home/CalendarSection';
+import { UpcomingEventPopup } from '@/components/home/UpcomingEventPopup';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ServicePillars />
       <MerchStrip />
       <CalendarSection />
+      <UpcomingEventPopup />
     </>
   );
 }
