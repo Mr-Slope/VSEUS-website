@@ -36,7 +36,7 @@ function SponsorRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
     >
       {SPONSORS.map((sponsor) => (
         <li key={sponsor.name} className="shrink-0">
-          <div className="flex h-20 items-center justify-center rounded-xl bg-offwhite px-7 sm:h-24 sm:px-9">
+          <div className="flex h-24 items-center justify-center rounded-xl bg-offwhite px-8 sm:h-28 sm:px-10">
             {/* Plain img: static export serves these unoptimised anyway, and the
                 marquee renders each logo twice. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -44,7 +44,7 @@ function SponsorRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
               src={sponsor.logo}
               alt={sponsor.name}
               loading="lazy"
-              className="h-10 w-auto max-w-[160px] object-contain sm:h-12 sm:max-w-[210px]"
+              className="h-12 w-auto max-w-[190px] object-contain sm:h-14 sm:max-w-[240px]"
             />
           </div>
         </li>

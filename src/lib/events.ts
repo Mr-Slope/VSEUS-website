@@ -155,5 +155,5 @@ export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
   { title: 'Blue Day 2024',               when: '2024', image: '/photos/Events/blue-day-group-photo.jpg' },
   { title: 'End of Term Mixer',           when: '2025', image: '/photos/Events/end-of-term-mixer.jpg' },
   { title: 'Economics Panel',             when: '2025', image: '/photos/Events/economics-panel.jpg' },
-  { title: 'Coming Soon' },
+  { title: 'Christmas Social',            when: '2025', image: '/photos/Events/christmas-social.jpg' },
 ];
