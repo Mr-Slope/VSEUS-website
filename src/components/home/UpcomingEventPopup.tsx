@@ -7,18 +7,19 @@ import type { Event } from '@/types/event';
 
 /**
  * A small notification-style card that slides in from the top-right corner of
- * the home page, surfacing the single closest upcoming event and sending people
- * to /events to register. It sits above the page with no backdrop and no scroll
- * lock, so the home page stays visible and usable while the card is open.
+ * the home page. It reminds visitors of the next upcoming event, notes how many
+ * more are on the calendar, and sends people to /events. It sits above the page
+ * with no backdrop and no scroll lock, so the home page stays visible and
+ * usable while the card is open.
  *
- * "Closest" is worked out from the event dates in src/lib/events.ts: the first
+ * "Next" is worked out from the event dates in src/lib/events.ts: the first
  * event whose date is today or later, ordered ascending. Dates are 'YYYY-MM-DD'
  * strings, so a plain string compare sorts them correctly and sidesteps the
  * UTC-parsing shift that bites `new Date('2026-09-20')`.
  *
  * It shows once per browser session (sessionStorage), keyed by event id, so a
  * visitor who dismisses it isn't nagged on every home-page visit, but a new
- * "closest" event brings it back.
+ * next event brings it back.
  */
 
 const DISMISS_KEY_PREFIX = 'vseus:event-popup-dismissed:';
@@ -30,12 +31,12 @@ function todayIso(): string {
   return new Date(now.getTime() - offsetMs).toISOString().slice(0, 10);
 }
 
-function nextUpcomingEvent(): Event | null {
+/** Upcoming events (today or later), soonest first. */
+function upcomingEvents(): Event[] {
   const today = todayIso();
-  const upcoming = UPCOMING_EVENTS.filter((e) => e.date >= today).sort((a, b) =>
+  return UPCOMING_EVENTS.filter((e) => e.date >= today).sort((a, b) =>
     a.date.localeCompare(b.date),
   );
-  return upcoming[0] ?? null;
 }
 
 /** `new Date('2026-09-20')` parses as UTC midnight; the local-midnight time avoids the day shift. */
@@ -79,12 +80,14 @@ function countdownLabel(dateStr: string) {
 
 export function UpcomingEventPopup() {
   const [event, setEvent] = useState<Event | null>(null);
+  const [moreCount, setMoreCount] = useState(0);
   const [visible, setVisible] = useState(false);
 
   // Pick the event and arm the open timer on the client only, so the server
   // render and the first client render match (both render nothing).
   useEffect(() => {
-    const next = nextUpcomingEvent();
+    const upcoming = upcomingEvents();
+    const next = upcoming[0];
     if (!next) return;
 
     try {
@@ -95,6 +98,7 @@ export function UpcomingEventPopup() {
 
     const timer = window.setTimeout(() => {
       setEvent(next);
+      setMoreCount(upcoming.length - 1);
       // Second frame so the entrance transition has a start state to animate from.
       requestAnimationFrame(() => setVisible(true));
     }, OPEN_DELAY_MS);
@@ -219,7 +223,7 @@ export function UpcomingEventPopup() {
               onClick={close}
               className="flex-1 flex items-center justify-center gap-1.5 bg-accent text-midnight font-display text-sm font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors"
             >
-              View Event &amp; Register
+              Go to Events
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
@@ -232,6 +236,12 @@ export function UpcomingEventPopup() {
               Not now
             </button>
           </div>
+
+          {moreCount > 0 && (
+            <p className="mt-3 text-center text-[11px] font-medium text-muted/75">
+              Plus {moreCount} more upcoming {moreCount === 1 ? 'event' : 'events'} on the events page
+            </p>
+          )}
         </div>
       </div>
     </div>
