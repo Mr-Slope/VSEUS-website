@@ -112,7 +112,7 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
               rel="noopener noreferrer"
               className="sm:mt-auto sm:w-fit flex items-center justify-center gap-1.5 bg-accent text-midnight font-display text-sm font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors"
             >
-              Get Tickets
+              {event.isPaid ? 'Get Tickets' : 'Register'}
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
