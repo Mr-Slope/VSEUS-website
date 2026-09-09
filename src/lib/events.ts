@@ -14,12 +14,12 @@ import type { Event, PastEventPhoto } from '@/types/event';
 export const UPCOMING_EVENTS: Event[] = [
   {
     id: 'evt-pre-n-pit',
-    title: 'Pre-n-Pit',
+    title: 'AUS x VSEUS x MUSA Pre n’ Pit',
     description:
-      'Pregame in the Arts Student Centre, then head to The Pit together. Tickets are cheap and cover drinks.',
-    date: '2026-09-08',
-    time: 'Time TBA',
-    location: 'Arts Student Centre, then The Pit Pub, UBC Vancouver',
+      'Pregame at the Arts Student Centre with AUS and MUSA, then head to The Pit together. Tickets run $3.10 to $7.32 CAD.',
+    date: '2026-09-09',
+    time: '7:30 PM to 10:00 PM PT',
+    location: 'Arts Student Centre, 1860 East Mall, UBC Vancouver',
     isPaid: true,
     price: null,
     posterUrl: null,
