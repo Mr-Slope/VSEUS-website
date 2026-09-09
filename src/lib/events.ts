@@ -95,6 +95,7 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Career',
     series: 'Econ Week',
+    registrationUrl: 'https://forms.gle/HrQABzh2hU9wSLaD6',
   },
   {
     id: 'evt-ew-professor-roundtable',
