@@ -31,7 +31,7 @@ export const UPCOMING_EVENTS: Event[] = [
     title: 'Beach Day',
     description:
       'A low-key start to Econ Week: sand, sun, and no agenda beyond showing up and meeting people before the week gets busy.',
-    date: '2026-09-20',
+    date: '2026-09-27',
     time: 'Time TBA',
     location: 'Location TBA',
     isPaid: false,
@@ -67,6 +67,7 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Mentorship',
     series: 'Econ Week',
+    registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeL5K84HdlMl_vISqfboPTvIu75-pPR9_yDS5y9aBLmImB-7w/viewform',
   },
   {
     id: 'evt-ew-fun-run',
@@ -124,6 +125,7 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Networking',
     series: 'Econ Week',
+    registrationUrl: 'https://forms.gle/5MGsdydYTHPr94bd7',
   },
   {
     id: 'evt-ew-blue-day',
@@ -138,7 +140,7 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Social',
     series: 'Econ Week',
-    ticketsAvailableSoon: true,
+    registrationUrl: 'https://www.showpass.com/vseus-annual-blue-day',
   },
 ];
 
