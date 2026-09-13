@@ -34,6 +34,22 @@ function formatMonthShort(dateStr: string) {
   return toLocalDate(dateStr).toLocaleDateString('en-CA', { month: 'short' }).toUpperCase();
 }
 
+/**
+ * A "Mon D – D" (or "Mon D – Mon D" across a month boundary) label spanning a
+ * list of events, computed from their actual dates rather than hardcoded, so
+ * it stays correct when an event's date moves.
+ */
+function formatDateRangeLabel(events: Event[]): string {
+  const dates = events.map((e) => e.date).sort();
+  const start = toLocalDate(dates[0]);
+  const end = toLocalDate(dates[dates.length - 1]);
+  const startMonth = start.toLocaleDateString('en-CA', { month: 'short' });
+  const endMonth = end.toLocaleDateString('en-CA', { month: 'short' });
+  return startMonth === endMonth
+    ? `${startMonth} ${start.getDate()} – ${end.getDate()}`
+    : `${startMonth} ${start.getDate()} – ${endMonth} ${end.getDate()}`;
+}
+
 function CategoryChip({ category }: { category: string }) {
   return (
     <span className="font-display text-xs font-semibold bg-ice text-midnight px-2.5 py-0.5 rounded-full">
@@ -130,8 +146,9 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
 
 export default function EventsPage() {
   const upcomingEvents = getUpcomingEvents();
-  const econWeekEvents = upcomingEvents.filter((e) => e.series === 'Econ Week');
-  const otherEvents = upcomingEvents.filter((e) => e.series !== 'Econ Week');
+  const byDate = (a: Event, b: Event) => a.date.localeCompare(b.date);
+  const econWeekEvents = upcomingEvents.filter((e) => e.series === 'Econ Week').sort(byDate);
+  const otherEvents = upcomingEvents.filter((e) => e.series !== 'Econ Week').sort(byDate);
 
   // Events whose date has passed drop out of upcomingEvents on their own and
   // land here instead, so they still show up somewhere rather than vanishing.
@@ -189,7 +206,7 @@ export default function EventsPage() {
                 <div>
                   <div className="flex flex-col gap-1 mb-6">
                     <p className="font-display text-midnight-700 text-xs font-semibold uppercase tracking-widest">
-                      Sept 20 – 26
+                      {formatDateRangeLabel(econWeekEvents)}
                     </p>
                     <h2 className="text-3xl font-black text-midnight">Econ Week</h2>
                   </div>

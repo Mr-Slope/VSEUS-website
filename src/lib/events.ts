@@ -35,7 +35,7 @@ export const UPCOMING_EVENTS: Event[] = [
     id: 'evt-ew-beach-day',
     title: 'Beach Day',
     description:
-      'A low-key start to Econ Week: sand, sun, and no agenda beyond showing up and meeting people before the week gets busy.',
+      'A low-key end to Econ Week: sand, sun, and no agenda beyond showing up and meeting people one last time before the week wraps up.',
     date: '2026-09-27',
     time: 'Time TBA',
     location: 'Location TBA',
