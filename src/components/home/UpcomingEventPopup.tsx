@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
-import { UPCOMING_EVENTS } from '@/lib/events';
+import { getUpcomingEvents } from '@/lib/events';
 import type { Event } from '@/types/event';
 
 /**
@@ -12,10 +12,10 @@ import type { Event } from '@/types/event';
  * with no backdrop and no scroll lock, so the home page stays visible and
  * usable while the card is open.
  *
- * "Next" is worked out from the event dates in src/lib/events.ts: the first
- * event whose date is today or later, ordered ascending. Dates are 'YYYY-MM-DD'
- * strings, so a plain string compare sorts them correctly and sidesteps the
- * UTC-parsing shift that bites `new Date('2026-09-20')`.
+ * "Next" is worked out from getUpcomingEvents() in src/lib/events.ts: the
+ * first event whose date is today or later, ordered ascending. Dates are
+ * 'YYYY-MM-DD' strings, so a plain string compare sorts them correctly and
+ * sidesteps the UTC-parsing shift that bites `new Date('2026-09-20')`.
  *
  * It shows once per browser session (sessionStorage), keyed by event id, so a
  * visitor who dismisses it isn't nagged on every home-page visit, but a new
@@ -33,10 +33,7 @@ function todayIso(): string {
 
 /** Upcoming events (today or later), soonest first. */
 function upcomingEvents(): Event[] {
-  const today = todayIso();
-  return UPCOMING_EVENTS.filter((e) => e.date >= today).sort((a, b) =>
-    a.date.localeCompare(b.date),
-  );
+  return getUpcomingEvents().sort((a, b) => a.date.localeCompare(b.date));
 }
 
 /** `new Date('2026-09-20')` parses as UTC midnight; the local-midnight time avoids the day shift. */
