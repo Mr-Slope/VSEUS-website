@@ -97,12 +97,12 @@ export default function ELCPage() {
       </section>
 
       {/*
-        How it works — first of three sections that all share bg-ice. Because the
+        How it works: first of four sections that all share bg-ice. Because the
         background never changes between them, adjacent py-16 doubled into 128px
         of empty space that read as a void rather than a break.
 
         Keep 16 on the outer edges, where ice meets the dark bands above and
-        below, and tighten the two internal joins to 8 + 8. Both gaps are then an
+        below, and tighten the three internal joins to 8 + 8. Every gap is then an
         identical 64px. Split the padding rather than using a single py so the
         outer and inner values can differ.
       */}
@@ -149,15 +149,15 @@ export default function ELCPage() {
         </div>
       </section>
 
-      {/* Canvas enrollment — back to 16 at the bottom, where ice meets the CTA */}
-      <section className="pt-8 pb-16 bg-ice">
+      {/* Canvas enrollment */}
+      <section className="py-8 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl bg-offwhite border border-ice-400 rounded-2xl p-8">
             <h2 className="text-xl font-black text-midnight mb-3">Enroll on Canvas</h2>
             <p className="text-muted text-sm leading-relaxed mb-5">
-              To receive ELC updates, session announcements, and course resources, enroll in the ELC Canvas course using the self-enroll key below.
+              To receive ELC updates, session announcements, and course resources, enroll in the ELC Canvas course using the self-enroll key below, or use the button to go straight to the enrollment page.
             </p>
-            <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-4 flex-wrap mb-6">
               <div className="bg-offwhite border border-ice-400 rounded-lg px-5 py-3">
                 <p className="text-xs text-muted/70 font-medium mb-0.5">Canvas Enrollment Key</p>
                 <p className="text-midnight font-black tracking-widest text-lg">9KXL4W</p>
@@ -166,6 +166,32 @@ export default function ELCPage() {
                 Go to Canvas, click &quot;Join a Course&quot;, and enter the key.
               </div>
             </div>
+            <TransitionLink
+              href="https://canvas.ubc.ca/enroll/9KXL4W"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-accent text-midnight font-display font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
+            >
+              Enroll on Canvas
+            </TransitionLink>
+          </div>
+        </div>
+      </section>
+
+      {/* Volunteer: last of the bg-ice group, back to 16 at the bottom where ice meets the CTA */}
+      <section className="pt-8 pb-16 bg-ice">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl bg-offwhite border border-ice-400 rounded-2xl p-8">
+            <h2 className="text-xl font-black text-midnight mb-3">Volunteer with the ELC</h2>
+            <p className="text-muted text-sm leading-relaxed mb-5">
+              The ELC is looking for volunteers to help tutor fellow economics students. If you&apos;ve done well in one of the courses we cover and want to give back, we&apos;d love to hear from you.
+            </p>
+            <TransitionLink
+              href="mailto:economics.learning.centre@ubc.ca"
+              className="inline-flex items-center border border-midnight/15 text-midnight font-display font-medium px-6 py-3 rounded-lg hover:bg-midnight/5 transition-colors text-sm"
+            >
+              Get in Touch
+            </TransitionLink>
           </div>
         </div>
       </section>
@@ -174,7 +200,15 @@ export default function ELCPage() {
       <section className="py-12 bg-midnight-700 text-center">
         <h2 className="text-2xl font-black text-offwhite mb-3">Questions about the ELC?</h2>
         <p className="text-offwhite/60 text-sm mb-6 max-w-sm mx-auto">
-          Reach out to VSEUS&apos; VP Academic or drop by during the ELC&apos;s operating hours.
+          Reach out to VSEUS&apos; VP Academic, email the ELC directly, or drop by during the ELC&apos;s operating hours.
+        </p>
+        <p className="text-offwhite/80 text-sm font-semibold mb-6">
+          <TransitionLink
+            href="mailto:economics.learning.centre@ubc.ca"
+            className="hover:text-accent transition-colors"
+          >
+            economics.learning.centre@ubc.ca
+          </TransitionLink>
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <TransitionLink
