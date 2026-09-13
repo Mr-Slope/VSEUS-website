@@ -6,7 +6,12 @@ import type { Event, PastEventPhoto } from '@/types/event';
  *
  * Set `registrationUrl` to a Google Form, Eventbrite page, or ticket store to
  * put a "Register" button on the card. Leave it off and the card is
- * information only. Past events should be deleted rather than left in place.
+ * information only.
+ *
+ * Leave an event here once its date passes. `getUpcomingEvents()` and
+ * `getPastEvents()` below split the list by today's date automatically, so a
+ * finished event drops off the upcoming section and reappears in the archived
+ * section on /events on its own, with no manual deletion step.
  *
  * Set `series` to group events into a shared calendar strip, e.g. 'Econ
  * Week'. Events without a `series` render in the standalone section above it.
@@ -141,6 +146,33 @@ export const UPCOMING_EVENTS: Event[] = [
     ticketsAvailableSoon: true,
   },
 ];
+
+/** Today's date as 'YYYY-MM-DD', recomputed on every call. */
+function todayIso(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+/**
+ * Events from UPCOMING_EVENTS whose date hasn't passed yet. Use this, not
+ * UPCOMING_EVENTS directly, anywhere upcoming events are listed, so an event
+ * drops off on its own the day after it happens.
+ */
+export function getUpcomingEvents(): Event[] {
+  const today = todayIso();
+  return UPCOMING_EVENTS.filter((event) => event.date >= today);
+}
+
+/**
+ * Events from UPCOMING_EVENTS whose date has passed, most recent first. Feeds
+ * the archived section on /events so a finished event moves there
+ * automatically instead of vanishing outright.
+ */
+export function getPastEvents(): Event[] {
+  const today = todayIso();
+  return UPCOMING_EVENTS.filter((event) => event.date < today).sort((a, b) =>
+    b.date.localeCompare(a.date),
+  );
+}
 
 /**
  * Photos from events we've already run, shown in the gallery at the bottom of

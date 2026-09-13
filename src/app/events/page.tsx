@@ -1,8 +1,8 @@
 import React from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
-import { UPCOMING_EVENTS, PAST_EVENT_PHOTOS } from '@/lib/events';
+import { getUpcomingEvents, getPastEvents, PAST_EVENT_PHOTOS } from '@/lib/events';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
-import type { Event } from '@/types/event';
+import type { Event, PastEventPhoto } from '@/types/event';
 
 /**
  * `new Date('2026-09-20')` parses as UTC midnight, so formatting it in a
@@ -129,8 +129,19 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
 }
 
 export default function EventsPage() {
-  const econWeekEvents = UPCOMING_EVENTS.filter((e) => e.series === 'Econ Week');
-  const otherEvents = UPCOMING_EVENTS.filter((e) => e.series !== 'Econ Week');
+  const upcomingEvents = getUpcomingEvents();
+  const econWeekEvents = upcomingEvents.filter((e) => e.series === 'Econ Week');
+  const otherEvents = upcomingEvents.filter((e) => e.series !== 'Econ Week');
+
+  // Events whose date has passed drop out of upcomingEvents on their own and
+  // land here instead, so they still show up somewhere rather than vanishing.
+  // They render as plain tiles (no photo yet) ahead of the curated,
+  // photographed entries in PAST_EVENT_PHOTOS.
+  const archivedEvents: PastEventPhoto[] = getPastEvents().map((event) => ({
+    title: event.title,
+    when: toLocalDate(event.date).getFullYear().toString(),
+  }));
+  const pastEventPhotos = [...archivedEvents, ...PAST_EVENT_PHOTOS];
 
   return (
     <div className="min-h-screen bg-ice">
@@ -146,7 +157,7 @@ export default function EventsPage() {
 
       <section className="py-12 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-          {UPCOMING_EVENTS.length === 0 ? (
+          {upcomingEvents.length === 0 ? (
             <div className="bg-offwhite border border-ice-400 rounded-2xl p-12 text-center max-w-xl mx-auto">
               <svg className="w-12 h-12 mx-auto mb-4 text-ice-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.25}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -196,7 +207,7 @@ export default function EventsPage() {
       </section>
 
       {/* Past events gallery */}
-      {PAST_EVENT_PHOTOS.length > 0 && (
+      {pastEventPhotos.length > 0 && (
         <section className="py-16 lg:py-20 bg-midnight">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">
@@ -209,7 +220,7 @@ export default function EventsPage() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {PAST_EVENT_PHOTOS.map((photo) => (
+              {pastEventPhotos.map((photo) => (
                 <figure key={photo.title} className="group">
                   <div className="relative overflow-hidden rounded-2xl">
                     {photo.image ? (
