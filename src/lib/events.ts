@@ -104,20 +104,6 @@ export const UPCOMING_EVENTS: Event[] = [
     registrationUrl: 'https://forms.gle/HrQABzh2hU9wSLaD6',
   },
   {
-    id: 'evt-ew-professor-roundtable',
-    title: 'Professor Round Table',
-    description:
-      'Sit down with faculty in a small-group, informal setting. Ask about research, course design, or anything you wouldn’t normally ask in office hours.',
-    date: '2026-09-24',
-    time: 'Time TBA',
-    location: 'Location TBA',
-    isPaid: false,
-    price: null,
-    posterUrl: null,
-    category: 'Academic',
-    series: 'Econ Week',
-  },
-  {
     id: 'evt-ew-brew-your-success',
     title: 'Brew Your Success',
     description:
