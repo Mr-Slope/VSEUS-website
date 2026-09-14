@@ -27,6 +27,7 @@ const reports = [
   { title: 'September 2025 External Monthly Budgetary Report', type: 'Monthly',  href: '/reports/2025-09-external-monthly-budgetary-report.pdf' },
   { title: 'October 2025 External Monthly Budgetary Report',   type: 'Monthly',  href: '/reports/2025-10-external-monthly-budgetary-report.pdf' },
   { title: 'November 2025 External Monthly Budgetary Report',  type: 'Monthly',  href: '/reports/2025-11-external-monthly-budgetary-report.pdf' },
+  { title: '2026-2027 Start of the Year Budgetary Financial Report', type: 'Annual', href: '/reports/2026-2027-start-of-year-budgetary-report.pdf' },
 ];
 
 /*
