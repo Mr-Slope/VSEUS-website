@@ -88,6 +88,7 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Fitness',
     series: 'Econ Week',
+    registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSekJM5r8TYOc8ZdyKIwM3N7XHkIb_yxs_STJJksXJ_q7xQ52Q/viewform?usp=header',
   },
   {
     id: 'evt-ew-linkedin-photoshoot',
