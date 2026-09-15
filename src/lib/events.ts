@@ -58,6 +58,7 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Ceremony',
     series: 'Econ Week',
+    registrationUrl: 'https://forms.gle/whEYJJGQvemNkcUM8',
   },
   {
     id: 'evt-ew-agora-kickoff',
