@@ -53,7 +53,7 @@ export const UPCOMING_EVENTS: Event[] = [
       'First-year students receive their official Econ pin: the start of a tradition that marks you as part of this program, not just enrolled in it.',
     date: '2026-09-21',
     time: '5:00 PM onwards',
-    location: 'Great Hall South, UBC Vancouver',
+    location: 'Great Hall North, UBC Vancouver',
     isPaid: false,
     price: null,
     posterUrl: null,
