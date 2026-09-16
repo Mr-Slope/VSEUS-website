@@ -52,7 +52,7 @@ export const UPCOMING_EVENTS: Event[] = [
     description:
       'First-year students receive their official Econ pin: the start of a tradition that marks you as part of this program, not just enrolled in it.',
     date: '2026-09-21',
-    time: 'Time TBA',
+    time: '5:00 PM onwards',
     location: 'Great Hall South, UBC Vancouver',
     isPaid: false,
     price: null,
@@ -67,8 +67,8 @@ export const UPCOMING_EVENTS: Event[] = [
     description:
       'The Agora mentor program pairs upper-year students with first-years for guidance on courses, co-op, and everything the calendar doesn’t tell you. Come meet your mentor or mentee.',
     date: '2026-09-22',
-    time: 'Time TBA',
-    location: 'Location TBA',
+    time: '6:00 – 7:00 PM',
+    location: 'Iona 301',
     isPaid: false,
     price: null,
     posterUrl: null,
@@ -82,7 +82,7 @@ export const UPCOMING_EVENTS: Event[] = [
     description:
       'A casual run around the Iona loop. All fitness levels welcome, all faculties welcome: you don’t need to be in Econ to join.',
     date: '2026-09-23',
-    time: 'Time TBA',
+    time: '4:30 PM onwards',
     location: 'Iona Loop, UBC Vancouver',
     isPaid: false,
     price: null,
@@ -98,7 +98,7 @@ export const UPCOMING_EVENTS: Event[] = [
       'Free professional headshots for your LinkedIn, resume, and everything after graduation. Two sessions to choose from, drop in for either.',
     date: '2026-09-23',
     time: '9:00 AM & 2:00 PM',
-    location: 'Location TBA',
+    location: 'AMS Nest, Great Hall Foyer',
     isPaid: false,
     price: null,
     posterUrl: null,
@@ -112,8 +112,8 @@ export const UPCOMING_EVENTS: Event[] = [
     description:
       'A relaxed networking night pairing good coffee with real conversations about careers in economics.',
     date: '2026-09-25',
-    time: 'Time TBA',
-    location: 'Location TBA',
+    time: '6:00 – 7:30 PM',
+    location: 'Iona 301',
     isPaid: false,
     price: null,
     posterUrl: null,
