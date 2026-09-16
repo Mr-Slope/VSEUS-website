@@ -127,8 +127,8 @@ export const UPCOMING_EVENTS: Event[] = [
     description:
       'A scavenger hunt across campus followed by a fancy dinner, reserved for BIE first-year students. Econ Week’s flagship close.',
     date: '2026-09-26',
-    time: 'Time TBA',
-    location: 'Location TBA',
+    time: 'Scavenger Hunt 12:00 – 4:00 PM, Dinner 6:00 – 8:00 PM',
+    location: 'Great Hall North',
     isPaid: true,
     price: null,
     posterUrl: null,
