@@ -37,8 +37,8 @@ export const UPCOMING_EVENTS: Event[] = [
     description:
       'A low-key end to Econ Week: sand, sun, and no agenda beyond showing up and meeting people one last time before the week wraps up.',
     date: '2026-09-27',
-    time: 'Time TBA',
-    location: 'Location TBA',
+    time: '4:30 PM onwards',
+    location: 'Jericho Beach',
     isPaid: false,
     price: null,
     posterUrl: null,
