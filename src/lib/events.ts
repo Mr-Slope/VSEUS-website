@@ -44,6 +44,7 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Social',
     series: 'Econ Week',
+    registrationUrl: 'https://forms.gle/BPkJstQJJueAhiNUA',
   },
   {
     id: 'evt-ew-pin-ceremony',
