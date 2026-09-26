@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { PRESIDENT, VPS, type Exec } from '@/lib/execs';
+import { PRESIDENT, VPS, type Exec, type VPExec } from '@/lib/execs';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 
 /** Photo if supplied, otherwise the dashed placeholder — same footprint either way. */
@@ -95,6 +95,20 @@ function ExecCard({ exec, featured = false }: { exec: Exec; featured?: boolean }
         <p className={`font-display font-semibold mt-1.5 whitespace-nowrap ${featured ? 'text-accent text-base' : 'text-accent/85 text-sm'}`}>
           {exec.role}
         </p>
+      </div>
+    </div>
+  );
+}
+
+/** Compact card for an Assistant VP, naming the VP they report to. */
+function AvpCard({ avp, vp }: { avp: Exec; vp: VPExec }) {
+  return (
+    <div className="flex items-center gap-4 rounded-xl border border-offwhite/10 bg-midnight-800/70 p-4">
+      <ExecPhoto exec={avp} className="w-16 h-16 rounded-lg flex-shrink-0" />
+      <div className="min-w-0">
+        <p className="text-offwhite font-bold text-sm leading-tight">{avp.name}</p>
+        <p className="font-display text-accent/85 text-xs font-semibold mt-1">{avp.role}</p>
+        <p className="text-offwhite/40 text-xs mt-0.5">Reports to {vp.name}, {vp.role}</p>
       </div>
     </div>
   );
@@ -299,6 +313,20 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
+
+          {/* Assistant VPs, grouped under the VP they report to */}
+          {VPS.some((vp) => vp.avps?.length) && (
+            <div className="mt-16 max-w-4xl mx-auto">
+              <p className="text-center font-display text-accent text-xs font-semibold uppercase tracking-widest mb-6">
+                Assistant Vice-Presidents
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {VPS.flatMap((vp) => (vp.avps ?? []).map((avp) => (
+                  <AvpCard key={avp.name} avp={avp} vp={vp} />
+                )))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

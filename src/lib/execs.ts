@@ -15,6 +15,11 @@ export interface Exec {
   photoPosition?: string;
 }
 
+/** A VP, optionally with the Assistant VPs who report to them. */
+export interface VPExec extends Exec {
+  avps?: Exec[];
+}
+
 export const PRESIDENT: Exec = {
   name: 'Yash Dhaundiyal',
   role: 'President',
@@ -23,16 +28,27 @@ export const PRESIDENT: Exec = {
 };
 
 /** Alphabetical by role. Drives both the Contact list and the About diagram. */
-export const VPS: Exec[] = [
+export const VPS: VPExec[] = [
   { name: 'Grace Ding',                  role: 'VP Academic',       email: 'academic@vseus.ca',  photo: '/exec/grace-ding.jpg'      },
   { name: 'Saloni Snehal Karia',         role: 'VP Administration', email: 'admin@vseus.ca',     photo: '/exec/saloni-karia.jpg' },
-  { name: 'Nokutenda Dzobo',             role: 'VP External',       email: 'external@vseus.ca',  photo: '/exec/nokutenda-dzobo.jpg' },
-  { name: 'Sebastian Contreras Alfaro',  role: 'VP Finance',        email: 'finance@vseus.ca',    photo: '/exec/sebastian-contreras.jpg' },
+  {
+    name: 'Nokutenda Dzobo',             role: 'VP External',       email: 'external@vseus.ca',  photo: '/exec/nokutenda-dzobo.jpg',
+    avps: [
+      { name: 'Daniel Li', role: 'Assistant VP External', email: 'avp.external@vseus.ca', photo: '/exec/daniel-li.png' },
+    ],
+  },
+  {
+    name: 'Sebastian Contreras Alfaro',  role: 'VP Finance',        email: 'finance@vseus.ca',    photo: '/exec/sebastian-contreras.jpg',
+    avps: [
+      { name: 'Ilan Shapiro', role: 'Assistant VP Finance', email: 'avp.finance@vseus.ca', photo: '/exec/ilan-shapiro.png', photoPosition: 'center 35%' },
+    ],
+  },
   { name: 'Mishka Balraj',       role: 'VP Marketing',      email: 'marketing@vseus.ca',      photo: '/exec/mishka-balraj.jpg', photoPosition: 'center 25%' },
   { name: 'Aiden Ng',            role: 'VP Student Life',   email: 'studentlife@vseus.ca',    photo: '/exec/aiden-ng.jpg'        },
 ];
 
-export const EXECS: Exec[] = [PRESIDENT, ...VPS];
+/** President, then each VP immediately followed by their AVPs, if any. */
+export const EXECS: Exec[] = [PRESIDENT, ...VPS.flatMap((vp) => [vp, ...(vp.avps ?? [])])];
 
 function emailFor(role: string): string {
   const exec = EXECS.find((e) => e.role === role);
