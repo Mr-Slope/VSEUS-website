@@ -50,8 +50,10 @@ const reports = [
     top card bottom edge (-260) vs president top edge (-115)    → 145px
 
   Assistant VPs hang directly below their VP, one AVP_H card per AVP, joined
-  to it by a short vertical line. That only has room on the four lower nodes;
-  an AVP under a top or upper-diagonal VP would run into the president. The
+  to it by a short vertical line. On an upper diagonal, one AVP just fits
+  between that VP and the lower diagonal below it: the card spans 385–497
+  and the lower card starts at 535, leaving 38px. A second AVP there, or any
+  AVP under the top VP, would collide and needs a different layout. The
   container grows past 900px tall when a bottom-row VP has AVPs, since the
   VP Finance card already ends at 890.
 
@@ -70,7 +72,7 @@ const CX = 602, CY = 450;
 const RX = 520, RY = 350;
 const CONTAINER_W = 1204;
 const CARD_W = 300, CARD_H = 180;
-const AVP_H = 140, AVP_GAP = 24;
+const AVP_H = 112, AVP_GAP = 20;
 const PRES_W = 340, PRES_H = 230;
 
 const vpNodes = VPS.map((vp, i) => {
@@ -341,7 +343,7 @@ export default function AboutPage() {
                     top:    avp.top,
                   }}
                 >
-                  <ExecPhoto exec={avp} className="w-24 h-24 rounded-lg flex-shrink-0" />
+                  <ExecPhoto exec={avp} className="w-[88px] h-[88px] rounded-lg flex-shrink-0" />
                   <div className="min-w-0">
                     <p className="text-offwhite font-bold text-base leading-tight">{avp.name}</p>
                     <p className="font-display text-accent/85 text-xs font-semibold mt-1.5">{avp.role}</p>

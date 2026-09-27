@@ -26,7 +26,7 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {EXECS.map((item) => (
                 <a
-                  key={item.email}
+                  key={item.name}
                   href={`mailto:${item.email}`}
                   className="flex items-center justify-between gap-4 bg-offwhite border border-ice-400 hover:border-accent rounded-xl px-5 py-3.5 transition-colors group text-left"
                 >

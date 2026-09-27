@@ -30,7 +30,12 @@ export const PRESIDENT: Exec = {
 /** Alphabetical by role. Drives both the Contact list and the About diagram. */
 export const VPS: VPExec[] = [
   { name: 'Grace Ding',                  role: 'VP Academic',       email: 'academic@vseus.ca',  photo: '/exec/grace-ding.jpg'      },
-  { name: 'Saloni Snehal Karia',         role: 'VP Administration', email: 'admin@vseus.ca',     photo: '/exec/saloni-karia.jpg' },
+  {
+    name: 'Saloni Snehal Karia',         role: 'VP Administration', email: 'admin@vseus.ca',     photo: '/exec/saloni-karia.jpg',
+    avps: [
+      { name: 'Niels Cook', role: 'Assistant VP Administration', email: 'avp.admin@vseus.ca', photo: '/exec/niels-cook.jpg', photoPosition: 'center 40%' },
+    ],
+  },
   {
     name: 'Nokutenda Dzobo',             role: 'VP External',       email: 'external@vseus.ca',  photo: '/exec/nokutenda-dzobo.jpg',
     avps: [
@@ -43,7 +48,13 @@ export const VPS: VPExec[] = [
       { name: 'Ilan Shapiro', role: 'Assistant VP Finance', email: 'avp.finance@vseus.ca', photo: '/exec/ilan-shapiro.png', photoPosition: 'center 35%' },
     ],
   },
-  { name: 'Mishka Balraj',       role: 'VP Marketing',      email: 'marketing@vseus.ca',      photo: '/exec/mishka-balraj.jpg', photoPosition: 'center 25%' },
+  {
+    name: 'Mishka Balraj',               role: 'VP Marketing',      email: 'marketing@vseus.ca', photo: '/exec/mishka-balraj.jpg', photoPosition: 'center 25%',
+    avps: [
+      { name: 'Marina Pelletier', role: 'Assistant VP Marketing', email: 'avp.marketing@vseus.ca', photo: '/exec/marina-pelletier.jpg' },
+      { name: 'Gaureka Khurana',  role: 'Assistant VP Marketing', email: 'avp.marketing@vseus.ca', photo: '/exec/gaureka-khurana.jpg', photoPosition: 'center 20%' },
+    ],
+  },
   { name: 'Aiden Ng',            role: 'VP Student Life',   email: 'studentlife@vseus.ca',    photo: '/exec/aiden-ng.jpg'        },
 ];
 
