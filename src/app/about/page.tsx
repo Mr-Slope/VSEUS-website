@@ -49,6 +49,12 @@ const reports = [
     upper vs lower diagonal on the same side                    → 170px
     top card bottom edge (-260) vs president top edge (-115)    → 145px
 
+  Assistant VPs hang directly below their VP, one AVP_H card per AVP, joined
+  to it by a short vertical line. That only has room on the four lower nodes;
+  an AVP under a top or upper-diagonal VP would run into the president. The
+  container grows past 900px tall when a bottom-row VP has AVPs, since the
+  VP Finance card already ends at 890.
+
   Half-width is 0.866·RX + CARD_W/2 = 600.3, so the container is 1204px —
   inside the 1216px of content width available at the xl breakpoint. The .3
   is why it isn't a round 1200: cos(30°) is 0.86603, not 0.866, and rounding
@@ -62,8 +68,9 @@ const reports = [
 */
 const CX = 602, CY = 450;
 const RX = 520, RY = 350;
-const CONTAINER_W = 1204, CONTAINER_H = 900;
+const CONTAINER_W = 1204;
 const CARD_W = 300, CARD_H = 180;
+const AVP_H = 140, AVP_GAP = 24;
 const PRES_W = 340, PRES_H = 230;
 
 const vpNodes = VPS.map((vp, i) => {
@@ -72,27 +79,37 @@ const vpNodes = VPS.map((vp, i) => {
   return { ...vp, x: CX + RX * Math.cos(rad), y: CY + RY * Math.sin(rad), i };
 });
 
+const avpNodes = vpNodes.flatMap((vp) =>
+  (vp.avps ?? []).map((avp, k) => ({
+    ...avp,
+    x: vp.x,
+    top: vp.y + CARD_H / 2 + AVP_GAP + k * (AVP_H + AVP_GAP),
+  })),
+);
+
+const CONTAINER_H = Math.max(900, ...avpNodes.map((a) => a.top + AVP_H + 10));
+
+/** The president's orange glow, shared by every exec card. */
+const GLOW =
+  'border-2 border-accent/60 shadow-[0_0_60px_rgba(237,177,135,0.3)] hover:shadow-[0_0_80px_rgba(237,177,135,0.45)]';
+
 const ORBIT_D = `M ${CX} ${CY - RY} A ${RX} ${RY} 0 1 1 ${CX - 0.001} ${CY - RY}`;
 
 /** Wide card used in the responsive grid below xl. */
-function ExecCard({ exec, featured = false }: { exec: Exec; featured?: boolean }) {
+function ExecCard({ exec, size = 'vp' }: { exec: Exec; size?: 'featured' | 'vp' | 'avp' }) {
+  const photo = { featured: 'w-40 h-40', vp: 'w-32 h-32', avp: 'w-24 h-24' }[size];
   return (
     <div
-      className={`flex items-center gap-5 rounded-2xl backdrop-blur-sm transition-all duration-300 p-5 ${
-        featured
-          ? 'bg-midnight-800/90 border-2 border-accent/60 shadow-[0_0_40px_rgba(237,177,135,0.18)]'
-          : 'bg-midnight-800/70 border border-offwhite/10 hover:border-accent/40'
+      className={`flex items-center gap-5 rounded-2xl backdrop-blur-sm transition-shadow duration-500 p-5 ${GLOW} ${
+        size === 'featured' ? 'bg-midnight-800/90' : 'bg-midnight-800/70'
       }`}
     >
-      <ExecPhoto
-        exec={exec}
-        className={`rounded-xl flex-shrink-0 ${featured ? 'w-40 h-40' : 'w-32 h-32'}`}
-      />
+      <ExecPhoto exec={exec} className={`rounded-xl flex-shrink-0 ${photo}`} />
       <div className="min-w-0">
-        <p className={`text-offwhite font-bold leading-tight ${featured ? 'text-2xl' : 'text-lg'}`}>
+        <p className={`text-offwhite font-bold leading-tight ${size === 'featured' ? 'text-2xl' : 'text-lg'}`}>
           {exec.name}
         </p>
-        <p className={`font-display font-semibold mt-1.5 whitespace-nowrap ${featured ? 'text-accent text-base' : 'text-accent/85 text-sm'}`}>
+        <p className={`font-display font-semibold mt-1.5 ${size === 'featured' ? 'text-accent text-base whitespace-nowrap' : 'text-accent/85 text-sm'}`}>
           {exec.role}
         </p>
       </div>
@@ -100,16 +117,17 @@ function ExecCard({ exec, featured = false }: { exec: Exec; featured?: boolean }
   );
 }
 
-/** Compact card for an Assistant VP, naming the VP they report to. */
-function AvpCard({ avp, vp }: { avp: Exec; vp: VPExec }) {
+/** A VP with their AVPs stacked directly beneath, for the grid below xl. */
+function VpColumn({ vp }: { vp: VPExec }) {
   return (
-    <div className="flex items-center gap-4 rounded-xl border border-offwhite/10 bg-midnight-800/70 p-4">
-      <ExecPhoto exec={avp} className="w-16 h-16 rounded-lg flex-shrink-0" />
-      <div className="min-w-0">
-        <p className="text-offwhite font-bold text-sm leading-tight">{avp.name}</p>
-        <p className="font-display text-accent/85 text-xs font-semibold mt-1">{avp.role}</p>
-        <p className="text-offwhite/40 text-xs mt-0.5">Reports to {vp.name}, {vp.role}</p>
-      </div>
+    <div className="space-y-4">
+      <ExecCard exec={vp} />
+      {vp.avps?.map((avp) => (
+        <div key={avp.name} className="relative pl-6">
+          <span className="absolute left-2 -top-4 bottom-1/2 w-3 border-l-2 border-b-2 border-accent/50 rounded-bl-lg" />
+          <ExecCard exec={avp} size="avp" />
+        </div>
+      ))}
     </div>
   );
 }
@@ -260,6 +278,17 @@ export default function AboutPage() {
                     </g>
                   );
                 })}
+
+                {/* Short drop line from each VP (or the AVP above) to its AVP */}
+                {avpNodes.map((avp) => (
+                  <path
+                    key={avp.name}
+                    d={`M ${avp.x} ${avp.top - AVP_GAP} L ${avp.x} ${avp.top}`}
+                    stroke="rgba(237,177,135,0.5)"
+                    strokeWidth="2"
+                    filter="url(#lineGlow)"
+                  />
+                ))}
               </svg>
 
               {/* President card at center */}
@@ -283,7 +312,7 @@ export default function AboutPage() {
               {vpNodes.map((vp) => (
                 <div
                   key={vp.name}
-                  className="absolute flex items-center gap-4 px-4 rounded-xl border border-offwhite/10 bg-midnight-800/85 backdrop-blur-sm hover:border-accent/40 hover:bg-midnight-700/90 hover:-translate-y-1.5 hover:shadow-[0_10px_36px_rgba(237,177,135,0.2)] transition-all duration-300 cursor-default"
+                  className={`absolute flex items-center gap-4 px-4 rounded-xl bg-midnight-800/85 backdrop-blur-sm hover:bg-midnight-700/90 transition-all duration-500 cursor-default z-10 ${GLOW}`}
                   style={{
                     width:  CARD_W,
                     height: CARD_H,
@@ -299,34 +328,40 @@ export default function AboutPage() {
                   </div>
                 </div>
               ))}
+
+              {/* AVP cards, directly under their VP, with slightly smaller photos */}
+              {avpNodes.map((avp) => (
+                <div
+                  key={avp.name}
+                  className={`absolute flex items-center gap-4 px-4 rounded-xl bg-midnight-800/85 backdrop-blur-sm hover:bg-midnight-700/90 transition-all duration-500 cursor-default z-10 ${GLOW}`}
+                  style={{
+                    width:  CARD_W,
+                    height: AVP_H,
+                    left:   avp.x - CARD_W / 2,
+                    top:    avp.top,
+                  }}
+                >
+                  <ExecPhoto exec={avp} className="w-24 h-24 rounded-lg flex-shrink-0" />
+                  <div className="min-w-0">
+                    <p className="text-offwhite font-bold text-base leading-tight">{avp.name}</p>
+                    <p className="font-display text-accent/85 text-xs font-semibold mt-1.5">{avp.role}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Responsive grid below xl */}
           <div className="xl:hidden space-y-4">
             <div className="sm:max-w-md sm:mx-auto">
-              <ExecCard exec={PRESIDENT} featured />
+              <ExecCard exec={PRESIDENT} size="featured" />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
               {VPS.map((vp) => (
-                <ExecCard key={vp.name} exec={vp} />
+                <VpColumn key={vp.name} vp={vp} />
               ))}
             </div>
           </div>
-
-          {/* Assistant VPs, grouped under the VP they report to */}
-          {VPS.some((vp) => vp.avps?.length) && (
-            <div className="mt-16 max-w-4xl mx-auto">
-              <p className="text-center font-display text-accent text-xs font-semibold uppercase tracking-widest mb-6">
-                Assistant Vice-Presidents
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {VPS.flatMap((vp) => (vp.avps ?? []).map((avp) => (
-                  <AvpCard key={avp.name} avp={avp} vp={vp} />
-                )))}
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
