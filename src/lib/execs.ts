@@ -29,7 +29,12 @@ export const PRESIDENT: Exec = {
 
 /** Alphabetical by role. Drives both the Contact list and the About diagram. */
 export const VPS: VPExec[] = [
-  { name: 'Grace Ding',                  role: 'VP Academic',       email: 'academic@vseus.ca',  photo: '/exec/grace-ding.jpg'      },
+  {
+    name: 'Grace Ding',                  role: 'VP Academic',       email: 'academic@vseus.ca',  photo: '/exec/grace-ding.jpg',
+    avps: [
+      { name: 'Ciara', role: 'Assistant VP Academic', email: 'avp.academic@vseus.ca', photo: '/exec/ciara.jpg' },
+    ],
+  },
   {
     name: 'Saloni Snehal Karia',         role: 'VP Administration', email: 'admin@vseus.ca',     photo: '/exec/saloni-karia.jpg',
     avps: [
