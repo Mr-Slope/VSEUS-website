@@ -17,7 +17,6 @@ deployed to GitHub Pages as a static export.
 | Styling | Tailwind CSS v4 |
 | Fonts | Barlow (headings) + Montserrat (body), via `next/font/google` |
 | Data | Static TypeScript modules in `src/lib/` |
-| Blog | Markdown files in `content/blog/`, rendered at build time |
 | Hosting | GitHub Pages, published by GitHub Actions |
 | Build output | Static export (`output: "export"`) written to `out/` |
 
@@ -57,17 +56,12 @@ src/
 │   ├── clubs/page.tsx          # Recognized clubs
 │   ├── elc/page.tsx            # Economics Learning Centre
 │   ├── events/page.tsx         # Upcoming events
-│   ├── blog/
-│   │   ├── page.tsx            # Post index (reads posts, hands off to BlogList)
-│   │   └── [slug]/page.tsx     # Individual post, prerendered per file
 │   └── contact/page.tsx        # Form, executive email directory, socials
 │
 ├── components/
 │   ├── layout/
 │   │   ├── Navbar.tsx          # Sticky glass navbar, centred nav, hover dropdowns
 │   │   └── Footer.tsx
-│   ├── blog/
-│   │   └── BlogList.tsx        # Post grid + tag filtering (client)
 │   ├── home/
 │   │   ├── Hero.tsx            # Full-screen hero, scroll-driven SVG curve
 │   │   ├── StatsBar.tsx        # Count-up stats
@@ -92,9 +86,7 @@ src/
 │   ├── execs.ts                # Executive roster (About + Contact)
 │   ├── calendar.ts             # Google Calendar config + build-time ICS read
 │   ├── society.ts              # Founding year, years-running, address
-│   ├── attribution.ts          # Footer builder credit (protected, see AGENTS.md)
-│   ├── blog.ts                 # Build-time markdown loader (Node only)
-│   └── post.ts                 # Post types + date formatting (browser safe)
+│   └── attribution.ts          # Footer builder credit (protected, see AGENTS.md)
 │
 └── types/
     └── event.ts
@@ -108,7 +100,6 @@ Everything editable lives in a handful of files. No CMS, no admin login.
 
 | To change | Edit |
 |---|---|
-| Blog posts | Drop a `.md` file in `content/blog/` — see [`content/README.md`](./content/README.md) |
 | Upcoming events | `src/lib/events.ts` — add/remove entries in `UPCOMING_EVENTS` |
 | Executive team and their emails | `src/lib/execs.ts` — used by both About and Contact |
 | Reports list | `reports` array in `src/app/about/page.tsx` |
@@ -120,32 +111,6 @@ Everything editable lives in a handful of files. No CMS, no admin login.
 | Address, founding year | `src/lib/society.ts` |
 | Who the contact form goes to | `CONTACT_FORM_TO` / `CONTACT_FORM_CC` in `src/lib/execs.ts` |
 | ELC hours, courses, Canvas key | `src/app/elc/page.tsx` |
-
-### Blog
-
-Posts are markdown files in `content/blog/`. The filename becomes the URL slug, and
-frontmatter supplies the title, date, author, excerpt, and tags. A file only publishes if
-it has a `title` and its name doesn't start with `_`, so drafts and stray notes can sit in
-the folder without becoming pages — and can't be reached by guessing the URL either.
-
-Reading time is estimated from word count; nothing needs to be set by hand. Post images go
-in `public/blog/`. Full authoring guide: [`content/README.md`](./content/README.md).
-
-Markdown is rendered to HTML at build time by `remark`, and styled by the hand-rolled
-`.prose` rules in `globals.css` — no `@tailwindcss/typography`, so the type scale and
-colours come straight from the brand tokens.
-
-Tags double as the index filter: `/blog` shows a pill per tag with a post count,
-defaulting to **All**. Filtering is client-side state, not a URL parameter, so a
-filtered view isn't shareable — every post is already in the page, so there's nothing
-to fetch. Worth moving into the URL if the archive grows. Reuse an existing tag rather
-than coining a near-duplicate; they're case-sensitive, so `Policy` and `policy` become
-two separate pills.
-
-`src/lib/blog.ts` imports `fs` and `remark`, so it can only be used from server
-components. Anything the client needs — the `PostMeta` type, `formatPostDate` — lives in
-`src/lib/post.ts` instead. Importing `blog.ts` from a client component drags Node
-built-ins into the browser bundle and the build fails.
 
 ### The Economics Calendar
 
@@ -192,7 +157,7 @@ run the route on, and a static export has none.
 
 Real photography lives under `public/photos/`, grouped by the page that uses it:
 `Home/` (the hero banner and the four pillar images), `logos/` (the society mark), and
-empty `About/`, `Events/`, `Blog/`, `Contact/`, and `Resources/` folders staged for
+empty `About/`, `Events/`, `Contact/`, and `Resources/` folders staged for
 images still to come. The navbar logo, the hero image, and the four pillar photos are
 already wired in.
 
@@ -201,8 +166,6 @@ Still rendering `<ImagePlaceholder />`, so each is a one-line swap once art is s
 | Placeholder | Where |
 |---|---|
 | Exec headshots | `src/app/about/page.tsx` (the `About/` photos folder is staged) |
-| Merch photos | `src/components/home/MerchStrip.tsx`; tiles currently read "Available Soon" |
-| Blog cover images | `public/blog/`; index cards show placeholders |
 | Club logos | `src/app/clubs/page.tsx` |
 
 Non-image placeholders:
@@ -332,8 +295,3 @@ The form currently hands off to the visitor's email app (see above). A form serv
 as Formspree or Web3Forms would let it send directly at the cost of an account, and keeps
 the site static. A mail API such as Resend needs a serverless function to hold the API
 key, so it would mean moving off GitHub Pages.
-
-### Shareable blog filters
-
-Filtering is client-side state today. Moving it into a URL parameter would make
-`/blog?tag=Academics` linkable — worth it once there are enough posts for that to matter.
