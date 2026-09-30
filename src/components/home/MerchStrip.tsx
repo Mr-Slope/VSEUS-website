@@ -2,8 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 
-// TODO: point this at the real storefront once it exists.
-const SHOP_URL = '#';
+const SHOP_URL = 'https://www.showpass.com/vseus-merchandise-sale-202627';
 
 const PHOTOS = [
   {
@@ -39,6 +38,8 @@ export function MerchStrip() {
             </p>
             <a
               href={SHOP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-accent text-midnight font-display font-semibold px-6 py-3.5 rounded-lg hover:bg-accent-600 transition-colors text-base shadow-lg shadow-accent/20"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
