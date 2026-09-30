@@ -32,7 +32,7 @@ export const VPS: VPExec[] = [
   {
     name: 'Grace Ding',                  role: 'VP Academic',       email: 'academic@vseus.ca',  photo: '/exec/grace-ding.jpg',
     avps: [
-      { name: 'Ciara', role: 'Assistant VP Academic', email: 'avp.academic@vseus.ca', photo: '/exec/ciara.jpg' },
+      { name: 'Ciara Egalahewa', role: 'Assistant VP Academic', email: 'avp.academic@vseus.ca', photo: '/exec/ciara-egalahewa.jpg' },
     ],
   },
   {
