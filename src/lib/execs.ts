@@ -45,7 +45,7 @@ export const VPS: VPExec[] = [
   {
     name: 'Sebastian Contreras Alfaro',  role: 'VP Finance',        email: 'finance@vseus.ca',    photo: '/exec/sebastian-contreras.jpg',
     avps: [
-      { name: 'Ilan Shapiro', role: 'Assistant VP Finance', email: 'avp.finance@vseus.ca', photo: '/exec/ilan-shapiro.png', photoPosition: 'center 35%' },
+      { name: 'Ilan Shapiro', role: 'Assistant VP Finance', email: 'avp.finance@vseus.ca', photo: '/exec/ilan-shapiro.png' },
     ],
   },
   {
