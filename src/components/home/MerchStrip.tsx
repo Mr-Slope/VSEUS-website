@@ -1,8 +1,24 @@
 import React from 'react';
+import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 
 // TODO: point this at the real storefront once it exists.
 const SHOP_URL = '#';
+
+const PHOTOS = [
+  {
+    src: '/photos/Home/merch/merch-group.jpg',
+    alt: 'VSEUS members posing together in navy VSEUS crewnecks and white tees',
+  },
+  {
+    src: '/photos/Home/merch/merch-crewneck-back.jpg',
+    alt: 'Back of a navy VSEUS crewneck printed with "Ahead of the Curve"',
+  },
+  {
+    src: '/photos/Home/merch/merch-tee-detail.jpg',
+    alt: 'Close-up of the purple "ahead of the curve" print on a cream VSEUS tee',
+  },
+];
 
 export function MerchStrip() {
   return (
@@ -33,17 +49,21 @@ export function MerchStrip() {
           </Reveal>
 
           <Reveal delay={120}>
-            {/* TODO: swap for a product grid once the storefront and photos exist. */}
-            <div className="flex flex-col items-center justify-center text-center gap-4 border-2 border-dashed border-offwhite/25 rounded-2xl aspect-video px-8">
-              <div className="w-14 h-14 rounded-full bg-accent/15 text-accent flex items-center justify-center">
-                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-display font-bold text-offwhite text-lg">Coming Soon</p>
-                <p className="text-offwhite/50 text-sm mt-1">The full lineup is on its way. Check back soon.</p>
-              </div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {PHOTOS.map((photo, i) => (
+                <div
+                  key={photo.src}
+                  className={`relative aspect-[3/2] overflow-hidden rounded-2xl ${i === 0 ? 'col-span-2' : ''}`}
+                >
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes={i === 0 ? '(min-width: 1024px) 700px, 100vw' : '(min-width: 1024px) 350px, 50vw'}
+                    className="object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </Reveal>
         </div>
