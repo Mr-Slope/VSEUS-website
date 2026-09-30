@@ -1,23 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
-
-const SHOP_URL = 'https://www.showpass.com/vseus-merchandise-sale-202627';
-
-const PHOTOS = [
-  {
-    src: '/photos/Home/merch/merch-group.jpg',
-    alt: 'VSEUS members posing together in navy VSEUS crewnecks and white tees',
-  },
-  {
-    src: '/photos/Home/merch/merch-crewneck-back.jpg',
-    alt: 'Back of a navy VSEUS crewneck printed with "Ahead of the Curve"',
-  },
-  {
-    src: '/photos/Home/merch/merch-tee-detail.jpg',
-    alt: 'Close-up of the purple "ahead of the curve" print on a cream VSEUS tee',
-  },
-];
+import { CTAButton } from '@/components/ui/CTAButton';
+import { HOME_PHOTOS, SHOP_URL } from '@/lib/merch';
 
 export function MerchStrip() {
   return (
@@ -33,7 +18,7 @@ export function MerchStrip() {
               Wear the<br />Society.
             </h2>
             <p className="text-offwhite/60 leading-relaxed mb-7 max-w-md text-sm">
-              Crewnecks, hoodies, and stickers designed by and for economics
+              T-shirts and hoodies designed by and for economics
               students. Every purchase goes straight back into student programming.
             </p>
             <a
@@ -47,11 +32,16 @@ export function MerchStrip() {
               </svg>
               Shop Merch
             </a>
+            <div className="mt-4">
+              <CTAButton href="/merch" variant="outline-light" size="md">
+                See Photos &amp; Prices
+              </CTAButton>
+            </div>
           </Reveal>
 
           <Reveal delay={120}>
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
-              {PHOTOS.map((photo, i) => (
+              {HOME_PHOTOS.map((photo, i) => (
                 <div
                   key={photo.src}
                   className={`relative aspect-[3/2] overflow-hidden rounded-2xl ${i === 0 ? 'col-span-2' : ''}`}

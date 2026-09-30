@@ -56,6 +56,7 @@ src/
 │   ├── clubs/page.tsx          # Recognized clubs
 │   ├── elc/page.tsx            # Economics Learning Centre
 │   ├── events/page.tsx         # Upcoming events
+│   ├── merch/page.tsx          # Merch prices, photos, shop link
 │   └── contact/page.tsx        # Form, executive email directory, socials
 │
 ├── components/
@@ -83,6 +84,7 @@ src/
 │
 ├── lib/
 │   ├── events.ts               # UPCOMING_EVENTS — the public events list
+│   ├── merch.ts                # Merch products, prices, photos, shop URL
 │   ├── execs.ts                # Executive roster (About + Contact)
 │   ├── calendar.ts             # Google Calendar config + build-time ICS read
 │   ├── society.ts              # Founding year, years-running, address
@@ -105,7 +107,7 @@ Everything editable lives in a handful of files. No CMS, no admin login.
 | Reports list | `reports` array in `src/app/about/page.tsx` |
 | Recognized clubs | `clubs` array in `src/app/clubs/page.tsx` |
 | Resource cards | `resources` array in `src/app/resources/page.tsx` |
-| Merch products and shop link | `products` / `SHOP_URL` in `src/components/home/MerchStrip.tsx` |
+| Merch prices, photos, and shop link | `src/lib/merch.ts`, used by the homepage block and `/merch` |
 | Social links | `socials` in `src/components/ui/SocialIcons.tsx` |
 | Calendar ID / subscribe link | `src/lib/calendar.ts` |
 | Address, founding year | `src/lib/society.ts` |
