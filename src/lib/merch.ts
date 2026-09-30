@@ -30,10 +30,10 @@ export const PRODUCTS: MerchProduct[] = [
     },
   },
   {
-    name: 'Hoodie',
+    name: 'Crewneck',
     price: 40,
     photo: {
-      src: '/photos/Merch/hoodie-trio.jpg',
+      src: '/photos/Merch/crewneck-trio.jpg',
       alt: 'Three students smiling in navy VSEUS sweaters with the starred VSEUS print',
     },
   },
@@ -63,7 +63,7 @@ export const GALLERY_PHOTOS: MerchPhoto[] = [
     alt: 'Back of a white VSEUS tee printed with a row of four stamp illustrations',
   },
   {
-    src: '/photos/Merch/hoodie-bench.jpg',
+    src: '/photos/Merch/crewneck-bench.jpg',
     alt: 'Two students on a bench in the sun wearing navy VSEUS sweaters',
   },
   {
@@ -71,7 +71,7 @@ export const GALLERY_PHOTOS: MerchPhoto[] = [
     alt: 'A student laughing in a white VSEUS tee with the "ahead of the curve" print',
   },
   {
-    src: '/photos/Merch/hoodie-outdoors.jpg',
+    src: '/photos/Merch/crewneck-outdoors.jpg',
     alt: 'Three students arm in arm outside a stone campus building in navy VSEUS sweaters',
   },
   {
@@ -79,7 +79,7 @@ export const GALLERY_PHOTOS: MerchPhoto[] = [
     alt: 'Close-up of the "ahead of the curve" chest print on a white VSEUS tee',
   },
   {
-    src: '/photos/Merch/hoodie-back.jpg',
+    src: '/photos/Merch/crewneck-back.jpg',
     alt: 'Back of a navy VSEUS sweater with the large "Ahead of the Curve" print',
   },
   {

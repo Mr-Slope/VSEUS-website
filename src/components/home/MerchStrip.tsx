@@ -18,7 +18,7 @@ export function MerchStrip() {
               Wear the<br />Society.
             </h2>
             <p className="text-offwhite/60 leading-relaxed mb-7 max-w-md text-sm">
-              T-shirts and hoodies designed by and for economics
+              T-shirts and crewnecks designed by and for economics
               students. Every purchase goes straight back into student programming.
             </p>
             <a

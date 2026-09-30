@@ -33,7 +33,7 @@ export default function MerchPage() {
             Wear the<br />Society.
           </h1>
           <p className="text-offwhite/55 text-lg max-w-xl leading-relaxed mb-8">
-            T-shirts and hoodies designed by and for economics students. Every purchase goes
+            T-shirts and crewnecks designed by and for economics students. Every purchase goes
             straight back into student programming.
           </p>
           <ShopButton />
