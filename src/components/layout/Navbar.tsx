@@ -25,6 +25,7 @@ const navLinks = [
     ],
   },
   { label: 'Events', href: '/events' },
+  { label: 'Merch', href: '/merch' },
   { label: 'Contact', href: '/contact' },
 ];
 
