@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import { CTAButton } from '@/components/ui/CTAButton';
 import Image from 'next/image';
+import { SectionDivider } from '@/components/ui/SectionDivider';
 
 export function Hero() {
   const pathRef = useRef<SVGPathElement>(null);
@@ -152,7 +153,7 @@ export function Hero() {
           <div className="hero-ctas flex flex-wrap items-center justify-end gap-4">
             <CTAButton href="/resources" variant="accent" size="lg">
               Explore Resources
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <svg className="w-4 h-4 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </CTAButton>
@@ -160,7 +161,7 @@ export function Hero() {
                 "Learn More" read as "learn more about the resources". */}
             <TransitionLink
               href="/about"
-              className="inline-flex items-center gap-2 border border-offwhite/25 text-offwhite/80 font-display font-medium px-7 py-3.5 rounded-lg hover:bg-offwhite/[0.08] hover:border-offwhite/40 hover:text-offwhite transition-all text-base"
+              className="btn btn-outline-light gap-2 px-7 py-3.5 text-base"
             >
               About VSEUS
             </TransitionLink>
@@ -168,8 +169,16 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
+      {/* Soft curve the stats bar rises out of, laid over the photo. */}
+      <SectionDivider
+        from="transparent"
+        to="midnight"
+        variant="wave"
+        className="absolute inset-x-0 bottom-0"
+      />
+
+      {/* Scroll indicator: lifted clear of the curve below it */}
+      <div className="absolute bottom-16 lg:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none">
         <span className="text-[10px] text-offwhite/30 uppercase tracking-[0.22em]">Scroll</span>
         <div className="w-5 h-8 border border-offwhite/20 rounded-full flex justify-center pt-1.5">
           <div className="w-[3px] h-2 bg-offwhite/30 rounded-full animate-bounce" />

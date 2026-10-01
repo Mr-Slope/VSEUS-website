@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { PRESIDENT, VPS, type Exec, type VPExec } from '@/lib/execs';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
+import { SectionDivider } from '@/components/ui/SectionDivider';
 
 /** Photo if supplied, otherwise the dashed placeholder — same footprint either way. */
 function ExecPhoto({ exec, className }: { exec: Exec; className: string }) {
@@ -142,11 +143,11 @@ export default function AboutPage() {
       <section className="py-24 bg-ice">
         <div id="mission" className="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl">
-            <p className="font-display text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-4">
+            <p className="font-sans text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-4">
               Our Mission
             </p>
             <h1 className="text-5xl sm:text-6xl font-black text-midnight mb-8 leading-[1.05]">
-              A place to belong.
+              A place to <span className="heading-accent">belong.</span>
             </h1>
             <p className="text-midnight/85 leading-relaxed text-xl mb-6">
               The Vancouver School of Economics Undergraduate Society (VSEUS) was founded in 2014 to build an economics community at UBC by creating and facilitating spaces where students are comfortable with one another, can share their stories, and can form the relationships a community is made of.
@@ -161,6 +162,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <SectionDivider from="ice" to="midnight" variant="ripple" />
       {/* Executives */}
       <section className="py-20 bg-midnight relative overflow-hidden">
         <div className="absolute inset-0 hero-grid-bg opacity-20 pointer-events-none" />
@@ -168,7 +170,7 @@ export default function AboutPage() {
 
         <div id="executives" className="anchor-offset relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">Leadership</p>
+            <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">Leadership</p>
             <h2 className="text-3xl font-black text-offwhite">Executive Team 2026-27</h2>
             <p className="text-offwhite/40 text-sm mt-3 max-w-xs mx-auto leading-relaxed">
               Seven leaders. One mission. Driving economics forward at UBC.
@@ -367,11 +369,12 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <SectionDivider from="midnight" to="ice" variant="drift" flip />
       {/* Reports */}
       <section className="py-24 bg-ice">
         <div id="reports" className="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl">
-            <p className="font-display text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-3">
+            <p className="font-sans text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-3">
               Accountability
             </p>
             <h2 className="text-4xl font-black text-midnight mb-4">Reports</h2>

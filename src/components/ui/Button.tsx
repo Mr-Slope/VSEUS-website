@@ -12,12 +12,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
+// Look and motion come from the .btn classes in globals.css.
 const variantClasses: Record<Variant, string> = {
-  primary:   'bg-midnight-700 text-offwhite hover:bg-midnight focus-visible:ring-blue',
-  secondary: 'bg-ice text-midnight hover:bg-ice-400 focus-visible:ring-blue',
-  outline:   'border border-midnight-700 text-midnight bg-transparent hover:bg-midnight-700 hover:text-offwhite focus-visible:ring-blue',
-  ghost:     'text-midnight-700 bg-transparent hover:bg-ice focus-visible:ring-blue',
-  accent:    'bg-accent text-midnight hover:bg-accent-600 focus-visible:ring-accent font-semibold shadow-md shadow-accent/20',
+  primary:   'btn-midnight',
+  secondary: 'bg-ice text-midnight hover:bg-ice-400',
+  outline:   'btn-outline-dark',
+  ghost:     'btn-quiet',
+  accent:    'btn-solid',
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -59,10 +60,8 @@ export function Button({
   return (
     <button
       className={[
-        'relative overflow-hidden inline-flex items-center justify-center gap-2',
-        'rounded-lg font-display font-medium transition-all duration-150 btn-press',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-        'disabled:opacity-50 disabled:cursor-not-allowed',
+        'btn',
+        'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
         variantClasses[variant],
         sizeClasses[size],
         fullWidth ? 'w-full' : '',

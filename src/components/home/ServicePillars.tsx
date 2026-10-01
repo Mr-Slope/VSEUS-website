@@ -89,7 +89,7 @@ export function ServicePillars() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <Reveal className="text-center mb-14">
-          <p className="font-display text-xs font-semibold text-midnight-700 uppercase tracking-widest mb-3">What We Do</p>
+          <p className="font-sans text-xs font-semibold text-midnight-700 uppercase tracking-widest mb-3">What We Do</p>
           <h2 className="text-4xl font-black text-midnight mb-3">Four Pillars.</h2>
           <p className="text-muted max-w-md mx-auto text-sm">
             Every commitment we make to economics students at UBC flows from these four principles.

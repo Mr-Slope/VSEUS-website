@@ -20,11 +20,12 @@ export async function CalendarSection() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-14 items-center">
 
           <Reveal>
-            <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-4">
+            <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-4">
               Stay in the Loop
             </p>
             <h2 className="text-4xl font-black text-offwhite mb-4 leading-tight">
-              Never Miss<br />an Event.
+              Never Miss<br />
+              <span className="heading-accent">an Event.</span>
             </h2>
             <p className="text-offwhite/55 leading-relaxed mb-8 max-w-md">
               Subscribe to VSEUS&apos; Economics Calendar and get all our events
@@ -36,7 +37,7 @@ export async function CalendarSection() {
                 href={CALENDAR_SUBSCRIBE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-accent text-midnight font-display font-semibold px-5 py-2.5 rounded-lg hover:bg-accent-600 transition-colors text-sm shadow-lg shadow-accent/20"
+                className="btn btn-solid gap-2 px-5 py-2.5 text-sm"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -45,7 +46,7 @@ export async function CalendarSection() {
               </a>
               <TransitionLink
                 href="/events"
-                className="inline-flex items-center gap-2 border border-offwhite/20 text-offwhite/75 font-display font-medium px-5 py-2.5 rounded-lg hover:bg-offwhite/10 hover:text-offwhite hover:border-offwhite/35 transition-all text-sm"
+                className="btn btn-outline-light gap-2 px-5 py-2.5 text-sm"
               >
                 View All Events
               </TransitionLink>
@@ -53,7 +54,7 @@ export async function CalendarSection() {
                 href="https://linktr.ee/vseusubc"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-offwhite/20 text-offwhite/75 font-display font-medium px-5 py-2.5 rounded-lg hover:bg-offwhite/10 hover:text-offwhite hover:border-offwhite/35 transition-all text-sm"
+                className="btn btn-outline-light gap-2 px-5 py-2.5 text-sm"
               >
                 Tickets &amp; Linktree
               </a>

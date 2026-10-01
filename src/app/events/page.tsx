@@ -3,6 +3,7 @@ import { TransitionLink } from '@/components/ui/TransitionLink';
 import { getUpcomingEvents, getPastEvents, PAST_EVENT_PHOTOS } from '@/lib/events';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 import type { Event, PastEventPhoto } from '@/types/event';
+import { SectionDivider } from '@/components/ui/SectionDivider';
 
 /**
  * `new Date('2026-09-20')` parses as UTC midnight, so formatting it in a
@@ -96,7 +97,7 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
           <span className="font-display text-accent text-4xl font-black leading-none">
             {formatDayNumber(event.date)}
           </span>
-          <span className="font-display text-offwhite/55 text-xs font-semibold uppercase tracking-widest">
+          <span className="font-sans text-offwhite/55 text-xs font-semibold uppercase tracking-widest">
             {formatMonthShort(event.date)} · {formatWeekday(event.date)}
           </span>
         </div>
@@ -126,15 +127,15 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
               href={event.registrationUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="sm:mt-auto sm:w-fit flex items-center justify-center gap-1.5 bg-accent text-midnight font-display text-sm font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors"
+              className="btn btn-solid sm:mt-auto sm:w-fit flex justify-center gap-1.5 text-sm px-6 py-3"
             >
               {event.isPaid ? 'Get Tickets' : 'Register'}
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </a>
           ) : event.ticketsAvailableSoon ? (
-            <span className="sm:mt-auto sm:w-fit flex items-center justify-center gap-1.5 bg-ice-200 border border-ice-400 text-muted font-display text-sm font-semibold px-6 py-3 rounded-lg">
+            <span className="sm:mt-auto sm:w-fit flex items-center justify-center gap-1.5 bg-ice-200 border border-ice-400 text-muted font-display text-sm font-semibold px-6 py-3 rounded-full">
               Tickets Available Soon
             </span>
           ) : null}
@@ -164,14 +165,15 @@ export default function EventsPage() {
     <div className="min-h-screen bg-ice">
       <section className="bg-midnight py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-display text-accent text-sm font-semibold uppercase tracking-widest mb-2">What&apos;s On</p>
-          <h1 className="text-4xl font-black text-offwhite">Upcoming Events</h1>
+          <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">What&apos;s On</p>
+          <h1 className="text-4xl font-black text-offwhite">Upcoming <span className="heading-accent">Events</span></h1>
           <p className="text-offwhite/70 mt-2 text-sm">
             Competitions, networking nights, workshops, and socials run by VSEUS.
           </p>
         </div>
       </section>
 
+      <SectionDivider from="midnight" to="ice" variant="swell" />
       <section className="py-12 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           {upcomingEvents.length === 0 ? (
@@ -185,7 +187,7 @@ export default function EventsPage() {
               </p>
               <TransitionLink
                 href="/contact"
-                className="inline-flex items-center bg-accent text-midnight font-display font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
+                className="btn btn-solid px-6 py-3 text-sm"
               >
                 Join the Newsletter
               </TransitionLink>
@@ -205,7 +207,7 @@ export default function EventsPage() {
               {econWeekEvents.length > 0 && (
                 <div>
                   <div className="flex flex-col gap-1 mb-6">
-                    <p className="font-display text-midnight-700 text-xs font-semibold uppercase tracking-widest">
+                    <p className="font-sans text-midnight-700 text-xs font-semibold uppercase tracking-widest">
                       {formatDateRangeLabel(econWeekEvents)}
                     </p>
                     <h2 className="text-3xl font-black text-midnight">Econ Week</h2>
@@ -225,50 +227,53 @@ export default function EventsPage() {
 
       {/* Past events gallery */}
       {pastEventPhotos.length > 0 && (
-        <section className="py-16 lg:py-20 bg-midnight">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">
-              Looking Back
-            </p>
-            <h2 className="text-3xl font-black text-offwhite mb-3">Highlights</h2>
-            <p className="text-offwhite/55 text-sm mb-10 max-w-xl">
-              A look at what the society has run before: competitions, socials, workshops,
-              and the annual gala.
-            </p>
+        <>
+          <SectionDivider from="ice" to="midnight" variant="wave" />
+          <section className="py-16 lg:py-20 bg-midnight">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">
+                Looking Back
+              </p>
+              <h2 className="text-3xl font-black text-offwhite mb-3">Highlights</h2>
+              <p className="text-offwhite/55 text-sm mb-10 max-w-xl">
+                A look at what the society has run before: competitions, socials, workshops,
+                and the annual gala.
+              </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pastEventPhotos.map((photo) => (
-                <figure key={photo.title} className="group">
-                  <div className="relative overflow-hidden rounded-2xl">
-                    {photo.image ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={photo.image}
-                        alt={photo.title}
-                        className="w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                      />
-                    ) : (
-                      /* TODO: add `image` to the entry in src/lib/events.ts once photos exist */
-                      <ImagePlaceholder
-                        label="Event photo"
-                        tone="dark"
-                        className="w-full aspect-[4/3] rounded-2xl group-hover:border-accent/60 transition-colors"
-                      />
-                    )}
-                  </div>
-                  <figcaption className="mt-3">
-                    <p className="text-offwhite font-bold text-base leading-snug">{photo.title}</p>
-                    {photo.when && (
-                      <p className="font-display text-offwhite/45 text-xs uppercase tracking-widest mt-1">
-                        {photo.when}
-                      </p>
-                    )}
-                  </figcaption>
-                </figure>
-              ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {pastEventPhotos.map((photo) => (
+                  <figure key={photo.title} className="group">
+                    <div className="relative overflow-hidden rounded-2xl">
+                      {photo.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={photo.image}
+                          alt={photo.title}
+                          className="w-full aspect-[4/3] object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                        />
+                      ) : (
+                        /* TODO: add `image` to the entry in src/lib/events.ts once photos exist */
+                        <ImagePlaceholder
+                          label="Event photo"
+                          tone="dark"
+                          className="w-full aspect-[4/3] rounded-2xl group-hover:border-accent/60 transition-colors"
+                        />
+                      )}
+                    </div>
+                    <figcaption className="mt-3">
+                      <p className="text-offwhite font-bold text-base leading-snug">{photo.title}</p>
+                      {photo.when && (
+                        <p className="font-sans text-offwhite/45 text-xs uppercase tracking-widest mt-1">
+                          {photo.when}
+                        </p>
+                      )}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </>
       )}
     </div>
   );

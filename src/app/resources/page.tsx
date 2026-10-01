@@ -1,5 +1,6 @@
 import React from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
+import { SectionDivider } from '@/components/ui/SectionDivider';
 
 const resources = [
   {
@@ -73,11 +74,11 @@ const resources = [
 ];
 
 const CTA_CLASS =
-  'mt-auto inline-flex items-center gap-1.5 font-display text-sm font-semibold text-midnight-700 hover:text-midnight transition-colors self-start border-b-2 border-accent pb-0.5';
+  'btn btn-outline-dark mt-auto self-start gap-1.5 text-sm px-5 py-2.5';
 
 function ArrowIcon() {
   return (
-    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+    <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
     </svg>
   );
@@ -88,11 +89,12 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-ice">
       <section className="bg-midnight py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-display text-accent text-sm font-semibold uppercase tracking-widest mb-2">What We Offer</p>
-          <h1 className="text-4xl font-black text-offwhite">Our Resources</h1>
+          <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">What We Offer</p>
+          <h1 className="text-4xl font-black text-offwhite">Our <span className="heading-accent">Resources</span></h1>
         </div>
       </section>
 
+      <SectionDivider from="midnight" to="ice" variant="dip" />
       <section className="py-16 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

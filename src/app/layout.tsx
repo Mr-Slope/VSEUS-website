@@ -12,9 +12,11 @@ const barlow = Barlow({
   weight: ['400', '500', '600', '700', '800', '900'],
 });
 
+// Also the light italic half of two-part headings (.heading-accent).
 const montserrat = Montserrat({
   variable: '--font-montserrat',
   subsets: ['latin'],
+  style: ['normal', 'italic'],
 });
 
 export const metadata: Metadata = {

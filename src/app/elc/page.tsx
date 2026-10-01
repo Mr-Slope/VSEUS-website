@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { TransitionLink } from '@/components/ui/TransitionLink';
+import { SectionDivider } from '@/components/ui/SectionDivider';
 
 const courses = [
   { code: 'ECON 101', name: 'Principles of Microeconomics', year: '1st Year' },
@@ -44,9 +45,10 @@ export default function ELCPage() {
             <span>/</span>
             <span className="text-offwhite/70">Economics Learning Centre</span>
           </div>
-          <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">Academic Support</p>
+          <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">Academic Support</p>
           <h1 className="text-5xl font-black text-offwhite mb-4 leading-tight">
-            Economics<br />Learning Centre
+            Economics<br />
+            <span className="heading-accent">Learning Centre</span>
           </h1>
           <p className="text-offwhite/55 text-lg max-w-xl leading-relaxed">
             Free walk-in peer tutoring for UBC economics students, staffed by undergraduate assistants who know the courses inside out.
@@ -54,6 +56,7 @@ export default function ELCPage() {
         </div>
       </section>
 
+      <SectionDivider from="midnight" to="midnight-700" variant="wave" size="sm" flip />
       {/* At a glance */}
       <section className="bg-midnight-700 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -117,6 +120,7 @@ export default function ELCPage() {
         identical 64px. Split the padding rather than using a single py so the
         outer and inner values can differ.
       */}
+      <SectionDivider from="midnight-700" to="ice" variant="swell" />
       <section className="pt-16 pb-8 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-black text-midnight mb-10">How It Works</h2>
@@ -181,7 +185,7 @@ export default function ELCPage() {
               href="https://canvas.ubc.ca/enroll/9KXL4W"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center bg-accent text-midnight font-display font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
+              className="btn btn-solid px-6 py-3 text-sm"
             >
               Enroll on Canvas
             </TransitionLink>
@@ -199,7 +203,7 @@ export default function ELCPage() {
             </p>
             <TransitionLink
               href="mailto:economics.learning.centre@ubc.ca"
-              className="inline-flex items-center border border-midnight/15 text-midnight font-display font-medium px-6 py-3 rounded-lg hover:bg-midnight/5 transition-colors text-sm"
+              className="btn btn-outline-dark px-6 py-3 text-sm"
             >
               Get in Touch
             </TransitionLink>
@@ -207,6 +211,7 @@ export default function ELCPage() {
         </div>
       </section>
 
+      <SectionDivider from="ice" to="midnight-700" variant="ripple" />
       {/* CTA */}
       <section className="py-12 bg-midnight-700 text-center">
         <h2 className="text-2xl font-black text-offwhite mb-3">Questions about the ELC?</h2>
@@ -224,13 +229,13 @@ export default function ELCPage() {
         <div className="flex flex-wrap justify-center gap-3">
           <TransitionLink
             href="/contact"
-            className="inline-flex items-center bg-accent text-midnight font-display font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
+            className="btn btn-solid px-6 py-3 text-sm"
           >
             Contact Us
           </TransitionLink>
           <TransitionLink
             href="/resources"
-            className="inline-flex items-center border border-offwhite/25 text-offwhite/80 font-display font-medium px-6 py-3 rounded-lg hover:bg-offwhite/10 hover:text-offwhite transition-all text-sm"
+            className="btn btn-outline-light px-6 py-3 text-sm"
           >
             Back to Resources
           </TransitionLink>
