@@ -1,6 +1,6 @@
 import React from 'react';
 import { socials } from '@/components/ui/SocialIcons';
-import { EXECS, PRESIDENT } from '@/lib/execs';
+import { PRESIDENT, VPS } from '@/lib/execs';
 import { ADDRESS, ADDRESS_MAP_URL } from '@/lib/society';
 import { SectionDivider } from '@/components/ui/SectionDivider';
 
@@ -146,7 +146,8 @@ export default function ContactPage() {
               </a>.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {EXECS.map((item) => (
+              {/* President and VPs only: AVP inboxes aren't listed publicly. */}
+              {[PRESIDENT, ...VPS].map((item) => (
                 <a
                   key={item.name}
                   href={`mailto:${item.email}`}
