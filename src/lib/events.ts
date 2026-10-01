@@ -120,6 +120,7 @@ export const UPCOMING_EVENTS: Event[] = [
     category: 'Networking',
     series: 'Econ Week',
     registrationUrl: 'https://forms.gle/5MGsdydYTHPr94bd7',
+    photo: '/photos/Events/brew-your-success-2026.jpg',
   },
   {
     id: 'evt-ew-blue-day',

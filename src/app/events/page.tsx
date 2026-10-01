@@ -153,11 +153,12 @@ export default function EventsPage() {
 
   // Events whose date has passed drop out of upcomingEvents on their own and
   // land here instead, so they still show up somewhere rather than vanishing.
-  // They render as plain tiles (no photo yet) ahead of the curated,
-  // photographed entries in PAST_EVENT_PHOTOS.
+  // They render ahead of the curated entries in PAST_EVENT_PHOTOS, with the
+  // event's `photo` if it has one and a placeholder tile otherwise.
   const archivedEvents: PastEventPhoto[] = getPastEvents().map((event) => ({
     title: event.title,
     when: toLocalDate(event.date).getFullYear().toString(),
+    image: event.photo,
   }));
   const pastEventPhotos = [...archivedEvents, ...PAST_EVENT_PHOTOS];
 

@@ -37,4 +37,9 @@ export interface Event {
    * date. Omit it and the event renders in the standalone section instead.
    */
   series?: string;
+  /**
+   * Photo from the event, path under public/. Only shown once the event has
+   * passed and moved into the past-events gallery on /events.
+   */
+  photo?: string;
 }
