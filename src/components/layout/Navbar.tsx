@@ -43,7 +43,7 @@ export function Navbar() {
   return (
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
-        scrolled ? 'navbar-glass' : 'bg-midnight'
+        scrolled ? 'navbar-glass' : 'bg-midnight border-b border-accent/15 shadow-[0_6px_24px_rgba(2,29,51,0.35)]'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,7 +91,7 @@ export function Navbar() {
                   <Link
                     href={link.href}
                     onFocus={() => setOpenDropdown(link.label)}
-                    className="nav-link-draw flex items-center gap-1.5 px-5 py-3 font-display text-base font-medium text-offwhite/85 hover:text-offwhite rounded-lg transition-colors duration-150"
+                    className="nav-link-draw flex items-center gap-1.5 px-5 py-3 font-display text-[17px] font-semibold tracking-wide text-offwhite hover:text-accent hover:bg-offwhite/[0.06] rounded-lg transition-colors duration-150"
                   >
                     {link.label}
                     <svg
@@ -107,7 +107,7 @@ export function Navbar() {
                         <Link
                           key={child.label}
                           href={child.href}
-                          className="block px-5 py-2.5 text-sm text-offwhite/75 hover:text-offwhite hover:bg-offwhite/10 transition-colors"
+                          className="block px-5 py-2.5 text-sm font-medium text-offwhite/85 hover:text-offwhite hover:bg-offwhite/10 transition-colors"
                         >
                           {child.label}
                         </Link>
@@ -120,7 +120,7 @@ export function Navbar() {
                   key={link.label}
                   href={link.href}
                   onFocus={() => setOpenDropdown(null)}
-                  className="nav-link-draw px-5 py-3 font-display text-base font-medium text-offwhite/85 hover:text-offwhite rounded-lg transition-colors duration-150"
+                  className="nav-link-draw px-5 py-3 font-display text-[17px] font-semibold tracking-wide text-offwhite hover:text-accent hover:bg-offwhite/[0.06] rounded-lg transition-colors duration-150"
                 >
                   {link.label}
                 </Link>
@@ -155,7 +155,7 @@ export function Navbar() {
               <div key={link.label}>
                 <Link
                   href={link.href}
-                  className="block px-4 py-3 font-display text-base font-medium text-offwhite/90 hover:text-offwhite hover:bg-offwhite/10 rounded-lg transition-colors"
+                  className="block px-4 py-3 font-display text-base font-semibold tracking-wide text-offwhite hover:text-offwhite hover:bg-offwhite/10 rounded-lg transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
