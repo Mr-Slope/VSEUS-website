@@ -8,23 +8,28 @@ import { Reveal } from '@/components/ui/Reveal';
  * still entirely when the visitor prefers reduced motion.
  *
  * Two identical rows sit side by side inside the clipped, full-width strip.
- * Each row is at least as wide as the strip, so three logos on their own never
+ * Each row is at least as wide as the strip, so a few logos on their own never
  * leave a gap, and each row slides left by its own full width (-100%) in step,
  * so row two lands exactly where row one began: a seamless loop. The second row
  * is aria-hidden so screen readers announce the list once.
  *
- * Each logo sits on an off-white chip so the three read as one set despite
- * their different source backgrounds (one is black, one is transparent).
+ * Each logo sits on an off-white chip so they read as one set despite their
+ * different source backgrounds.
  */
 
 interface Sponsor {
   name: string;
   logo: string;
+  /** Overrides the default logo size, for files with a lot of built-in padding. */
+  imgClassName?: string;
 }
 
+const DEFAULT_IMG_CLASS = 'h-12 w-auto max-w-[190px] sm:h-14 sm:max-w-[240px]';
+
 const SPONSORS: Sponsor[] = [
-  { name: 'Wizeprep', logo: '/sponsors/wizeprep.jpeg' },
-  { name: 'Evangelos Photography', logo: '/sponsors/evangelos-photography.png' },
+  // The square file is mostly white margin, so it needs more height to match.
+  // multiply melts its pure-white ground into the off-white chip.
+  { name: 'Wizeprep', logo: '/sponsors/wizeprep.jpeg', imgClassName: 'h-24 w-auto sm:h-28 mix-blend-multiply' },
   { name: 'Jukebox', logo: '/sponsors/jukebox.png' },
 ];
 
@@ -44,7 +49,7 @@ function SponsorRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
               src={sponsor.logo}
               alt={sponsor.name}
               loading="lazy"
-              className="h-12 w-auto max-w-[190px] object-contain sm:h-14 sm:max-w-[240px]"
+              className={`object-contain ${sponsor.imgClassName ?? DEFAULT_IMG_CLASS}`}
             />
           </div>
         </li>
