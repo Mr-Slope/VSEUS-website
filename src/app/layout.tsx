@@ -4,7 +4,6 @@ import './globals.css';
 import { TransitionProvider } from '@/contexts/TransitionContext';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { CustomCursor } from '@/components/ui/CustomCursor';
 
 // Barlow carries headings and display type; Montserrat carries body copy.
 const barlow = Barlow({
@@ -34,7 +33,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
-          <CustomCursor />
         </TransitionProvider>
       </body>
     </html>
