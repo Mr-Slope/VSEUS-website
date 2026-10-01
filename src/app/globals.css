@@ -206,6 +206,24 @@ html { scroll-behavior: smooth; }
   animation-play-state: paused;
 }
 
+/* Each sponsor chip floats on its own rhythm and lifts with a glow on hover. */
+@keyframes sponsor-float {
+  0%, 100% { transform: translateY(0) rotate(-0.6deg); }
+  50%      { transform: translateY(-7px) rotate(0.6deg); }
+}
+.sponsor-chip {
+  animation: sponsor-float 4.2s ease-in-out infinite;
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.3s ease, outline-color 0.3s ease;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+}
+.sponsor-chip:hover {
+  animation-play-state: paused;
+  outline-color: var(--accent);
+  box-shadow: 0 18px 36px -12px rgba(237, 177, 135, 0.55);
+}
+
 /*
   ─── Anchor offset ───
   The navbar is sticky and 80px tall (h-20), so a bare #anchor jump aligns the
@@ -389,12 +407,60 @@ html { scroll-behavior: smooth; }
 }
 .mail-ping { animation: mail-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite; }
 
+/* ─── Contact: Follow stickers ─── */
+.social-sticker {
+  box-shadow: 6px 6px 0 var(--midnight);
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    rotate 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+}
+.social-sticker:hover,
+.social-sticker:focus-visible {
+  /* The resting tilt comes from Tailwind's rotate-* (the rotate property). */
+  rotate: 0deg;
+  transform: translate(-3px, -3px) scale(1.02);
+  box-shadow: 10px 10px 0 var(--accent);
+}
+.social-sticker:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--midnight);
+  transition-duration: 0.08s;
+}
+.social-sticker:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+@keyframes social-wiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  20%      { transform: rotate(-12deg) scale(1.1); }
+  40%      { transform: rotate(10deg) scale(1.1); }
+  60%      { transform: rotate(-6deg) scale(1.05); }
+  80%      { transform: rotate(3deg) scale(1.02); }
+}
+.social-sticker:hover .social-icon,
+.social-sticker:focus-visible .social-icon {
+  animation: social-wiggle 0.7s ease-in-out;
+}
+
+.social-bubble {
+  transform: translateY(8px) scale(0);
+  transform-origin: bottom right;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.social-sticker:hover .social-bubble,
+.social-sticker:focus-visible .social-bubble {
+  transform: translateY(0) scale(1) rotate(-6deg);
+}
+
 /* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .hero-tag, .hero-word, .hero-subtitle, .hero-ctas,
-  .hero-float, .reveal, .marquee-track,
+  .hero-float, .reveal, .marquee-track, .sponsor-chip,
   .btn, .btn-arrow,
-  .mail-letter, .mail-plane, .mail-trail {
+  .mail-letter, .mail-plane, .mail-trail,
+  .social-sticker, .social-icon {
     animation: none !important;
     transition: none !important;
     opacity: 1 !important;
