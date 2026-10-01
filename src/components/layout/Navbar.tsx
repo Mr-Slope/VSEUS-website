@@ -66,7 +66,7 @@ export function Navbar() {
               width={44}
               height={44}
               loading="eager"
-              className="w-11 h-11 object-contain flex-shrink-0"
+              className="nav-logo w-11 h-11 object-contain flex-shrink-0"
             />
             <span className="font-display text-2xl font-black text-offwhite tracking-tight group-hover:text-accent transition-colors duration-200">
               VSEUS
