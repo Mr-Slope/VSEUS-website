@@ -122,21 +122,6 @@ export const UPCOMING_EVENTS: Event[] = [
     registrationUrl: 'https://forms.gle/5MGsdydYTHPr94bd7',
     photo: '/photos/Events/brew-your-success-2026.jpg',
   },
-  {
-    id: 'evt-ew-blue-day',
-    title: 'Blue Day',
-    description:
-      'A scavenger hunt across campus followed by a fancy dinner, reserved for BIE first-year students. Econ Week’s flagship close.',
-    date: '2026-09-26',
-    time: 'Scavenger Hunt 12:00 – 4:00 PM, Dinner 6:00 – 8:00 PM',
-    location: 'Great Hall North',
-    isPaid: true,
-    price: null,
-    posterUrl: null,
-    category: 'Social',
-    series: 'Econ Week',
-    registrationUrl: 'https://www.showpass.com/vseus-annual-blue-day',
-  },
 ];
 
 /** Today's date as 'YYYY-MM-DD', recomputed on every call. */
