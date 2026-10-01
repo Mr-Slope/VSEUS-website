@@ -1,9 +1,9 @@
 import React from 'react';
-import { TransitionLink } from '@/components/ui/TransitionLink';
 import { getUpcomingEvents, getPastEvents, PAST_EVENT_PHOTOS } from '@/lib/events';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 import type { Event, PastEventPhoto } from '@/types/event';
 import { SectionDivider } from '@/components/ui/SectionDivider';
+import { CALENDAR_SUBSCRIBE_URL } from '@/lib/calendar';
 
 /**
  * `new Date('2026-09-20')` parses as UTC midnight, so formatting it in a
@@ -184,14 +184,20 @@ export default function EventsPage() {
               </svg>
               <h2 className="text-xl font-bold text-midnight mb-2">No events scheduled right now</h2>
               <p className="text-muted text-sm mb-6">
-                We announce new events on Instagram and through the newsletter. Check back soon.
+                Subscribe to the Economics Calendar and new events will land in your
+                calendar as soon as they're announced.
               </p>
-              <TransitionLink
-                href="/contact"
+              <a
+                href={CALENDAR_SUBSCRIBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-solid px-6 py-3 text-sm"
               >
-                Join the Newsletter
-              </TransitionLink>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Join the Economics Calendar
+              </a>
             </div>
           ) : (
             <>
