@@ -467,6 +467,73 @@ html { scroll-behavior: smooth; }
   transform: translateY(0) scale(1) rotate(-6deg);
 }
 
+/*
+  ─── Animated cursor ───
+  Driven by src/components/ui/CustomCursor.tsx. The outer elements are moved
+  to the pointer by script; the inner spans are centred on it and do the
+  scaling, so the two transforms never fight.
+*/
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+/* Text fields keep the caret so it's clear where typing will go. */
+.has-custom-cursor input,
+.has-custom-cursor textarea {
+  cursor: text !important;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.cursor-visible .cursor-dot,
+.cursor-visible .cursor-ring { opacity: 1; }
+
+.cursor-dot span,
+.cursor-ring span {
+  position: absolute;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.3s ease,
+    width 0.3s ease,
+    height 0.3s ease;
+}
+
+/* Accent dot with a midnight edge, so it reads on both light and dark grounds. */
+.cursor-dot span {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  box-shadow: 0 0 0 1.5px var(--midnight);
+}
+
+/* Difference blending keeps the ring visible on any background. */
+.cursor-ring { mix-blend-mode: difference; }
+.cursor-ring span {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+
+.cursor-hover .cursor-ring span {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.cursor-hover .cursor-dot span { transform: translate(-50%, -50%) scale(0.5); }
+
+.cursor-down .cursor-ring span { transform: translate(-50%, -50%) scale(0.75); }
+.cursor-down .cursor-dot span { transform: translate(-50%, -50%) scale(1.4); }
+
 /* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .hero-tag, .hero-word, .hero-subtitle, .hero-ctas,
