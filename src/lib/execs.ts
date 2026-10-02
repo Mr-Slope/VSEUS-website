@@ -60,7 +60,12 @@ export const VPS: VPExec[] = [
       { name: 'Gaureka Khurana',  role: 'Assistant VP Marketing', email: 'avp.marketing@vseus.ca', photo: '/exec/gaureka-khurana.jpg', photoPosition: 'center 20%' },
     ],
   },
-  { name: 'Aiden Ng',            role: 'VP Student Life',   email: 'studentlife@vseus.ca',    photo: '/exec/aiden-ng.jpg'        },
+  {
+    name: 'Aiden Ng',                    role: 'VP Student Life',   email: 'studentlife@vseus.ca', photo: '/exec/aiden-ng.jpg',
+    avps: [
+      { name: 'Dorine Benedict', role: 'Assistant VP Student Life', email: 'avp.studentlife@vseus.ca', photo: '/exec/dorine-benedict.jpg' },
+    ],
+  },
 ];
 
 /** President, then each VP immediately followed by their AVPs, if any. */
