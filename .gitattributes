@@ -1,0 +1,19 @@
+# Binary assets must never have their line endings normalized.
+#
+# Git decides text vs binary by looking for a NUL byte in the first 8000
+# bytes. Not every JPEG or PDF has one that early, so with core.autocrlf set
+# a stray CRLF pair inside one of them would be rewritten to LF on commit and
+# the file would be corrupted with no warning worth noticing. Saying so
+# explicitly takes the guesswork out of it, which matters now that public/
+# holds the newsletter archive.
+
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary

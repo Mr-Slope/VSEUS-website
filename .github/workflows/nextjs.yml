@@ -74,6 +74,22 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        env:
+          # Build-time configuration for the Vancouver Economic Review archive,
+          # the one part of the site that reads a database. Next inlines
+          # NEXT_PUBLIC_* values into the client bundle during the build; there
+          # is no server left in a static export to read them at runtime.
+          #
+          # These are repository *variables*, not secrets. The anon key is a
+          # publishable credential that ships in the bundle either way, so
+          # masking it would buy nothing and only make build logs harder to
+          # read. Set them under Settings > Secrets and variables > Actions >
+          # Variables. The service role key belongs nowhere near this file.
+          #
+          # Left unset, the build still succeeds and every page still deploys.
+          # Only /economicreview degrades, to its "not configured" state.
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

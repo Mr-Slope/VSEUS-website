@@ -13,7 +13,7 @@ const footerLinks = {
   ],
   Resources: [
     { label: 'Events', href: '/events' },
-    { label: 'Economics Gazette', href: '/resources#gazette' },
+    { label: 'Vancouver Economic Review', href: '/economicreview' },
     { label: 'Awards & Grants', href: '/resources#awards' },
     { label: 'Economics Learning Centre', href: '/elc' },
     { label: 'Clubs', href: '/clubs' },

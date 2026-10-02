@@ -37,6 +37,15 @@
 
   --muted: #4A6275;         /* body text on light surfaces */
 
+  /*
+    A softer blue for people's names, matched to the Review's team page
+    reference. At 2.5:1 on off-white it is a rule, fill, or hover colour, never
+    text. The 600 shade is the same hue deepened to 3:1, which is enough for
+    large text (24px regular, or 19px bold) and for icons.
+  */
+  --brand-blue:     #5BA4D9;
+  --brand-blue-600: #4195D3;
+
   --background: var(--ice);
   --foreground: var(--midnight);
 }
@@ -66,8 +75,15 @@
 
   --color-muted: var(--muted);
 
+  --color-brand-blue:     var(--brand-blue);
+  --color-brand-blue-600: var(--brand-blue-600);
+
   --font-sans: var(--font-montserrat);
   --font-display: var(--font-barlow);
+  /* Fraunces is loaded by the Economic Review's layout only. */
+  --font-serif: var(--font-fraunces, Georgia), Georgia, 'Times New Roman', serif;
+  /* So is Playfair Display, which sets the Review's masthead title alone. */
+  --font-masthead: var(--font-playfair, Georgia), Georgia, 'Times New Roman', serif;
 }
 
 body {
@@ -77,8 +93,15 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-barlow), system-ui, sans-serif;
+/*
+  In the base layer so a font utility on a heading, such as the Review's
+  font-serif titles, can override it. Unlayered, this would beat every
+  utility regardless of specificity.
+*/
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-barlow), system-ui, sans-serif;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -134,6 +157,10 @@ html { scroll-behavior: smooth; }
 .reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+/* A shorter rise, for reading pages where the default travel is too much. */
+.reveal.reveal-subtle:not(.revealed) {
+  transform: translateY(14px);
 }
 
 /* ─── CTA ripple ─── */
@@ -296,6 +323,15 @@ html { scroll-behavior: smooth; }
   absorb whatever top padding a given section happens to carry.
 */
 .anchor-offset { scroll-margin-top: 140px; }
+
+/*
+  ─── Hidden scrollbar ───
+  For a strip that scrolls sideways on narrow screens, such as the Review's
+  tab bar, where a scrollbar would sit across the tabs. It still scrolls by
+  touch, trackpad, and keyboard focus.
+*/
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 
 /* ─── Tilt card ─── */
 .tilt-card {

@@ -18,12 +18,14 @@ const navLinks = [
     label: 'Resources',
     href: '/resources',
     children: [
-      { label: 'Economics Gazette', href: '/resources#gazette' },
       { label: 'Awards & Grants', href: '/resources#awards' },
       { label: 'Economics Learning Centre', href: '/elc' },
       { label: 'Clubs', href: '/clubs' },
     ],
   },
+  // Top level rather than under Resources: the Review is a publication people
+  // come back to on its own, not a thing to look up once.
+  { label: 'Economic Review', href: '/economicreview' },
   { label: 'Events', href: '/events' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
@@ -51,7 +53,7 @@ export function Navbar() {
           Three columns so the nav is centred against the page, not against the
           space left over by the brand block.
         */}
-        <div className="grid grid-cols-[auto_1fr_auto] md:grid-cols-[1fr_auto_1fr] items-center h-20 gap-4">
+        <div className="grid grid-cols-[auto_1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center h-20 gap-4">
 
           {/* Brand */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group justify-self-start">
@@ -74,7 +76,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1 justify-self-center">
+          <nav className="hidden lg:flex items-center gap-1 justify-self-center">
             {navLinks.map((link) =>
               link.children ? (
                 <div
@@ -129,11 +131,11 @@ export function Navbar() {
           </nav>
 
           {/* Balances the brand column so the nav sits centred on the page */}
-          <div className="hidden md:block justify-self-end" />
+          <div className="hidden lg:block justify-self-end" />
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2 text-offwhite rounded-lg hover:bg-offwhite/10 transition-colors justify-self-end col-start-3"
+            className="lg:hidden p-2 text-offwhite rounded-lg hover:bg-offwhite/10 transition-colors justify-self-end col-start-3"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
@@ -149,7 +151,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-offwhite/10 bg-midnight-900/97 backdrop-blur-xl">
+        <div className="lg:hidden border-t border-offwhite/10 bg-midnight-900/97 backdrop-blur-xl">
           <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <div key={link.label}>

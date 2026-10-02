@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'accent';
+type Variant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'accent' | 'danger';
 type Size = 'sm' | 'md' | 'lg';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -18,6 +18,8 @@ const variantClasses: Record<Variant, string> = {
   outline:   'border border-midnight-700 text-midnight bg-transparent hover:bg-midnight-700 hover:text-offwhite focus-visible:ring-blue',
   ghost:     'text-midnight-700 bg-transparent hover:bg-ice focus-visible:ring-blue',
   accent:    'bg-accent text-midnight hover:bg-accent-600 focus-visible:ring-accent font-semibold shadow-md shadow-accent/20',
+  // Destructive and irreversible actions only, such as deleting an issue.
+  danger:    'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-600 font-semibold',
 };
 
 const sizeClasses: Record<Size, string> = {
