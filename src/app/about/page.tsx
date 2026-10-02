@@ -34,69 +34,102 @@ const reports = [
 /*
   Orbital layout constants.
 
-  The ring is an ellipse, not a circle — RX is much wider than RY. Cards are
-  wide and horizontal (photo left, text right), so a circle wastes the space
-  they need and crams the four diagonal nodes close to the centre. Stretching
-  it sideways pushes those four out to x = ±0.866·RX, which lengthens their
-  connecting lines and lets the travelling pulse read as a diagonal rather
-  than a short stub.
+  Six VPs sit on a circle around the president at 60° intervals, starting
+  straight up, and each VP's Assistant VPs sit on the far side of that VP
+  from the president. Every line from the president therefore ends on a VP,
+  and the AVPs form an outer ring:
+    top VP           → AVPs stacked above it
+    bottom VP        → AVPs stacked below it
+    four diagonals   → AVPs beside it, on the outer side, in a column
+                       centred on the VP (two AVPs make a triangle with it)
 
-  Geometry, with six VPs at 60° intervals starting straight up:
-    top / bottom     → (0, ∓RY)
-    four diagonals   → (±0.866·RX, ∓0.5·RY)
+  Cards are vertical (photo on top) so the side AVPs fit across the width.
+  Geometry at R=330, VP 208×220, AVP 180×190, PRES 250×256:
+    diagonal VP centre                    → (±285.8, ∓165)
+    diagonal VP inner edge (181.8) vs president edge (125)  → 57px
+    top VP inner edge (-220) vs president top (-128)        → 92px
+    top VP side (104) vs upper diagonal inner edge (181.8)  → 78px
+    side AVP outer edge                   → 285.8 + 104 + SIDE_GAP + 180 = 597.8
 
-  Clearances at RX=520, RY=350, CARD 300×180, PRES 340×230:
-    diagonal card left edge (300) vs president right edge (170) → 130px
-    upper vs lower diagonal on the same side                    → 170px
-    top card bottom edge (-260) vs president top edge (-115)    → 145px
-
-  Assistant VPs hang directly below their VP, one AVP_H card per AVP, joined
-  to it by a short vertical line. On an upper diagonal, one AVP just fits
-  between that VP and the lower diagonal below it: the card spans 385–497
-  and the lower card starts at 535, leaving 38px. A second AVP there, or any
-  AVP under the top VP, would collide and needs a different layout. The
-  container grows past 900px tall when a bottom-row VP has AVPs, since the
-  VP Finance card already ends at 890.
-
-  Half-width is 0.866·RX + CARD_W/2 = 600.3, so the container is 1204px —
-  inside the 1216px of content width available at the xl breakpoint. The .3
-  is why it isn't a round 1200: cos(30°) is 0.86603, not 0.866, and rounding
-  down pushed the two left cards a third of a pixel past the edge.
-
-  CARD_W is 300 so the longest role, "VP Administration", holds one line
-  beside a 120px photo.
+  So the content is 1195.6px wide, and with PAD on each side the container
+  stays inside the 1216px of content width available at the xl breakpoint.
+  Height is whatever the stacks need: the container is sized from the
+  furthest card in each direction, so adding an AVP grows it rather than
+  clipping it. Two AVPs beside an upper diagonal, or three beside any
+  diagonal, would run into the neighbouring column and need a rethink.
 
   The orbital only renders at xl and up. Below that it would overflow, so a
   responsive card grid takes over.
 */
-const CX = 602, CY = 450;
-const RX = 520, RY = 350;
-const CONTAINER_W = 1204;
-const CARD_W = 300, CARD_H = 180;
-const AVP_H = 112, AVP_GAP = 20;
-const PRES_W = 340, PRES_H = 230;
+const R = 330;
+const PRES_W = 250, PRES_H = 256;
+const VP_W = 208, VP_H = 220;
+const AVP_W = 180, AVP_H = 190;
+/** Horizontal gap between a diagonal VP and the AVPs beside it. */
+const SIDE_GAP = 28;
+/** Vertical gap between stacked cards (top/bottom stacks and side columns). */
+const STACK_GAP = 20;
+const PAD = 8;
 
-const vpNodes = VPS.map((vp, i) => {
-  const deg = (i * 360) / VPS.length - 90;
-  const rad = deg * (Math.PI / 180);
-  return { ...vp, x: CX + RX * Math.cos(rad), y: CY + RY * Math.sin(rad), i };
+/** Positions relative to the president at (0, 0); shifted into the container below. */
+const vpRel = VPS.map((vp, i) => {
+  const rad = ((i * 360) / VPS.length - 90) * (Math.PI / 180);
+  return { ...vp, i, x: R * Math.cos(rad), y: R * Math.sin(rad) };
 });
 
-const avpNodes = vpNodes.flatMap((vp) =>
-  (vp.avps ?? []).map((avp, k) => ({
-    ...avp,
-    x: vp.x,
-    top: vp.y + CARD_H / 2 + AVP_GAP + k * (AVP_H + AVP_GAP),
-  })),
-);
+/**
+ * `path` draws the connector to this AVP, given the president's position, so
+ * it can be built once that position is known.
+ */
+const avpRel = vpRel.flatMap((vp) => {
+  const avps = vp.avps ?? [];
+  // Top and bottom VPs have x ≈ 0 (cos 90° is only nearly zero in floating point).
+  if (Math.abs(vp.x) < 1) {
+    const dir = Math.sign(vp.y);
+    return avps.map((avp, k) => {
+      const y = vp.y + dir * (VP_H / 2 + STACK_GAP + AVP_H / 2 + k * (AVP_H + STACK_GAP));
+      const near = y - dir * (AVP_H / 2);
+      const path = (cx: number, cy: number) =>
+        `M ${cx + vp.x} ${cy + near - dir * STACK_GAP} L ${cx + vp.x} ${cy + near}`;
+      return { ...avp, x: vp.x, y, path };
+    });
+  }
+  // Diagonal VPs: a column beside the VP, joined by an elbow from the VP's outer edge.
+  const side = Math.sign(vp.x);
+  const x = vp.x + side * (VP_W / 2 + SIDE_GAP + AVP_W / 2);
+  const edge = vp.x + side * (VP_W / 2);
+  const spine = vp.x + side * (VP_W / 2 + SIDE_GAP / 2);
+  const avpEdge = x - side * (AVP_W / 2);
+  return avps.map((avp, k) => {
+    const y = vp.y + (k - (avps.length - 1) / 2) * (AVP_H + STACK_GAP);
+    const path = (cx: number, cy: number) =>
+      `M ${cx + edge} ${cy + vp.y} H ${cx + spine} V ${cy + y} H ${cx + avpEdge}`;
+    return { ...avp, x, y, path };
+  });
+});
 
-const CONTAINER_H = Math.max(900, ...avpNodes.map((a) => a.top + AVP_H + 10));
+const boxes = [
+  { x: 0, y: 0, w: PRES_W, h: PRES_H },
+  ...vpRel.map((v) => ({ x: v.x, y: v.y, w: VP_W, h: VP_H })),
+  ...avpRel.map((a) => ({ x: a.x, y: a.y, w: AVP_W, h: AVP_H })),
+];
+const minX = Math.min(...boxes.map((b) => b.x - b.w / 2));
+const maxX = Math.max(...boxes.map((b) => b.x + b.w / 2));
+const minY = Math.min(...boxes.map((b) => b.y - b.h / 2));
+const maxY = Math.max(...boxes.map((b) => b.y + b.h / 2));
+
+const CONTAINER_W = Math.ceil(maxX - minX + 2 * PAD);
+const CONTAINER_H = Math.ceil(maxY - minY + 2 * PAD);
+const CX = PAD - minX, CY = PAD - minY;
+
+const vpNodes = vpRel.map((vp) => ({ ...vp, x: CX + vp.x, y: CY + vp.y }));
+const avpNodes = avpRel.map(({ path, ...avp }) => ({ ...avp, x: CX + avp.x, y: CY + avp.y, d: path(CX, CY) }));
 
 /** The president's orange glow, shared by every exec card. */
 const GLOW =
   'border-2 border-accent/60 shadow-[0_0_60px_rgba(237,177,135,0.3)] hover:shadow-[0_0_80px_rgba(237,177,135,0.45)]';
 
-const ORBIT_D = `M ${CX} ${CY - RY} A ${RX} ${RY} 0 1 1 ${CX - 0.001} ${CY - RY}`;
+const ORBIT_D = `M ${CX} ${CY - R} A ${R} ${R} 0 1 1 ${CX - 0.001} ${CY - R}`;
 
 /** Wide card used in the responsive grid below xl. */
 function ExecCard({ exec, size = 'vp' }: { exec: Exec; size?: 'featured' | 'vp' | 'avp' }) {
@@ -208,7 +241,7 @@ export default function AboutPage() {
 
                 {/* Dashed orbit ring */}
                 <ellipse
-                  cx={CX} cy={CY} rx={RX} ry={RY}
+                  cx={CX} cy={CY} rx={R} ry={R}
                   stroke="rgba(237,177,135,0.18)"
                   strokeWidth="1"
                   strokeDasharray="6 12"
@@ -283,11 +316,11 @@ export default function AboutPage() {
                   );
                 })}
 
-                {/* Short drop line from each VP (or the AVP above) to its AVP */}
+                {/* Connector from each VP (or the AVP nearer it) to its AVP */}
                 {avpNodes.map((avp) => (
                   <path
                     key={avp.name}
-                    d={`M ${avp.x} ${avp.top - AVP_GAP} L ${avp.x} ${avp.top}`}
+                    d={avp.d}
                     stroke="rgba(237,177,135,0.5)"
                     strokeWidth="2"
                     filter="url(#lineGlow)"
@@ -297,7 +330,7 @@ export default function AboutPage() {
 
               {/* President card at center */}
               <div
-                className="absolute flex items-center gap-4 px-5 rounded-2xl border-2 border-accent/60 bg-midnight-800/95 backdrop-blur-sm shadow-[0_0_60px_rgba(237,177,135,0.3)] hover:shadow-[0_0_80px_rgba(237,177,135,0.45)] transition-shadow duration-500 z-10"
+                className="absolute flex flex-col items-center justify-center text-center px-4 rounded-2xl border-2 border-accent/60 bg-midnight-800/95 backdrop-blur-sm shadow-[0_0_60px_rgba(237,177,135,0.3)] hover:shadow-[0_0_80px_rgba(237,177,135,0.45)] transition-shadow duration-500 z-10"
                 style={{
                   width:  PRES_W,
                   height: PRES_H,
@@ -305,51 +338,44 @@ export default function AboutPage() {
                   top:    CY - PRES_H / 2,
                 }}
               >
-                <ExecPhoto exec={PRESIDENT} className="w-40 h-40 rounded-xl flex-shrink-0" />
-                <div className="min-w-0">
-                  <p className="text-offwhite font-bold text-xl leading-tight">{PRESIDENT.name}</p>
-                  <p className="font-display text-accent text-base font-semibold mt-1.5 whitespace-nowrap">{PRESIDENT.role}</p>
-                </div>
+                <ExecPhoto exec={PRESIDENT} className="w-[150px] h-[150px] rounded-xl flex-shrink-0" />
+                <p className="text-offwhite font-bold text-xl leading-tight mt-3">{PRESIDENT.name}</p>
+                <p className="font-display text-accent text-base font-semibold mt-1">{PRESIDENT.role}</p>
               </div>
 
               {/* VP cards */}
               {vpNodes.map((vp) => (
                 <div
                   key={vp.name}
-                  className={`absolute flex items-center gap-4 px-4 rounded-xl bg-midnight-800/85 backdrop-blur-sm hover:bg-midnight-700/90 transition-all duration-500 cursor-default z-10 ${GLOW}`}
+                  className={`absolute flex flex-col items-center justify-center text-center px-4 rounded-xl bg-midnight-800/85 backdrop-blur-sm hover:bg-midnight-700/90 transition-all duration-500 cursor-default z-10 ${GLOW}`}
                   style={{
-                    width:  CARD_W,
-                    height: CARD_H,
-                    left:   vp.x - CARD_W / 2,
-                    top:    vp.y - CARD_H / 2,
+                    width:  VP_W,
+                    height: VP_H,
+                    left:   vp.x - VP_W / 2,
+                    top:    vp.y - VP_H / 2,
                   }}
                 >
-                  <ExecPhoto exec={vp} className="w-[120px] h-[120px] rounded-lg flex-shrink-0" />
-                  <div className="min-w-0">
-                    <p className="text-offwhite font-bold text-base leading-tight">{vp.name}</p>
-                    {/* nowrap so "VP Administration" holds one line — CARD_W is sized for it */}
-                    <p className="font-display text-accent/85 text-xs font-semibold mt-1.5 whitespace-nowrap">{vp.role}</p>
-                  </div>
+                  <ExecPhoto exec={vp} className="w-[112px] h-[112px] rounded-lg flex-shrink-0" />
+                  <p className="text-offwhite font-bold text-base leading-tight mt-3">{vp.name}</p>
+                  <p className="font-display text-accent/85 text-xs font-semibold mt-1.5 whitespace-nowrap">{vp.role}</p>
                 </div>
               ))}
 
-              {/* AVP cards, directly under their VP, with slightly smaller photos */}
+              {/* AVP cards, on the far side of their VP, with smaller photos */}
               {avpNodes.map((avp) => (
                 <div
                   key={avp.name}
-                  className={`absolute flex items-center gap-4 px-4 rounded-xl bg-midnight-800/85 backdrop-blur-sm hover:bg-midnight-700/90 transition-all duration-500 cursor-default z-10 ${GLOW}`}
+                  className={`absolute flex flex-col items-center justify-center text-center px-3 rounded-xl bg-midnight-800/85 backdrop-blur-sm hover:bg-midnight-700/90 transition-all duration-500 cursor-default z-10 ${GLOW}`}
                   style={{
-                    width:  CARD_W,
+                    width:  AVP_W,
                     height: AVP_H,
-                    left:   avp.x - CARD_W / 2,
-                    top:    avp.top,
+                    left:   avp.x - AVP_W / 2,
+                    top:    avp.y - AVP_H / 2,
                   }}
                 >
-                  <ExecPhoto exec={avp} className="w-[88px] h-[88px] rounded-lg flex-shrink-0" />
-                  <div className="min-w-0">
-                    <p className="text-offwhite font-bold text-base leading-tight">{avp.name}</p>
-                    <p className="font-display text-accent/85 text-xs font-semibold mt-1.5">{avp.role}</p>
-                  </div>
+                  <ExecPhoto exec={avp} className="w-[80px] h-[80px] rounded-lg flex-shrink-0" />
+                  <p className="text-offwhite font-bold text-sm leading-tight mt-2.5">{avp.name}</p>
+                  <p className="font-display text-accent/85 text-xs font-semibold leading-snug mt-1">{avp.role}</p>
                 </div>
               ))}
             </div>
