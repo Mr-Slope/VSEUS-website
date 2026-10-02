@@ -1,18 +1,140 @@
 import React from 'react';
 import { socials } from '@/components/ui/SocialIcons';
-import { EXECS, PRESIDENT } from '@/lib/execs';
+import { PRESIDENT, VPS } from '@/lib/execs';
 import { ADDRESS, ADDRESS_MAP_URL } from '@/lib/society';
+import { SectionDivider } from '@/components/ui/SectionDivider';
+
+function MailIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+    </svg>
+  );
+}
+
+function MailOpenIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.981l7.5-4.039a2.25 2.25 0 012.134 0l7.5 4.039a2.25 2.25 0 011.183 1.98V19.5z" />
+    </svg>
+  );
+}
+
+/*
+  Per-platform flavour for the Follow cards: the brand colour behind the icon
+  and the little reaction that pops up on hover. Platforms missing here still
+  render, just in midnight and without a bubble.
+*/
+const SOCIAL_FUN: Record<string, { brand: string; verb: string; reaction: string; reactionIcon: string }> = {
+  Instagram: {
+    brand: 'linear-gradient(45deg, #F58529 0%, #DD2A7B 50%, #8134AF 80%, #515BD4 100%)',
+    verb: 'Follow',
+    reaction: 'Like',
+    // Heart
+    reactionIcon: 'M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z',
+  },
+  LinkedIn: {
+    brand: '#0A66C2',
+    verb: 'Connect',
+    reaction: 'Hi!',
+    // Waving hand
+    reactionIcon: 'M10.5 1.875a1.125 1.125 0 012.25 0v8.219c.517.162 1.02.382 1.5.659V3.375a1.125 1.125 0 012.25 0v10.937a4.505 4.505 0 00-3.25 2.373 8.963 8.963 0 014-.935A.75.75 0 0018 15v-2.266a3.368 3.368 0 01.988-2.37 1.125 1.125 0 011.591 1.59 1.118 1.118 0 00-.329.79v3.006h-.005a6 6 0 01-1.752 4.007l-1.736 1.736a6 6 0 01-4.242 1.757H10.5a7.5 7.5 0 01-7.5-7.5V6.375a1.125 1.125 0 012.25 0v5.519c.46-.452.965-.832 1.5-1.141V3.375a1.125 1.125 0 012.25 0v6.526c.495-.1.997-.151 1.5-.151V1.875z',
+  },
+};
+
+/*
+  Header artwork: an open envelope with a letter bobbing out of it and a paper
+  plane looping away along a dashed trail. Purely decorative. The motion lives
+  in globals.css (.mail-*) and stops under prefers-reduced-motion.
+*/
+function MailIllustration() {
+  return (
+    <svg
+      className="w-full max-w-sm md:max-w-md mx-auto md:mr-0"
+      viewBox="0 0 320 240"
+      fill="none"
+      aria-hidden="true"
+    >
+      {/* Paper plane trail */}
+      <path
+        className="mail-trail"
+        d="M150,96 C120,60 150,24 196,34 C236,43 236,86 270,70 C286,62 292,46 296,34"
+        stroke="var(--accent)"
+        strokeOpacity="0.55"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeDasharray="5 9"
+      />
+      <g className="mail-plane">
+        <path d="M282,38 L312,16 L300,48 L292,40 Z" fill="var(--offwhite)" />
+        <path d="M292,40 L312,16 L288,50 Z" fill="var(--ice-400)" />
+      </g>
+
+      {/* Envelope back and open flap */}
+      <rect x="60" y="112" width="200" height="116" rx="14" fill="var(--midnight-800)" />
+      <path d="M66,114 L160,58 L254,114 Z" fill="var(--accent-600)" stroke="var(--accent-600)" strokeWidth="8" strokeLinejoin="round" />
+
+      {/* Letter */}
+      <g className="mail-letter">
+        <rect x="82" y="72" width="156" height="120" rx="8" fill="var(--offwhite)" />
+        <rect x="100" y="92" width="64" height="8" rx="4" fill="var(--accent)" />
+        <rect x="100" y="110" width="120" height="6" rx="3" fill="var(--ice)" />
+        <rect x="100" y="124" width="108" height="6" rx="3" fill="var(--ice)" />
+        <rect x="100" y="138" width="114" height="6" rx="3" fill="var(--ice)" />
+      </g>
+
+      {/* Envelope front pocket */}
+      <path
+        d="M60,128 L160,184 L260,128 V214 Q260,228 246,228 H74 Q60,228 60,214 Z"
+        fill="var(--midnight-700)"
+      />
+      <path d="M60,214 L132,168 M260,214 L188,168" stroke="var(--blue-300)" strokeOpacity="0.25" strokeWidth="2" strokeLinecap="round" />
+
+      {/* @ badge */}
+      <circle className="mail-ping" cx="252" cy="120" r="20" fill="var(--accent)" />
+      <circle cx="252" cy="120" r="20" fill="var(--accent)" />
+      <text
+        x="252"
+        y="127"
+        textAnchor="middle"
+        fontSize="22"
+        fontWeight="800"
+        fill="var(--midnight)"
+        fontFamily="var(--font-barlow), system-ui, sans-serif"
+      >
+        @
+      </text>
+    </svg>
+  );
+}
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-ice">
-      <section className="bg-midnight py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-display text-accent text-sm font-semibold uppercase tracking-widest mb-2">Reach Out</p>
-          <h1 className="text-4xl font-black text-offwhite">Contact Us</h1>
+      <section className="bg-midnight py-16 lg:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 hero-grid-bg opacity-40" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-10 items-center">
+          <div>
+            <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">Reach Out</p>
+            <h1 className="text-5xl font-black text-offwhite leading-tight mb-4">
+              Contact <span className="heading-accent">Us</span>
+            </h1>
+            <p className="text-offwhite/65 text-lg leading-relaxed max-w-md mb-8">
+              Questions, ideas, sponsorships, or just want to say hi? Drop us a line
+              and the right person on the team will get back to you.
+            </p>
+            <a href={`mailto:${PRESIDENT.email}`} className="btn btn-solid px-6 py-3.5 text-base">
+              <MailIcon className="w-5 h-5" />
+              Email the President
+            </a>
+          </div>
+
+          <MailIllustration />
         </div>
       </section>
 
+      <SectionDivider from="midnight" to="ice" variant="wave" flip />
       <section className="py-16 bg-ice">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-center">
           <div>
@@ -24,21 +146,24 @@ export default function ContactPage() {
               </a>.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {EXECS.map((item) => (
+              {/* President and VPs only: AVP inboxes aren't listed publicly. */}
+              {[PRESIDENT, ...VPS].map((item) => (
                 <a
-                  key={item.email}
+                  key={item.name}
                   href={`mailto:${item.email}`}
-                  className="flex items-center justify-between gap-4 bg-offwhite border border-ice-400 hover:border-accent rounded-xl px-5 py-3.5 transition-colors group text-left"
+                  className="flex items-center gap-4 bg-offwhite border border-ice-400 hover:border-accent hover:-translate-y-0.5 hover:shadow-lg hover:shadow-midnight/10 rounded-xl px-4 py-3.5 transition-all group text-left"
                 >
+                  {/* The envelope opens on hover, as if the letter is on its way. */}
+                  <span className="w-11 h-11 rounded-lg bg-midnight text-offwhite group-hover:bg-accent group-hover:text-midnight flex items-center justify-center flex-shrink-0 transition-colors">
+                    <MailIcon className="w-5 h-5 group-hover:hidden" />
+                    <MailOpenIcon className="w-5 h-5 hidden group-hover:block" />
+                  </span>
                   <div className="min-w-0">
-                    <p className="font-display text-xs font-semibold text-muted uppercase tracking-widest">
+                    <p className="font-sans text-xs font-semibold text-muted uppercase tracking-widest">
                       {item.role}
                     </p>
                     <p className="text-midnight font-semibold text-sm mt-0.5 truncate">{item.email}</p>
                   </div>
-                  <svg className="w-4 h-4 flex-shrink-0 text-midnight-700 opacity-40 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
                 </a>
               ))}
             </div>
@@ -76,26 +201,52 @@ export default function ContactPage() {
           </div>
 
           <div id="follow" className="anchor-offset">
-            <h2 className="text-2xl font-bold text-midnight mb-4">Follow Us</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="flex items-center gap-3 bg-offwhite border border-ice-400 hover:border-accent hover:bg-accent/10 rounded-xl px-4 py-4 transition-all group text-left"
-                >
-                  <span className="w-11 h-11 rounded-lg bg-midnight text-offwhite group-hover:bg-accent group-hover:text-midnight flex items-center justify-center flex-shrink-0 transition-colors">
-                    <span className="w-6 h-6 block">{s.icon}</span>
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block font-display font-semibold text-midnight text-sm">{s.label}</span>
-                    <span className="block text-muted text-xs truncate">{s.handle}</span>
-                  </span>
-                </a>
-              ))}
+            <h2 className="text-2xl font-bold text-midnight mb-2">
+              Follow <span className="heading-accent">the fun</span>
+            </h2>
+            <p className="text-muted text-sm mb-8">
+              Event announcements, photo recaps, and everything in between.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 px-2">
+              {socials.map((s, i) => {
+                const fun = SOCIAL_FUN[s.label];
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${s.label}: ${s.handle}`}
+                    className={`social-sticker group relative flex items-center gap-4 rounded-2xl bg-offwhite border-2 border-midnight px-5 py-5 text-left ${
+                      i % 2 === 0 ? '-rotate-2' : 'rotate-2'
+                    }`}
+                  >
+                    {/* Reaction bubble pops out of the corner on hover */}
+                    {fun && (
+                      <span className="social-bubble absolute -top-4 right-5 flex items-center gap-1 rounded-full bg-accent text-midnight border-2 border-midnight px-2.5 py-1 font-display text-xs font-bold">
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d={fun.reactionIcon} />
+                        </svg>
+                        {fun.reaction}
+                      </span>
+                    )}
+
+                    <span
+                      className="social-icon w-14 h-14 rounded-xl text-offwhite flex items-center justify-center flex-shrink-0"
+                      style={{ background: fun?.brand ?? 'var(--midnight)' }}
+                    >
+                      <span className="w-7 h-7 block">{s.icon}</span>
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-display font-black text-midnight text-lg leading-tight">{s.label}</span>
+                      <span className="block text-muted text-sm truncate">{s.handle}</span>
+                    </span>
+                    <span className="hidden sm:inline-flex items-center rounded-full border-2 border-midnight px-3 py-1 font-display text-xs font-bold text-midnight transition-colors group-hover:bg-midnight group-hover:text-offwhite">
+                      {fun?.verb ?? 'Follow'}
+                    </span>
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>

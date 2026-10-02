@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { socials } from '@/components/ui/SocialIcons';
 import { ADDRESS, ADDRESS_MAP_URL } from '@/lib/society';
 import { BUILDER_ATTRIBUTION } from '@/lib/attribution';
+import { SectionDivider } from '@/components/ui/SectionDivider';
 
 const footerLinks = {
   Organization: [
@@ -19,7 +20,6 @@ const footerLinks = {
     { label: 'Clubs', href: '/clubs' },
   ],
   Connect: [
-    { label: 'Blog', href: '/blog' },
     { label: 'Contact Us', href: '/contact' },
     { label: 'Newsletter', href: '/contact' },
     { label: 'Follow Us', href: '/contact#follow' },
@@ -28,7 +28,16 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-midnight-900 text-offwhite">
+    <footer className="relative bg-midnight-900 text-offwhite">
+      {/* Rises over the bottom padding of whichever page sits above, so it
+          works without knowing that page's colour. */}
+      <SectionDivider
+        from="transparent"
+        to="midnight-900"
+        variant="drift"
+        size="sm"
+        className="absolute inset-x-0 bottom-full"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
@@ -56,7 +65,7 @@ export function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="font-display text-xs font-semibold text-accent uppercase tracking-widest mb-3">
+              <h3 className="font-sans text-xs font-semibold text-accent uppercase tracking-widest mb-3">
                 {category}
               </h3>
               <ul className="space-y-2">

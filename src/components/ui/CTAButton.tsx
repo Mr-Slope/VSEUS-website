@@ -14,9 +14,9 @@ interface CTAButtonProps {
 // Accent orange is a fill, never a text colour on light — the label on top is
 // midnight (~8:1). See the contrast note in globals.css.
 const variantStyles: Record<string, string> = {
-  accent: 'bg-accent text-midnight hover:bg-accent-600 shadow-lg shadow-accent/20 hover:shadow-accent/40',
-  midnight: 'bg-midnight-700 text-offwhite hover:bg-midnight',
-  'outline-light': 'border border-offwhite/25 text-offwhite/85 hover:bg-offwhite/10 hover:border-offwhite/40 hover:text-offwhite',
+  accent: 'btn-solid',
+  midnight: 'btn-midnight',
+  'outline-light': 'btn-outline-light',
 };
 
 const sizeStyles: Record<string, string> = {
@@ -62,9 +62,8 @@ export function CTAButton({
       href={href}
       onClick={ripple}
       className={[
-        'relative inline-flex items-center justify-center gap-2 overflow-hidden',
-        'rounded-lg font-display font-semibold transition-all duration-200 btn-press',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-midnight',
+        // Shape, lift, sheen and focus ring all come from .btn in globals.css.
+        'btn',
         variantStyles[variant],
         sizeStyles[size],
         className,

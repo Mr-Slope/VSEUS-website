@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
+import { SectionDivider } from '@/components/ui/SectionDivider';
 
 /**
  * Recognized clubs. Each card links straight out to the club's own site or
@@ -87,9 +88,10 @@ export default function ClubsPage() {
             <span>/</span>
             <span className="text-offwhite/70">Clubs</span>
           </div>
-          <p className="font-display text-accent text-xs font-semibold uppercase tracking-widest mb-3">Recognized by VSEUS</p>
+          <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">Recognized by VSEUS</p>
           <h1 className="text-5xl font-black text-offwhite mb-4 leading-tight">
-            Clubs We<br />Recognize
+            Clubs We<br />
+            <span className="heading-accent">Recognize</span>
           </h1>
           <p className="text-offwhite/60 text-lg max-w-xl leading-relaxed">
             Student-run clubs working across economics, finance, and public policy, backed
@@ -98,6 +100,7 @@ export default function ClubsPage() {
         </div>
       </section>
 
+      <SectionDivider from="midnight" to="midnight-700" variant="drift" size="sm" />
       {/* At a glance */}
       <section className="bg-midnight-700 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,6 +142,7 @@ export default function ClubsPage() {
         </div>
       </section>
 
+      <SectionDivider from="midnight-700" to="ice" variant="wave" />
       {/* How recognition works */}
       <section className="py-16 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -157,6 +161,7 @@ export default function ClubsPage() {
         </div>
       </section>
 
+      <SectionDivider from="ice" to="midnight" variant="dip" />
       {/* The clubs */}
       <section className="py-16 bg-midnight">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -207,6 +212,7 @@ export default function ClubsPage() {
         </div>
       </section>
 
+      <SectionDivider from="midnight" to="midnight-700" variant="swell" size="sm" />
       {/* CTA */}
       <section className="py-12 bg-midnight-700 text-center">
         <h2 className="text-2xl font-black text-offwhite mb-3">Want your club recognized?</h2>
@@ -216,13 +222,13 @@ export default function ClubsPage() {
         <div className="flex flex-wrap justify-center gap-3">
           <TransitionLink
             href="/contact"
-            className="inline-flex items-center bg-accent text-midnight font-display font-semibold px-6 py-3 rounded-lg hover:bg-accent-600 transition-colors text-sm"
+            className="btn btn-solid px-6 py-3 text-sm"
           >
             Contact Us
           </TransitionLink>
           <TransitionLink
             href="/resources"
-            className="inline-flex items-center border border-offwhite/25 text-offwhite/80 font-display font-medium px-6 py-3 rounded-lg hover:bg-offwhite/10 hover:text-offwhite transition-all text-sm"
+            className="btn btn-outline-light px-6 py-3 text-sm"
           >
             Back to Resources
           </TransitionLink>

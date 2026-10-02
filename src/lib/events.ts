@@ -120,21 +120,7 @@ export const UPCOMING_EVENTS: Event[] = [
     category: 'Networking',
     series: 'Econ Week',
     registrationUrl: 'https://forms.gle/5MGsdydYTHPr94bd7',
-  },
-  {
-    id: 'evt-ew-blue-day',
-    title: 'Blue Day',
-    description:
-      'A scavenger hunt across campus followed by a fancy dinner, reserved for BIE first-year students. Econ Week’s flagship close.',
-    date: '2026-09-26',
-    time: 'Scavenger Hunt 12:00 – 4:00 PM, Dinner 6:00 – 8:00 PM',
-    location: 'Great Hall North',
-    isPaid: true,
-    price: null,
-    posterUrl: null,
-    category: 'Social',
-    series: 'Econ Week',
-    registrationUrl: 'https://www.showpass.com/vseus-annual-blue-day',
+    photo: '/photos/Events/brew-your-success-2026.jpg',
   },
 ];
 
@@ -174,10 +160,9 @@ export function getPastEvents(): Event[] {
  * can be laid out before the photos are gathered.
  */
 export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
+  { title: 'Pin Ceremony',                when: '2026', image: '/photos/Events/pin-ceremony.jpg' },
   { title: 'Annual VSEUS Gala',           when: '2025', image: '/photos/Events/annual-vseus-gala-2025.jpg' },
-  { title: 'Networking Event',            when: '2025', image: '/photos/Events/networking-event.jpg' },
   { title: 'Blue Day 2024',               when: '2024', image: '/photos/Events/blue-day-group-photo.jpg' },
-  { title: 'End of Term Mixer',           when: '2025', image: '/photos/Events/end-of-term-mixer.jpg' },
   { title: 'Economics Panel',             when: '2025', image: '/photos/Events/economics-panel.jpg' },
   { title: 'Christmas Social',            when: '2025', image: '/photos/Events/christmas-social.jpg' },
 ];

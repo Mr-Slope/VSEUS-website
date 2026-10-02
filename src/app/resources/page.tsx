@@ -1,5 +1,6 @@
 import React from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
+import { SectionDivider } from '@/components/ui/SectionDivider';
 
 const resources = [
   {
@@ -43,6 +44,20 @@ const resources = [
     ),
   },
   {
+    id: 'agora',
+    title: 'AGORA Mentorship',
+    description:
+      'Our mentorship program pairs lower-year students with upper-year mentors, and upper-year students with VSE alumni, based on shared academic and career interests. It runs October to December. The mentee guidebook covers the program structure, milestones, an email template for reaching out to your mentor, and FAQs.',
+    cta: 'Read the Mentee Guidebook',
+    ctaHref: '/guides/agora-mentee-guidebook-2026-27.pdf',
+    isFile: true,
+    icon: (
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+      </svg>
+    ),
+  },
+  {
     id: 'clubs',
     title: 'Clubs',
     description:
@@ -57,16 +72,28 @@ const resources = [
   },
 ];
 
+const CTA_CLASS =
+  'btn btn-outline-dark mt-auto self-start gap-1.5 text-sm px-5 py-2.5';
+
+function ArrowIcon() {
+  return (
+    <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+    </svg>
+  );
+}
+
 export default function ResourcesPage() {
   return (
     <div className="min-h-screen bg-ice">
       <section className="bg-midnight py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-display text-accent text-sm font-semibold uppercase tracking-widest mb-2">What We Offer</p>
-          <h1 className="text-4xl font-black text-offwhite">Our Resources</h1>
+          <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">What We Offer</p>
+          <h1 className="text-4xl font-black text-offwhite">Our <span className="heading-accent">Resources</span></h1>
         </div>
       </section>
 
+      <SectionDivider from="midnight" to="ice" variant="dip" />
       <section className="py-16 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -84,15 +111,18 @@ export default function ResourcesPage() {
                 {r.note && (
                   <p className="text-xs text-muted/70 italic mb-5">{r.note}</p>
                 )}
-                <TransitionLink
-                  href={r.ctaHref}
-                  className="mt-auto inline-flex items-center gap-1.5 font-display text-sm font-semibold text-midnight-700 hover:text-midnight transition-colors self-start border-b-2 border-accent pb-0.5"
-                >
-                  {r.cta}
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </TransitionLink>
+                {r.isFile ? (
+                  // A PDF in public/, so skip the page-transition wipe and open it in a new tab.
+                  <a href={r.ctaHref} target="_blank" rel="noopener noreferrer" className={CTA_CLASS}>
+                    {r.cta}
+                    <ArrowIcon />
+                  </a>
+                ) : (
+                  <TransitionLink href={r.ctaHref} className={CTA_CLASS}>
+                    {r.cta}
+                    <ArrowIcon />
+                  </TransitionLink>
+                )}
               </div>
             ))}
           </div>
