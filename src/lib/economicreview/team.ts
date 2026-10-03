@@ -15,7 +15,7 @@ export type TeamTier = 'vp' | 'avp' | 'analyst';
 /** The tiers, most senior first, with the heading each appears under. */
 export const TEAM_TIERS: { id: TeamTier; title: string }[] = [
   { id: 'vp', title: 'Vice President' },
-  { id: 'avp', title: 'Associate Vice President' },
+  { id: 'avp', title: 'Assistant Vice President' },
   { id: 'analyst', title: 'Research Analysts' },
 ];
 
