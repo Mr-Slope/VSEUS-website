@@ -8,9 +8,9 @@ import { Toast, type ToastMessage } from './Toast';
 /**
  * The masthead's mailing-list controls.
  *
- * Subscribing is the primary action and gets the accent fill. Unsubscribing is
- * a quiet text link: it has to be easy to find, without competing with the
- * thing most visitors came for.
+ * Just the Subscribe button. There is deliberately no unsubscribe link here:
+ * readers leave the list from the link in each email or by writing to the
+ * Review, as the newsletter terms describe.
  *
  * This owns the toast rather than the dialog, because the dialog is gone by
  * the time the confirmation appears.
@@ -34,13 +34,6 @@ export function SubscribePanel() {
         </svg>
         Subscribe
       </Button>
-      <button
-        type="button"
-        onClick={() => setMode('unsubscribe')}
-        className="text-xs text-offwhite/60 hover:text-offwhite underline underline-offset-2 transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
-      >
-        Unsubscribe
-      </button>
 
       <SubscribeDialog mode={mode} onClose={() => setMode(null)} onComplete={handleComplete} />
       <Toast toast={toast} onDismiss={dismissToast} />
