@@ -125,9 +125,12 @@ const CX = PAD - minX, CY = PAD - minY;
 const vpNodes = vpRel.map((vp) => ({ ...vp, x: CX + vp.x, y: CY + vp.y }));
 const avpNodes = avpRel.map(({ path, ...avp }) => ({ ...avp, x: CX + avp.x, y: CY + avp.y, d: path(CX, CY) }));
 
-/** The president's orange glow, shared by every exec card. */
+/** The president's orange glow, shared by the president and VP cards. */
 const GLOW =
   'border-2 border-accent/60 shadow-[0_0_60px_rgba(237,177,135,0.3)] hover:shadow-[0_0_80px_rgba(237,177,135,0.45)]';
+
+/** AVP cards get a quiet border and no glow, so the VPs read as the leads. */
+const AVP_BORDER = 'border-2 border-accent/25 hover:border-accent/40';
 
 const ORBIT_D = `M ${CX} ${CY - R} A ${R} ${R} 0 1 1 ${CX - 0.001} ${CY - R}`;
 
@@ -136,7 +139,7 @@ function ExecCard({ exec, size = 'vp' }: { exec: Exec; size?: 'featured' | 'vp' 
   const photo = { featured: 'w-40 h-40', vp: 'w-32 h-32', avp: 'w-24 h-24' }[size];
   return (
     <div
-      className={`flex items-center gap-5 rounded-2xl backdrop-blur-sm transition-shadow duration-500 p-5 ${GLOW} ${
+      className={`flex items-center gap-5 rounded-2xl backdrop-blur-sm transition-all duration-500 p-5 ${size === 'avp' ? AVP_BORDER : GLOW} ${
         size === 'featured' ? 'bg-midnight-800/90' : 'bg-midnight-800/70'
       }`}
     >
@@ -365,7 +368,7 @@ export default function AboutPage() {
               {avpNodes.map((avp) => (
                 <div
                   key={avp.name}
-                  className={`absolute flex flex-col items-center justify-center text-center px-3 rounded-xl bg-midnight-800/85 backdrop-blur-sm hover:bg-midnight-700/90 transition-all duration-500 cursor-default z-10 ${GLOW}`}
+                  className={`absolute flex flex-col items-center justify-center text-center px-3 rounded-xl bg-midnight-800/85 backdrop-blur-sm hover:bg-midnight-700/90 transition-all duration-500 cursor-default z-10 ${AVP_BORDER}`}
                   style={{
                     width:  AVP_W,
                     height: AVP_H,
