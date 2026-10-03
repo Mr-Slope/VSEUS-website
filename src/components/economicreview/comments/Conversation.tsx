@@ -116,7 +116,7 @@ export function Conversation({ issueId }: { issueId: string }) {
         } else if (error instanceof CommentError && error.kind === 'closed') {
           setState({ kind: 'error', message: error.message, retry: false });
         } else {
-          setState({ kind: 'error', message: 'The comments did not load. This is on our side, not yours.', retry: true });
+          setState({ kind: 'error', message: 'The comments did not load. The problem is on our end, not yours.', retry: true });
         }
       });
 

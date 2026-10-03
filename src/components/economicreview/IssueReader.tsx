@@ -58,7 +58,7 @@ export function IssueReaderSkeleton() {
       </div>
       <ViewerSkeleton />
       <span className="sr-only" role="status">
-        Loading report
+        Loading issue
       </span>
     </div>
   );
@@ -168,7 +168,7 @@ export function IssueReader() {
   if (state.kind === 'missing') {
     return (
       <Panel>
-        <h3 className="text-xl font-bold text-midnight mb-2">We could not find that report</h3>
+        <h3 className="text-xl font-bold text-midnight mb-2">We could not find that issue</h3>
         <p className="text-muted text-sm leading-relaxed">
           The link may be incomplete, or the issue may have been taken down. Every published issue
           is in the archive.
@@ -183,10 +183,10 @@ export function IssueReader() {
   if (state.kind === 'error') {
     return (
       <Panel>
-        <h3 className="text-xl font-bold text-midnight mb-2">We could not load this report</h3>
+        <h3 className="text-xl font-bold text-midnight mb-2">We could not load this issue</h3>
         <p className="text-muted text-sm leading-relaxed">
           {state.configured
-            ? 'The issue did not come back. This is on our side, not yours.'
+            ? 'The issue did not come back. The problem is on our end, not yours.'
             : 'The archive is not configured on this build.'}{' '}
           Try again in a moment, or email{' '}
           <a
@@ -278,7 +278,7 @@ export function IssueReader() {
                         href={courseHref(code)}
                         className="underline decoration-accent decoration-2 underline-offset-2 hover:text-midnight-700 transition-colors"
                       >
-                        <span className="sr-only">More reports for </span>
+                        <span className="sr-only">More issues for </span>
                         {code}
                       </Link>
                     </li>

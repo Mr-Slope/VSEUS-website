@@ -56,7 +56,7 @@ export const MISSION_PILLARS: Pillar[] = [
   },
   {
     title: 'Professional and Career Development',
-    body: 'Providing students with a platform to publish research, analysis, and commentary over relevant economic trends.',
+    body: 'Providing students with a platform to publish research, analysis, and commentary on relevant economic trends.',
   },
   {
     title: 'Community Engagement',
@@ -96,7 +96,7 @@ export const HISTORY: Milestone[] = [
   {
     date: 'July 2025',
     title: 'The Economics Gazette',
-    body: 'The initiative was revived and restructured as The Economics Gazette, a weekly digest of markets, economics, and policy written exclusively by UBC economics students. It consistently published 30 publications and reached ~200 subscribers.',
+    body: 'The initiative was revived and restructured as The Economics Gazette, a weekly digest of markets, economics, and policy written exclusively by UBC economics students. It published 30 issues and grew to about 200 subscribers.',
   },
   {
     date: 'October 2026',

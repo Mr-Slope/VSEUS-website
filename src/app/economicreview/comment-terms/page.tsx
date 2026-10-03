@@ -183,7 +183,7 @@ export default function CommentTermsPage() {
               Supabase, and may be processed outside Canada. We handle it in line with applicable Canadian privacy law.
             </p>
             <p>
-              Comments stay up until you or a moderator take them down. You can delete your own comment from its menu
+              Comments stay up until you or a moderator takes them down. You can delete your own comment from its menu
               in the browser you posted from. To ask us to remove a comment or for any privacy question, email {email}.
               Because there are no accounts, we may not be able to confirm who wrote a comment, so we decide removal
               requests on the content.

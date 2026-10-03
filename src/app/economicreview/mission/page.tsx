@@ -87,7 +87,7 @@ export default function EconomicReviewMissionPage() {
           <div className="bg-offwhite border border-ice-400 rounded-2xl p-8 sm:p-10 text-center max-w-3xl mx-auto">
             <h3 className="text-2xl font-bold text-midnight mb-3">More about VSEUS</h3>
             <p className="text-muted leading-relaxed text-sm mb-7 max-w-xl mx-auto">
-              The Review is one of several things the society runs. For our constitution, meeting
+              The Review is one of several initiatives the society runs. For our constitution, meeting
               minutes, budgetary reports, and the rest of what VSEUS does, start with the society
               page.
             </p>

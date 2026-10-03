@@ -182,7 +182,7 @@ export function IssueArchive({ includeScheduled = false, revision = 0, onEdit, o
         <h3 className="text-xl font-bold text-midnight mb-2">We could not load the archive</h3>
         <p className="text-muted text-sm leading-relaxed">
           {state.configured
-            ? 'The issue list did not come back. This is on our side, not yours.'
+            ? 'The issue list did not come back. The problem is on our end, not yours.'
             : 'The archive is not configured on this build.'}{' '}
           Try again in a moment, or email{' '}
           <a
@@ -283,9 +283,9 @@ function NoMatches({ filters, onClear }: { filters: ArchiveFilters; onClear: () 
   const { course } = filters;
 
   let message: string;
-  if (query && course) message = `No ${course} reports match "${query}". Try fewer or different words.`;
-  else if (query) message = `No reports match "${query}". Try fewer or different words, or a course number.`;
-  else message = `No reports are listed under ${course} yet.`;
+  if (query && course) message = `No ${course} issues match "${query}". Try fewer or different words.`;
+  else if (query) message = `No issues match "${query}". Try fewer or different words, or a course number.`;
+  else message = `No issues are listed under ${course} yet.`;
 
   return (
     <Panel>
@@ -306,7 +306,7 @@ function NoMatches({ filters, onClear }: { filters: ArchiveFilters; onClear: () 
         onClick={onClear}
         className="mt-6 inline-flex items-center gap-2 bg-midnight-700 text-offwhite font-display font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-midnight transition-colors btn-press focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue focus-visible:ring-offset-2 focus-visible:ring-offset-offwhite"
       >
-        Show every report
+        Show every issue
       </button>
     </Panel>
   );

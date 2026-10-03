@@ -42,7 +42,7 @@ export default function EconomicReviewTermsPage() {
             <h2>1. Purpose and Use of Content</h2>
             <p>
               All content in the Newsletter, including articles, commentary, data, graphics, and
-              images is provided for educational and informational purposes only. Nothing in the
+              images, is provided for educational and informational purposes only. Nothing in the
               Newsletter should be construed as professional, legal, or financial advice.
             </p>
 
@@ -108,8 +108,8 @@ export default function EconomicReviewTermsPage() {
             <h2>8. Third-Party Links</h2>
             <p>
               The Newsletter may contain links to third-party websites. We are not responsible for
-              the content, policies, or accuracy of those external sites. Accessing them is done at
-              your own discretion and risk.
+              the content, policies, or accuracy of those external sites. You access them at your
+              own discretion and risk.
             </p>
 
             <h2>9. Amendments to These Terms</h2>

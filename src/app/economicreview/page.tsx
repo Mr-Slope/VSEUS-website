@@ -35,8 +35,8 @@ export default function EconomicReviewPage() {
             Every issue, start to finish.
           </h2>
           <p className="text-muted leading-relaxed">
-            {PUBLICATION.name} publishes every Friday during term. Search the full
-            run below, narrow it to a course you are taking, or subscribe and have
+            The {PUBLICATION.name} publishes every Friday during the academic year. Search
+            every issue below, narrow it to a course you are taking, or subscribe and have
             each issue arrive in your inbox.
           </p>
         </div>

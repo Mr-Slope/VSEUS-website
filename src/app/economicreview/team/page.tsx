@@ -104,7 +104,7 @@ export default function EconomicReviewTeamPage() {
             Meet the Team
           </h2>
           <p className="text-muted leading-relaxed">
-            {PUBLICATION.name} is written, edited, and published by UBC students. Want to write for
+            The {PUBLICATION.name} is written, edited, and published by UBC students. Want to write for
             us? Email{' '}
             <a
               href={`mailto:${PUBLICATION.email}`}

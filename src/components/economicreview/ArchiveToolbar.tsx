@@ -84,7 +84,7 @@ export function ArchiveToolbar({
     <div className="mb-8 flex flex-col gap-4">
       <div role="search" className="relative max-w-xl">
         <label htmlFor={`${id}-search`} className="sr-only">
-          Search reports
+          Search issues
         </label>
         <SearchIcon />
         <input
@@ -142,8 +142,8 @@ export function ArchiveToolbar({
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <p role="status" className="text-sm text-muted">
             {filtering
-              ? `${count.shown} of ${count.total} ${count.total === 1 ? 'report' : 'reports'}`
-              : `${count.total} ${count.total === 1 ? 'report' : 'reports'}`}
+              ? `${count.shown} of ${count.total} ${count.total === 1 ? 'issue' : 'issues'}`
+              : `${count.total} ${count.total === 1 ? 'issue' : 'issues'}`}
           </p>
           {filtering && (
             <button

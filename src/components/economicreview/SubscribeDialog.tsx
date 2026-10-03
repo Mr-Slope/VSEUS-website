@@ -102,7 +102,7 @@ export function SubscribeDialog({ mode, onClose, onComplete }: SubscribeDialogPr
     const supabase = getSupabase();
     if (!supabase) {
       return failed(
-        `Subscriptions are unavailable right now. Please email ${PUBLICATION.email} and we will sort it out by hand.`,
+        `Subscriptions are unavailable right now. Please email ${PUBLICATION.email} and we will add you manually.`,
       );
     }
 
@@ -139,7 +139,7 @@ export function SubscribeDialog({ mode, onClose, onComplete }: SubscribeDialogPr
           title: 'You are subscribed',
           body: alreadyListed
             ? `That address was already on our list and is set to receive the ${PUBLICATION.name}.`
-            : `You are on the list for the ${PUBLICATION.name}. New issues go out every Friday during term.`,
+            : `You are on the list for the ${PUBLICATION.name}. New issues go out every Friday during the academic year.`,
         });
       } else {
         const { data, error: lookupError } = await supabase.rpc('get_subscription_by_email', {
@@ -222,7 +222,7 @@ export function SubscribeDialog({ mode, onClose, onComplete }: SubscribeDialogPr
         <form onSubmit={handleSubmit} noValidate>
           <p className="text-sm text-muted leading-relaxed mb-5">
             {subscribing
-              ? 'A short digest of markets, economics, and policy, published every Friday during term.'
+              ? 'A short digest of markets, economics, and policy, published every Friday during the academic year.'
               : 'Enter the address you subscribed with and we will take it off the list.'}
           </p>
 
