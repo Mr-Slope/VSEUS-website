@@ -4,7 +4,29 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const navLinks = [
+type NavChild = { label: string; href: string; isFile?: boolean };
+
+/**
+ * A dropdown entry. A file in public/ (isFile) gets a plain anchor that opens
+ * in a new tab, since next/link is for routes and would try to load a PDF as
+ * a page.
+ */
+function NavChildLink({ child, className, onClick }: { child: NavChild; className: string; onClick?: () => void }) {
+  if (child.isFile) {
+    return (
+      <a href={child.href} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>
+        {child.label}
+      </a>
+    );
+  }
+  return (
+    <Link href={child.href} className={className} onClick={onClick}>
+      {child.label}
+    </Link>
+  );
+}
+
+const navLinks: { label: string; href: string; children?: NavChild[] }[] = [
   {
     label: 'About',
     href: '/about',
@@ -20,7 +42,8 @@ const navLinks = [
     children: [
       { label: 'Awards & Grants', href: '/resources#awards' },
       { label: 'Economics Learning Centre', href: '/elc' },
-      { label: 'AGORA Mentorship', href: '/resources#agora' },
+      // Straight to the guidebook, like the Resources card's button.
+      { label: 'AGORA Mentorship', href: '/guides/agora-mentee-guidebook-2026-27.pdf', isFile: true },
       { label: 'Clubs', href: '/clubs' },
     ],
   },
@@ -107,13 +130,11 @@ export function Navbar() {
                   {openDropdown === link.label && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-60 bg-midnight-900/97 backdrop-blur-xl rounded-xl shadow-2xl border border-accent/15 py-2 z-50">
                       {link.children.map((child) => (
-                        <Link
+                        <NavChildLink
                           key={child.label}
-                          href={child.href}
+                          child={child}
                           className="block px-5 py-2.5 text-sm font-medium text-offwhite/85 hover:text-offwhite hover:bg-offwhite/10 transition-colors"
-                        >
-                          {child.label}
-                        </Link>
+                        />
                       ))}
                     </div>
                   )}
@@ -166,14 +187,12 @@ export function Navbar() {
                 {link.children && (
                   <div className="ml-4 border-l border-offwhite/10 pl-2 space-y-0.5">
                     {link.children.map((child) => (
-                      <Link
+                      <NavChildLink
                         key={child.label}
-                        href={child.href}
+                        child={child}
                         className="block px-4 py-2 text-sm text-offwhite/60 hover:text-offwhite hover:bg-offwhite/10 rounded-lg transition-colors"
                         onClick={() => setMobileOpen(false)}
-                      >
-                        {child.label}
-                      </Link>
+                      />
                     ))}
                   </div>
                 )}
