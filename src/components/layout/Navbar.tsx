@@ -20,6 +20,7 @@ const navLinks = [
     children: [
       { label: 'Awards & Grants', href: '/resources#awards' },
       { label: 'Economics Learning Centre', href: '/elc' },
+      { label: 'AGORA Mentorship', href: '/resources#agora' },
       { label: 'Clubs', href: '/clubs' },
     ],
   },
