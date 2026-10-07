@@ -136,7 +136,6 @@ function HostBanner({ host }: { host: EventHost }) {
         ) : (
           <span className={nameClass}>{host.name}</span>
         )}
-        <span className="hidden sm:inline">, not VSEUS</span>
       </span>
     </div>
   );
