@@ -42,7 +42,7 @@ export const UPCOMING_EVENTS: Event[] = [
   },
   {
     id: 'evt-meet-the-candidates',
-    title: 'Meet the Candidates Board Game Night 🎲🎯',
+    title: 'Meet the Candidates Board Game Night',
     description:
       'Come meet, play games, and enjoy some food with prospective economics representatives!',
     date: '2026-10-15',
