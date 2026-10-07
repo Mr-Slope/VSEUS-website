@@ -8,8 +8,9 @@ const resources = [
     title: 'Awards & Grants',
     description:
       'VSEUS offers annual awards recognizing outstanding academic achievement and extracurricular contributions, plus research grants to support undergraduate projects.',
-    cta: 'Details Coming Soon',
-    ctaHref: '/contact',
+    cta: 'Student Grant Application',
+    ctaHref: 'https://forms.gle/w1s8gPDV2ckbciw89',
+    isExternal: true,
     note: 'More information will be published here shortly.',
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
