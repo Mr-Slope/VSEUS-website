@@ -69,11 +69,12 @@ export const UPCOMING_EVENTS: Event[] = [
   },
   {
     id: 'evt-bie-career-networking-na-asia',
-    title: 'BIE Career Discovery and Networking Event',
-    description: 'The North America and Asia session.',
+    title: '10th Annual BIE Career Discovery and Networking Event: North America & Asia Session',
+    description:
+      'A BIE-exclusive evening of panels and networking rooms with industry professionals and BIE alums, to explore industries, jobs, and career paths. You don’t need to attend both sessions: drop in for the panels and partners that interest you, or join for part of it.',
     date: '2026-11-19',
-    time: '6:00 – 8:00 PM',
-    location: 'Location TBD',
+    time: '6:00 – 8:00 PM PT',
+    location: 'Online via Zoom',
     isPaid: false,
     price: null,
     posterUrl: null,
@@ -82,11 +83,12 @@ export const UPCOMING_EVENTS: Event[] = [
   },
   {
     id: 'evt-bie-career-networking-europe',
-    title: 'BIE Career Discovery and Networking Event',
-    description: 'The Europe session.',
+    title: '10th Annual BIE Career Discovery and Networking Event: Europe Session',
+    description:
+      'A BIE-exclusive morning of panels and networking rooms with professionals based in Europe and BIE alums. You don’t need to attend both sessions: drop in for the panels and partners that interest you, or join for part of it.',
     date: '2026-11-20',
-    time: '8:30 – 10:00 AM',
-    location: 'Location TBD',
+    time: '8:30 – 10:00 AM PT',
+    location: 'Online via Zoom',
     isPaid: false,
     price: null,
     posterUrl: null,
