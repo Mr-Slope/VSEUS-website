@@ -31,10 +31,10 @@ function todayIso(): string {
   return new Date(now.getTime() - offsetMs).toISOString().slice(0, 10);
 }
 
-/** Upcoming VSEUS events (today or later), soonest first. Club events are left out. */
+/** Upcoming VSEUS events (today or later), soonest first. Club and partner events are left out. */
 function upcomingEvents(): Event[] {
   return getUpcomingEvents()
-    .filter((e) => !e.club)
+    .filter((e) => !e.club && !e.partner)
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 

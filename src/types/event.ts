@@ -44,6 +44,12 @@ export interface Event {
    */
   club?: string;
   /**
+   * Id of a partner organization running this event, such as the Career
+   * Centre, from src/lib/partners.ts. Works like `club`: the event renders in
+   * its own section on /events, tagged as a partner event.
+   */
+  partner?: string;
+  /**
    * Photo from the event, path under public/. Only shown once the event has
    * passed and moved into the past-events gallery on /events.
    */

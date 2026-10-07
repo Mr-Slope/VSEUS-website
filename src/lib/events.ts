@@ -20,6 +20,10 @@ import type { Event, PastEventPhoto } from '@/types/event';
  * club runs rather than VSEUS. It renders in the "From Our Clubs" section,
  * tagged with the club's logo, and stays out of the home-page popup and the
  * past-events gallery, which are for the society's own events.
+ *
+ * Set `partner` to an id from src/lib/partners.ts, such as 'career-centre',
+ * for an event another organization runs. It behaves like `club`, but lands
+ * in the "From Our Partners" section.
  */
 export const UPCOMING_EVENTS: Event[] = [
   {
@@ -62,6 +66,32 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Info Session',
     club: 'devec',
+  },
+  {
+    id: 'evt-bie-career-networking-na-asia',
+    title: 'BIE Career Discovery and Networking Event',
+    description: 'The North America and Asia session.',
+    date: '2026-11-19',
+    time: '6:00 – 8:00 PM',
+    location: 'Location TBD',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Career',
+    partner: 'career-centre',
+  },
+  {
+    id: 'evt-bie-career-networking-europe',
+    title: 'BIE Career Discovery and Networking Event',
+    description: 'The Europe session.',
+    date: '2026-11-20',
+    time: '8:30 – 10:00 AM',
+    location: 'Location TBD',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Career',
+    partner: 'career-centre',
   },
   {
     id: 'evt-ew-beach-day',
