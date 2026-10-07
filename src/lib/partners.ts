@@ -1,6 +1,6 @@
 /**
  * Organizations other than recognized clubs whose events VSEUS lists, such as
- * the Career Centre. Referenced by id from an event's `partner` field in
+ * the VSE Career Centre. Referenced by id from an event's `partner` field in
  * src/lib/events.ts to mark it as a partner event on /events.
  */
 export interface Partner {
@@ -18,6 +18,7 @@ export const PARTNERS: Partner[] = [
     id: 'career-centre',
     name: 'VSE Career Centre',
     href: 'https://careercentre.economics.ubc.ca/',
+    logo: '/partners/ubc.png',
   },
 ];
 
