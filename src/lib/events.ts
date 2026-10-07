@@ -56,7 +56,7 @@ export const UPCOMING_EVENTS: Event[] = [
       'An information session for students who want to learn more about ongoing research in development economics and policy.',
     date: '2026-10-22',
     time: '6:00 – 8:00 PM',
-    location: 'Location TBA',
+    location: 'Location TBD',
     isPaid: false,
     price: null,
     posterUrl: null,
