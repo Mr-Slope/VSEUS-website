@@ -16,7 +16,8 @@ export interface Partner {
 export const PARTNERS: Partner[] = [
   {
     id: 'career-centre',
-    name: 'Career Centre',
+    name: 'VSE Career Centre',
+    href: 'https://careercentre.economics.ubc.ca/',
   },
 ];
 

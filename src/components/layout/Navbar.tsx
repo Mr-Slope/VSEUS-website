@@ -44,6 +44,7 @@ const navLinks: { label: string; href: string; children?: NavChild[] }[] = [
       { label: 'Economics Learning Centre', href: '/elc' },
       // Straight to the guidebook, like the Resources card's button.
       { label: 'AGORA Mentorship', href: '/guides/agora-mentee-guidebook-2026-27.pdf', isFile: true },
+      { label: 'VSE Career Centre', href: '/resources#career-centre' },
       { label: 'Clubs', href: '/clubs' },
     ],
   },
