@@ -1,9 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
 import { getUpcomingEvents, getPastEvents, PAST_EVENT_PHOTOS } from '@/lib/events';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 import type { Event, PastEventPhoto } from '@/types/event';
 import { SectionDivider } from '@/components/ui/SectionDivider';
 import { CALENDAR_SUBSCRIBE_URL } from '@/lib/calendar';
+import { getClub, type Club } from '@/lib/clubs';
 
 /**
  * `new Date('2026-09-20')` parses as UTC midnight, so formatting it in a
@@ -75,14 +77,58 @@ function PriceChip({ event }: { event: Event }) {
 }
 
 /**
+ * The header strip on a club event: the club's logo and name, and a link out
+ * to its site. Blue rather than the orange of VSEUS's own badges, so a club
+ * event never reads as one the society is running.
+ */
+function ClubBanner({ club }: { club: Club }) {
+  return (
+    <div className="bg-blue/15 px-5 py-2 flex items-center gap-2.5 border-b border-blue/30">
+      {club.logo && (
+        <Image
+          src={club.logo}
+          alt=""
+          width={22}
+          height={22}
+          className="w-[22px] h-[22px] rounded-full object-cover ring-1 ring-blue/40 flex-shrink-0"
+        />
+      )}
+      <span className="font-display text-midnight text-[11px] font-bold uppercase tracking-[0.2em]">
+        Club Event
+      </span>
+      <span className="text-midnight/40 text-xs" aria-hidden="true">·</span>
+      <span className="text-xs text-muted min-w-0 truncate">
+        Hosted by{' '}
+        <a
+          href={club.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-midnight underline decoration-blue/60 underline-offset-2 hover:decoration-midnight transition-colors"
+        >
+          {club.name}
+        </a>
+        <span className="hidden sm:inline">, not VSEUS</span>
+      </span>
+    </div>
+  );
+}
+
+/**
  * A full-width event panel: a date tile on the left, details on the right.
  * Pass `badge` to stamp an aesthetic header across the top — used to tag
- * every Econ Week panel without needing its own layout.
+ * every Econ Week panel without needing its own layout. An event with a
+ * `club` gets the club's banner instead, and a lighter date tile.
  */
 function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
+  const club = event.club ? getClub(event.club) : undefined;
   return (
-    <div className="rounded-2xl overflow-hidden border border-ice-400 bg-offwhite">
-      {badge && (
+    <div
+      className={`rounded-2xl overflow-hidden border bg-offwhite ${
+        club ? 'border-blue/40' : 'border-ice-400'
+      }`}
+    >
+      {club && <ClubBanner club={club} />}
+      {!club && badge && (
         <div className="bg-accent-200 px-5 py-2 flex items-center gap-2 border-b border-accent-600/25">
           <svg className="w-3.5 h-3.5 text-accent-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.363 1.118l1.287 3.958c.299.921-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.176 0l-3.367 2.447c-.784.57-1.838-.197-1.539-1.118l1.287-3.958a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z" />
@@ -93,8 +139,14 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
         </div>
       )}
       <div className="flex flex-col sm:flex-row">
-        <div className="sm:w-40 flex-shrink-0 bg-midnight flex sm:flex-col items-center justify-center gap-2 sm:gap-1 py-6">
-          <span className="font-display text-accent text-4xl font-black leading-none">
+        <div
+          className={`sm:w-40 flex-shrink-0 flex sm:flex-col items-center justify-center gap-2 sm:gap-1 py-6 ${
+            club ? 'bg-midnight-700' : 'bg-midnight'
+          }`}
+        >
+          <span
+            className={`font-display text-4xl font-black leading-none ${club ? 'text-blue-300' : 'text-accent'}`}
+          >
             {formatDayNumber(event.date)}
           </span>
           <span className="font-sans text-offwhite/55 text-xs font-semibold uppercase tracking-widest">
@@ -148,18 +200,23 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
 export default function EventsPage() {
   const upcomingEvents = getUpcomingEvents();
   const byDate = (a: Event, b: Event) => a.date.localeCompare(b.date);
-  const econWeekEvents = upcomingEvents.filter((e) => e.series === 'Econ Week').sort(byDate);
-  const otherEvents = upcomingEvents.filter((e) => e.series !== 'Econ Week').sort(byDate);
+  const clubEvents = upcomingEvents.filter((e) => e.club).sort(byDate);
+  const societyEvents = upcomingEvents.filter((e) => !e.club);
+  const econWeekEvents = societyEvents.filter((e) => e.series === 'Econ Week').sort(byDate);
+  const otherEvents = societyEvents.filter((e) => e.series !== 'Econ Week').sort(byDate);
 
   // Events whose date has passed drop out of upcomingEvents on their own and
   // land here instead, so they still show up somewhere rather than vanishing.
   // They render ahead of the curated entries in PAST_EVENT_PHOTOS, with the
-  // event's `photo` if it has one and a placeholder tile otherwise.
-  const archivedEvents: PastEventPhoto[] = getPastEvents().map((event) => ({
-    title: event.title,
-    when: toLocalDate(event.date).getFullYear().toString(),
-    image: event.photo,
-  }));
+  // event's `photo` if it has one and a placeholder tile otherwise. Club
+  // events are left out, since the gallery covers what the society has run.
+  const archivedEvents: PastEventPhoto[] = getPastEvents()
+    .filter((event) => !event.club)
+    .map((event) => ({
+      title: event.title,
+      when: toLocalDate(event.date).getFullYear().toString(),
+      image: event.photo,
+    }));
   const pastEventPhotos = [...archivedEvents, ...PAST_EVENT_PHOTOS];
 
   return (
@@ -223,6 +280,28 @@ export default function EventsPage() {
                   <div className="space-y-6">
                     {econWeekEvents.map((event) => (
                       <EventFeatureCard key={event.id} event={event} badge="Econ Week" />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Club events */}
+              {clubEvents.length > 0 && (
+                <div>
+                  <div className="flex flex-col gap-1 mb-6">
+                    <p className="font-sans text-midnight-700 text-xs font-semibold uppercase tracking-widest">
+                      Recognized Clubs
+                    </p>
+                    <h2 className="text-3xl font-black text-midnight">From Our Clubs</h2>
+                    <p className="text-muted text-sm mt-1 max-w-xl">
+                      Events run by clubs VSEUS recognizes. Each club organizes its own, so
+                      reach out to the club directly with any questions.
+                    </p>
+                  </div>
+
+                  <div className="space-y-6">
+                    {clubEvents.map((event) => (
+                      <EventFeatureCard key={event.id} event={event} />
                     ))}
                   </div>
                 </div>

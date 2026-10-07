@@ -4,48 +4,10 @@ import Image from 'next/image';
 import { TransitionLink } from '@/components/ui/TransitionLink';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 import { SectionDivider } from '@/components/ui/SectionDivider';
-
-/**
- * Recognized clubs. Each card links straight out to the club's own site or
- * socials — descriptions are drawn from how each one describes itself.
- *
- * TODO: add the remaining `logo` paths once those logos are supplied.
- */
-const clubs = [
-  {
-    name: 'DEVEC',
-    fullName: 'UBC Development Economics Club',
-    description:
-      'UBC’s only club bringing together students from every discipline to discuss the economic, social, and fiscal conditions of the developing world. Runs research deep-dives in partnership with the VSE, career pathways into development work, and events connecting students who care about poverty and growth.',
-    href: 'https://ubcdevec.com',
-    linkLabel: 'ubcdevec.com',
-    logo: '/clubs/devec.jpg',
-    instagram: 'devec.ubc',
-  },
-  {
-    name: 'Iona Journal',
-    fullName: 'IONA Journal of Economics',
-    description:
-      'The VSE’s undergraduate economics journal, publishing blind peer- and faculty-reviewed student research. Beyond the annual issue it runs IONA Exchange (a blog on global developments), IONA Reads (professor-curated resources), and IONA Asks (a podcast with faculty, alumni, and scholars).',
-    href: 'https://www.ionajournal.ca',
-    linkLabel: 'ionajournal.ca',
-    logo: '/clubs/iona-journal.jpg',
-    instagram: 'ionajournal',
-  },
-  {
-    name: 'EPS',
-    fullName: 'Economic Theory & Philosophy Society',
-    description:
-      'Runs thought-provoking discussions and debates built around strategy and deduction games, plus social experiments rooted in game theory. Built on a supportive community of curious, open-minded people willing to challenge perspectives and think critically.',
-    href: 'https://www.instagram.com/epsubc/',
-    linkLabel: '@epsubc',
-    logo: '/clubs/eps.png',
-    instagram: 'epsubc',
-  },
-];
+import { CLUBS, type Club } from '@/lib/clubs';
 
 /** Logo if supplied, otherwise the dashed placeholder — same footprint either way. */
-function ClubLogo({ club, className }: { club: (typeof clubs)[number]; className: string }) {
+function ClubLogo({ club, className }: { club: Club; className: string }) {
   if (club.logo) {
     return (
       <div className={`relative ${className}`}>
@@ -171,7 +133,7 @@ export default function ClubsPage() {
             directly to get involved.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {clubs.map((c) => (
+            {CLUBS.map((c) => (
               <div
                 key={c.name}
                 className="bg-midnight-800/70 border border-offwhite/10 rounded-2xl p-6 flex gap-5 hover:border-accent/50 hover:bg-midnight-800 transition-all group"

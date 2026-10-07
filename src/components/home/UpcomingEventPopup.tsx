@@ -31,9 +31,11 @@ function todayIso(): string {
   return new Date(now.getTime() - offsetMs).toISOString().slice(0, 10);
 }
 
-/** Upcoming events (today or later), soonest first. */
+/** Upcoming VSEUS events (today or later), soonest first. Club events are left out. */
 function upcomingEvents(): Event[] {
-  return getUpcomingEvents().sort((a, b) => a.date.localeCompare(b.date));
+  return getUpcomingEvents()
+    .filter((e) => !e.club)
+    .sort((a, b) => a.date.localeCompare(b.date));
 }
 
 /** `new Date('2026-09-20')` parses as UTC midnight; the local-midnight time avoids the day shift. */

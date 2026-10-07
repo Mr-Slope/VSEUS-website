@@ -38,6 +38,12 @@ export interface Event {
    */
   series?: string;
   /**
+   * Id of the recognized club running this event, from src/lib/clubs.ts. Set
+   * it and the event renders as a club event in its own section on /events,
+   * tagged with the club's logo, rather than as a VSEUS event.
+   */
+  club?: string;
+  /**
    * Photo from the event, path under public/. Only shown once the event has
    * passed and moved into the past-events gallery on /events.
    */

@@ -15,6 +15,11 @@ import type { Event, PastEventPhoto } from '@/types/event';
  *
  * Set `series` to group events into a shared calendar strip, e.g. 'Econ
  * Week'. Events without a `series` render in the standalone section above it.
+ *
+ * Set `club` to a club id from src/lib/clubs.ts for an event a recognized
+ * club runs rather than VSEUS. It renders in the "From Our Clubs" section,
+ * tagged with the club's logo, and stays out of the home-page popup and the
+ * past-events gallery, which are for the society's own events.
  */
 export const UPCOMING_EVENTS: Event[] = [
   {
@@ -43,6 +48,20 @@ export const UPCOMING_EVENTS: Event[] = [
     price: null,
     posterUrl: null,
     category: 'Social',
+  },
+  {
+    id: 'evt-devec-dev-talk',
+    title: 'Dev Talk',
+    description:
+      'An information session for students who want to learn more about ongoing research in development economics and policy.',
+    date: '2026-10-22',
+    time: '6:00 – 8:00 PM',
+    location: 'Location TBA',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Info Session',
+    club: 'devec',
   },
   {
     id: 'evt-ew-beach-day',
