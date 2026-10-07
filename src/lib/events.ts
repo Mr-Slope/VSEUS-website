@@ -32,6 +32,19 @@ export const UPCOMING_EVENTS: Event[] = [
     registrationUrl: 'https://www.showpass.com/prenpit2026/',
   },
   {
+    id: 'evt-meet-the-candidates',
+    title: 'Meet the Candidates Board Game Night 🎲🎯',
+    description:
+      'Come meet, play games, and enjoy some food with prospective economics representatives!',
+    date: '2026-10-15',
+    time: '6:00 – 8:00 PM',
+    location: 'Iona 300',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Social',
+  },
+  {
     id: 'evt-ew-beach-day',
     title: 'Beach Day',
     description:
