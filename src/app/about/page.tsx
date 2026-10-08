@@ -3,6 +3,9 @@ import Image from 'next/image';
 import { PRESIDENT, VPS, type Exec } from '@/lib/execs';
 import { Reveal } from '@/components/ui/Reveal';
 import { SectionDivider } from '@/components/ui/SectionDivider';
+import { socials } from '@/components/ui/SocialIcons';
+
+const LINKEDIN_ICON = socials.find((s) => s.label === 'LinkedIn')?.icon;
 
 const reports = [
   { title: '2026-2027 Start of the Year Budgetary Financial Report', type: 'Annual', href: '/reports/2026-2027-start-of-year-budgetary-report.pdf' },
@@ -75,6 +78,18 @@ function ExecMember({ exec, lead }: { exec: Exec; lead: boolean }) {
         {exec.name}
       </h4>
       <p className="font-display text-lg text-accent leading-snug mt-1">{exec.role}</p>
+      {exec.linkedin && (
+        <a
+          href={exec.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${exec.name} on LinkedIn`}
+          className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-offwhite/25 px-3 py-1 font-display text-xs font-semibold tracking-wide text-offwhite/80 transition-colors hover:border-accent hover:bg-accent hover:text-midnight focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+        >
+          <span className="block w-3.5 h-3.5">{LINKEDIN_ICON}</span>
+          LinkedIn
+        </a>
+      )}
     </div>
   );
 }
