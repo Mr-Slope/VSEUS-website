@@ -70,7 +70,7 @@ export function Navbar() {
   return (
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
-        scrolled ? 'navbar-glass' : 'bg-midnight border-b border-accent/15 shadow-[0_6px_24px_rgba(2,29,51,0.35)]'
+        scrolled ? 'navbar-glass' : 'bg-midnight border-b border-accent/15 shadow-[0_1px_0_rgba(237,177,135,0.08),0_8px_20px_-6px_rgba(2,29,51,0.5),0_18px_40px_-18px_rgba(2,29,51,0.45)]'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

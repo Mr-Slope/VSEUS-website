@@ -151,8 +151,10 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
   const host = getHost(event);
   return (
     <div
-      className={`rounded-2xl overflow-hidden border bg-offwhite ${
-        host ? 'border-blue/40' : 'border-ice-400'
+      // Layered shadows and a slightly heavier bottom edge give the card some
+      // depth; it lifts a little on hover.
+      className={`rounded-2xl overflow-hidden border border-b-[3px] bg-offwhite shadow-[0_2px_4px_-1px_rgba(2,29,51,0.08),0_14px_30px_-12px_rgba(2,29,51,0.32)] transition-[transform,box-shadow] duration-300 ease-out motion-safe:hover:-translate-y-1 hover:shadow-[0_4px_8px_-2px_rgba(2,29,51,0.1),0_24px_44px_-16px_rgba(2,29,51,0.42)] ${
+        host ? 'border-blue/40 border-b-blue/60' : 'border-ice-400 border-b-midnight/20'
       }`}
     >
       {host && <HostBanner host={host} />}

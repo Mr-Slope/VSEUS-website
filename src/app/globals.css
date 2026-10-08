@@ -217,7 +217,10 @@ html { scroll-behavior: smooth; }
   backdrop-filter: blur(18px) !important;
   -webkit-backdrop-filter: blur(18px) !important;
   border-bottom: 1px solid rgba(237, 177, 135, 0.14);
-  box-shadow: 0 4px 32px rgba(2, 29, 51, 0.5);
+  box-shadow:
+    0 1px 0 rgba(237, 177, 135, 0.08),
+    0 10px 24px -6px rgba(2, 29, 51, 0.55),
+    0 22px 48px -20px rgba(2, 29, 51, 0.5);
 }
 
 /* ─── Stats section ─── */
