@@ -6,8 +6,8 @@ import { Reveal } from '@/components/ui/Reveal';
  * Instead of crawling at a constant speed, the strip glides one slot to the
  * left with a slight overshoot, settles, and rests so each logo gets a moment.
  * Each chip also floats gently on its own rhythm, and lifts with an accent glow
- * when hovered. The run pauses on hover or keyboard focus and holds still when
- * the visitor prefers reduced motion.
+ * when hovered. The run pauses on hover (on devices that can hover) or keyboard
+ * focus and holds still when the visitor prefers reduced motion.
  *
  * Two identical rows sit side by side inside the clipped, full-width strip, and
  * every logo gets an equal slot, so stepping by one slot (100% / N of a row)
@@ -78,9 +78,11 @@ function SponsorRow({ ariaHidden = false }: { ariaHidden?: boolean }) {
       style={TRACK_STYLE}
     >
       {SPONSORS.map((sponsor, i) => (
-        // Equal slots: flex-1 shares the row out evenly, and the min width
-        // keeps that true on narrow screens where the row outgrows the strip.
-        <li key={sponsor.name} className="flex min-w-[280px] flex-1 justify-center px-5 py-4 sm:min-w-[380px]">
+        // Equal slots: flex-1 shares the row out evenly. On phones each slot is
+        // the full strip width, so one logo sits centred and the glide brings
+        // the next one in; from sm up the min width keeps slots equal when the
+        // row outgrows the strip.
+        <li key={sponsor.name} className="flex min-w-[100vw] flex-1 justify-center px-5 py-4 sm:min-w-[380px]">
           <div
             className="sponsor-chip flex h-24 items-center justify-center rounded-2xl bg-offwhite px-8 sm:h-28 sm:px-10"
             style={{ animationDelay: `${i * -1.3}s` }}

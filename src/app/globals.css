@@ -234,7 +234,8 @@ html { scroll-behavior: smooth; }
 /*
   ─── Sponsor marquee ───
   Two identical rows, each animated by its own full width so the second lands
-  where the first started. Pauses on hover or keyboard focus; held still under
+  where the first started. Pauses on hover (where the device can hover) or
+  keyboard focus; held still under
   prefers-reduced-motion (see the block at the end of this file).
 */
 @keyframes marquee {
@@ -244,7 +245,12 @@ html { scroll-behavior: smooth; }
 .marquee-track {
   animation: marquee 30s linear infinite;
 }
-.sponsor-marquee:hover .marquee-track,
+/* Touch screens keep :hover after a tap, which would freeze the strip. */
+@media (hover: hover) {
+  .sponsor-marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
 .sponsor-marquee:focus-within .marquee-track {
   animation-play-state: paused;
 }
