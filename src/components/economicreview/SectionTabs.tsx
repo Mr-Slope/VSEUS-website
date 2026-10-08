@@ -15,9 +15,9 @@ export const TAB_BAR_ACTIONS_ID = 'economicreview-tab-actions';
 /**
  * The Review's section navigation, sitting directly under the masthead.
  *
- * Plain Links rather than TransitionLink: the colour wipe is reserved for
- * calls to action, and a full-screen cover is friction when someone is just
- * moving between tabs.
+ * Plain Links rather than TransitionLink: the page transition is for moving
+ * between sections of the site, and a full-screen cover is friction when
+ * someone is just moving between tabs.
  *
  * The archive is the section root, so it matches only on an exact path, plus
  * the reader an issue opens in. The others match their subtree, which keeps

@@ -11,15 +11,15 @@ interface TransitionLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorEleme
 }
 
 /**
- * A Link that plays the colour wipe on the way to another page.
+ * A Link that plays the curtain transition on the way to another page.
  *
  * It stays a real <a>, so middle-click, cmd-click, "open in new tab", and
- * keyboard activation all keep working — the wipe is layered on top of normal
+ * keyboard activation all keep working: the transition is layered on top of normal
  * link behaviour rather than replacing it with a button.
  *
- * Three cases fall through to a plain link instead of wiping:
+ * Three cases fall through to a plain link instead of transitioning:
  *   - external URLs (mailto:, https://, #-only, anything not starting with /)
- *   - links to the page you're already on, where the wipe would cover the
+ *   - links to the page you're already on, where the curtain would cover the
  *     screen for a hash scroll
  *   - modified clicks, which the browser should handle itself
  */
@@ -49,14 +49,7 @@ export function TransitionLink({ href, children, onClick, ...rest }: TransitionL
     if (samePage) return;
 
     e.preventDefault();
-
-    // Keyboard activation reports 0,0 — start the wipe from the link instead
-    // of the top-left corner.
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX || rect.left + rect.width / 2;
-    const y = e.clientY || rect.top + rect.height / 2;
-
-    triggerTransition(href, x, y);
+    triggerTransition(href);
   }
 
   return (

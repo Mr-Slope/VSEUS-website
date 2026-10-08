@@ -25,9 +25,9 @@ const sizeStyles: Record<string, string> = {
 };
 
 /**
- * The primary call-to-action: a ripple on press, then the page wipe.
+ * The primary call-to-action: a ripple on press, then the page transition.
  *
- * Renders a real link rather than a button so it behaves like one — the wipe
+ * Renders a real link rather than a button so it behaves like one. The transition
  * comes from TransitionLink, which leaves cmd-click and friends alone.
  */
 export function CTAButton({
