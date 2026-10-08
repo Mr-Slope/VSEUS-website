@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { TransitionLink } from '@/components/ui/TransitionLink';
+import Link from 'next/link';
 
 interface CTAButtonProps {
   href: string;
@@ -25,10 +25,8 @@ const sizeStyles: Record<string, string> = {
 };
 
 /**
- * The primary call-to-action: a ripple on press, then the page transition.
- *
- * Renders a real link rather than a button so it behaves like one. The transition
- * comes from TransitionLink, which leaves cmd-click and friends alone.
+ * The primary call-to-action: a link styled as a button, with a ripple on
+ * press. Renders a real link rather than a button so it behaves like one.
  */
 export function CTAButton({
   href,
@@ -58,7 +56,7 @@ export function CTAButton({
   }
 
   return (
-    <TransitionLink
+    <Link
       href={href}
       onClick={ripple}
       className={[
@@ -72,6 +70,6 @@ export function CTAButton({
         .join(' ')}
     >
       {children}
-    </TransitionLink>
+    </Link>
   );
 }

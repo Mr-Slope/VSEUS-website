@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { TransitionLink } from '@/components/ui/TransitionLink';
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 import { SectionDivider } from '@/components/ui/SectionDivider';
 import { CLUBS, type Club } from '@/lib/clubs';
@@ -182,18 +181,18 @@ export default function ClubsPage() {
           Reach out to VSEUS&apos; VP Administration to become a recognized club.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
-          <TransitionLink
+          <Link
             href="/contact"
             className="btn btn-solid px-6 py-3 text-sm"
           >
             Contact Us
-          </TransitionLink>
-          <TransitionLink
+          </Link>
+          <Link
             href="/resources"
             className="btn btn-outline-light px-6 py-3 text-sm"
           >
             Back to Resources
-          </TransitionLink>
+          </Link>
         </div>
       </section>
 

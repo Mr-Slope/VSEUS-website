@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransitionLink } from '@/components/ui/TransitionLink';
+import Link from 'next/link';
 import { Reveal } from '@/components/ui/Reveal';
 import { CalendarEmbed } from '@/components/home/CalendarEmbed';
 import { CALENDAR_SUBSCRIBE_URL, getUpcomingEventDates } from '@/lib/calendar';
@@ -44,12 +44,12 @@ export async function CalendarSection() {
                 </svg>
                 Subscribe to Calendar
               </a>
-              <TransitionLink
+              <Link
                 href="/events"
                 className="btn btn-outline-light gap-2 px-5 py-2.5 text-sm"
               >
                 View All Events
-              </TransitionLink>
+              </Link>
               <a
                 href="https://linktr.ee/vseusubc"
                 target="_blank"

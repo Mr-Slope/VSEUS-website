@@ -1,5 +1,5 @@
 import React from 'react';
-import { TransitionLink } from '@/components/ui/TransitionLink';
+import Link from 'next/link';
 import { SectionDivider } from '@/components/ui/SectionDivider';
 
 const resources = [
@@ -110,16 +110,16 @@ export default function ResourcesPage() {
                 <h2 className="text-2xl font-bold text-midnight mb-3">{r.title}</h2>
                 <p className="text-muted leading-relaxed text-sm mb-5">{r.description}</p>
                 {r.isFile || r.isExternal ? (
-                  // A PDF in public/ or another site, so skip the page transition and open it in a new tab.
+                  // A PDF in public/ or another site, so open it in a new tab.
                   <a href={r.ctaHref} target="_blank" rel="noopener noreferrer" className={CTA_CLASS}>
                     {r.cta}
                     <ArrowIcon />
                   </a>
                 ) : (
-                  <TransitionLink href={r.ctaHref} className={CTA_CLASS}>
+                  <Link href={r.ctaHref} className={CTA_CLASS}>
                     {r.cta}
                     <ArrowIcon />
-                  </TransitionLink>
+                  </Link>
                 )}
               </div>
             ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { TransitionLink } from '@/components/ui/TransitionLink';
+import Link from 'next/link';
 import { PUBLICATION } from '@/lib/economicreview/content';
 import { COMMENT_TERMS_VERSION } from '@/lib/economicreview/comments';
 import { formatIssueDate } from '@/lib/economicreview/issues';
@@ -223,7 +223,7 @@ export default function CommentTermsPage() {
         </article>
 
         <div className="mt-8">
-          <TransitionLink
+          <Link
             href="/economicreview"
             className="inline-flex items-center gap-2 font-display text-sm font-semibold text-midnight hover:text-midnight-700 transition-colors"
           >
@@ -231,7 +231,7 @@ export default function CommentTermsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
             </svg>
             Back to the archive
-          </TransitionLink>
+          </Link>
         </div>
       </div>
     </section>

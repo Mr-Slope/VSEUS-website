@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Barlow, Montserrat } from 'next/font/google';
 import './globals.css';
-import { TransitionProvider } from '@/contexts/TransitionContext';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 
@@ -29,11 +28,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${barlow.variable} ${montserrat.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <TransitionProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </TransitionProvider>
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );

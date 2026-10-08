@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useEffect } from 'react';
-import { TransitionLink } from '@/components/ui/TransitionLink';
+import Link from 'next/link';
 import { CTAButton } from '@/components/ui/CTAButton';
 import Image from 'next/image';
 import { SectionDivider } from '@/components/ui/SectionDivider';
@@ -159,12 +159,12 @@ export function Hero() {
             </CTAButton>
             {/* Names its destination — next to "Explore Resources", a generic
                 "Learn More" read as "learn more about the resources". */}
-            <TransitionLink
+            <Link
               href="/about"
               className="btn btn-outline-light gap-2 px-7 py-3.5 text-base"
             >
               About VSEUS
-            </TransitionLink>
+            </Link>
           </div>
         </div>
       </div>

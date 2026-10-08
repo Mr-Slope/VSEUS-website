@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { TransitionLink } from '@/components/ui/TransitionLink';
 import { SectionDivider } from '@/components/ui/SectionDivider';
 
 const courses = [
@@ -181,14 +180,14 @@ export default function ELCPage() {
                 Go to Canvas, click &quot;Join a Course&quot;, and enter the key.
               </div>
             </div>
-            <TransitionLink
+            <Link
               href="https://canvas.ubc.ca/enroll/9KXL4W"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-solid px-6 py-3 text-sm"
             >
               Enroll on Canvas
-            </TransitionLink>
+            </Link>
           </div>
         </div>
       </section>
@@ -201,12 +200,12 @@ export default function ELCPage() {
             <p className="text-muted text-sm leading-relaxed mb-5">
               The ELC is looking for volunteers to help tutor fellow economics students. If you&apos;ve done well in one of the courses we cover and want to give back, we&apos;d love to hear from you.
             </p>
-            <TransitionLink
+            <Link
               href="mailto:economics.learning.centre@ubc.ca"
               className="btn btn-outline-dark px-6 py-3 text-sm"
             >
               Get in Touch
-            </TransitionLink>
+            </Link>
           </div>
         </div>
       </section>
@@ -219,26 +218,26 @@ export default function ELCPage() {
           Reach out to VSEUS&apos; VP Academic, email the ELC directly, or drop by during the ELC&apos;s operating hours.
         </p>
         <p className="text-offwhite/80 text-sm font-semibold mb-6">
-          <TransitionLink
+          <Link
             href="mailto:economics.learning.centre@ubc.ca"
             className="hover:text-accent transition-colors"
           >
             economics.learning.centre@ubc.ca
-          </TransitionLink>
+          </Link>
         </p>
         <div className="flex flex-wrap justify-center gap-3">
-          <TransitionLink
+          <Link
             href="/contact"
             className="btn btn-solid px-6 py-3 text-sm"
           >
             Contact Us
-          </TransitionLink>
-          <TransitionLink
+          </Link>
+          <Link
             href="/resources"
             className="btn btn-outline-light px-6 py-3 text-sm"
           >
             Back to Resources
-          </TransitionLink>
+          </Link>
         </div>
       </section>
 

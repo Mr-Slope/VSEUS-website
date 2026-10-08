@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { TransitionLink } from '@/components/ui/TransitionLink';
+import Link from 'next/link';
 import { CalendarTile } from '@/components/ui/CalendarTile';
 import { getUpcomingEvents } from '@/lib/events';
 import type { Event } from '@/types/event';
@@ -199,7 +199,7 @@ export function UpcomingEventPopup() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-2">
-            <TransitionLink
+            <Link
               href="/events"
               onClick={close}
               className="btn btn-solid flex-1 flex justify-center gap-1.5 text-sm px-6 py-3"
@@ -208,7 +208,7 @@ export function UpcomingEventPopup() {
               <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-            </TransitionLink>
+            </Link>
             <button
               type="button"
               onClick={close}

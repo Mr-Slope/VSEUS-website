@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
-import { TransitionLink } from '@/components/ui/TransitionLink';
+import Link from 'next/link';
 
 const pillars = [
   {
@@ -137,12 +137,12 @@ export function ServicePillars() {
                     </div>
                   </div>
 
-                  <TransitionLink href={p.href} className="btn btn-outline-dark mt-auto self-start gap-1.5 text-sm px-5 py-2.5">
+                  <Link href={p.href} className="btn btn-outline-dark mt-auto self-start gap-1.5 text-sm px-5 py-2.5">
                     {p.cta}
                     <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
-                  </TransitionLink>
+                  </Link>
 
                   {/* Accent rule sweeps in on hover */}
                   <div className="h-[3px] w-0 group-hover:w-full bg-accent rounded-full transition-all duration-500" />

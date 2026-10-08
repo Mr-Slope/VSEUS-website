@@ -223,21 +223,6 @@ html { scroll-behavior: smooth; }
     0 22px 48px -20px rgba(2, 29, 51, 0.5);
 }
 
-/*
-  ─── Page enter ───
-  Each page fades and rises into place as it arrives (src/app/template.tsx).
-  The fill mode is `backwards`, not `both`, so no transform lingers once the
-  animation ends: a leftover transform would make the wrapper the containing
-  block for position: fixed children, like the home-page event popup.
-*/
-@keyframes page-enter {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: none; }
-}
-.page-enter {
-  animation: page-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.08s backwards;
-}
-
 /* ─── Stats section ─── */
 .stats-number {
   background: linear-gradient(135deg, var(--offwhite) 30%, var(--accent) 100%);
@@ -530,7 +515,7 @@ html { scroll-behavior: smooth; }
 /* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .hero-tag, .hero-word, .hero-subtitle, .hero-ctas,
-  .hero-float, .reveal, .marquee-track, .sponsor-chip, .page-enter,
+  .hero-float, .reveal, .marquee-track, .sponsor-chip,
   .btn, .btn-arrow, .nav-logo,
   .mail-letter, .mail-plane, .mail-trail,
   .social-sticker, .social-icon {
