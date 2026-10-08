@@ -229,6 +229,4 @@ export function getPastEvents(): Event[] {
 export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
   { title: 'Annual VSEUS Gala',           when: '2025', image: '/photos/Events/annual-vseus-gala-2025.jpg' },
   { title: 'Blue Day 2024',               when: '2024', image: '/photos/Events/blue-day-group-photo.jpg' },
-  { title: 'Economics Panel',             when: '2025', image: '/photos/Events/economics-panel.jpg' },
-  { title: 'Christmas Social',            when: '2025', image: '/photos/Events/christmas-social.jpg' },
 ];
