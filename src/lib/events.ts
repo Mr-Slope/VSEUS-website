@@ -68,6 +68,20 @@ export const UPCOMING_EVENTS: Event[] = [
     club: 'devec',
   },
   {
+    id: 'evt-workday-workshop',
+    title: 'Workday Workshop with the Peer Academic Advisors',
+    description:
+      'Your BIE Peer Academic Advisors walk through navigating Workday and everything you should know: checking your academic record, finding your exam schedule, and answering any questions along the way.',
+    date: '2026-10-15',
+    time: '5:00 – 6:00 PM',
+    location: 'IONA 633',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Workshop',
+    partner: 'career-centre',
+  },
+  {
     id: 'evt-bie-career-networking-na-asia',
     title: '10th Annual BIE Career Discovery and Networking Event: North America & Asia Session',
     description:
