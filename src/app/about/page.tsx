@@ -129,9 +129,9 @@ export default function AboutPage() {
 
         <div id="executives" className="anchor-offset relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">Leadership</p>
-            <h2 className="text-3xl font-black text-offwhite">Executive Team 2026-27</h2>
-            <p className="text-offwhite/40 text-sm mt-3 max-w-xs mx-auto leading-relaxed">
+            <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-3">Leadership</p>
+            <h2 className="text-4xl font-black text-offwhite">Executive Team 2026-27</h2>
+            <p className="text-offwhite/40 text-base mt-3 max-w-sm mx-auto leading-relaxed">
               Seven leaders. One mission. Driving economics forward at UBC.
             </p>
           </div>
