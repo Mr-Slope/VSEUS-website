@@ -131,10 +131,10 @@ function HostBanner({ host }: { host: EventHost }) {
 }
 
 /**
- * A full-width event panel: a date tile on the left, details on the right.
+ * A full-width event panel: a calendar page on the left, details on the right.
  * Pass `badge` to stamp an aesthetic header across the top — used to tag
  * every Econ Week panel without needing its own layout. An event with a
- * `club` or `partner` gets the host's banner instead, and a lighter date tile.
+ * `club` or `partner` gets the host's banner instead, and a blue calendar strip.
  */
 function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
   const host = getHost(event);
@@ -159,8 +159,8 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
       )}
       <div className="flex flex-col sm:flex-row">
         <div
-          className={`sm:w-40 flex-shrink-0 flex items-center justify-center py-6 ${
-            host ? 'bg-midnight-700' : 'bg-midnight'
+          className={`sm:w-40 flex-shrink-0 flex border-b sm:border-b-0 sm:border-r ${
+            host ? 'border-blue/30' : 'border-ice-400'
           }`}
         >
           <CalendarTile date={event.date} hosted={Boolean(host)} />

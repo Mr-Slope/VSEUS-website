@@ -165,7 +165,7 @@ export function UpcomingEventPopup() {
 
         <div className="p-6">
           <div className="flex items-start gap-4 mb-4">
-            <CalendarTile date={event.date} compact />
+            <CalendarTile date={event.date} variant="compact" />
             <div className="min-w-0 pt-0.5">
               <span className="font-display text-xs font-semibold bg-ice text-midnight px-2.5 py-0.5 rounded-full">
                 {countdownLabel(event.date)}
