@@ -23,7 +23,7 @@ export interface MerchProduct {
 export const PRODUCTS: MerchProduct[] = [
   {
     name: 'T-Shirt',
-    price: 20,
+    price: 22,
     photo: {
       src: '/photos/Merch/tee-bench.jpg',
       alt: 'Two students on a bench outdoors in white VSEUS tees with the "ahead of the curve" print',
@@ -38,6 +38,21 @@ export const PRODUCTS: MerchProduct[] = [
     },
   },
 ];
+
+/** The T-shirt and crewneck sold together, shown below the lineup on /merch. */
+export const BUNDLE = {
+  name: 'The Bundle',
+  includes: PRODUCTS.map((product) => product.name),
+  /** Price in Canadian dollars. */
+  price: 55,
+  photo: {
+    src: '/photos/Home/merch/merch-group.jpg',
+    alt: 'VSEUS members posing together in navy VSEUS crewnecks and white tees',
+  },
+};
+
+/** What the bundled items cost bought separately. */
+export const BUNDLE_SEPARATE_PRICE = PRODUCTS.reduce((sum, product) => sum + product.price, 0);
 
 /** The three photos in the homepage merch block. The first is shown full width. */
 export const HOME_PHOTOS: MerchPhoto[] = [

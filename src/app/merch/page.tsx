@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
-import { GALLERY_PHOTOS, PRODUCTS, SHOP_URL, formatPrice } from '@/lib/merch';
+import { BUNDLE, BUNDLE_SEPARATE_PRICE, GALLERY_PHOTOS, PRODUCTS, SHOP_URL, formatPrice } from '@/lib/merch';
 import { SectionDivider } from '@/components/ui/SectionDivider';
 
 function ShopButton() {
@@ -75,6 +75,41 @@ export default function MerchPage() {
               </Reveal>
             ))}
           </div>
+
+          {/* Bundle */}
+          <Reveal delay={PRODUCTS.length * 120}>
+            <div className="mt-8 bg-offwhite rounded-2xl overflow-hidden border border-ice-400 hover:border-accent hover:shadow-lg hover:shadow-midnight/10 transition-all grid grid-cols-1 lg:grid-cols-2">
+              <div className="relative aspect-[3/2] lg:aspect-auto lg:min-h-[320px]">
+                <Image
+                  src={BUNDLE.photo.src}
+                  alt={BUNDLE.photo.alt}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col justify-center gap-5 px-7 py-8 lg:px-10">
+                <span className="w-fit font-display text-xs font-bold uppercase tracking-[0.2em] text-midnight bg-accent px-3 py-1 rounded-full">
+                  Save {formatPrice(BUNDLE_SEPARATE_PRICE - BUNDLE.price)}
+                </span>
+                <div>
+                  <h3 className="text-3xl font-black text-midnight mb-2">{BUNDLE.name}</h3>
+                  <p className="text-muted leading-relaxed">
+                    The {BUNDLE.includes.join(' and the ')}, together for one price.
+                  </p>
+                </div>
+                <p className="flex items-baseline gap-3 font-display">
+                  <span className="text-4xl font-black text-midnight-700">{formatPrice(BUNDLE.price)}</span>
+                  <span className="text-lg font-semibold text-muted line-through">
+                    {formatPrice(BUNDLE_SEPARATE_PRICE)}
+                  </span>
+                </p>
+                <div>
+                  <ShopButton />
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
