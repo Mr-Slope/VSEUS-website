@@ -138,6 +138,7 @@ export const UPCOMING_EVENTS: Event[] = [
     category: 'Ceremony',
     series: 'Econ Week',
     registrationUrl: 'https://forms.gle/whEYJJGQvemNkcUM8',
+    photo: '/photos/Events/pin-ceremony.jpg',
   },
   {
     id: 'evt-ew-agora-kickoff',
@@ -153,6 +154,7 @@ export const UPCOMING_EVENTS: Event[] = [
     category: 'Mentorship',
     series: 'Econ Week',
     registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeL5K84HdlMl_vISqfboPTvIu75-pPR9_yDS5y9aBLmImB-7w/viewform',
+    photo: '/photos/Events/agora-kickoff-2026.jpg',
   },
   {
     id: 'evt-ew-fun-run',
@@ -168,21 +170,7 @@ export const UPCOMING_EVENTS: Event[] = [
     category: 'Fitness',
     series: 'Econ Week',
     registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSekJM5r8TYOc8ZdyKIwM3N7XHkIb_yxs_STJJksXJ_q7xQ52Q/viewform?usp=header',
-  },
-  {
-    id: 'evt-ew-linkedin-photoshoot',
-    title: 'LinkedIn Photoshoot',
-    description:
-      'Free professional headshots for your LinkedIn, resume, and everything after graduation. Two sessions to choose from, drop in for either.',
-    date: '2026-09-23',
-    time: '9:00 AM & 2:00 PM',
-    location: 'AMS Nest, Great Hall Foyer',
-    isPaid: false,
-    price: null,
-    posterUrl: null,
-    category: 'Career',
-    series: 'Econ Week',
-    registrationUrl: 'https://forms.gle/HrQABzh2hU9wSLaD6',
+    photo: '/photos/Events/econ-finance-fun-run-2026.jpg',
   },
   {
     id: 'evt-ew-brew-your-success',
@@ -238,7 +226,6 @@ export function getPastEvents(): Event[] {
  * can be laid out before the photos are gathered.
  */
 export const PAST_EVENT_PHOTOS: PastEventPhoto[] = [
-  { title: 'Pin Ceremony',                when: '2026', image: '/photos/Events/pin-ceremony.jpg' },
   { title: 'Annual VSEUS Gala',           when: '2025', image: '/photos/Events/annual-vseus-gala-2025.jpg' },
   { title: 'Blue Day 2024',               when: '2024', image: '/photos/Events/blue-day-group-photo.jpg' },
   { title: 'Economics Panel',             when: '2025', image: '/photos/Events/economics-panel.jpg' },
