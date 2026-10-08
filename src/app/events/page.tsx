@@ -142,6 +142,37 @@ function HostBanner({ host }: { host: EventHost }) {
 }
 
 /**
+ * The event's date as a tear-off calendar page: the month on a coloured
+ * header strip, the day number large below it, then the weekday. Hosted
+ * events get a blue strip to match their lighter date panel.
+ */
+function CalendarTile({ date, hosted }: { date: string; hosted: boolean }) {
+  return (
+    <time
+      dateTime={date}
+      className="w-24 overflow-hidden rounded-xl bg-offwhite text-center shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)]"
+    >
+      <span
+        className={`relative block py-1.5 font-display text-sm font-bold uppercase tracking-[0.2em] text-midnight ${
+          hosted ? 'bg-blue-300' : 'bg-accent'
+        }`}
+      >
+        {/* Binding holes along the top edge. */}
+        <span className="absolute left-3 top-1 h-1.5 w-1.5 rounded-full bg-midnight/30" aria-hidden="true" />
+        <span className="absolute right-3 top-1 h-1.5 w-1.5 rounded-full bg-midnight/30" aria-hidden="true" />
+        {formatMonthShort(date)}
+      </span>
+      <span className="block pt-2 font-display text-5xl font-black leading-none text-midnight">
+        {formatDayNumber(date)}
+      </span>
+      <span className="block pb-2.5 pt-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-muted">
+        {formatWeekday(date)}
+      </span>
+    </time>
+  );
+}
+
+/**
  * A full-width event panel: a date tile on the left, details on the right.
  * Pass `badge` to stamp an aesthetic header across the top — used to tag
  * every Econ Week panel without needing its own layout. An event with a
@@ -170,18 +201,11 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
       )}
       <div className="flex flex-col sm:flex-row">
         <div
-          className={`sm:w-40 flex-shrink-0 flex sm:flex-col items-center justify-center gap-2 sm:gap-1 py-6 ${
+          className={`sm:w-40 flex-shrink-0 flex items-center justify-center py-6 ${
             host ? 'bg-midnight-700' : 'bg-midnight'
           }`}
         >
-          <span
-            className={`font-display text-4xl font-black leading-none ${host ? 'text-blue-300' : 'text-accent'}`}
-          >
-            {formatDayNumber(event.date)}
-          </span>
-          <span className="font-sans text-offwhite/55 text-xs font-semibold uppercase tracking-widest">
-            {formatMonthShort(event.date)} · {formatWeekday(event.date)}
-          </span>
+          <CalendarTile date={event.date} hosted={Boolean(host)} />
         </div>
         <div className="p-6 flex flex-col flex-1">
           <div className="flex items-start justify-between gap-2 mb-3">
