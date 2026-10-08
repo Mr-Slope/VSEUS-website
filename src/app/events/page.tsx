@@ -4,6 +4,7 @@ import { getUpcomingEvents, getPastEvents, PAST_EVENT_PHOTOS } from '@/lib/event
 import { ImagePlaceholder } from '@/components/ui/ImagePlaceholder';
 import type { Event, PastEventPhoto } from '@/types/event';
 import { SectionDivider } from '@/components/ui/SectionDivider';
+import { CalendarTile } from '@/components/ui/CalendarTile';
 import { CALENDAR_SUBSCRIBE_URL } from '@/lib/calendar';
 import { getClub } from '@/lib/clubs';
 import { getPartner } from '@/lib/partners';
@@ -24,18 +25,6 @@ function formatDate(dateStr: string) {
     month: 'long',
     day: 'numeric',
   });
-}
-
-function formatWeekday(dateStr: string) {
-  return toLocalDate(dateStr).toLocaleDateString('en-CA', { weekday: 'short' }).toUpperCase();
-}
-
-function formatDayNumber(dateStr: string) {
-  return toLocalDate(dateStr).getDate();
-}
-
-function formatMonthShort(dateStr: string) {
-  return toLocalDate(dateStr).toLocaleDateString('en-CA', { month: 'short' }).toUpperCase();
 }
 
 /**
@@ -138,37 +127,6 @@ function HostBanner({ host }: { host: EventHost }) {
         )}
       </span>
     </div>
-  );
-}
-
-/**
- * The event's date as a tear-off calendar page: the month on a coloured
- * header strip, the day number large below it, then the weekday. Hosted
- * events get a blue strip to match their lighter date panel.
- */
-function CalendarTile({ date, hosted }: { date: string; hosted: boolean }) {
-  return (
-    <time
-      dateTime={date}
-      className="w-24 overflow-hidden rounded-xl bg-offwhite text-center shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)]"
-    >
-      <span
-        className={`relative block py-1.5 font-display text-sm font-bold uppercase tracking-[0.2em] text-midnight ${
-          hosted ? 'bg-blue-300' : 'bg-accent'
-        }`}
-      >
-        {/* Binding holes along the top edge. */}
-        <span className="absolute left-3 top-1 h-1.5 w-1.5 rounded-full bg-midnight/30" aria-hidden="true" />
-        <span className="absolute right-3 top-1 h-1.5 w-1.5 rounded-full bg-midnight/30" aria-hidden="true" />
-        {formatMonthShort(date)}
-      </span>
-      <span className="block pt-2 font-display text-5xl font-black leading-none text-midnight">
-        {formatDayNumber(date)}
-      </span>
-      <span className="block pb-2.5 pt-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-muted">
-        {formatWeekday(date)}
-      </span>
-    </time>
   );
 }
 

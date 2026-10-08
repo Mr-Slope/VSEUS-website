@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { TransitionLink } from '@/components/ui/TransitionLink';
+import { CalendarTile } from '@/components/ui/CalendarTile';
 import { getUpcomingEvents } from '@/lib/events';
 import type { Event } from '@/types/event';
 
@@ -50,18 +51,6 @@ function formatFullDate(dateStr: string) {
     month: 'long',
     day: 'numeric',
   });
-}
-
-function formatDayNumber(dateStr: string) {
-  return toLocalDate(dateStr).getDate();
-}
-
-function formatMonthShort(dateStr: string) {
-  return toLocalDate(dateStr).toLocaleDateString('en-CA', { month: 'short' }).toUpperCase();
-}
-
-function formatWeekday(dateStr: string) {
-  return toLocalDate(dateStr).toLocaleDateString('en-CA', { weekday: 'short' }).toUpperCase();
 }
 
 function daysUntil(dateStr: string) {
@@ -176,14 +165,7 @@ export function UpcomingEventPopup() {
 
         <div className="p-6">
           <div className="flex items-start gap-4 mb-4">
-            <div className="flex-shrink-0 w-16 bg-midnight rounded-xl flex flex-col items-center justify-center py-3">
-              <span className="font-display text-accent text-2xl font-black leading-none">
-                {formatDayNumber(event.date)}
-              </span>
-              <span className="font-sans text-offwhite/55 text-[10px] font-semibold uppercase tracking-widest mt-1">
-                {formatMonthShort(event.date)}
-              </span>
-            </div>
+            <CalendarTile date={event.date} compact />
             <div className="min-w-0 pt-0.5">
               <span className="font-display text-xs font-semibold bg-ice text-midnight px-2.5 py-0.5 rounded-full">
                 {countdownLabel(event.date)}
