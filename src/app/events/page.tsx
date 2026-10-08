@@ -326,8 +326,8 @@ export default function EventsPage() {
                     </p>
                     <h2 className="text-3xl font-black text-midnight">From Our Clubs</h2>
                     <p className="text-muted text-sm mt-1 max-w-xl">
-                      Events run by clubs VSEUS recognizes. Each club organizes its own, so
-                      reach out to the club directly with any questions.
+                      Events hosted by VSEUS-recognized clubs. Each club organizes its own
+                      events independently, so please direct any questions to the hosting club.
                     </p>
                   </div>
 
