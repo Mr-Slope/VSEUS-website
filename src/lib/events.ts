@@ -39,6 +39,7 @@ export const UPCOMING_EVENTS: Event[] = [
     posterUrl: null,
     category: 'Social',
     registrationUrl: 'https://www.showpass.com/prenpit2026/',
+    photo: '/photos/Events/pre-n-pit-2026.jpg',
   },
   {
     id: 'evt-meet-the-candidates',
