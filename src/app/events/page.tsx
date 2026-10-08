@@ -348,8 +348,10 @@ export default function EventsPage() {
                     </p>
                     <h2 className="text-3xl font-black text-midnight">From Our Partners</h2>
                     <p className="text-muted text-sm mt-1 max-w-xl">
-                      Events run by organizations VSEUS works with. Each one organizes its
-                      own, so reach out to the host directly with any questions.
+                      Events hosted by the Vancouver School of Economics, VSEUS&rsquo;s home
+                      school and principal partner, and its offices such as the VSE Career
+                      Centre. These events are organized by the VSE directly, so please
+                      direct any questions to the hosting office.
                     </p>
                   </div>
 
