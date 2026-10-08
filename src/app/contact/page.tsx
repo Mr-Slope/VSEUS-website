@@ -47,6 +47,25 @@ const SOCIAL_FUN: Record<string, { brand: string; verb: string; reaction: string
   plane looping away along a dashed trail. Purely decorative. The motion lives
   in globals.css (.mail-*) and stops under prefers-reduced-motion.
 */
+function EmailCard({ role, email }: { role: string; email: string }) {
+  return (
+    <a
+      href={`mailto:${email}`}
+      className="flex items-center gap-4 bg-offwhite border border-ice-400 hover:border-accent hover:-translate-y-0.5 hover:shadow-lg hover:shadow-midnight/10 rounded-xl px-4 py-3.5 transition-all group text-left"
+    >
+      {/* The envelope opens on hover, as if the letter is on its way. */}
+      <span className="w-11 h-11 rounded-lg bg-midnight text-offwhite group-hover:bg-accent group-hover:text-midnight flex items-center justify-center flex-shrink-0 transition-colors">
+        <MailIcon className="w-5 h-5 group-hover:hidden" />
+        <MailOpenIcon className="w-5 h-5 hidden group-hover:block" />
+      </span>
+      <div className="min-w-0">
+        <p className="font-sans text-xs font-semibold text-muted uppercase tracking-widest">{role}</p>
+        <p className="text-midnight font-semibold text-sm mt-0.5 truncate">{email}</p>
+      </div>
+    </a>
+  );
+}
+
 function MailIllustration() {
   return (
     <svg
@@ -136,7 +155,7 @@ export default function ContactPage() {
 
       <SectionDivider from="midnight" to="ice" variant="wave" flip />
       <section className="py-16 bg-ice">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-center">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-center">
           <div>
             <h2 className="text-2xl font-bold text-midnight mb-2">Email the Team</h2>
             <p className="text-muted text-sm mb-6">
@@ -145,31 +164,21 @@ export default function ContactPage() {
                 Contact the president
               </a>.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {/* President and VPs only: AVP inboxes aren't listed publicly. */}
-              {[PRESIDENT, ...VPS].map((item) => (
-                <a
-                  key={item.name}
-                  href={`mailto:${item.email}`}
-                  className="flex items-center gap-4 bg-offwhite border border-ice-400 hover:border-accent hover:-translate-y-0.5 hover:shadow-lg hover:shadow-midnight/10 rounded-xl px-4 py-3.5 transition-all group text-left"
-                >
-                  {/* The envelope opens on hover, as if the letter is on its way. */}
-                  <span className="w-11 h-11 rounded-lg bg-midnight text-offwhite group-hover:bg-accent group-hover:text-midnight flex items-center justify-center flex-shrink-0 transition-colors">
-                    <MailIcon className="w-5 h-5 group-hover:hidden" />
-                    <MailOpenIcon className="w-5 h-5 hidden group-hover:block" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="font-sans text-xs font-semibold text-muted uppercase tracking-widest">
-                      {item.role}
-                    </p>
-                    <p className="text-midnight font-semibold text-sm mt-0.5 truncate">{item.email}</p>
-                  </div>
-                </a>
+            {/*
+              President and VPs only: AVP inboxes aren't listed publicly. The
+              president sits on a row of their own, with the VPs in a grid below.
+            */}
+            <div className="max-w-sm mx-auto mb-3">
+              <EmailCard role={PRESIDENT.role} email={PRESIDENT.email} />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {VPS.map((vp) => (
+                <EmailCard key={vp.name} role={vp.role} email={vp.email} />
               ))}
             </div>
           </div>
 
-          <div id="visit" className="anchor-offset">
+          <div id="visit" className="anchor-offset max-w-3xl mx-auto">
             <h2 className="text-2xl font-bold text-midnight mb-2">Visit Us</h2>
             <p className="text-muted text-sm mb-4">
               The VSEUS office is in the basement of the Iona Building on UBC&apos;s Vancouver campus.
@@ -200,7 +209,7 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div id="follow" className="anchor-offset">
+          <div id="follow" className="anchor-offset max-w-3xl mx-auto">
             <h2 className="text-2xl font-bold text-midnight mb-2">
               Follow <span className="heading-accent">the fun</span>
             </h2>
