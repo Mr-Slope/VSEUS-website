@@ -159,7 +159,7 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
       )}
       <div className="flex flex-col sm:flex-row">
         <div
-          className={`sm:w-48 flex-shrink-0 flex border-b sm:border-b-0 sm:border-r ${
+          className={`sm:w-48 flex-shrink-0 flex items-start border-b sm:border-b-0 sm:border-r ${
             host ? 'border-blue/30' : 'border-ice-400'
           }`}
         >

@@ -5,12 +5,16 @@ function toLocalDate(dateStr: string) {
   return new Date(`${dateStr}T00:00:00`);
 }
 
+const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
 /**
  * An event's date as a tear-off calendar page: the month on a coloured header
  * strip, the day number large below it, then the weekday.
  *
- * The `panel` variant fills its parent edge to edge, as the date column of
- * every /events card. The `compact` variant is a small standalone page for
+ * The `panel` variant spans its parent's width, as the date column of every
+ * /events card, at a fixed height so every card's tile matches however tall
+ * the card is. The `compact` variant is a small standalone page for
  * tight spots like the home-page "Coming Up Next" popup.
  *
  * `hosted` gives club and partner events a blue strip instead of the accent.
@@ -26,8 +30,10 @@ export function CalendarTile({
   variant?: 'panel' | 'compact';
 }) {
   const local = toLocalDate(date);
-  const month = local.toLocaleDateString('en-CA', { month: 'short' }).toUpperCase();
-  const weekday = local.toLocaleDateString('en-CA', { weekday: 'short' }).toUpperCase();
+  // Fixed three-letter labels: en-CA's short forms vary in length and
+  // punctuation ("SEPT.", "MAY"), which left the strips looking uneven.
+  const month = MONTHS[local.getMonth()];
+  const weekday = WEEKDAYS[local.getDay()];
   const panel = variant === 'panel';
 
   return (
@@ -49,9 +55,9 @@ export function CalendarTile({
         <span className="absolute right-2.5 top-1 h-1.5 w-1.5 rounded-full bg-midnight/30" aria-hidden="true" />
         {month}
       </span>
-      <span className={`flex flex-1 flex-col items-center justify-center ${panel ? 'py-4' : ''}`}>
+      <span className={`flex flex-col items-center justify-center ${panel ? 'h-32' : 'flex-1'}`}>
         <span
-          className={`block pt-2 font-display font-black leading-none text-midnight ${
+          className={`block pt-2 font-display font-black leading-none tabular-nums text-midnight ${
             panel ? 'text-6xl' : 'text-4xl'
           }`}
         >
