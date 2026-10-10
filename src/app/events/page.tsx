@@ -209,6 +209,57 @@ function EventFeatureCard({ event, badge }: { event: Event; badge?: string }) {
   );
 }
 
+/*
+  Header artwork: a calendar page with the next event's date circled and a
+  few sparkles around it. Purely decorative. The motion lives in globals.css
+  (.events-*) and stops under prefers-reduced-motion.
+*/
+function CalendarIllustration() {
+  const cols = [66, 90, 114, 138, 162];
+  const rows = [84, 106, 128];
+  return (
+    <svg className="hidden md:block w-56 lg:w-64 flex-shrink-0" viewBox="0 0 240 180" fill="none" aria-hidden="true">
+      {/* Sparkles */}
+      {[
+        { x: 30, y: 46, s: 7, delay: '0s' },
+        { x: 212, y: 34, s: 9, delay: '0.8s' },
+        { x: 218, y: 132, s: 6, delay: '1.6s' },
+      ].map(({ x, y, s, delay }) => (
+        <path
+          key={`${x}-${y}`}
+          className="events-spark"
+          style={{ animationDelay: delay }}
+          d={`M${x},${y - s} Q${x},${y} ${x + s},${y} Q${x},${y} ${x},${y + s} Q${x},${y} ${x - s},${y} Q${x},${y} ${x},${y - s} Z`}
+          fill="var(--accent)"
+        />
+      ))}
+
+      <g className="events-cal">
+        {/* Page */}
+        <rect x="50" y="36" width="140" height="124" rx="12" fill="var(--offwhite)" />
+        <path d="M50,48 Q50,36 62,36 H178 Q190,36 190,48 V66 H50 Z" fill="var(--accent)" />
+        <rect x="74" y="48" width="44" height="7" rx="3.5" fill="var(--midnight)" fillOpacity="0.55" />
+
+        {/* Binding rings */}
+        <rect x="80" y="26" width="7" height="20" rx="3.5" fill="var(--ice-400)" />
+        <rect x="153" y="26" width="7" height="20" rx="3.5" fill="var(--ice-400)" />
+
+        {/* Date grid, with one day circled */}
+        {rows.map((y) =>
+          cols.map((x) =>
+            x === 138 && y === 106 ? null : (
+              <rect key={`${x}-${y}`} x={x} y={y} width="12" height="8" rx="2" fill="var(--ice)" />
+            )
+          )
+        )}
+        <circle className="events-ping" cx="144" cy="110" r="11" fill="var(--accent)" />
+        <circle cx="144" cy="110" r="11" fill="var(--accent)" />
+        <circle cx="144" cy="110" r="3.5" fill="var(--midnight)" />
+      </g>
+    </svg>
+  );
+}
+
 export default function EventsPage() {
   const upcomingEvents = getUpcomingEvents();
   const byDate = (a: Event, b: Event) => a.date.localeCompare(b.date);
@@ -236,12 +287,15 @@ export default function EventsPage() {
   return (
     <div className="min-h-screen bg-ice">
       <section className="bg-midnight py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">What&apos;s On</p>
-          <h1 className="text-4xl font-black text-offwhite">Upcoming <span className="heading-accent">Events</span></h1>
-          <p className="text-offwhite/70 mt-2 text-sm">
-            Competitions, networking nights, workshops, and socials run by VSEUS.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-10">
+          <div>
+            <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">What&apos;s On</p>
+            <h1 className="text-4xl font-black text-offwhite">Upcoming <span className="heading-accent">Events</span></h1>
+            <p className="text-offwhite/70 mt-2 text-sm">
+              Competitions, networking nights, workshops, and socials run by VSEUS.
+            </p>
+          </div>
+          <CalendarIllustration />
         </div>
       </section>
 

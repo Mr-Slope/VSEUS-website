@@ -512,12 +512,34 @@ html { scroll-behavior: smooth; }
   transform: translateY(0) scale(1) rotate(-6deg);
 }
 
+/* ─── Events: header calendar ─── */
+.events-cal,
+.events-spark,
+.events-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes events-cal-bob {
+  0%, 100% { transform: translateY(3px) rotate(-1.5deg); }
+  50%      { transform: translateY(-5px) rotate(1deg); }
+}
+.events-cal { animation: events-cal-bob 5s ease-in-out infinite; }
+
+@keyframes events-spark-twinkle {
+  0%, 100% { transform: scale(0.4) rotate(0deg); opacity: 0.2; }
+  50%      { transform: scale(1) rotate(45deg); opacity: 0.9; }
+}
+.events-spark { animation: events-spark-twinkle 2.4s ease-in-out infinite; }
+
+.events-ping { animation: mail-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
 /* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .hero-tag, .hero-word, .hero-subtitle, .hero-ctas,
   .hero-float, .reveal, .marquee-track, .sponsor-chip,
   .btn, .btn-arrow, .nav-logo,
   .mail-letter, .mail-plane, .mail-trail,
+  .events-cal, .events-spark,
   .social-sticker, .social-icon {
     animation: none !important;
     transition: none !important;
@@ -525,5 +547,5 @@ html { scroll-behavior: smooth; }
     transform: none !important;
   }
   /* Without motion the sheen and fill would sit frozen mid-button. */
-  .btn::before, .mail-ping { display: none; }
+  .btn::before, .mail-ping, .events-ping { display: none; }
 }
