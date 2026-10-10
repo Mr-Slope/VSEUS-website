@@ -41,7 +41,7 @@ export function CalendarTile({
     >
       <span
         className={`relative block font-display font-bold uppercase tracking-[0.2em] text-midnight ${
-          panel ? 'py-2 text-sm' : 'py-1 text-xs'
+          panel ? 'py-3 text-lg' : 'py-1 text-xs'
         } ${hosted ? 'bg-blue-300' : 'bg-accent'}`}
       >
         {/* Binding holes along the top edge. */}
