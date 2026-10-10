@@ -100,7 +100,10 @@ export default function AboutPage() {
 
       {/* Mission */}
       <section className="py-24 bg-ice">
-        <div id="mission" className="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          id="mission"
+          className="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-16 items-center"
+        >
           <div className="max-w-4xl">
             <p className="font-sans text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-4">
               Our Mission
@@ -118,6 +121,29 @@ export default function AboutPage() {
               We look outward, learning from other groups who share that vision, and inward, opening volunteer roles so members can help run the society rather than watch it from a distance. We build traditions strong enough to outlast any one cohort, so students feel proud to belong to the economics community at UBC.
             </p>
           </div>
+
+          {/*
+            The Iona Building, home of the VSEUS office. The offset accent
+            panel behind it ties the photo into the page rather than leaving it
+            floating, and the caption names the place.
+          */}
+          <Reveal className="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div className="absolute top-8 left-8 -right-4 -bottom-4 rounded-3xl bg-accent/35" aria-hidden="true" />
+            <figure className="relative aspect-[4/5] overflow-hidden rounded-3xl ring-1 ring-ice-400 shadow-[0_24px_48px_-20px_rgba(3,43,74,0.45)]">
+              <Image
+                src="/photos/About/iona-building.jpg"
+                alt="The Iona Building at UBC, with the mountains and English Bay behind it"
+                fill
+                sizes="(min-width: 1024px) 40vw, (min-width: 448px) 448px, 100vw"
+                className="object-cover object-[center_65%]"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-midnight/70 to-transparent" aria-hidden="true" />
+              <figcaption className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-offwhite/90 backdrop-blur-sm px-3.5 py-1.5 font-sans text-xs font-semibold text-midnight">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
+                Iona Building, home of VSEUS
+              </figcaption>
+            </figure>
+          </Reveal>
         </div>
       </section>
 
