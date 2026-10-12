@@ -23,6 +23,21 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
 
   /*
+    react-pdf imports the default PDF.js build, which only runs in the newest
+    browsers. It calls methods such as Map.prototype.getOrInsertComputed and
+    Math.sumPrecise with no fallback, so in anything older than Chrome 147,
+    Firefox 144 or Safari/iOS 26.2, and in Samsung Internet, opening an issue
+    on /economicreview/read crashed the page or drew its text in the wrong font. The legacy build ships the
+    polyfills and is what PDF.js recommends for anything but the latest
+    browsers. The worker is pointed at the matching legacy file in PdfViewer.
+  */
+  turbopack: {
+    resolveAlias: {
+      'pdfjs-dist': 'pdfjs-dist/legacy/build/pdf.mjs',
+    },
+  },
+
+  /*
     The Services page was renamed to Resources, but `redirects()` needs a
     server and is unsupported under `output: "export"`, so it cannot run here.
     Kept for reference in case the site ever moves to a host that can serve it.

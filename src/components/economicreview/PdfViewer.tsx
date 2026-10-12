@@ -10,8 +10,12 @@ import 'react-pdf/dist/Page/TextLayer.css';
   react-pdf's own default can overwrite it depending on import order. Bundling
   it from the installed package keeps it on the same version as the main
   library and serves it from this site rather than a CDN.
+
+  It is the legacy worker, to match the legacy main library that
+  next.config.ts aliases `pdfjs-dist` to. The default build needs a browser
+  from the last few months.
 */
-pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
+pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/legacy/build/pdf.worker.min.mjs', import.meta.url).toString();
 
 type PdfDocument = Parameters<NonNullable<DocumentProps['onLoadSuccess']>>[0];
 
@@ -87,6 +91,31 @@ function PagePlaceholder() {
   return (
     <div className="mx-auto w-full max-w-[816px] aspect-[17/22] bg-offwhite shadow-md shadow-midnight/10 animate-pulse motion-reduce:animate-none" />
   );
+}
+
+/**
+ * Turns anything PDF.js throws while drawing into the viewer's failure state.
+ *
+ * react-pdf reports a failed load or render through its callbacks, but a call
+ * that throws outright, such as page.render() in a browser missing a method
+ * PDF.js expects, escapes from an effect instead. With nothing to catch it,
+ * React unmounts the whole route and the reader is left with Next's generic
+ * error screen. Here they get the download link instead.
+ */
+class RenderGuard extends React.Component<{ onError: () => void; children: React.ReactNode }, { crashed: boolean }> {
+  state = { crashed: false };
+
+  static getDerivedStateFromError() {
+    return { crashed: true };
+  }
+
+  componentDidCatch() {
+    this.props.onError();
+  }
+
+  render() {
+    return this.state.crashed ? null : this.props.children;
+  }
 }
 
 /** How sharp to draw a page: the screen's own density, unless that would break the canvas limit. */
@@ -408,54 +437,62 @@ export function PdfViewer({ url, downloadName, onPageCount }: PdfViewerProps) {
               </button>
             </div>
           ) : (
-            <Document
+            <RenderGuard
               key={attempt}
-              file={url}
-              suspense={false}
-              onLoadSuccess={onLoadSuccess}
-              onLoadError={() => setFailed(true)}
-              onItemClick={({ pageNumber }) => goTo(pageNumber)}
-              externalLinkTarget="_blank"
-              externalLinkRel="noopener noreferrer"
-              loading={<PagePlaceholder />}
-              error={null}
-              className="flex flex-col gap-4 sm:gap-6"
+              onError={() => {
+                // It can trip after the document opened, so drop its pages too and leave the toolbar as a failed load does.
+                setSizes(null);
+                setFailed(true);
+              }}
             >
-              {sizes && scale ? (
-                sizes.map((size, i) => {
-                  const page = i + 1;
-                  const width = size.width * scale;
-                  const height = size.height * scale;
-                  return (
-                    <div
-                      key={page}
-                      ref={(slot) => {
-                        slots.current[i] = slot;
-                      }}
-                      data-page={page}
-                      className="relative mx-auto bg-white shadow-md shadow-midnight/15 scroll-mt-[9.5rem]"
-                      style={{ width, height }}
-                    >
-                      {nearby.has(page) && (
-                        <Page
-                          pageNumber={page}
-                          scale={scale}
-                          devicePixelRatio={pixelRatio(width, height)}
-                          loading={null}
-                          error={
-                            <p className="px-6 py-16 text-center text-sm text-muted">
-                              Page {page} could not be displayed.
-                            </p>
-                          }
-                        />
-                      )}
-                    </div>
-                  );
-                })
-              ) : (
-                <PagePlaceholder />
-              )}
-            </Document>
+              <Document
+                file={url}
+                suspense={false}
+                onLoadSuccess={onLoadSuccess}
+                onLoadError={() => setFailed(true)}
+                onItemClick={({ pageNumber }) => goTo(pageNumber)}
+                externalLinkTarget="_blank"
+                externalLinkRel="noopener noreferrer"
+                loading={<PagePlaceholder />}
+                error={null}
+                className="flex flex-col gap-4 sm:gap-6"
+              >
+                {sizes && scale ? (
+                  sizes.map((size, i) => {
+                    const page = i + 1;
+                    const width = size.width * scale;
+                    const height = size.height * scale;
+                    return (
+                      <div
+                        key={page}
+                        ref={(slot) => {
+                          slots.current[i] = slot;
+                        }}
+                        data-page={page}
+                        className="relative mx-auto bg-white shadow-md shadow-midnight/15 scroll-mt-[9.5rem]"
+                        style={{ width, height }}
+                      >
+                        {nearby.has(page) && (
+                          <Page
+                            pageNumber={page}
+                            scale={scale}
+                            devicePixelRatio={pixelRatio(width, height)}
+                            loading={null}
+                            error={
+                              <p className="px-6 py-16 text-center text-sm text-muted">
+                                Page {page} could not be displayed.
+                              </p>
+                            }
+                          />
+                        )}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <PagePlaceholder />
+                )}
+              </Document>
+            </RenderGuard>
           )}
         </div>
       </div>
