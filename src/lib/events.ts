@@ -111,21 +111,6 @@ export const UPCOMING_EVENTS: Event[] = [
     partner: 'career-centre',
   },
   {
-    id: 'evt-ew-beach-day',
-    title: 'Beach Day',
-    description:
-      'A low-key end to Econ Week: sand, sun, and no agenda beyond showing up and meeting people one last time before the week wraps up.',
-    date: '2026-09-27',
-    time: '4:30 PM onwards',
-    location: 'Jericho Beach',
-    isPaid: false,
-    price: null,
-    posterUrl: null,
-    category: 'Social',
-    series: 'Econ Week',
-    registrationUrl: 'https://forms.gle/BPkJstQJJueAhiNUA',
-  },
-  {
     id: 'evt-ew-pin-ceremony',
     title: 'Pin Ceremony',
     description:
