@@ -56,16 +56,16 @@ export const UPCOMING_EVENTS: Event[] = [
   },
   {
     id: 'evt-devec-dev-talk',
-    title: 'Dev Talk',
+    title: 'DevTalks 2026: The Role of Culture & Institutions in Shaping Development Outcomes',
     description:
-      'An information session for students who want to learn more about ongoing research in development economics and policy.',
+      'What shapes development: culture, institutions, or both? From the norms that shape our societies to the institutions that influence economic growth, unpack the forces behind why some countries develop differently from others. Whether you study economics, political science, or international relations, or are simply curious about global development, come learn, share ideas, and join the conversation. Bring your curiosity, your questions, and a friend!',
     date: '2026-10-22',
     time: '6:00 – 8:00 PM',
-    location: 'Location TBD',
+    location: 'Iona 301, UBC Vancouver',
     isPaid: false,
     price: null,
     posterUrl: null,
-    category: 'Info Session',
+    category: 'Discussion',
     club: 'devec',
   },
   {
