@@ -45,8 +45,8 @@ export const CLUBS: Club[] = [
     fullName: 'Economic Theory & Philosophy Society',
     description:
       'Runs thought-provoking discussions and debates built around strategy and deduction games, plus social experiments rooted in game theory. Built on a supportive community of curious, open-minded people willing to challenge perspectives and think critically.',
-    href: 'https://www.instagram.com/epsubc/',
-    linkLabel: '@epsubc',
+    href: 'https://epsubc.wixsite.com/home',
+    linkLabel: 'epsubc.wixsite.com',
     logo: '/clubs/eps.png',
     instagram: 'epsubc',
   },
