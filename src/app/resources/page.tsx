@@ -4,7 +4,22 @@ import { SectionDivider } from '@/components/ui/SectionDivider';
 import { Reveal } from '@/components/ui/Reveal';
 import { TiltCard } from '@/components/ui/TiltCard';
 
-const resources = [
+interface Resource {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  /** Off-site link, opened in a new tab. */
+  isExternal?: boolean;
+  /** A file in public/, opened in a new tab. */
+  isFile?: boolean;
+  /** Not released yet: the card shows a "Coming Soon" tag instead of a button. */
+  comingSoon?: boolean;
+  cta?: string;
+  ctaHref?: string;
+}
+
+const resources: Resource[] = [
   {
     id: 'awards',
     title: 'Awards & Grants',
@@ -87,6 +102,18 @@ const resources = [
       </svg>
     ),
   },
+  {
+    id: 'syllabus-database',
+    title: 'Syllabus Database',
+    description:
+      'A collection of economics course syllabi to help you compare courses and plan your degree. This resource is in development and will be available soon.',
+    comingSoon: true,
+    icon: (
+      <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+      </svg>
+    ),
+  },
 ];
 
 const CTA_CLASS =
@@ -136,7 +163,12 @@ export default function ResourcesPage() {
                         <p className="text-sm text-muted leading-relaxed">{r.description}</p>
                       </div>
 
-                      {r.isFile || r.isExternal ? (
+                      {r.comingSoon || !r.ctaHref ? (
+                        <span className="mt-auto self-start inline-flex items-center gap-2 rounded-full border border-dashed border-ice-400 px-5 py-2.5 text-xs font-semibold uppercase tracking-widest text-muted">
+                          <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
+                          Coming Soon
+                        </span>
+                      ) : r.isFile || r.isExternal ? (
                         // A PDF in public/ or another site, so open it in a new tab.
                         <a href={r.ctaHref} target="_blank" rel="noopener noreferrer" className={CTA_CLASS}>
                           {r.cta}
