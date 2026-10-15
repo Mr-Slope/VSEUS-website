@@ -7,12 +7,12 @@ import Image from 'next/image';
 type NavChild = { label: string; href: string; isFile?: boolean };
 
 /**
- * A dropdown entry. A file in public/ (isFile) gets a plain anchor that opens
- * in a new tab, since next/link is for routes and would try to load a PDF as
- * a page.
+ * A dropdown entry. A file in public/ (isFile) or an off-site URL gets a plain
+ * anchor that opens in a new tab, since next/link is for routes and would try
+ * to load a PDF as a page.
  */
 function NavChildLink({ child, className, onClick }: { child: NavChild; className: string; onClick?: () => void }) {
-  if (child.isFile) {
+  if (child.isFile || child.href.startsWith('http')) {
     return (
       <a href={child.href} target="_blank" rel="noopener noreferrer" className={className} onClick={onClick}>
         {child.label}
@@ -45,6 +45,10 @@ const navLinks: { label: string; href: string; children?: NavChild[] }[] = [
       // Straight to the guidebook, like the Resources card's button.
       { label: 'AGORA Mentorship', href: '/guides/agora-mentee-guidebook-2026-27.pdf', isFile: true },
       { label: 'VSE Career Centre', href: '/resources#career-centre' },
+      {
+        label: 'Job Database',
+        href: 'https://docs.google.com/spreadsheets/d/1d8eBsmKbaC5dOquyPqTMgi4hm1MYmg4w/edit?usp=sharing&ouid=102141787660587619033&rtpof=true&sd=true',
+      },
       { label: 'Clubs', href: '/clubs' },
     ],
   },
