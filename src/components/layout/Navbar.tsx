@@ -42,14 +42,14 @@ const navLinks: { label: string; href: string; children?: NavChild[] }[] = [
     children: [
       { label: 'Awards & Grants', href: '/resources#awards' },
       { label: 'Economics Learning Centre', href: '/elc' },
-      // Straight to the guidebook, like the Resources card's button.
-      { label: 'AGORA Mentorship', href: '/guides/agora-mentee-guidebook-2026-27.pdf', isFile: true },
-      { label: 'VSE Career Centre', href: '/resources#career-centre' },
+      { label: 'Clubs', href: '/clubs' },
       {
         label: 'Job Database',
         href: 'https://docs.google.com/spreadsheets/d/1d8eBsmKbaC5dOquyPqTMgi4hm1MYmg4w/edit?usp=sharing&ouid=102141787660587619033&rtpof=true&sd=true',
       },
-      { label: 'Clubs', href: '/clubs' },
+      // Straight to the guidebook, like the Resources card's button.
+      { label: 'AGORA Mentorship', href: '/guides/agora-mentee-guidebook-2026-27.pdf', isFile: true },
+      { label: 'VSE Career Centre', href: '/resources#career-centre' },
     ],
   },
   // Top level rather than under Resources: the Review is a publication people
