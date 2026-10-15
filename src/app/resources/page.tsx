@@ -1,14 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
 import { SectionDivider } from '@/components/ui/SectionDivider';
+import { Reveal } from '@/components/ui/Reveal';
+import { TiltCard } from '@/components/ui/TiltCard';
 
 const resources = [
   {
     id: 'awards',
     title: 'Awards & Grants',
     description:
-      'VSEUS offers annual awards recognizing outstanding academic achievement and extracurricular contributions, plus research grants to support undergraduate projects.',
-    cta: 'Student Grant Application',
+      'VSEUS presents annual awards recognizing outstanding academic achievement and extracurricular contribution, and offers research grants in support of undergraduate projects.',
+    cta: 'Apply for a Grant',
     ctaHref: 'https://forms.gle/w1s8gPDV2ckbciw89',
     isExternal: true,
     icon: (
@@ -21,8 +23,8 @@ const resources = [
     id: 'learning',
     title: 'Economics Learning Centre',
     description:
-      'Free walk-in peer tutoring run by trained undergraduate assistants. Covering ECON 101, 102, 226, 301, 302, 325, and 326. Open Monday to Thursday, 11am to 5pm in IONA 038. No appointment needed. Offered in partnership with the VSE.',
-    cta: 'Learn More',
+      'Free drop-in peer tutoring delivered by trained undergraduate assistants for ECON 101, 102, 226, 301, 302, 325, and 326. Available Monday to Thursday, 11am to 5pm, in IONA 038, with no appointment required. Offered in partnership with the Vancouver School of Economics.',
+    cta: 'Visit the ELC',
     ctaHref: '/elc',
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -34,8 +36,8 @@ const resources = [
     id: 'clubs',
     title: 'Clubs',
     description:
-      'VSEUS recognizes a group of student-run clubs working across economics, finance, and public policy. Recognition connects them to our funding, spaces, and audience so their programming reaches every VSEUS constituent.',
-    cta: 'See the Clubs',
+      'VSEUS recognizes a network of student-run clubs working across economics, finance, and public policy. Recognition gives each club access to society funding, space, and promotion, extending its programming to every VSEUS constituent.',
+    cta: 'View Clubs',
     ctaHref: '/clubs',
     icon: (
       <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -47,7 +49,7 @@ const resources = [
     id: 'agora',
     title: 'AGORA Mentorship',
     description:
-      'Our mentorship program pairs lower-year students with upper-year mentors, and upper-year students with VSE alumni, based on shared academic and career interests. It runs October to December. The mentee guidebook covers the program structure, milestones, an email template for reaching out to your mentor, and FAQs.',
+      'A mentorship program pairing lower-year students with upper-year mentors, and upper-year students with VSE alumni, according to shared academic and career interests. The program runs from October to December. The mentee guidebook sets out its structure, milestones, an outreach email template, and answers to common questions.',
     cta: 'Read the Mentee Guidebook',
     ctaHref: '/guides/agora-mentee-guidebook-2026-27.pdf',
     isFile: true,
@@ -61,8 +63,8 @@ const resources = [
     id: 'job-database',
     title: 'Job Database',
     description:
-      'A spreadsheet tracker of job opportunities to help with your job search, with a focus on internships in Canada. Browse the listings to find roles worth applying to.',
-    cta: 'Open the Tracker',
+      'A spreadsheet tracker of employment opportunities to support your job search, with a focus on internships in Canada. Consult the listings to identify roles that align with your academic and career interests.',
+    cta: 'View the Tracker',
     ctaHref: 'https://docs.google.com/spreadsheets/d/1d8eBsmKbaC5dOquyPqTMgi4hm1MYmg4w/edit?gid=951780645#gid=951780645',
     isExternal: true,
     icon: (
@@ -75,7 +77,7 @@ const resources = [
     id: 'career-centre',
     title: 'VSE Career Centre',
     description:
-      'The Vancouver School of Economics’ career centre for Bachelor of International Economics (BIE) students. It takes a holistic coaching approach to professional and personal development, during the degree and beyond it, through one-on-one appointments, coaching programs, the Perspectives Program, and networking events with employers.',
+      'The Vancouver School of Economics career centre for Bachelor of International Economics (BIE) students. It takes a holistic coaching approach to professional and personal development, both during the degree and beyond, through one-on-one appointments, coaching programs, the Perspectives Program, and employer networking events.',
     cta: 'Book an Appointment',
     ctaHref: 'https://careercentre.economics.ubc.ca/',
     isExternal: true,
@@ -103,38 +105,55 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-ice">
       <section className="bg-midnight py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">What We Offer</p>
+          <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">Academic Resources</p>
           <h1 className="text-4xl font-black text-offwhite">Our <span className="heading-accent">Resources</span></h1>
+          <p className="text-offwhite/70 text-sm leading-relaxed max-w-xl mt-4">
+            Support for every stage of the economics degree at UBC, from coursework and research funding to mentorship and career development.
+          </p>
         </div>
       </section>
 
       <SectionDivider from="midnight" to="ice" variant="dip" />
-      <section className="py-16 bg-ice">
+      <section className="py-16 lg:py-20 bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {resources.map((r) => (
-              <div
-                key={r.id}
-                id={r.id}
-                className="bg-offwhite rounded-2xl p-8 border border-ice-400 hover:border-accent hover:shadow-lg hover:shadow-midnight/10 transition-all flex flex-col anchor-offset"
-              >
-                <div className="w-14 h-14 rounded-xl bg-midnight-700 text-offwhite flex items-center justify-center mb-5">
-                  {r.icon}
-                </div>
-                <h2 className="text-2xl font-bold text-midnight mb-3">{r.title}</h2>
-                <p className="text-muted leading-relaxed text-sm mb-5">{r.description}</p>
-                {r.isFile || r.isExternal ? (
-                  // A PDF in public/ or another site, so open it in a new tab.
-                  <a href={r.ctaHref} target="_blank" rel="noopener noreferrer" className={CTA_CLASS}>
-                    {r.cta}
-                    <ArrowIcon />
-                  </a>
-                ) : (
-                  <Link href={r.ctaHref} className={CTA_CLASS}>
-                    {r.cta}
-                    <ArrowIcon />
-                  </Link>
-                )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {resources.map((r, i) => (
+              <div key={r.id} id={r.id} className="anchor-offset">
+                <Reveal delay={i * 90} className="h-full">
+                  <TiltCard>
+                    <div className="group bg-offwhite border border-ice-400 rounded-2xl p-7 h-full flex flex-col gap-5 hover:border-accent hover:shadow-xl hover:shadow-midnight/10 transition-all duration-300">
+                      <div className="flex items-start justify-between">
+                        <div className="w-12 h-12 rounded-xl bg-ice text-midnight-700 flex items-center justify-center group-hover:bg-midnight-700 group-hover:text-offwhite transition-all duration-300">
+                          {r.icon}
+                        </div>
+                        <span className="font-display text-3xl font-black text-ice-400 group-hover:text-accent transition-colors">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h2 className="font-bold text-midnight mb-2 text-xl">{r.title}</h2>
+                        <p className="text-sm text-muted leading-relaxed">{r.description}</p>
+                      </div>
+
+                      {r.isFile || r.isExternal ? (
+                        // A PDF in public/ or another site, so open it in a new tab.
+                        <a href={r.ctaHref} target="_blank" rel="noopener noreferrer" className={CTA_CLASS}>
+                          {r.cta}
+                          <ArrowIcon />
+                        </a>
+                      ) : (
+                        <Link href={r.ctaHref} className={CTA_CLASS}>
+                          {r.cta}
+                          <ArrowIcon />
+                        </Link>
+                      )}
+
+                      {/* Accent rule sweeps in on hover */}
+                      <div className="h-[3px] w-0 group-hover:w-full bg-accent rounded-full transition-all duration-500" />
+                    </div>
+                  </TiltCard>
+                </Reveal>
               </div>
             ))}
           </div>
