@@ -12,6 +12,13 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  # Rebuilds nightly, just after midnight in Vancouver. The site is a static
+  # export, so src/lib/events.ts sorts events into upcoming and past at build
+  # time. Without a rebuild, a finished event stays listed as upcoming until
+  # the next push.
+  schedule:
+    - cron: "5 8 * * *"
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read

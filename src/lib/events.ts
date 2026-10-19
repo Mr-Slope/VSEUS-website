@@ -11,7 +11,9 @@ import type { Event, PastEventPhoto } from '@/types/event';
  * Leave an event here once its date passes. `getUpcomingEvents()` and
  * `getPastEvents()` below split the list by today's date automatically, so a
  * finished event drops off the upcoming section and reappears in the archived
- * section on /events on its own, with no manual deletion step.
+ * section on /events on its own, with no manual deletion step. The site is a
+ * static export, so the split happens at build time; the deploy workflow
+ * rebuilds nightly so the page stays current without a push.
  *
  * Set `series` to group events into a shared calendar strip, e.g. 'Econ
  * Week'. Events without a `series` render in the standalone section above it.
@@ -190,9 +192,13 @@ export const UPCOMING_EVENTS: Event[] = [
   },
 ];
 
-/** Today's date as 'YYYY-MM-DD', recomputed on every call. */
+/**
+ * Today's date in Vancouver as 'YYYY-MM-DD', recomputed on every call. The
+ * build runs on a UTC machine, where the date flips at 5 PM Pacific, so a UTC
+ * date would archive an evening event before it starts.
+ */
 function todayIso(): string {
-  return new Date().toISOString().slice(0, 10);
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver' }).format(new Date());
 }
 
 /**
