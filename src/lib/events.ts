@@ -113,8 +113,8 @@ export const UPCOMING_EVENTS: Event[] = [
     partner: 'career-centre',
   },
   {
-    id: 'evt-networking-mixer',
-    title: 'Annual Networking Mixer',
+    id: 'evt-industry-night',
+    title: 'Industry Night',
     description:
       'Our annual networking mixer, built to foster meaningful connections between top-tier firms and students. Meet around 30 industry professionals and alumni from banking, wealth management, accounting, advisory, consulting, public policy, and academia, with attendees from organizations such as RBC, TD, Scotiabank, KPMG, MNP, the Bank of Canada, McKinsey, and more. Dress code is business casual. The ticket link will be posted soon.',
     date: '2026-11-24',
