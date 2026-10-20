@@ -147,9 +147,9 @@ export function UpcomingEventPopup() {
           type="button"
           onClick={close}
           aria-label="Close"
-          className="absolute top-3 right-3 z-10 p-1.5 rounded-lg text-midnight-700 hover:bg-ice-200 transition-colors"
+          className="btn btn-quiet absolute top-0.5 right-2 z-10 w-7 h-7 p-0 text-midnight-700"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
