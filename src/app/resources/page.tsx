@@ -119,6 +119,59 @@ const resources: Resource[] = [
 const CTA_CLASS =
   'btn btn-outline-dark mt-auto self-start gap-1.5 text-sm px-5 py-2.5';
 
+/** The header's stack of books, drawn and animated to match the calendar on /events. */
+function BooksIllustration() {
+  return (
+    <svg className="hidden md:block w-56 lg:w-64 flex-shrink-0" viewBox="0 0 240 180" fill="none" aria-hidden="true">
+      {/* Sparkles */}
+      {[
+        { x: 30, y: 46, s: 7, delay: '0s' },
+        { x: 212, y: 34, s: 9, delay: '0.8s' },
+        { x: 218, y: 132, s: 6, delay: '1.6s' },
+      ].map(({ x, y, s, delay }) => (
+        <path
+          key={`${x}-${y}`}
+          className="resources-spark"
+          style={{ animationDelay: delay }}
+          d={`M${x},${y - s} Q${x},${y} ${x + s},${y} Q${x},${y} ${x},${y + s} Q${x},${y} ${x - s},${y} Q${x},${y} ${x},${y - s} Z`}
+          fill="var(--accent)"
+        />
+      ))}
+
+      <g className="resources-books">
+        {/* Bottom book: blue, pages showing on the right */}
+        <rect x="44" y="124" width="152" height="32" rx="6" fill="var(--blue)" />
+        <rect x="178" y="128" width="14" height="24" rx="2" fill="var(--offwhite)" />
+        <path d="M180,134 H190 M180,140 H190 M180,146 H190" stroke="var(--ice)" strokeWidth="1.5" strokeLinecap="round" />
+        <rect x="58" y="124" width="5" height="32" fill="var(--midnight)" fillOpacity="0.25" />
+        <rect x="160" y="124" width="5" height="32" fill="var(--midnight)" fillOpacity="0.25" />
+        <rect x="90" y="136" width="44" height="8" rx="4" fill="var(--midnight)" fillOpacity="0.55" />
+
+        {/* Middle book: off-white, pages showing on the left */}
+        <rect x="58" y="92" width="130" height="32" rx="6" fill="var(--offwhite)" />
+        <rect x="62" y="96" width="14" height="24" rx="2" fill="var(--ice-200)" />
+        <path d="M64,102 H74 M64,108 H74 M64,114 H74" stroke="var(--ice-400)" strokeWidth="1.5" strokeLinecap="round" />
+        <rect x="86" y="92" width="5" height="32" fill="var(--accent)" />
+        <rect x="172" y="92" width="5" height="32" fill="var(--accent)" />
+        <rect x="108" y="104" width="44" height="8" rx="4" fill="var(--midnight)" fillOpacity="0.55" />
+
+        {/* Ribbon bookmark trailing from the top book */}
+        <path d="M150,84 H160 V112 L155,107 L150,112 Z" fill="var(--blue)" />
+
+        {/* Top book: accent, set slightly askew */}
+        <g transform="rotate(-4 120 77)">
+          <rect x="50" y="62" width="140" height="30" rx="6" fill="var(--accent)" />
+          <rect x="172" y="66" width="14" height="22" rx="2" fill="var(--offwhite)" />
+          <path d="M174,71 H184 M174,77 H184 M174,83 H184" stroke="var(--ice)" strokeWidth="1.5" strokeLinecap="round" />
+          <rect x="64" y="62" width="5" height="30" fill="var(--accent-600)" />
+          <rect x="152" y="62" width="5" height="30" fill="var(--accent-600)" />
+          <rect x="88" y="73" width="44" height="8" rx="4" fill="var(--midnight)" fillOpacity="0.55" />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 function ArrowIcon() {
   return (
     <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -131,12 +184,15 @@ export default function ResourcesPage() {
   return (
     <div className="min-h-screen bg-ice">
       <section className="bg-midnight py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">Academic Resources</p>
-          <h1 className="text-4xl font-black text-offwhite">Our <span className="heading-accent">Resources</span></h1>
-          <p className="text-offwhite/70 text-sm leading-relaxed max-w-xl mt-4">
-            Support for every stage of the economics degree at UBC, from coursework and research funding to mentorship and career development.
-          </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-10">
+          <div>
+            <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">Academic Resources</p>
+            <h1 className="text-4xl font-black text-offwhite">Our <span className="heading-accent">Resources</span></h1>
+            <p className="text-offwhite/70 text-sm leading-relaxed max-w-xl mt-4">
+              Support for every stage of the economics degree at UBC, from coursework and research funding to mentorship and career development.
+            </p>
+          </div>
+          <BooksIllustration />
         </div>
       </section>
 

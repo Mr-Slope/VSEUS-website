@@ -533,6 +533,15 @@ html { scroll-behavior: smooth; }
 
 .events-ping { animation: mail-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite; }
 
+/* ─── Resources: header books (shares the events calendar's motion) ─── */
+.resources-books,
+.resources-spark {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.resources-books { animation: events-cal-bob 5s ease-in-out infinite; }
+.resources-spark { animation: events-spark-twinkle 2.4s ease-in-out infinite; }
+
 /* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .hero-tag, .hero-word, .hero-subtitle, .hero-ctas,
@@ -540,6 +549,7 @@ html { scroll-behavior: smooth; }
   .btn, .btn-arrow, .nav-logo,
   .mail-letter, .mail-plane, .mail-trail,
   .events-cal, .events-spark,
+  .resources-books, .resources-spark,
   .social-sticker, .social-icon {
     animation: none !important;
     transition: none !important;
