@@ -33,7 +33,7 @@ export const CLUBS: Club[] = [
     name: 'Iona Journal',
     fullName: 'IONA Journal of Economics',
     description:
-      'The VSE’s undergraduate economics journal, publishing blind peer- and faculty-reviewed student research. Beyond the annual issue it runs IONA Exchange (a blog on global developments), IONA Reads (professor-curated resources), and IONA Asks (a podcast with faculty, alumni, and scholars).',
+      'The VSE’s undergraduate economics journal, publishing blind peer- and faculty-reviewed student research. Beyond the annual issue it runs IONA Exchange (a blog on global developments) and IONA Asks (a podcast with faculty, alumni, and scholars).',
     href: 'https://www.ionajournal.ca',
     linkLabel: 'ionajournal.ca',
     logo: '/clubs/iona-journal.jpg',
