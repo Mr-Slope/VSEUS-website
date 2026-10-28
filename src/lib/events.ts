@@ -72,6 +72,20 @@ export const UPCOMING_EVENTS: Event[] = [
     partner: 'career-centre',
   },
   {
+    id: 'evt-elc-econ-101-midterm-review',
+    title: 'ECON 101 Midterm Review Session',
+    description:
+      'The ELC is hosting an ECON 101 midterm review session! Come prepared to do some practice questions, work with your peers, and receive support from experienced Peer Assistants. Completely free, and no RSVP required.',
+    date: '2026-10-30',
+    time: '3:00 – 5:00 PM',
+    location: 'Dodson Room, IKB, UBC Vancouver',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Academic',
+    partner: 'elc',
+  },
+  {
     id: 'evt-bie-career-networking-na-asia',
     title: '10th Annual BIE Career Discovery and Networking Event: North America & Asia Session',
     description:

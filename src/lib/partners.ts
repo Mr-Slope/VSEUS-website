@@ -20,6 +20,10 @@ export const PARTNERS: Partner[] = [
     href: 'https://careercentre.economics.ubc.ca/',
     logo: '/partners/vse-career-centre.png',
   },
+  {
+    id: 'elc',
+    name: 'VSE Economics Learning Centre',
+  },
 ];
 
 /** The partner with this id, or undefined if there isn't one. */
