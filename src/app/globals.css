@@ -542,6 +542,15 @@ html { scroll-behavior: smooth; }
 .resources-books { animation: events-cal-bob 5s ease-in-out infinite; }
 .resources-spark { animation: events-spark-twinkle 2.4s ease-in-out infinite; }
 
+/* ─── Merch: header shirts (shares the events calendar's motion) ─── */
+.merch-shirts,
+.merch-spark {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.merch-shirts { animation: events-cal-bob 5s ease-in-out infinite; }
+.merch-spark { animation: events-spark-twinkle 2.4s ease-in-out infinite; }
+
 /* ─── Accessibility ─── */
 @media (prefers-reduced-motion: reduce) {
   .hero-tag, .hero-word, .hero-subtitle, .hero-ctas,
@@ -550,6 +559,7 @@ html { scroll-behavior: smooth; }
   .mail-letter, .mail-plane, .mail-trail,
   .events-cal, .events-spark,
   .resources-books, .resources-spark,
+  .merch-shirts, .merch-spark,
   .social-sticker, .social-icon {
     animation: none !important;
     transition: none !important;

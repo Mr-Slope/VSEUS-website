@@ -20,6 +20,62 @@ function ShopButton() {
   );
 }
 
+/** The header's T-shirt and crewneck, drawn and animated to match the calendar on /events. */
+function ShirtsIllustration() {
+  return (
+    <svg className="hidden md:block w-64 lg:w-72 flex-shrink-0" viewBox="0 0 240 180" fill="none" aria-hidden="true">
+      {/* Sparkles */}
+      {[
+        { x: 22, y: 34, s: 7, delay: '0s' },
+        { x: 222, y: 40, s: 9, delay: '0.8s' },
+        { x: 228, y: 120, s: 6, delay: '1.6s' },
+      ].map(({ x, y, s, delay }) => (
+        <path
+          key={`${x}-${y}`}
+          className="merch-spark"
+          style={{ animationDelay: delay }}
+          d={`M${x},${y - s} Q${x},${y} ${x + s},${y} Q${x},${y} ${x},${y + s} Q${x},${y} ${x - s},${y} Q${x},${y} ${x},${y - s} Z`}
+          fill="var(--accent)"
+        />
+      ))}
+
+      <g className="merch-shirts">
+        {/* T-shirt: accent, tucked behind and set askew */}
+        <g transform="rotate(-8 85 100)">
+          <path
+            d="M65,50 Q85,64 105,50 L135,62 L150,88 L132,96 L130,150 Q85,154 40,150 L38,96 L20,88 L35,62 Z"
+            fill="var(--accent)"
+          />
+          <path d="M65,50 Q85,64 105,50" stroke="var(--accent-600)" strokeWidth="4" strokeLinecap="round" />
+          <path d="M38,96 L35,62 M132,96 L135,62" stroke="var(--accent-600)" strokeWidth="1.5" strokeLinecap="round" />
+          <rect x="54" y="72" width="16" height="14" rx="3" fill="var(--midnight)" fillOpacity="0.2" />
+        </g>
+
+        {/* Crewneck: blue, in front, with VSEUS across the chest */}
+        <path
+          d="M135,66 Q150,78 165,66 L192,74 Q204,78 207,92 L214,146 L198,149 L190,104 L190,156 L110,156 L110,104 L102,149 L86,146 L93,92 Q96,78 108,74 Z"
+          fill="var(--blue)"
+        />
+        <path d="M135,66 Q150,78 165,66" stroke="var(--midnight)" strokeOpacity="0.35" strokeWidth="5" strokeLinecap="round" />
+        <rect x="110" y="146" width="80" height="10" fill="var(--midnight)" fillOpacity="0.25" />
+        <path d="M87,140 L101,143 M199,143 L213,140" stroke="var(--midnight)" strokeOpacity="0.3" strokeWidth="5" strokeLinecap="round" />
+        <text
+          x="150"
+          y="120"
+          textAnchor="middle"
+          className="font-display"
+          fontSize="20"
+          fontWeight="900"
+          letterSpacing="1"
+          fill="var(--offwhite)"
+        >
+          VSEUS
+        </text>
+      </g>
+    </svg>
+  );
+}
+
 export default function MerchPage() {
   return (
     <div className="min-h-screen bg-ice">
@@ -28,17 +84,20 @@ export default function MerchPage() {
       <section className="bg-midnight py-20 relative overflow-hidden">
         <div className="absolute inset-0 hero-grid-bg opacity-30" />
         <div className="absolute inset-0 bg-gradient-to-br from-midnight via-midnight/70 to-midnight-700/40" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">VSEUS Merch</p>
-          <h1 className="text-5xl font-black text-offwhite mb-4 leading-tight">
-            Wear the<br />
-            <span className="heading-accent">Society.</span>
-          </h1>
-          <p className="text-offwhite/55 text-lg max-w-xl leading-relaxed mb-8">
-            T-shirts and crewnecks designed by and for economics students. Every purchase goes
-            straight back into student programming.
-          </p>
-          <ShopButton />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-10">
+          <div>
+            <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">VSEUS Merch</p>
+            <h1 className="text-5xl font-black text-offwhite mb-4 leading-tight">
+              Wear the<br />
+              <span className="heading-accent">Society.</span>
+            </h1>
+            <p className="text-offwhite/55 text-lg max-w-xl leading-relaxed mb-8">
+              T-shirts and crewnecks designed by and for economics students. Every purchase goes
+              straight back into student programming.
+            </p>
+            <ShopButton />
+          </div>
+          <ShirtsIllustration />
         </div>
       </section>
 
