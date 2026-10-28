@@ -100,6 +100,19 @@ export const UPCOMING_EVENTS: Event[] = [
     partner: 'career-centre',
   },
   {
+    id: 'evt-poker-night',
+    title: 'Poker Night',
+    description:
+      'Grab a seat at the table for a night of poker with fellow econ students. All skill levels welcome.',
+    date: '2026-11-18',
+    time: '6:00 – 7:30 PM',
+    location: 'Iona Basement',
+    isPaid: false,
+    price: null,
+    posterUrl: null,
+    category: 'Social',
+  },
+  {
     id: 'evt-industry-night',
     title: 'Industry Night',
     description:
