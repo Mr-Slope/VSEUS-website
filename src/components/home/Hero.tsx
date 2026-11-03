@@ -91,11 +91,11 @@ export function Hero() {
           </div>
 
           <div className="mb-8">
-            <h1 className="relative font-condensed font-black text-offwhite/85 leading-[0.88] tracking-tight">
-              <span className="hero-word text-7xl sm:text-8xl lg:text-[104px]" style={{ animationDelay: '80ms' }}>
+            <h1 className="relative font-black text-offwhite/85 leading-[0.88] tracking-tight">
+              <span className="hero-word text-6xl sm:text-7xl lg:text-[88px]" style={{ animationDelay: '80ms' }}>
                 Ahead of
               </span>
-              <span className="hero-word text-7xl sm:text-8xl lg:text-[104px] mt-2" style={{ animationDelay: '200ms' }}>
+              <span className="hero-word text-6xl sm:text-7xl lg:text-[88px] mt-2" style={{ animationDelay: '200ms' }}>
                 the{' '}
                 <span className="text-accent relative inline-block">
                   Curve
