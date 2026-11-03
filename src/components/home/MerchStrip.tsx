@@ -11,7 +11,7 @@ export function MerchStrip() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-14 items-center">
 
           <Reveal>
-            <p className="font-sans text-xs font-semibold text-accent uppercase tracking-widest mb-3">
+            <p className="font-semi text-xs font-bold text-accent uppercase tracking-widest mb-3">
               VSEUS Merch
             </p>
             <h2 className="text-4xl font-black text-offwhite mb-4 leading-tight">

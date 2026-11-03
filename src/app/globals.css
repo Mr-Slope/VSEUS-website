@@ -80,6 +80,9 @@
 
   --font-sans: var(--font-montserrat);
   --font-display: var(--font-barlow);
+  /* Narrower Barlow widths: font-condensed for tall display type, font-semi for eyebrow labels. */
+  --font-condensed: var(--font-barlow-condensed), var(--font-barlow), system-ui, sans-serif;
+  --font-semi: var(--font-barlow-semi-condensed), var(--font-barlow), system-ui, sans-serif;
   /* Fraunces is loaded by the Economic Review's layout only. */
   --font-serif: var(--font-fraunces, Georgia), Georgia, 'Times New Roman', serif;
   /* So is Playfair Display, which sets the Review's masthead title alone. */

@@ -289,7 +289,7 @@ export default function EventsPage() {
       <section className="bg-midnight py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-10">
           <div>
-            <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">What&apos;s On</p>
+            <p className="font-semi text-accent text-sm font-bold uppercase tracking-widest mb-2">What&apos;s On</p>
             <h1 className="text-4xl font-black text-offwhite">Upcoming <span className="heading-accent">Events</span></h1>
             <p className="text-offwhite/70 mt-2 text-sm">
               Competitions, networking nights, workshops, and socials run by VSEUS.
@@ -408,7 +408,7 @@ export default function EventsPage() {
           <SectionDivider from="ice" to="midnight" variant="wave" />
           <section className="py-16 lg:py-20 bg-midnight">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">
+              <p className="font-semi text-accent text-xs font-bold uppercase tracking-widest mb-3">
                 Looking Back
               </p>
               <h2 className="text-3xl font-black text-offwhite mb-3">Highlights</h2>

@@ -44,7 +44,7 @@ export default function ELCPage() {
             <span>/</span>
             <span className="text-offwhite/70">Economics Learning Centre</span>
           </div>
-          <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">Academic Support</p>
+          <p className="font-semi text-accent text-xs font-bold uppercase tracking-widest mb-3">Academic Support</p>
           <h1 className="text-5xl font-black text-offwhite mb-4 leading-tight">
             Economics<br />
             <span className="heading-accent">Learning Centre</span>

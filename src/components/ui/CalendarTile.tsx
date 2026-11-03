@@ -40,7 +40,7 @@ export function CalendarTile({
       }`}
     >
       <span
-        className={`relative block font-display font-bold uppercase tracking-[0.2em] text-midnight ${
+        className={`relative block font-condensed font-bold uppercase tracking-[0.2em] text-midnight ${
           panel ? 'py-3 text-lg' : 'py-1 text-xs'
         } ${hosted ? 'bg-blue-300' : 'bg-accent'}`}
       >
@@ -51,14 +51,14 @@ export function CalendarTile({
       </span>
       <span className={`flex flex-1 flex-col items-center justify-center ${panel ? 'py-4' : ''}`}>
         <span
-          className={`block pt-2 font-display font-black leading-none text-midnight ${
+          className={`block pt-2 font-condensed font-black leading-none text-midnight ${
             panel ? 'text-6xl' : 'text-4xl'
           }`}
         >
           {local.getDate()}
         </span>
         <span
-          className={`block pb-2.5 pt-1.5 font-sans font-semibold uppercase tracking-widest text-muted ${
+          className={`block pb-2.5 pt-1.5 font-semi font-semibold uppercase tracking-widest text-muted ${
             panel ? 'text-sm' : 'text-[10px]'
           }`}
         >

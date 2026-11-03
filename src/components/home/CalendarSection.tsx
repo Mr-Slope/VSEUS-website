@@ -20,7 +20,7 @@ export async function CalendarSection() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-14 items-center">
 
           <Reveal>
-            <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-4">
+            <p className="font-semi text-accent text-xs font-bold uppercase tracking-widest mb-4">
               Stay in the Loop
             </p>
             <h2 className="text-4xl font-black text-offwhite mb-4 leading-tight">

@@ -49,7 +49,7 @@ export default function ClubsPage() {
             <span>/</span>
             <span className="text-offwhite/70">Clubs</span>
           </div>
-          <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">Recognized by VSEUS</p>
+          <p className="font-semi text-accent text-xs font-bold uppercase tracking-widest mb-3">Recognized by VSEUS</p>
           <h1 className="text-5xl font-black text-offwhite mb-4 leading-tight">
             Clubs We<br />
             <span className="heading-accent">Recognize</span>

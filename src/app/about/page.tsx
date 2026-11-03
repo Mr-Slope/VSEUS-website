@@ -106,7 +106,7 @@ export default function AboutPage() {
           className="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-12 lg:gap-16 items-center"
         >
           <div className="max-w-4xl">
-            <p className="font-sans text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-4">
+            <p className="font-semi text-sm font-bold text-midnight-700 uppercase tracking-widest mb-4">
               Our Mission
             </p>
             <h1 className="text-5xl sm:text-6xl font-black text-midnight mb-8 leading-[1.05]">
@@ -156,7 +156,7 @@ export default function AboutPage() {
 
         <div id="executives" className="anchor-offset relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-3">Leadership</p>
+            <p className="font-semi text-accent text-sm font-bold uppercase tracking-widest mb-3">Leadership</p>
             <h2 className="text-4xl font-black text-offwhite">Executive Team 2026-27</h2>
             <p className="text-offwhite/40 text-base mt-3 max-w-sm mx-auto leading-relaxed">
               Seven leaders. One mission. Driving economics forward at UBC.
@@ -192,7 +192,7 @@ export default function AboutPage() {
       <section className="py-24 bg-ice">
         <div id="reports" className="anchor-offset max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl">
-            <p className="font-sans text-sm font-semibold text-midnight-700 uppercase tracking-widest mb-3">
+            <p className="font-semi text-sm font-bold text-midnight-700 uppercase tracking-widest mb-3">
               Accountability
             </p>
             <h2 className="text-4xl font-black text-midnight mb-4">Reports</h2>

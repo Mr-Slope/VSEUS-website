@@ -85,17 +85,17 @@ export function Hero() {
           {/* Badge */}
           <div className="hero-tag inline-flex items-center gap-2.5 bg-offwhite/[0.07] backdrop-blur-sm border border-offwhite/[0.12] rounded-full px-4 py-2 mb-10">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm text-offwhite/70 tracking-wide">
+            <span className="font-semi text-[15px] font-medium text-offwhite/70 tracking-wide">
               Est. 2014 &nbsp;·&nbsp; University of British Columbia
             </span>
           </div>
 
           <div className="mb-8">
-            <h1 className="relative font-black text-offwhite/85 leading-[0.88] tracking-tight">
-              <span className="hero-word text-6xl sm:text-7xl lg:text-[88px]" style={{ animationDelay: '80ms' }}>
+            <h1 className="relative font-condensed font-black text-offwhite/85 leading-[0.88] tracking-tight">
+              <span className="hero-word text-7xl sm:text-8xl lg:text-[104px]" style={{ animationDelay: '80ms' }}>
                 Ahead of
               </span>
-              <span className="hero-word text-6xl sm:text-7xl lg:text-[88px] mt-2" style={{ animationDelay: '200ms' }}>
+              <span className="hero-word text-7xl sm:text-8xl lg:text-[104px] mt-2" style={{ animationDelay: '200ms' }}>
                 the{' '}
                 <span className="text-accent relative inline-block">
                   Curve

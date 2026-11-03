@@ -186,7 +186,7 @@ export default function ResourcesPage() {
       <section className="bg-midnight py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-10">
           <div>
-            <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">Academic Resources</p>
+            <p className="font-semi text-accent text-sm font-bold uppercase tracking-widest mb-2">Academic Resources</p>
             <h1 className="text-4xl font-black text-offwhite">Our <span className="heading-accent">Resources</span></h1>
             <p className="text-offwhite/70 text-sm leading-relaxed max-w-xl mt-4">
               Support for every stage of the economics degree at UBC, from coursework and research funding to mentorship and career development.

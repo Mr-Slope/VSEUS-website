@@ -61,11 +61,11 @@ function StatItem({ value, suffix, label, icon }: { value: number; suffix: strin
 
   return (
     <div ref={ref} className="text-center px-6 py-14 lg:py-20 group">
-      <p className="font-display text-6xl sm:text-7xl lg:text-8xl font-black stats-number mb-2 leading-none">
+      <p className="font-condensed text-7xl sm:text-8xl lg:text-9xl font-black stats-number mb-2 leading-none">
         {count}
         {suffix}
       </p>
-      <p className="font-display text-sm lg:text-base text-offwhite/55 font-semibold uppercase tracking-[0.18em] mt-3">
+      <p className="font-semi text-sm lg:text-base text-offwhite/55 font-semibold uppercase tracking-[0.18em] mt-3">
         {label}
       </p>
       {/* Hops and lights up when the stat is hovered */}

@@ -135,7 +135,7 @@ export default function ContactPage() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-10 items-center">
           <div>
-            <p className="font-sans text-accent text-sm font-semibold uppercase tracking-widest mb-2">Reach Out</p>
+            <p className="font-semi text-accent text-sm font-bold uppercase tracking-widest mb-2">Reach Out</p>
             <h1 className="text-5xl font-black text-offwhite leading-tight mb-4">
               Contact <span className="heading-accent">Us</span>
             </h1>

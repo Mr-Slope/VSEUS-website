@@ -86,7 +86,7 @@ export default function MerchPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-midnight via-midnight/70 to-midnight-700/40" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-10">
           <div>
-            <p className="font-sans text-accent text-xs font-semibold uppercase tracking-widest mb-3">VSEUS Merch</p>
+            <p className="font-semi text-accent text-xs font-bold uppercase tracking-widest mb-3">VSEUS Merch</p>
             <h1 className="text-5xl font-black text-offwhite mb-4 leading-tight">
               Wear the<br />
               <span className="heading-accent">Society.</span>
