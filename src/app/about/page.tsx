@@ -124,27 +124,29 @@ export default function AboutPage() {
           </div>
 
           {/*
-            The Iona Building, home of the VSEUS office. The offset accent
-            panel behind it ties the photo into the page rather than leaving it
-            floating, and the caption names the place.
+            The Iona Building, home of the VSEUS office, hung in a plain gilt
+            frame with a cream mat, like a portrait of the place. The caption
+            sits below on a small brass plate rather than over the photo.
           */}
           <Reveal className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="absolute top-8 left-8 -right-4 -bottom-4 rounded-3xl bg-accent/35" aria-hidden="true" />
-            <figure className="relative aspect-[4/5] overflow-hidden rounded-3xl ring-1 ring-ice-400 shadow-[0_24px_48px_-20px_rgba(3,43,74,0.45)]">
-              <Image
-                src="/photos/About/iona-building.jpg"
-                alt="The Iona Building at UBC, with the mountains and English Bay behind it"
-                fill
-                sizes="(min-width: 1024px) 40vw, (min-width: 448px) 448px, 100vw"
-                className="object-cover object-[center_65%]"
-              />
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-midnight/70 to-transparent" aria-hidden="true" />
-              <figcaption className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full bg-offwhite/90 backdrop-blur-sm px-3.5 py-1.5 font-sans text-xs font-semibold text-midnight">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" aria-hidden="true" />
-                Iona Building, home of VSEUS
+            <figure>
+              <div className="gilt-frame">
+                <div className="gilt-frame-mat">
+                  <div className="relative aspect-[4/5] overflow-hidden gilt-frame-photo">
+                    <Image
+                      src="/photos/About/iona-building.jpg"
+                      alt="The Iona Building at UBC, with the mountains and English Bay behind it"
+                      fill
+                      sizes="(min-width: 1024px) 40vw, (min-width: 448px) 448px, 100vw"
+                      className="object-cover object-[center_65%]"
+                    />
+                  </div>
+                </div>
+              </div>
+              <figcaption className="gilt-plate mx-auto mt-5 w-fit px-4 py-1.5 font-semi text-xs font-semibold uppercase tracking-[0.18em]">
+                Iona Building · Home of VSEUS
               </figcaption>
             </figure>
-          </Reveal>
         </div>
       </section>
 

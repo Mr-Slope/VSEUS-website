@@ -299,6 +299,46 @@ html { scroll-behavior: smooth; }
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
+/*
+  ─── Gilt frame ───
+  An old-style gold picture frame for the Iona Building photo on /about. Kept
+  plain on purpose: a flat moulding lit from the top left, a thin dark sight
+  edge, and a cream mat, with no ornament. The golds are local to the frame and
+  are not part of the brand palette.
+*/
+.gilt-frame {
+  padding: 14px;
+  background: linear-gradient(135deg, #a8843f 0%, #e3c27a 22%, #f2dea4 34%, #c49b4c 52%, #e0bd72 70%, #9a7633 100%);
+  box-shadow:
+    inset 2px 2px 2px rgba(255, 246, 214, 0.7),
+    inset -2px -2px 3px rgba(74, 52, 16, 0.55),
+    0 0 0 1px #6f5320,
+    0 28px 50px -22px rgba(3, 43, 74, 0.55),
+    0 10px 18px -10px rgba(3, 43, 74, 0.35);
+}
+/* The mat, with a dark lip where it meets the moulding. */
+.gilt-frame-mat {
+  padding: clamp(14px, 4%, 26px);
+  background: #f3eee3;
+  box-shadow:
+    0 0 0 3px #7c5d24,
+    inset 0 2px 6px rgba(60, 42, 12, 0.28);
+}
+/* A fine bevel where the mat is cut back to the photo. */
+.gilt-frame-photo {
+  box-shadow: 0 0 0 1px rgba(124, 93, 36, 0.35), 0 0 0 3px #fbf8f1;
+}
+/* A small brass plate for the caption. */
+.gilt-plate {
+  color: #3d2c0c;
+  background: linear-gradient(180deg, #ecd393 0%, #c9a458 100%);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 246, 214, 0.7),
+    0 0 0 1px #8a6a2c,
+    0 4px 10px -4px rgba(3, 43, 74, 0.35);
+}
+
 /* ─── Tilt card ─── */
 .tilt-card {
   transform-style: preserve-3d;
