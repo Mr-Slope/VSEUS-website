@@ -142,7 +142,7 @@ export function Hero() {
               text-balance evens the line lengths so the last line isn't a lone
               "belong." — the browser redistributes breaks per viewport rather
               than us freezing them with <br />. */}
-          <p className="hero-subtitle text-lg sm:text-xl text-offwhite/60 leading-relaxed mb-10 max-w-[520px] ml-auto text-balance">
+          <p className="hero-subtitle font-light text-lg sm:text-xl text-offwhite/70 leading-relaxed mb-10 max-w-[520px] ml-auto text-balance">
             The Vancouver School of Economics Undergraduate Society empowers UBC
             economics students with academic resources, networking and career
             preparation, and a community where they belong.

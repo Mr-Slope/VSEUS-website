@@ -26,7 +26,8 @@ const barlowSemiCondensed = Barlow_Semi_Condensed({
   weight: ['500', '600', '700'],
 });
 
-// Also the light italic half of two-part headings (.heading-accent).
+// Also the light italic half of two-part headings (.heading-accent), and the
+// light weight of lead paragraphs such as the hero subtitle.
 const montserrat = Montserrat({
   variable: '--font-montserrat',
   subsets: ['latin'],

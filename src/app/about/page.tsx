@@ -112,7 +112,7 @@ export default function AboutPage() {
             <h1 className="text-5xl sm:text-6xl font-black text-midnight mb-8 leading-[1.05]">
               A place to <span className="heading-accent">belong.</span>
             </h1>
-            <p className="text-midnight/85 leading-relaxed text-xl mb-6">
+            <p className="font-light text-midnight/85 leading-relaxed text-xl mb-6">
               The Vancouver School of Economics Undergraduate Society (VSEUS) was founded in 2014 to build an economics community at UBC by creating and facilitating spaces where students are comfortable with one another, can share their stories, and can form the relationships a community is made of.
             </p>
             <p className="text-muted leading-relaxed text-lg mb-6">
@@ -196,7 +196,7 @@ export default function AboutPage() {
               Accountability
             </p>
             <h2 className="text-4xl font-black text-midnight mb-4">Reports</h2>
-            <p className="text-muted mb-10 text-lg max-w-2xl">
+            <p className="font-light text-muted mb-10 text-lg max-w-2xl">
               VSEUS is committed to full financial transparency. Every budget, annual
               report, and hiring summary we produce is published here for any student
               to read.
