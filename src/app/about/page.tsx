@@ -147,6 +147,7 @@ export default function AboutPage() {
                 Iona Building · Home of VSEUS
               </figcaption>
             </figure>
+          </Reveal>
         </div>
       </section>
 
