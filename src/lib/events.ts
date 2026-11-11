@@ -100,20 +100,6 @@ export const UPCOMING_EVENTS: Event[] = [
     partner: 'career-centre',
   },
   {
-    id: 'evt-bie-career-networking-europe',
-    title: '10th Annual BIE Career Discovery and Networking Event: Europe Session',
-    description:
-      'A BIE-exclusive morning of panels and networking rooms with professionals based in Europe and BIE alums. You don’t need to attend both sessions: drop in for the panels and partners that interest you, or join for part of it.',
-    date: '2026-11-20',
-    time: '8:30 – 10:00 AM PT',
-    location: 'Online via Zoom',
-    isPaid: false,
-    price: null,
-    posterUrl: null,
-    category: 'Career',
-    partner: 'career-centre',
-  },
-  {
     id: 'evt-economics-crisis-simulation',
     title: 'Economics Crisis Simulation',
     description:
