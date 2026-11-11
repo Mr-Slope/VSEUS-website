@@ -139,6 +139,7 @@ export const UPCOMING_EVENTS: Event[] = [
     price: null,
     posterUrl: null,
     category: 'Social',
+    registrationUrl: 'https://www.showpass.com/poker-night/',
   },
   {
     id: 'evt-industry-night',
