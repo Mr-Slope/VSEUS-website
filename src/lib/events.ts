@@ -89,7 +89,7 @@ export const UPCOMING_EVENTS: Event[] = [
     id: 'evt-bie-career-networking-na-asia',
     title: '10th Annual BIE Career Discovery and Networking Event: North America & Asia Session',
     description:
-      'A BIE-exclusive evening of panels and networking rooms with industry professionals and BIE alums, to explore industries, jobs, and career paths. You don’t need to attend both sessions: drop in for the panels and partners that interest you, or join for part of it.',
+      'A BIE-exclusive evening of panels and networking rooms with industry professionals and BIE alums, to explore industries, jobs, and career paths.',
     date: '2026-11-19',
     time: '6:00 – 8:00 PM PT',
     location: 'Online via Zoom',
