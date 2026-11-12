@@ -100,20 +100,6 @@ export const UPCOMING_EVENTS: Event[] = [
     partner: 'career-centre',
   },
   {
-    id: 'evt-economics-crisis-simulation',
-    title: 'Economics Crisis Simulation',
-    description:
-      'Crisis has started: time to see who survives each round! Participants will engage in various mock crises, acting as different stakeholders and working with teammates to come up with innovative solutions.',
-    date: '2026-11-13',
-    time: 'Time TBD',
-    location: 'Iona 633',
-    isPaid: false,
-    price: null,
-    posterUrl: null,
-    category: 'Competition',
-    registrationUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfoa0IiqgtL4hhtYts_dDo6WvClMq_WeoM3BwH_8IZKG8esxQ/viewform',
-  },
-  {
     id: 'evt-poker-night',
     title: 'Poker Night',
     description:
