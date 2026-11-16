@@ -179,7 +179,23 @@ export function UpcomingEventPopup() {
             </div>
           </div>
 
-          <p className="text-sm text-muted mb-4 line-clamp-2">{event.description}</p>
+          {/* Same category and price chips as the event's card on /events. */}
+          <div className="flex items-center gap-2 mb-3">
+            <span className="font-display text-xs font-semibold bg-ice text-midnight px-2.5 py-0.5 rounded-full">
+              {event.category}
+            </span>
+            {event.isPaid ? (
+              <span className="font-display text-xs font-semibold text-midnight bg-accent px-2.5 py-0.5 rounded-full">
+                {event.price != null ? `$${event.price}` : 'Paid'}
+              </span>
+            ) : (
+              <span className="font-display text-xs font-semibold text-midnight bg-ice-200 border border-ice-400 px-2.5 py-0.5 rounded-full">
+                Free
+              </span>
+            )}
+          </div>
+
+          <p className="text-sm text-muted mb-4 line-clamp-3">{event.description}</p>
 
           <div className="space-y-1.5 text-xs text-muted mb-5">
             <div className="flex items-center gap-1.5">
@@ -198,24 +214,52 @@ export function UpcomingEventPopup() {
             </div>
           </div>
 
+          {/* With a registration link, lead with the same ticket button the
+              /events card shows; otherwise send people to the events page. */}
           <div className="flex flex-col sm:flex-row gap-2">
-            <Link
-              href="/events"
-              onClick={close}
-              className="btn btn-solid flex-1 flex justify-center gap-1.5 text-sm px-6 py-3"
-            >
-              Go to Events
-              <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-            <button
-              type="button"
-              onClick={close}
-              className="btn btn-quiet text-sm px-4 py-3"
-            >
-              Not now
-            </button>
+            {event.registrationUrl ? (
+              <>
+                <a
+                  href={event.registrationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={close}
+                  className="btn btn-solid flex-1 flex justify-center gap-1.5 text-sm px-6 py-3"
+                >
+                  {event.isPaid ? 'Get Tickets' : 'Register'}
+                  <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
+                <Link
+                  href="/events"
+                  onClick={close}
+                  className="btn btn-quiet text-sm px-4 py-3"
+                >
+                  All Events
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/events"
+                  onClick={close}
+                  className="btn btn-solid flex-1 flex justify-center gap-1.5 text-sm px-6 py-3"
+                >
+                  Go to Events
+                  <svg className="w-3.5 h-3.5 btn-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+                <button
+                  type="button"
+                  onClick={close}
+                  className="btn btn-quiet text-sm px-4 py-3"
+                >
+                  Not now
+                </button>
+              </>
+            )}
           </div>
 
           {moreCount > 0 && (
