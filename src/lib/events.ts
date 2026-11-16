@@ -104,7 +104,7 @@ export const UPCOMING_EVENTS: Event[] = [
     title: 'Poker Night',
     description:
       'Grab a seat at the table for a night of poker with fellow econ students. All skill levels welcome.',
-    date: '2026-11-18',
+    date: '2026-11-25',
     time: '6:00 – 7:30 PM',
     location: 'Iona Basement',
     isPaid: false,
